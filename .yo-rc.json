@@ -1,0 +1,14 @@
+{
+  "generator-extension": {
+    "promptValues": {
+      "vendor": "SafeAid"
+    },
+    "ext_application": {
+      "bb1": [
+        "shopping",
+        "myaccount",
+        "checkout"
+      ]
+    }
+  }
+}
