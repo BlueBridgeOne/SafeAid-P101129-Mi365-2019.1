@@ -1,4 +1,5 @@
 node_modules
 DeployDistribution
 LocalDistribution
+gulp
 .DS_Store
