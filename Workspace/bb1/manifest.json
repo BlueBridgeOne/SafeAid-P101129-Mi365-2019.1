@@ -32,7 +32,8 @@
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365buyers.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365alerts.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365areas.tpl",
-                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365wearers.tpl"
+                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365wearers.tpl",
+                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365buyer.tpl"
                 ]
             },
             "myaccount": {
@@ -42,7 +43,8 @@
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365buyers.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365alerts.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365areas.tpl",
-                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365wearers.tpl"
+                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365wearers.tpl",
+                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365buyer.tpl"
                 ]
             },
             "checkout": {
@@ -52,7 +54,8 @@
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365buyers.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365alerts.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365areas.tpl",
-                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365wearers.tpl"
+                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365wearers.tpl",
+                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365buyer.tpl"
                 ]
             }
         }
@@ -85,7 +88,9 @@
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Areas.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Wearers.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyers.Collection.js",
-                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyers.Model.js"
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyers.Model.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyer.View.js",
+                    "Modules/Mi365Main/JavaScript/Tools.js"
                 ]
             },
             "myaccount": {
@@ -99,7 +104,9 @@
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Areas.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Wearers.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyers.Collection.js",
-                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyers.Model.js"
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyers.Model.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyer.View.js",
+                    "Modules/Mi365Main/JavaScript/Tools.js"
                 ]
             },
             "checkout": {
@@ -113,7 +120,9 @@
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Areas.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Wearers.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyers.Collection.js",
-                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyers.Model.js"
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyers.Model.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyer.View.js",
+                    "Modules/Mi365Main/JavaScript/Tools.js"
                 ]
             }
         }

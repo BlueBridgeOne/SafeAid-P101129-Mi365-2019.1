@@ -7,12 +7,64 @@
 	@import "../../<other module>/Sass/other-sass-file.scss";
 */ 
 
-.mi365main-info-card {
+.mi365-info-card {
     @extend .info-card;
 }
 
-.mi365main-info-card-content {
+.mi365-info-card-content {
     @extend .info-card-content;
     color: $sc-color-secondary;
     font-weight: bold;
+}
+
+.mi365-records{
+	@extend .table-flex-record-selectable-navigable;
+}
+
+.mi365-records-head tr{
+	display: none;
+	@media (min-width: $screen-md-min){
+		display: table-row;
+	}
+}
+
+.mi365-records-head th{
+	text-align: right;
+	padding-bottom: $sc-padding-lv2;
+	font-weight: normal;
+	border-bottom: 1px solid $sc-color-theme-border-light;
+}
+
+.mi365-records-body td{
+	vertical-align: middle;
+
+	@media (min-width: $screen-md-min){
+		height: 60px;
+	}
+}
+.mi365-information-row,
+.mi365-information-form-actions{
+	margin-top: $sc-margin-lv4;
+}
+.mi365-information-input-required{
+	@extend .input-required;
+}
+.mi365-information-input-optional{
+	@extend .input-optional;
+}
+.mi365-information-input-large{
+	@extend .input-large;
+}
+.mi365-information-button-update{
+	@extend .button-primary;
+	@extend .button-medium;
+	margin-right:$sc-margin-lv2;
+	margin-bottom:$sc-margin-lv2;
+
+	@media (min-width: $screen-sm-min) {
+		margin-bottom: 0;
+	}
+}
+.mi365-fields-group-input-checkbox {
+    font-weight: $sc-font-weight-normal;
 }

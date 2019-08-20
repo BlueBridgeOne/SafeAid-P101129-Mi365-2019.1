@@ -1,7 +1,7 @@
 /*BB1 G Truslove 2017*/
 define('SafeAid.bb1.Mi365Router', [
-    'Backbone', 'SafeAid.bb1.Mi365Dashboard.View', 'SafeAid.bb1.Mi365Buyers.View', 'SafeAid.bb1.Mi365Areas.View', 'SafeAid.bb1.Mi365Wearers.View', 'SafeAid.bb1.Mi365Alerts.View','SafeAid.bb1.Mi365Buyers.Collection'
-], function (Backbone, Mi365DashboardView, Mi365BuyersView, Mi365AreasView, Mi365WearersView, Mi365AlertsView,Mi365BuyersCollection) {
+    'Backbone', 'SafeAid.bb1.Mi365Dashboard.View', 'SafeAid.bb1.Mi365Buyers.View','SafeAid.bb1.Mi365Buyer.View', 'SafeAid.bb1.Mi365Areas.View', 'SafeAid.bb1.Mi365Wearers.View', 'SafeAid.bb1.Mi365Alerts.View','SafeAid.bb1.Mi365Buyers.Collection','SafeAid.bb1.Mi365Buyers.Model'
+], function (Backbone, Mi365DashboardView, Mi365BuyersView,Mi365BuyerView, Mi365AreasView, Mi365WearersView, Mi365AlertsView,Mi365BuyersCollection,Mi365BuyersModel) {
 
 
     return Backbone.Router.extend({
@@ -13,7 +13,8 @@ define('SafeAid.bb1.Mi365Router', [
             'Mi365/buyers': 'Buyers',
             'Mi365/areas': 'Areas',
             'Mi365/wearers': 'Wearers',
-            'Mi365/alerts': 'Alerts'
+            'Mi365/alerts': 'Alerts',
+            'Mi365/buyer/:id': 'Buyer'
 
         },
         Dashboard: function () {
@@ -22,12 +23,20 @@ define('SafeAid.bb1.Mi365Router', [
             });
             view.showContent();
         },
-        Buyers: function () {
-            // var view = new Mi365BuyersView({
-            //     application: this.application
-            //   });
-            // view.showContent();
+        Buyer: function (id) {
+            var model = new Mi365BuyersModel();
+            var view = new Mi365BuyerView({
+                model: model,
+                application: this.application
+            });
 
+            model.fetch({
+                data: {id:id}
+            }).done(function () {
+                view.showContent();
+            });
+        },
+        Buyers: function () {
             var collection = new Mi365BuyersCollection();
             var view = new Mi365BuyersView({
                 collection: collection,
@@ -35,13 +44,10 @@ define('SafeAid.bb1.Mi365Router', [
             });
 
             collection.fetch({
-                data: {
-                    a: 1
-                }
+                data: {}
             }).done(function () {
                 view.showContent();
             });
-
         },
         Areas: function () {
             var view = new Mi365AreasView({
