@@ -17,7 +17,8 @@
             "files": [
                 "services/Mi365Buyers.Service.ss",
                 "services/Mi365Areas.Service.ss",
-                "services/Mi365Main.Service.ss"
+                "services/Mi365Main.Service.ss",
+                "services/Mi365Wearers.Service.ss"
             ]
         }
     },
@@ -90,7 +91,10 @@
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Area.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Areas.Collection.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Areas.Model.js",
-                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Main.js"
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Main.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Wearer.View.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Wearers.Collection.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Wearers.Model.js"
                 ]
             },
             "myaccount": {
@@ -108,7 +112,10 @@
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Area.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Areas.Collection.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Areas.Model.js",
-                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Main.js"
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Main.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Wearer.View.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Wearers.Collection.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Wearers.Model.js"
                 ]
             },
             "checkout": {
@@ -126,7 +133,10 @@
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Area.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Areas.Collection.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Areas.Model.js",
-                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Main.js"
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Main.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Wearer.View.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Wearers.Collection.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Wearers.Model.js"
                 ]
             }
         }
@@ -139,7 +149,9 @@
             "Modules/Mi365Main/SuiteScript/Mi365Areas.ServiceController.js",
             "Modules/Mi365Main/SuiteScript/Mi365Buyers.ServiceController.js",
             "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Areas.js",
-            "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Buyers.js"
+            "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Buyers.js",
+            "Modules/Mi365Main/SuiteScript/Mi365Wearers.ServiceController.js",
+            "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Wearers.js"
         ]
     }
 }

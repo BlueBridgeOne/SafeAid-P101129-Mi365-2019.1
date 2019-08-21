@@ -1,6 +1,6 @@
 // @module SafeAid.bb1.Mi365Main
-define('SafeAid.bb1.Mi365Area.View', [
-	'SafeAid.bb1.Mi365Areas.Model',
+define('SafeAid.bb1.Mi365Wearer.View', [
+	'SafeAid.bb1.Mi365Wearers.Model',
 	'safeaid_bb1_mi365record.tpl',
 	'Utils',
 	'Backbone',
@@ -8,7 +8,7 @@ define('SafeAid.bb1.Mi365Area.View', [
 	'jQuery',
 	'underscore'
 ], function (
-	Mi365AreasModel,
+	Mi365WearersModel,
 	safeaid_bb1_mi365record_tpl,
 	Utils,
 	Backbone,
@@ -27,7 +27,31 @@ define('SafeAid.bb1.Mi365Area.View', [
 			id: "name",
 			label: "Name",
 			type: "text",
-			mandatory: true
+			mandatory: true,
+			list:true
+		}, {
+			id: "custrecord_bb1_sca_wearer_jobtitle",
+			label: "Job Title",
+			type: "text",
+			mandatory: false
+		},{
+			id: "custrecord_bb1_sca_wearer_email",
+			label: "EMail",
+			type: "text",
+			mandatory: false,
+			list:true
+		},{
+			id: "custrecord_bb1_sca_wearer_phone",
+			label: "Main Phone",
+			type: "text",
+			mandatory: false,
+			list:true
+		},{
+			id: "custrecord_bb1_sca_wearer_area",
+			label: "Area",
+			type: "text",
+			mandatory: true,
+			list:true
 		}],
 		initialize: function (options) {
 
@@ -51,7 +75,7 @@ define('SafeAid.bb1.Mi365Area.View', [
 		},
 		deleteRecord: function (e) {
 			console.log("delete Record");
-			var model = new Mi365AreasModel();
+			var model = new Mi365WearersModel();
 var deleteId=this.model.get("id");
 
 			model.fetch({
@@ -62,7 +86,7 @@ var deleteId=this.model.get("id");
 				}
 			}).always(function () {
 				console.log("deleted " + deleteId);
-				Backbone.history.navigate('#Mi365/areas', {
+				Backbone.history.navigate('#Mi365/wearers', {
 					trigger: true
 				});
 			});
@@ -91,11 +115,11 @@ var deleteId=this.model.get("id");
 				}
 			}
 			return {
-				title:"Area",
+				title:"Wearer",
 				model: this.model,
 				fields: this.fields || [],
 				editable:true,
-				breadcrumbs:[{href:"#Mi365/wearers",label:"Areas"}],
+				breadcrumbs:[{href:"#Mi365/wearers",label:"Wearers"}],
 				active:this.model.get("name")
 			};
 		}
