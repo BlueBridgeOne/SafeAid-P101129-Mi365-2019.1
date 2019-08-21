@@ -1,5 +1,5 @@
 define(
-	'SafeAid.bb1.Mi365Buyers.ServiceController', [
+	'SafeAid.bb1.Mi365Areas.ServiceController', [
 		'ServiceController'
 	],
 	function (
@@ -9,75 +9,14 @@ define(
 
 		return ServiceController.extend({
 
-			name: 'SafeAid.bb1.Mi365Buyers.ServiceController',
-			recordtype: "contact",
+			name: 'SafeAid.bb1.Mi365Areas.ServiceController',
+			recordtype: "customrecord_bb1_sca_area",
 			fields: [{
-				id: "entityid",
+				id: "name",
 				label: "Name",
 				type: "text",
-				listonly: true
-			}, {
-				id: "salutation",
-				label: "Mr, Mrs, Ms...",
-				type: "text",
-				mandatory: false
-			}, {
-				id: "firstname",
-				label: "First Name",
-				type: "text",
-				mandatory: true
-			}, {
-				id: "lastname",
-				label: "Last Name",
-				type: "text",
-				mandatory: true
-			}, {
-				id: "title",
-				label: "Job Title",
-				type: "text",
-				mandatory: false
-			}, {
-				id: "email",
-				label: "EMail",
-				type: "text",
 				mandatory: true,
-				list: true
-			}, {
-				id: "phone",
-				label: "Phone",
-				type: "text",
-				mandatory: false,
-				list: true
-			}, {
-				id: "custentity_bb1_sca_overridecustomeritems",
-				label: "Override Company Items",
-				type: "checkbox",
-				list: true
-			}, {
-				id: "custentity_bb1_sca_showstandarditems",
-				label: "Show Standard Items",
-				type: "checkbox",
-				list: true
-			}, {
-				id: "custentity_bb1_sca_alloweditsettings",
-				label: "Allow Edit Settings",
-				type: "checkbox"
-			}, {
-				id: "custentity_bb1_sca_alloweditareas",
-				label: "Allow Edit Areas",
-				type: "checkbox"
-			}, {
-				id: "custentity_bb1_sca_alloweditbuyers",
-				label: "Allow Edit Buyers",
-				type: "checkbox"
-			}, {
-				id: "custentity_bb1_sca_alloweditwearers",
-				label: "Allow Edit Wearers",
-				type: "checkbox"
-			}, {
-				id: "custentity_bb1_sca_alloweditspendrules",
-				label: "Allow Edit Spend Rules",
-				type: "checkbox"
+				list:true
 			}],
 
 			// The values in this object are the validation needed for the current service.
@@ -88,7 +27,7 @@ define(
 
 			,
 			get: function get() {
-					//nlapiLogExecution("debug", "SafeAid.bb1.Mi365Buyers.ServiceController.get "+request);
+					//nlapiLogExecution("debug", "SafeAid.bb1.Mi365Areas.ServiceController.get "+request);
 					var shoppingSession = nlapiGetWebContainer().getShoppingSession();
 					var customer = shoppingSession.getCustomer();
 					var context = nlapiGetContext();
@@ -102,21 +41,19 @@ define(
 						if (contact > 0) {
 							var rec=nlapiCreateRecord(this.recordtype);
 							
-							rec.setFieldValue("company",customer);
-							rec.setFieldValue("custentity_bb1_sca_buyer","T");
-							rec.setFieldValue("firstname","Buyer");
-							rec.setFieldValue("lastname","#"+Math.floor(Math.random()*1000000));
+							rec.setFieldValue("custrecord_bb1_sca_area_company",customer);
+							rec.setFieldValue("name","Area #"+Math.floor(Math.random()*1000000));
 							id=nlapiSubmitRecord(rec, true, true);
 							
 							rec=nlapiLoadRecord(this.recordtype, id);
-							rec.setFieldValue("lastname","#"+id);
+							rec.setFieldValue("name","Area #"+id);
 							nlapiSubmitRecord(rec, true, true);
 							
 						}
 					}else if(task=="delete"){
 						if (contact > 0) {
 							var rec = nlapiLoadRecord(this.recordtype, id);
-							rec.setFieldValue("custentity_bb1_sca_buyer","F");
+							rec.setFieldValue("isinactive","T");
 							nlapiSubmitRecord(rec, true, true);
 						
 						}
@@ -131,9 +68,7 @@ define(
 					if (contact > 0) {
 
 						var filter = [
-							["custentity_bb1_sca_buyer", "is", "T"],
-							"AND",
-							["company", "anyof", customer],
+							["custrecord_bb1_sca_area_company", "anyof", customer],
 							"AND",
 							["isinactive", "is", "F"]
 						];
@@ -175,7 +110,7 @@ define(
 							if (results.length > 0) {
 								return results[0];
 							} else {
-								throw (new Error("The buyer could not found."));
+								throw (new Error("The area could not found."));
 							}
 						} else {
 							return results;

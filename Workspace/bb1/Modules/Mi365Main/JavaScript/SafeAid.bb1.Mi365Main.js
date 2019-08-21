@@ -1,12 +1,11 @@
-
 /*BB1 G Truslove 2017*/
 
 define(
 	'SafeAid.bb1.Mi365Main', [
-		'SafeAid.bb1.Mi365Main.View','SafeAid.bb1.Mi365Router'
+		 'SafeAid.bb1.Mi365Router'
 	],
 	function (
-		Mi365MainView,Mi365Router
+		 Mi365Router
 	) {
 		'use strict';
 
@@ -19,8 +18,8 @@ define(
 
 				/** @type {LayoutComponent} */
 				var layout = container.getComponent('Layout');
-// console.log(container);
-// console.log(layout);
+				// console.log(container);
+				// console.log(layout);
 				if (layout) {
 					// layout.addChildView('Header.Logo', function () {
 					// 	return new Mi365MainView({
@@ -31,7 +30,7 @@ define(
 					return new Mi365Router(layout.application);
 				}
 
-				
+
 			},
 			MenuItems: function () {
 				return {

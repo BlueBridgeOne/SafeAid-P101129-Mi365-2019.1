@@ -4,11 +4,11 @@ function service(request, response)
 	'use strict';
 	try 
 	{
-		require('SafeAid.bb1.Mi365Buyers.ServiceController').handle(request, response);
+		require('SafeAid.bb1.Mi365Areas.ServiceController').handle(request, response);
 	} 
 	catch(ex)
 	{
-		console.log('SafeAid.bb1.Mi365Buyers.ServiceController ', ex);
+		console.log('SafeAid.bb1.Mi365Areas.ServiceController ', ex);
 		var controller = require('ServiceController');
 		controller.response = response;
 		controller.request = request;

@@ -1,8 +1,8 @@
 // @module SafeAid.bb1.Mi365Main
 define('SafeAid.bb1.Mi365Buyers.View', [
-	'safeaid_bb1_mi365buyers.tpl','SafeAid.bb1.Mi365Buyers.Model', 'Utils', 'Backbone', 'jQuery', 'underscore'
+	'safeaid_bb1_mi365buyers.tpl', 'SafeAid.bb1.Mi365Buyers.Model', 'Utils', 'Backbone', 'jQuery', 'underscore'
 ], function (
-	safeaid_bb1_mi365buyers_tpl,Mi365BuyersModel, Utils, Backbone, jQuery, _
+	safeaid_bb1_mi365buyers_tpl, Mi365BuyersModel, Utils, Backbone, jQuery, _
 ) {
 	'use strict';
 
@@ -21,19 +21,22 @@ define('SafeAid.bb1.Mi365Buyers.View', [
 			'click [data-action="new"]': 'newRecord'
 		},
 		newRecord: function (e) {
+			console.log("new Record");
 			var model = new Mi365BuyersModel();
-           
 
-            model.fetch({
-                data: {task:"new"}
-            }).done(function () {
+
+			model.fetch({
+				data: {
+					task: "new",
+					t: new Date().getTime()
+				}
+			}).done(function () {
 				console.log("created new");
-				console.log(this);
-                Backbone.history.navigate('#Mi365/buyer/' + this.id, {
+				Backbone.history.navigate('#Mi365/buyer/' + this.id, {
 					trigger: true
 				});
-            });
-			},
+			});
+		},
 		goToRecord: function (e) {
 				var id = e.currentTarget.getAttribute("data-id");
 				if (id) {
@@ -43,16 +46,8 @@ define('SafeAid.bb1.Mi365Buyers.View', [
 				}
 			}
 
+			//@method getContext @return SafeAid.bb1.Mi365Main.View.Context
 			,
-		bindings: {}
-
-		,
-		childViews: {
-
-		}
-
-		//@method getContext @return SafeAid.bb1.Mi365Main.View.Context
-		,
 		getContext: function getContext() {
 			return {
 				models: this.collection.models

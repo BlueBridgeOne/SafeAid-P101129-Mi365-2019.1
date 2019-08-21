@@ -15,8 +15,9 @@
         },
         "services": {
             "files": [
-                "services/Mi365Main.Service.ss",
-                "services/Mi365Buyers.Service.ss"
+                "services/Mi365Buyers.Service.ss",
+                "services/Mi365Areas.Service.ss",
+                "services/Mi365Main.Service.ss"
             ]
         }
     },
@@ -27,35 +28,32 @@
         "application": {
             "shopping": {
                 "files": [
-                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365main.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365dashboard.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365buyers.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365alerts.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365areas.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365wearers.tpl",
-                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365buyer.tpl"
+                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365record.tpl"
                 ]
             },
             "myaccount": {
                 "files": [
-                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365main.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365dashboard.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365buyers.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365alerts.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365areas.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365wearers.tpl",
-                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365buyer.tpl"
+                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365record.tpl"
                 ]
             },
             "checkout": {
                 "files": [
-                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365main.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365dashboard.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365buyers.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365alerts.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365areas.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365wearers.tpl",
-                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365buyer.tpl"
+                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365record.tpl"
                 ]
             }
         }
@@ -79,8 +77,6 @@
         "application": {
             "shopping": {
                 "files": [
-                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Main.js",
-                    "Modules/Mi365Main/JavaScript/Mi365Main.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Router.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Dashboard.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyers.View.js",
@@ -90,13 +86,15 @@
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyers.Collection.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyers.Model.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyer.View.js",
-                    "Modules/Mi365Main/JavaScript/Tools.js"
+                    "Modules/Mi365Main/JavaScript/Tools.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Area.View.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Areas.Collection.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Areas.Model.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Main.js"
                 ]
             },
             "myaccount": {
                 "files": [
-                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Main.js",
-                    "Modules/Mi365Main/JavaScript/Mi365Main.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Router.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Dashboard.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyers.View.js",
@@ -106,13 +104,15 @@
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyers.Collection.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyers.Model.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyer.View.js",
-                    "Modules/Mi365Main/JavaScript/Tools.js"
+                    "Modules/Mi365Main/JavaScript/Tools.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Area.View.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Areas.Collection.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Areas.Model.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Main.js"
                 ]
             },
             "checkout": {
                 "files": [
-                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Main.js",
-                    "Modules/Mi365Main/JavaScript/Mi365Main.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Router.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Dashboard.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyers.View.js",
@@ -122,17 +122,23 @@
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyers.Collection.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyers.Model.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Buyer.View.js",
-                    "Modules/Mi365Main/JavaScript/Tools.js"
+                    "Modules/Mi365Main/JavaScript/Tools.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Area.View.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Areas.Collection.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Areas.Model.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Main.js"
                 ]
             }
         }
     },
     "ssp-libraries": {
-        "entry_point": "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Main.js",
+        "entry_point": "Modules/Mi365Main/SuiteScript/Mi365Main.ServiceController.js",
         "files": [
-            "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Main.js",
             "Modules/Mi365Main/SuiteScript/Mi365Main.ServiceController.js",
+            "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Main.js",
+            "Modules/Mi365Main/SuiteScript/Mi365Areas.ServiceController.js",
             "Modules/Mi365Main/SuiteScript/Mi365Buyers.ServiceController.js",
+            "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Areas.js",
             "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Buyers.js"
         ]
     }
