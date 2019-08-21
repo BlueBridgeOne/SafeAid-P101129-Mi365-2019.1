@@ -57,7 +57,7 @@
 }
 .mi365-information-input-readonly{
 	label{text-align:right;display:inline-block;padding-right:10px;color:#666;min-width:100px;}
-	input{border:none;padding:0;display:inline-block;color: $sc-color-copy-dark;}
+	input{border:none;padding:0;display:inline-block;color: $sc-color-copy-dark;width:auto!important;}
 	div{display:inline;}
 }
 .mi365-information-button-update{

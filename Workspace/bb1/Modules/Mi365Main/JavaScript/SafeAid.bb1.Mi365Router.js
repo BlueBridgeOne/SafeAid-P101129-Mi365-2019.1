@@ -9,12 +9,15 @@ define('SafeAid.bb1.Mi365Router', [
     'SafeAid.bb1.Mi365Wearers.View',
     'SafeAid.bb1.Mi365Wearer.View',
     'SafeAid.bb1.Mi365Alerts.View',
+    'SafeAid.bb1.Mi365Alert.View',
     'SafeAid.bb1.Mi365Buyers.Collection',
     'SafeAid.bb1.Mi365Buyers.Model',
     'SafeAid.bb1.Mi365Areas.Collection',
     'SafeAid.bb1.Mi365Areas.Model',
     'SafeAid.bb1.Mi365Wearers.Collection',
-    'SafeAid.bb1.Mi365Wearers.Model'
+    'SafeAid.bb1.Mi365Wearers.Model',
+    'SafeAid.bb1.Mi365Alerts.Collection',
+    'SafeAid.bb1.Mi365Alerts.Model'
 ], function (
     Backbone,
     Mi365DashboardView,
@@ -25,12 +28,15 @@ define('SafeAid.bb1.Mi365Router', [
     Mi365WearersView,
     Mi365WearerView,
     Mi365AlertsView,
+    Mi365AlertView,
     Mi365BuyersCollection,
     Mi365BuyersModel,
     Mi365AreasCollection,
     Mi365AreasModel,
     Mi365WearersCollection,
-    Mi365WearersModel) {
+    Mi365WearersModel,
+    Mi365AlertsCollection,
+    Mi365AlertsModel) {
 
 
     return Backbone.Router.extend({
@@ -45,7 +51,8 @@ define('SafeAid.bb1.Mi365Router', [
             'Mi365/alerts': 'Alerts',
             'Mi365/buyer/:id': 'Buyer',
             'Mi365/area/:id': 'Area',
-            'Mi365/wearer/:id': 'Wearer'
+            'Mi365/wearer/:id': 'Wearer',
+            'Mi365/alert/:id': 'Alert'
 
         },
         Dashboard: function () {
@@ -141,12 +148,35 @@ define('SafeAid.bb1.Mi365Router', [
                 view.showContent();
             });
         },
-        Alerts: function () {
-            var view = new Mi365AlertsView({
+        Alert: function (id) {
+            var model = new Mi365AlertsModel();
+            var view = new Mi365AlertView({
+                model: model,
                 application: this.application
             });
-            view.showContent();
-        }
+
+            model.fetch({
+                data: {
+                    id: id,
+					t: new Date().getTime()
+                }
+            }).done(function () {
+                view.showContent();
+            });
+        },
+        Alerts: function () {
+            var collection = new Mi365AlertsCollection();
+            var view = new Mi365AlertsView({
+                collection: collection,
+                application: this.application
+            });
+
+            collection.fetch({
+                data: {}
+            }).done(function () {
+                view.showContent();
+            });
+        },
 
     });
 });

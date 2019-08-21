@@ -23,13 +23,23 @@
       {{#if listonly}}
       {{else}}
       {{#ifEquals type "text"}}
-      <div class="mi365-information-row {{#unless ../editable}}mi365-information-input-readonly{{/unless}}" data-input="{{id}}" data-validation="control-group"><label
-          class="mi365-information-label" for="{{id}}"> {{label}} {{#if ../editable}}{{#if mandatory}}<small
-            class="mi365-information-input-required">*</small> {{else}} <small
-            class="mi365-information-input-optional">(optional)</small>{{/if}}{{/if}}</label>
+      <div class="mi365-information-row {{#unless ../editable}}mi365-information-input-readonly{{/unless}}"
+        data-input="{{id}}" data-validation="control-group"><label class="mi365-information-label" for="{{id}}">
+          {{label}} {{#if ../editable}}{{#if mandatory}}<small class="mi365-information-input-required">*</small>
+          {{else}} <small class="mi365-information-input-optional">(optional)</small>{{/if}}{{/if}}</label>
         <div class="mi365-information-group-form-controls" data-validation="control">
-          <input type="text" {{#unless ../editable}}readonly{{/unless}} 
-            class="mi365-information-input-large" id="{{id}}" name="{{id}}" value="{{value}}"></div>
+          <input type="text" {{#unless ../editable}}readonly{{/unless}} class="mi365-information-input-large"
+            id="{{id}}" name="{{id}}" value="{{value}}"></div>
+      </div>
+      {{/ifEquals}}
+      {{#ifEquals type "record"}}
+      <div class="mi365-information-row {{#unless ../editable}}mi365-information-input-readonly{{/unless}}"
+        data-input="{{id}}" data-validation="control-group"><label class="mi365-information-label" for="{{id}}">
+          {{label}} {{#if ../editable}}{{#if mandatory}}<small class="mi365-information-input-required">*</small>
+          {{else}} <small class="mi365-information-input-optional">(optional)</small>{{/if}}{{/if}}</label>
+        <div class="mi365-information-group-form-controls" data-validation="control">
+          {{#if ../editable}}{{else}}{{value.text}}{{/if}}
+          </div>
       </div>
       {{/ifEquals}}
 
