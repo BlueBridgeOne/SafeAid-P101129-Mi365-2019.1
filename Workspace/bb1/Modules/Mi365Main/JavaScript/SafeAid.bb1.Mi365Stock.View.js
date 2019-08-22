@@ -1,6 +1,6 @@
 // @module SafeAid.bb1.Mi365Main
-define('SafeAid.bb1.Mi365Buyer.View', [
-	'SafeAid.bb1.Mi365Buyers.Model',
+define('SafeAid.bb1.Mi365Stock.View', [
+	'SafeAid.bb1.Mi365Stocks.Model',
 	'safeaid_bb1_mi365record.tpl',
 	'Utils',
 	'Backbone',
@@ -8,7 +8,7 @@ define('SafeAid.bb1.Mi365Buyer.View', [
 	'jQuery',
 	'underscore'
 ], function (
-	Mi365BuyersModel,
+	Mi365StocksModel,
 	safeaid_bb1_mi365record_tpl,
 	Utils,
 	Backbone,
@@ -24,72 +24,43 @@ define('SafeAid.bb1.Mi365Buyer.View', [
 
 		template: safeaid_bb1_mi365record_tpl,
 		fields: [{
-			id: "entityid",
-			label: "Name",
-			type: "text",
-			listonly: true
-		}, {
-			id: "salutation",
-			label: "Mr, Mrs, Ms...",
-			type: "text",
-			mandatory: false
-		}, {
-			id: "firstname",
-			label: "First Name",
-			type: "text",
-			mandatory: true
-		}, {
-			id: "lastname",
-			label: "Last Name",
-			type: "text",
-			mandatory: true
-		}, {
-			id: "title",
-			label: "Job Title",
-			type: "text",
-			mandatory: false
-		}, {
-			id: "email",
-			label: "EMail",
+			id: "custrecord_bb1_sca_companystock_item",
+			label: "Item",
+			type: "record",
+			mandatory: true,
+			list:true
+		},{
+			id: "custrecord_bb1_sca_companystock_location",
+			label: "Location",
+			type: "record",
+			mandatory: true,
+			list:true
+		},{
+			id: "custrecord_bb1_sca_companystock_area",
+			label: "Area",
+			type: "record",
+			list:true,
+			url:"#Mi365/area/"
+		},{
+			id: "custrecord_bb1_sca_companystock_wearer",
+			label: "Wearer",
+			type: "record",
+			list:true,
+			url:"#Mi365/wearer/"
+		},{
+			id: "custrecord_bb1_sca_companystock_quantity",
+			label: "Quantity",
 			type: "text",
 			mandatory: true,
-			list: true
-		}, {
-			id: "phone",
-			label: "Phone",
-			type: "text",
-			mandatory: false,
-			list: true
-		}, {
-			id: "custentity_bb1_sca_overridecustomeritems",
-			label: "Override Company Items",
-			type: "checkbox",
-			list: true
-		}, {
-			id: "custentity_bb1_sca_showstandarditems",
-			label: "Show Standard Items",
-			type: "checkbox",
-			list: true
-		}, {
-			id: "custentity_bb1_sca_alloweditsettings",
-			label: "Allow Edit Settings",
-			type: "checkbox"
-		}, {
-			id: "custentity_bb1_sca_alloweditareas",
-			label: "Allow Edit Areas",
-			type: "checkbox"
-		}, {
-			id: "custentity_bb1_sca_alloweditbuyers",
-			label: "Allow Edit Buyers",
-			type: "checkbox"
-		}, {
-			id: "custentity_bb1_sca_alloweditwearers",
-			label: "Allow Edit Wearers",
-			type: "checkbox"
-		}, {
-			id: "custentity_bb1_sca_alloweditspendrules",
-			label: "Allow Edit Spend Rules",
-			type: "checkbox"
+			list:true
+		},{
+			id: "custrecord_bb1_sca_companystock_minquant",
+			label: "Re-Order Minimum",
+			type: "text"
+		},{
+			id: "custrecord_bb1_sca_companystock_maxquant",
+			label: "Re-Order Maximum",
+			type: "text"
 		}],
 		initialize: function (options) {
 
@@ -113,7 +84,7 @@ define('SafeAid.bb1.Mi365Buyer.View', [
 		},
 		deleteRecord: function (e) {
 			console.log("delete Record");
-			var model = new Mi365BuyersModel();
+			var model = new Mi365StocksModel();
 var deleteId=this.model.get("id");
 
 			model.fetch({
@@ -124,14 +95,14 @@ var deleteId=this.model.get("id");
 				}
 			}).always(function () {
 				console.log("deleted " + deleteId);
-				Backbone.history.navigate('#Mi365/buyers', {
+				Backbone.history.navigate('#Mi365/stocks', {
 					trigger: true
 				});
 			});
 		},
 		showSuccess: function () {
 			if (this.$savingForm) {
-				Tools.showSuccessInModal(this.application, _('Update Success').translate(), _('This buyer has been successfully updated!').translate());
+				Tools.showSuccessInModal(this.application, _('Update Success').translate(), _('This wearer has been successfully updated!').translate());
 			}
 		},
 		showError: function (err) {
@@ -153,13 +124,12 @@ var deleteId=this.model.get("id");
 				}
 			}
 			return {
-				title:"Buyer",
+				title:"Stock",
 				model: this.model,
 				fields: this.fields || [],
 				editable:true,
-				showDelete:true,
-				breadcrumbs:[{href:"#Mi365/buyers",label:"Buyers"}],
-				active:this.model.get("entityid")
+				breadcrumbs:[{href:"#Mi365/wearers",label:"Stocks"}],
+				active:this.model.get("custrecord_bb1_sca_companystock_item").text
 			};
 		}
 	});

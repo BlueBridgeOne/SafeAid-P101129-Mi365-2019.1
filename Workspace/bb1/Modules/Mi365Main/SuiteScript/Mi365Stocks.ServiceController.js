@@ -1,5 +1,5 @@
 define(
-	'SafeAid.bb1.Mi365Areas.ServiceController', [
+	'SafeAid.bb1.Mi365Stocks.ServiceController', [
 		'ServiceController'
 	],
 	function (
@@ -9,14 +9,44 @@ define(
 
 		return ServiceController.extend({
 
-			name: 'SafeAid.bb1.Mi365Areas.ServiceController',
-			recordtype: "customrecord_bb1_sca_area",
+			name: 'SafeAid.bb1.Mi365Stocks.ServiceController',
+			recordtype: "customrecord_bb1_sca_companystock",
 			fields: [{
-				id: "name",
-				label: "Name",
+				id: "custrecord_bb1_sca_companystock_item",
+				label: "Item",
+				type: "record",
+				mandatory: true,
+				list:true
+			},{
+				id: "custrecord_bb1_sca_companystock_location",
+				label: "Location",
+				type: "record",
+				mandatory: true,
+				list:true
+			},{
+				id: "custrecord_bb1_sca_companystock_area",
+				label: "Area",
+				type: "record",
+				list:true
+			},{
+				id: "custrecord_bb1_sca_companystock_wearer",
+				label: "Wearer",
+				type: "record",
+				list:true
+			},{
+				id: "custrecord_bb1_sca_companystock_quantity",
+				label: "Quantity",
 				type: "text",
 				mandatory: true,
 				list:true
+			},{
+				id: "custrecord_bb1_sca_companystock_minquant",
+				label: "Re-Order Minimum",
+				type: "text"
+			},{
+				id: "custrecord_bb1_sca_companystock_maxquant",
+				label: "Re-Order Maximum",
+				type: "text"
 			}],
 
 			// The values in this object are the validation needed for the current service.
@@ -27,7 +57,7 @@ define(
 
 			,
 			get: function get() {
-					nlapiLogExecution("debug", "SafeAid.bb1.Mi365Areas.ServiceController.get "+request);
+					nlapiLogExecution("debug", "SafeAid.bb1.Mi365Stocks.ServiceController.get "+request);
 					var shoppingSession = nlapiGetWebContainer().getShoppingSession();
 					var customer = shoppingSession.getCustomer();
 					var context = nlapiGetContext();
@@ -37,20 +67,9 @@ define(
 					
 					var task = request.getParameter("task");
 					var id = request.getParameter("id");
-					if(task=="new"){
-						if (contact > 0) {
-							var rec=nlapiCreateRecord(this.recordtype);
-							
-							rec.setFieldValue("custrecord_bb1_sca_area_company",customer);
-							rec.setFieldValue("name","Area #"+Math.floor(Math.random()*1000000));
-							id=nlapiSubmitRecord(rec, true, true);
-							
-							rec=nlapiLoadRecord(this.recordtype, id);
-							rec.setFieldValue("name","Area #"+id);
-							nlapiSubmitRecord(rec, true, true);
-							
-						}
-					}else if(task=="delete"){
+					var wearer = request.getParameter("wearer");
+					var area = request.getParameter("area");
+					if(task=="delete"){
 						if (contact > 0) {
 							var rec = nlapiLoadRecord(this.recordtype, id);
 							rec.setFieldValue("isinactive","T");
@@ -59,19 +78,22 @@ define(
 						}
 					}
 
-					
-					
-
 					//nlapiLogExecution("debug", "field values",JSON.stringify(customer.getFieldValues()));
 					//nlapiLogExecution("debug", "field values",JSON.stringify(customer.getCustomFields()));
 					
 					if (contact > 0) {
 
 						var filter = [
-							["custrecord_bb1_sca_area_company", "anyof", customer],
-							"AND",
 							["isinactive", "is", "F"]
 						];
+
+						if(wearer){
+							filter.unshift("AND");
+							filter.unshift(["custrecord_bb1_sca_companystock_wearer", "anyof", wearer]);
+						}else if(area){
+							filter.unshift("AND");
+							filter.unshift(["custrecord_bb1_sca_companystock_area", "anyof", area]);
+						}
 						var find = [];
 						for (var j = 0; j < this.fields.length; j++) {
 							if (this.fields[j].list || this.fields[j].listonly || id) {
@@ -117,7 +139,7 @@ define(
 							if (results.length > 0) {
 								return results[0];
 							} else {
-								throw (new Error("The area could not found."));
+								throw (new Error("The stock could not found."));
 							}
 						} else {
 							return results;

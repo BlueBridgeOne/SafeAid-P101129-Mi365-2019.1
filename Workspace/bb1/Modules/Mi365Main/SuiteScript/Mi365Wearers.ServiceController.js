@@ -127,7 +127,14 @@ define(
 								for (var j = 0; j < this.fields.length; j++) {
 									if (this.fields[j].list || this.fields[j].listonly || id) {
 										find.push(new nlobjSearchColumn(this.fields[j].id));
-										data[this.fields[j].id] = result.getValue(this.fields[j].id);
+										if (this.fields[j].type == "record") {
+											data[this.fields[j].id] = {
+												value: result.getValue(this.fields[j].id),
+												text: result.getText(this.fields[j].id)
+											};
+										} else {
+											data[this.fields[j].id] = result.getValue(this.fields[j].id);
+										}
 									}
 								}
 

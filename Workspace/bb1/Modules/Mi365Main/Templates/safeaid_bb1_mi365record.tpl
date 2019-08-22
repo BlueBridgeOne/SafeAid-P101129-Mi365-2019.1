@@ -11,11 +11,16 @@
     {{/each}}
     <li class="global-views-breadcrumb-item-active"> {{active}}</li>
   </ul>
-  {{#if editable}}
+  
   <div class="mi365-buttons">
+    {{#if showStock}}
+    <button class="button-secondary button-medium" data-action="stock">Stock</button>
+    {{/if}}
+    {{#if showDelete}}
     <button class="button-secondary button-medium" data-action="delete">Delete</button>
+    {{/if}}    
   </div>
-  {{/if}}
+  
   <div data-type="alert-placeholder"></div>
   <form class="mi365_info">
     <fieldset>
@@ -38,7 +43,7 @@
           {{label}} {{#if ../editable}}{{#if mandatory}}<small class="mi365-information-input-required">*</small>
           {{else}} <small class="mi365-information-input-optional">(optional)</small>{{/if}}{{/if}}</label>
         <div class="mi365-information-group-form-controls" data-validation="control">
-          {{#if ../editable}}{{else}}{{value.text}}{{/if}}
+          {{#if url}}<a href="{{url}}{{value.value}}">{{/if}}{{value.text}}{{#if url}}</a>{{/if}}
           </div>
       </div>
       {{/ifEquals}}

@@ -71,7 +71,14 @@ define('SafeAid.bb1.Mi365Wearer.View', [
 			,
 		events: {
 			'submit form': 'saveForm',
-			'click [data-action="delete"]': 'deleteRecord'
+			'click [data-action="delete"]': 'deleteRecord',
+			'click [data-action="stock"]': 'showStock'
+		},
+		showStock: function (e) {
+			var stockId=this.model.get("id");
+			Backbone.history.navigate('#Mi365/wearer/stock/'+stockId, {
+				trigger: true
+			});
 		},
 		deleteRecord: function (e) {
 			console.log("delete Record");
@@ -119,6 +126,8 @@ var deleteId=this.model.get("id");
 				model: this.model,
 				fields: this.fields || [],
 				editable:true,
+				showDelete:true,
+				showStock:true,
 				breadcrumbs:[{href:"#Mi365/wearers",label:"Wearers"}],
 				active:this.model.get("name")
 			};

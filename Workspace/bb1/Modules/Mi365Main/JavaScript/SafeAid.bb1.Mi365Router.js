@@ -10,6 +10,8 @@ define('SafeAid.bb1.Mi365Router', [
     'SafeAid.bb1.Mi365Wearer.View',
     'SafeAid.bb1.Mi365Alerts.View',
     'SafeAid.bb1.Mi365Alert.View',
+    'SafeAid.bb1.Mi365Stocks.View',
+    'SafeAid.bb1.Mi365Stock.View',
     'SafeAid.bb1.Mi365Buyers.Collection',
     'SafeAid.bb1.Mi365Buyers.Model',
     'SafeAid.bb1.Mi365Areas.Collection',
@@ -17,7 +19,9 @@ define('SafeAid.bb1.Mi365Router', [
     'SafeAid.bb1.Mi365Wearers.Collection',
     'SafeAid.bb1.Mi365Wearers.Model',
     'SafeAid.bb1.Mi365Alerts.Collection',
-    'SafeAid.bb1.Mi365Alerts.Model'
+    'SafeAid.bb1.Mi365Alerts.Model',
+    'SafeAid.bb1.Mi365Stocks.Collection',
+    'SafeAid.bb1.Mi365Stocks.Model'
 ], function (
     Backbone,
     Mi365DashboardView,
@@ -29,6 +33,8 @@ define('SafeAid.bb1.Mi365Router', [
     Mi365WearerView,
     Mi365AlertsView,
     Mi365AlertView,
+    Mi365StocksView,
+    Mi365StockView,
     Mi365BuyersCollection,
     Mi365BuyersModel,
     Mi365AreasCollection,
@@ -36,7 +42,9 @@ define('SafeAid.bb1.Mi365Router', [
     Mi365WearersCollection,
     Mi365WearersModel,
     Mi365AlertsCollection,
-    Mi365AlertsModel) {
+    Mi365AlertsModel,
+    Mi365StocksCollection,
+    Mi365StocksModel) {
 
 
     return Backbone.Router.extend({
@@ -52,7 +60,10 @@ define('SafeAid.bb1.Mi365Router', [
             'Mi365/buyer/:id': 'Buyer',
             'Mi365/area/:id': 'Area',
             'Mi365/wearer/:id': 'Wearer',
-            'Mi365/alert/:id': 'Alert'
+            'Mi365/alert/:id': 'Alert',
+            'Mi365/wearer/stock/:id': 'WearerStocks',
+            'Mi365/area/stock/:id': 'AreaStocks',
+            'Mi365/stock/:id': 'Stock'
 
         },
         Dashboard: function () {
@@ -177,6 +188,52 @@ define('SafeAid.bb1.Mi365Router', [
                 view.showContent();
             });
         },
+        Stock: function (id) {
+            var model = new Mi365StocksModel();
+            var view = new Mi365StockView({
+                model: model,
+                application: this.application
+            });
+
+            model.fetch({
+                data: {
+                    id: id,
+					t: new Date().getTime()
+                }
+            }).done(function () {
+                view.showContent();
+            });
+        },
+        WearerStocks: function (id) {
+            var collection = new Mi365StocksCollection();
+            var view = new Mi365StocksView({
+                collection: collection,
+                application: this.application,
+                wearer:id
+            });
+
+            collection.fetch({
+                data: {wearer: id,
+					t: new Date().getTime()}
+            }).done(function () {
+                view.showContent();
+            });
+        },
+        AreaStocks: function (id) {
+            var collection = new Mi365StocksCollection();
+            var view = new Mi365StocksView({
+                collection: collection,
+                application: this.application,
+                area:id
+            });
+
+            collection.fetch({
+                data: {area: id,
+					t: new Date().getTime()}
+            }).done(function () {
+                view.showContent();
+            });
+        }
 
     });
 });
