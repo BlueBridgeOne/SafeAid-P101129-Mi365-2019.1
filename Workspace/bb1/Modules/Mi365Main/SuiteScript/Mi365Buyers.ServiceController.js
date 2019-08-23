@@ -93,13 +93,16 @@ define(
 					var customer = shoppingSession.getCustomer();
 					var context = nlapiGetContext();
 					var contact = context.getContact();
+					if(!(contact>0)){
+						throw(new Error("Please sign-in to view this information."));
+					}
 					var customer = context.getUser();
 					nlapiLogExecution("debug", "context", "id=" + id + " " + context.getUser() + " " + context.getCompany() + " " + context.getEmail() + " " + context.getName() + " " + context.getContact());
 					
 					var task = request.getParameter("task");
 					var id = request.getParameter("id");
 					if(task=="new"){
-						if (contact > 0) {
+						
 							var rec=nlapiCreateRecord(this.recordtype);
 							
 							rec.setFieldValue("company",customer);
@@ -112,14 +115,14 @@ define(
 							rec.setFieldValue("lastname","#"+id);
 							nlapiSubmitRecord(rec, true, true);
 							
-						}
+						
 					}else if(task=="delete"){
-						if (contact > 0) {
+						
 							var rec = nlapiLoadRecord(this.recordtype, id);
 							rec.setFieldValue("custentity_bb1_sca_buyer","F");
 							nlapiSubmitRecord(rec, true, true);
 						
-						}
+						
 					}
 
 					
@@ -128,7 +131,7 @@ define(
 					//nlapiLogExecution("debug", "field values",JSON.stringify(customer.getFieldValues()));
 					//nlapiLogExecution("debug", "field values",JSON.stringify(customer.getCustomFields()));
 					
-					if (contact > 0) {
+					
 
 						var filter = [
 							["custentity_bb1_sca_buyer", "is", "T"],
@@ -187,9 +190,7 @@ define(
 						} else {
 							return results;
 						}
-					} else {
-						throw (new Error("Not logged in."));
-					}
+					
 				}
 
 				,
@@ -198,13 +199,16 @@ define(
 					var customer = shoppingSession.getCustomer();
 					var context = nlapiGetContext();
 					var contact = context.getContact();
+					if(!(contact>0)){
+						throw(new Error("Please sign-in to view this information."));
+					}
 					var customer = context.getUser();
 					nlapiLogExecution("debug", "context", "id=" + id + " " + context.getUser() + " " + context.getCompany() + " " + context.getEmail() + " " + context.getName() + " " + context.getContact());
 					
 
 				var id = request.getParameter("id");
 				
-				if (contact > 0) {
+				
 					var rec = nlapiLoadRecord(this.recordtype, this.data.id);
 
 					for (var j = 0; j < this.fields.length; j++) {
@@ -213,7 +217,7 @@ define(
 						}
 					}
 					nlapiSubmitRecord(rec, true, true);
-				}
+				
 				return {
 					ok: true
 				}

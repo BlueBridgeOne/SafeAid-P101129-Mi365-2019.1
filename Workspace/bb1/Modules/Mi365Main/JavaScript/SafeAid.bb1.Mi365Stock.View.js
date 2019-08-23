@@ -28,36 +28,38 @@ define('SafeAid.bb1.Mi365Stock.View', [
 			label: "Item",
 			type: "record",
 			mandatory: true,
-			list:true
-		},{
+			list: true
+		}, {
 			id: "custrecord_bb1_sca_companystock_location",
 			label: "Location",
 			type: "record",
 			mandatory: true,
-			list:true
-		},{
+			list: true
+		}, {
 			id: "custrecord_bb1_sca_companystock_area",
 			label: "Area",
 			type: "record",
-			list:true,
-			url:"#Mi365/area/"
-		},{
+			list: true,
+			mandatory: true,
+			url: "#Mi365/area/"
+		}, {
 			id: "custrecord_bb1_sca_companystock_wearer",
 			label: "Wearer",
 			type: "record",
-			list:true,
-			url:"#Mi365/wearer/"
-		},{
+			list: true,
+			mandatory: true,
+			url: "#Mi365/wearer/"
+		}, {
 			id: "custrecord_bb1_sca_companystock_quantity",
 			label: "Quantity",
 			type: "text",
 			mandatory: true,
-			list:true
-		},{
+			list: true
+		}, {
 			id: "custrecord_bb1_sca_companystock_minquant",
 			label: "Re-Order Minimum",
 			type: "text"
-		},{
+		}, {
 			id: "custrecord_bb1_sca_companystock_maxquant",
 			label: "Re-Order Maximum",
 			type: "text"
@@ -85,7 +87,7 @@ define('SafeAid.bb1.Mi365Stock.View', [
 		deleteRecord: function (e) {
 			console.log("delete Record");
 			var model = new Mi365StocksModel();
-var deleteId=this.model.get("id");
+			var deleteId = this.model.get("id");
 
 			model.fetch({
 				data: {
@@ -116,20 +118,54 @@ var deleteId=this.model.get("id");
 		getContext: function getContext() {
 
 			//{id:"custentity_bb1_sca_allowviewreports",label:"Allow View Reports",type:"checkbox"};
+			var newFields = [],
+				location, breadcrumbs = [],title="Stock";
+
 			for (var i = 0; i < this.fields.length; i++) {
 				if (!this.fields[i].listonly) {
 					if (this.model.get(this.fields[i].id)) {
 						this.fields[i].value = this.model.get(this.fields[i].id);
 					}
+					//Only show certain fields depening on area or wearer.
+					if (this.fields[i].id == "custrecord_bb1_sca_companystock_location") {
+						location = this.fields[i].value.text;
+					} else if (location == "Area") {
+						if (this.fields[i].id == "custrecord_bb1_sca_companystock_area") {
+							newFields.push(this.fields[i]);
+							breadcrumbs= [{
+								href: "#Mi365/area/"+this.fields[i].value.value,
+								label: this.fields[i].value.text
+							},{
+								href: "#Mi365/area/stock/"+this.fields[i].value.value,
+								label: "Stock"
+							}];
+						} else if (this.fields[i].id == "custrecord_bb1_sca_companystock_minquant" || this.fields[i].id == "custrecord_bb1_sca_companystock_maxquant" || this.fields[i].id == "custrecord_bb1_sca_companystock_quantity")
+							newFields.push(this.fields[i]);
+					} else if (location == "Wearer") {
+						if (this.fields[i].id == "custrecord_bb1_sca_companystock_wearer") {
+							newFields.push(this.fields[i]);
+							breadcrumbs= [{
+								href: "#Mi365/wearer/"+this.fields[i].value.value,
+								label: this.fields[i].value.text
+							},{
+								href: "#Mi365/wearer/stock/"+this.fields[i].value.value,
+								label: "Stock"
+							}];
+						} else if (this.fields[i].id == "custrecord_bb1_sca_companystock_quantity") {
+							newFields.push(this.fields[i]);
+						}
+					} else {
+						newFields.push(this.fields[i]);
+					}
 				}
 			}
 			return {
-				title:"Stock",
+				title: title,
 				model: this.model,
-				fields: this.fields || [],
-				editable:true,
-				breadcrumbs:[{href:"#Mi365/wearers",label:"Stocks"}],
-				active:this.model.get("custrecord_bb1_sca_companystock_item").text
+				fields: newFields || [],
+				editable: true,
+				breadcrumbs: breadcrumbs,
+				active: this.model.get("custrecord_bb1_sca_companystock_item").text
 			};
 		}
 	});

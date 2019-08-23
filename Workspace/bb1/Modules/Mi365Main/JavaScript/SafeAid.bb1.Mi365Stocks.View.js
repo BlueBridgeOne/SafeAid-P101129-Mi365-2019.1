@@ -12,11 +12,10 @@ define('SafeAid.bb1.Mi365Stocks.View', [
 
 			,
 		initialize: function (options) {
-this.application=options.application;
-this.wearer=options.wearer;
-this.area=options.area;
-			}
-			,
+			this.application = options.application;
+			this.wearer = options.wearer;
+			this.area = options.area;
+		},
 		events: {
 			'click [data-action="go-to-record"]': 'goToRecord',
 			'click [data-action="new"]': 'newRecord'
@@ -50,21 +49,46 @@ this.area=options.area;
 			//@method getContext @return SafeAid.bb1.Mi365Main.View.Context
 			,
 		getContext: function getContext() {
-			var title="All Stock",active="All Stock",breadcrumbs=[];
-			if(this.wearer){
-				title="Wearer Stock";
-				active="Stock";
-				breadcrumbs=[{href:"#Mi365/wearer/"+this.wearer,label:"Wearer"}];
-			}else if(this.area){
-				title="Area Stock";
-				active="Stock";
-				breadcrumbs=[{href:"#Mi365/area/"+this.area,label:"Area"}];
+			var title = "All",
+				active = "All",
+				breadcrumbs = [],
+				model;
+
+			//Try to work out the name of the area or wearer as don't know how to add that to a collection.
+			for (var i = 0; i < this.collection.models; i++) {
+				model = this.collection.models[i];
+				if (this.wearer) {
+					title = model.get("custrecord_bb1_sca_companystock_area").text;
+					break;
+				} else if (this.area) {
+					title = model.get("custrecord_bb1_sca_companystock_wearer").text;
+				}
+
+			}
+			if (this.wearer) {
+				if (title == "All") {
+					title == "Wearer";
+				}
+				active = "Stock";
+				breadcrumbs = [{
+					href: "#Mi365/wearer/" + this.wearer,
+					label: "Wearer"
+				}];
+			} else if (this.area) {
+				if (title == "All") {
+					title == "Area";
+				}
+				active = "Stock";
+				breadcrumbs = [{
+					href: "#Mi365/area/" + this.area,
+					label: "Area"
+				}];
 			}
 			return {
-				title:title,
-				breadcrumbs:breadcrumbs,
+				title: title + " Stock",
+				breadcrumbs: breadcrumbs,
 				models: this.collection.models,
-			active:active
+				active: active
 			};
 		}
 	});
