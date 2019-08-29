@@ -48,11 +48,18 @@ define('SafeAid.bb1.Mi365Area.View', [
 		events: {
 			'submit form': 'saveForm',
 			'click [data-action="delete"]': 'deleteRecord',
-			'click [data-action="stock"]': 'showStock'
+			'click [data-action="stock"]': 'showStock',
+			'click [data-action="transfers"]': 'showTransfers'
 		},
 		showStock: function (e) {
 			var stockId=this.model.get("id");
 			Backbone.history.navigate('#Mi365/area/stock/'+stockId, {
+				trigger: true
+			});
+		},
+		showTransfers: function (e) {
+			var transferId=this.model.get("id");
+			Backbone.history.navigate('#Mi365/area/transfers/'+transferId, {
 				trigger: true
 			});
 		},
@@ -104,6 +111,7 @@ var deleteId=this.model.get("id");
 				editable:true,
 				showDelete:true,
 				showStock:true,
+				showTransfers:true,
 				breadcrumbs:[{href:"#Mi365/wearers",label:"Areas"}],
 				active:this.model.get("name")
 			};

@@ -12,6 +12,9 @@ define('SafeAid.bb1.Mi365Router', [
     'SafeAid.bb1.Mi365Alert.View',
     'SafeAid.bb1.Mi365Stocks.View',
     'SafeAid.bb1.Mi365Stock.View',
+    'SafeAid.bb1.Mi365Transfers.View',
+    'SafeAid.bb1.Mi365Transfer.View',
+    'SafeAid.bb1.Mi365ConfirmTransfer.View',
     'SafeAid.bb1.Mi365Buyers.Collection',
     'SafeAid.bb1.Mi365Buyers.Model',
     'SafeAid.bb1.Mi365Areas.Collection',
@@ -21,7 +24,9 @@ define('SafeAid.bb1.Mi365Router', [
     'SafeAid.bb1.Mi365Alerts.Collection',
     'SafeAid.bb1.Mi365Alerts.Model',
     'SafeAid.bb1.Mi365Stocks.Collection',
-    'SafeAid.bb1.Mi365Stocks.Model'
+    'SafeAid.bb1.Mi365Stocks.Model',
+    'SafeAid.bb1.Mi365Transfers.Collection',
+    'SafeAid.bb1.Mi365Transfers.Model'
 ], function (
     Backbone,
     Mi365DashboardView,
@@ -35,6 +40,9 @@ define('SafeAid.bb1.Mi365Router', [
     Mi365AlertView,
     Mi365StocksView,
     Mi365StockView,
+    Mi365TransfersView,
+    Mi365TransferView,
+    Mi365ConfirmTransferView,
     Mi365BuyersCollection,
     Mi365BuyersModel,
     Mi365AreasCollection,
@@ -44,7 +52,9 @@ define('SafeAid.bb1.Mi365Router', [
     Mi365AlertsCollection,
     Mi365AlertsModel,
     Mi365StocksCollection,
-    Mi365StocksModel) {
+    Mi365StocksModel,
+    Mi365TransfersCollection,
+    Mi365TransfersModel) {
 
 
     return Backbone.Router.extend({
@@ -63,7 +73,11 @@ define('SafeAid.bb1.Mi365Router', [
             'Mi365/alert/:id': 'Alert',
             'Mi365/wearer/stock/:id': 'WearerStocks',
             'Mi365/area/stock/:id': 'AreaStocks',
-            'Mi365/stock/:id': 'Stock'
+            'Mi365/stock/:id': 'Stock',
+            'Mi365/wearer/transfers/:id': 'WearerTransfers',
+            'Mi365/area/transfers/:id': 'AreaTransfers',
+            'Mi365/transfer/:id': 'Transfer',
+            'Mi365/transfer/confirm/:id': 'ConfirmTransfer'
 
         },
         Dashboard: function () {
@@ -71,6 +85,22 @@ define('SafeAid.bb1.Mi365Router', [
                 application: this.application
             });
             view.showContent();
+        },
+        ConfirmTransfer: function (id) {
+            var model = new Mi365TransfersModel();
+            var view = new Mi365ConfirmTransferView({
+                model: model,
+                application: this.application
+            });
+
+            model.fetch({
+                data: {
+                    id: id,
+					t: new Date().getTime()
+                }
+            }).done(function () {
+                view.showContent();
+            });
         },
         Buyer: function (id) {
             var model = new Mi365BuyersModel();
@@ -188,6 +218,22 @@ define('SafeAid.bb1.Mi365Router', [
                 view.showContent();
             });
         },
+        Transfer: function (id) {
+            var model = new Mi365TransfersModel();
+            var view = new Mi365TransferView({
+                model: model,
+                application: this.application
+            });
+
+            model.fetch({
+                data: {
+                    id: id,
+					t: new Date().getTime()
+                }
+            }).done(function () {
+                view.showContent();
+            });
+        },        
         Stock: function (id) {
             var model = new Mi365StocksModel();
             var view = new Mi365StockView({
@@ -222,6 +268,52 @@ define('SafeAid.bb1.Mi365Router', [
         AreaStocks: function (id) {
             var collection = new Mi365StocksCollection();
             var view = new Mi365StocksView({
+                collection: collection,
+                application: this.application,
+                area:id
+            });
+
+            collection.fetch({
+                data: {area: id,
+					t: new Date().getTime()}
+            }).done(function () {
+                view.showContent();
+            });
+        },        
+        Transfer: function (id) {
+            var model = new Mi365TransfersModel();
+            var view = new Mi365TransferView({
+                model: model,
+                application: this.application
+            });
+
+            model.fetch({
+                data: {
+                    id: id,
+					t: new Date().getTime()
+                }
+            }).done(function () {
+                view.showContent();
+            });
+        },
+        WearerTransfers: function (id) {
+            var collection = new Mi365TransfersCollection();
+            var view = new Mi365TransfersView({
+                collection: collection,
+                application: this.application,
+                wearer:id
+            });
+
+            collection.fetch({
+                data: {wearer: id,
+					t: new Date().getTime()}
+            }).done(function () {
+                view.showContent();
+            });
+        },
+        AreaTransfers: function (id) {
+            var collection = new Mi365TransfersCollection();
+            var view = new Mi365TransfersView({
                 collection: collection,
                 application: this.application,
                 area:id

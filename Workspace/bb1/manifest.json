@@ -20,7 +20,8 @@
                 "services/Mi365Main.Service.ss",
                 "services/Mi365Wearers.Service.ss",
                 "services/Mi365Alerts.Service.ss",
-                "services/Mi365Stocks.Service.ss"
+                "services/Mi365Stocks.Service.ss",
+                "services/Mi365Transfers.Service.ss"
             ]
         }
     },
@@ -37,7 +38,8 @@
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365areas.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365wearers.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365record.tpl",
-                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365stocks.tpl"
+                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365stocks.tpl",
+                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365transfers.tpl"
                 ]
             },
             "myaccount": {
@@ -48,7 +50,8 @@
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365areas.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365wearers.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365record.tpl",
-                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365stocks.tpl"
+                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365stocks.tpl",
+                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365transfers.tpl"
                 ]
             },
             "checkout": {
@@ -59,7 +62,8 @@
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365areas.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365wearers.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365record.tpl",
-                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365stocks.tpl"
+                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365stocks.tpl",
+                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365transfers.tpl"
                 ]
             }
         }
@@ -106,7 +110,12 @@
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Stock.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Stocks.Collection.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Stocks.Model.js",
-                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Stocks.View.js"
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Stocks.View.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Transfer.View.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Transfers.Collection.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Transfers.Model.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Transfers.View.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365ConfirmTransfer.View.js"
                 ]
             },
             "myaccount": {
@@ -134,7 +143,12 @@
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Stock.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Stocks.Collection.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Stocks.Model.js",
-                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Stocks.View.js"
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Stocks.View.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Transfer.View.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Transfers.Collection.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Transfers.Model.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Transfers.View.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365ConfirmTransfer.View.js"
                 ]
             },
             "checkout": {
@@ -162,7 +176,12 @@
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Stock.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Stocks.Collection.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Stocks.Model.js",
-                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Stocks.View.js"
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Stocks.View.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Transfer.View.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Transfers.Collection.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Transfers.Model.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Transfers.View.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365ConfirmTransfer.View.js"
                 ]
             }
         }
@@ -181,7 +200,9 @@
             "Modules/Mi365Main/SuiteScript/Mi365Alerts.ServiceController.js",
             "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Alerts.js",
             "Modules/Mi365Main/SuiteScript/Mi365Stocks.ServiceController.js",
-            "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Stocks.js"
+            "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Stocks.js",
+            "Modules/Mi365Main/SuiteScript/Mi365Transfers.ServiceController.js",
+            "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Transfers.js"
         ]
     }
 }
