@@ -259,7 +259,7 @@ $sc-sidebar-size: 246px;
 .header-menu-cart-icon {
 	@extend .fa;
 	@extend %fa-shopping-cart;
-	font-size: $sc-font-size-xxl;
+	font-size: $sc-font-size-xl;
 	line-height: $sc-target-size;
 	min-width: $sc-target-size;
 	color: $sc-color-primary;

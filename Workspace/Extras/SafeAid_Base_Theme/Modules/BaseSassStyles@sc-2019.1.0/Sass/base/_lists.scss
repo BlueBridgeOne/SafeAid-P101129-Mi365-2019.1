@@ -241,3 +241,51 @@ $row-space: $sc-padding-lv3;
 .table-flex-record-selectable-navigable-row-column-amount {
 	@extend .column-type-amount;
 }
+
+.cms-content{
+    ul>li{
+        margin:.5em 0;
+        list-style: none!important;
+    }
+     ul>li::before {
+        content: "\25CF";
+         color: $safeaid-orange;
+        display: inline-block;
+         width: 1em;
+         margin-left: -1em;
+    }
+     ul {
+        list-style: none;
+    }
+
+    ol>li {
+        counter-increment: list;
+        list-style-type: none;
+        position: relative;
+        margin:.5em 0;
+      }
+      
+      /* Output the numbers using the counter() function, but use a custom color, and position the numbers how we want */
+      ol>li:before {
+        color: $safeaid-orange;
+        content: counter(list, lower-alpha) ".";
+        position: absolute;
+        text-align: right;
+        width: 1em;
+         margin-left: -1.2em;
+	  }
+	  
+	  table{
+		  @extend .table;
+		  @extend .table-striped;
+	  }
+
+	  h6{
+		  a{
+			@extend .button-primary;
+			@extend .button-medium;
+			margin: $sc-margin-lv2 0px;
+		  }
+	  }
+
+}

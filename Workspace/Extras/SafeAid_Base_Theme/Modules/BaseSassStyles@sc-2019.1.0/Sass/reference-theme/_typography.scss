@@ -21,7 +21,7 @@ $sc-h1-line-height: 1.2; /* editable({"type": "string", "label": "Line height"})
 $sc-h1-letter-spacing: 0;
 $sc-h1-margin-top: 0;
 $sc-h1-margin-bottom: 0;
-$sc-h1-text-transform: none; /* editable({
+$sc-h1-text-transform: uppercase; /* editable({
 	"type": "string",
 	"label": "Text transform",
 	"options": [
@@ -42,7 +42,7 @@ $sc-h2-line-height: 1.2; /* editable({"type": "string", "label": "Line height"})
 $sc-h2-letter-spacing: 0;
 $sc-h2-margin-top: 0;
 $sc-h2-margin-bottom: 0;
-$sc-h2-text-transform: none; /* editable({
+$sc-h2-text-transform: uppercase; /* editable({
 	"type": "string",
 	"label": "Text transform",
 	"options": [
@@ -63,7 +63,7 @@ $sc-h3-line-height: 1.2;
 $sc-h3-letter-spacing: 0; /* editable({"type": "string", "label": "Line height"}) */
 $sc-h3-margin-top: 0;
 $sc-h3-margin-bottom: 0;
-$sc-h3-text-transform: none; /* editable({
+$sc-h3-text-transform: uppercase; /* editable({
 	"type": "string",
 	"label": "Text transform",
 	"options": [
@@ -84,7 +84,7 @@ $sc-h4-line-height: 1.4; /* editable({"type": "string", "label": "Line height"})
 $sc-h4-letter-spacing: 0;
 $sc-h4-margin-top: 0;
 $sc-h4-margin-bottom: 0;
-$sc-h4-text-transform: none; /* editable({
+$sc-h4-text-transform: uppercase; /* editable({
 	"type": "string",
 	"label": "Text transform",
 	"options": [

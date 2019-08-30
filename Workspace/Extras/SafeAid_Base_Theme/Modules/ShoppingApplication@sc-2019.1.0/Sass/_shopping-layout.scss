@@ -1,6 +1,10 @@
 .shopping-layout {
 	@extend %sc-layout;
 }
+.shopping-layout-content{
+background-color:$white;padding-top:$sc-margin-lv3;padding-bottom:$sc-margin-lv3;
+margin-bottom:50px;
+}
 
 .shopping-layout-header {
 	margin-bottom: $sc-margin-lv4;

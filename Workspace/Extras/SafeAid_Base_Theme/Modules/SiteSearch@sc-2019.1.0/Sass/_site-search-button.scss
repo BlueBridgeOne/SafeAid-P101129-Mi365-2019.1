@@ -35,11 +35,11 @@
 	}
 }
 .site-search-button-link.active {
-	background: $safeaid-dark-orange;
+	background: lighten($safeaid-black,10);
 	color: $white;
 
 	@media (min-width: $screen-md-min) {
-		background: $safeaid-darkest-orange;
+		background: lighten($safeaid-black,10);
 		color: $white;
 	}
 
@@ -53,7 +53,7 @@
 	@extend %fa-search;
 
 	color: $safeaid-lightgrey;
-	font-size: $sc-font-size-l;
+	font-size: $sc-font-size-m;
 	
 	@media (max-width: $screen-sm-min) {
 		line-height: $sc-target-size;
@@ -61,6 +61,6 @@
 	}
 
 	@media (min-width: $screen-md-min) {
-		font-size: $sc-font-size-xxl;
+		font-size: $sc-font-size-xl;
 	}
 }

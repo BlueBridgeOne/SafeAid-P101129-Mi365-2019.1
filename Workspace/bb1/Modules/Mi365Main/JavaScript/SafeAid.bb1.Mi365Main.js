@@ -18,6 +18,14 @@ define(
 
 				/** @type {LayoutComponent} */
 				var layout = container.getComponent('Layout');
+
+				container.getComponent('UserProfile').getUserProfile().done(
+					function(result) {
+						console.log(result);
+					});
+
+
+
 				// console.log(container);
 				// console.log(layout);
 				if (layout) {
