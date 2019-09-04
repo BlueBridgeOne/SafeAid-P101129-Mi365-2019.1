@@ -1,11 +1,20 @@
 {
   "generator-extension": {
     "promptValues": {
-      "vendor": "SafeAid"
+      "vendor": "bb1"
     },
     "ext_application": {
       "bb1": [
         "shopping",
+        "myaccount",
+        "checkout"
+      ],
+      "YouTube": [
+        "shopping",
+        "myaccount",
+        "checkout"
+      ],
+      "SMTTypes": [
         "myaccount",
         "checkout"
       ]
