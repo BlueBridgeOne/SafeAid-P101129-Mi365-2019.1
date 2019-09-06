@@ -4,8 +4,6 @@
 	
 	<nav class="header-main-nav">
 
-		<div id="banner-header-top" class="content-banner banner-header-top" data-cms-area="header_banner_top" data-cms-area-filters="global"></div>
-
 		<div class="header-sidebar-toggle-wrapper">
 			<button class="header-sidebar-toggle" data-action="header-sidebar-show">
 				<i class="header-sidebar-toggle-icon"></i>
@@ -31,7 +29,7 @@
 			</div>
 		</div>
 
-		<div id="banner-header-bottom" class="content-banner banner-header-bottom" data-cms-area="header_banner_bottom" data-cms-area-filters="global"></div>
+		
 	</nav>
 </div>
 

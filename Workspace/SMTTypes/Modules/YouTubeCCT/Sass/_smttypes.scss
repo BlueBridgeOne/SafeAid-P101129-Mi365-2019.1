@@ -2,50 +2,107 @@
 	position: relative;
 	width: 100%;
 	height: 0;
-	padding-bottom: 56%; /* The height of the item will now be 56% of the width. */
-  }
-  
-  /* Adjust the iframe so it's rendered in the outer-width and outer-height of it's parent */
-  .aspect-ratio iframe {
+	padding-bottom: 56%;
+	/* The height of the item will now be 56% of the width. */
+}
+
+/* Adjust the iframe so it's rendered in the outer-width and outer-height of it's parent */
+.aspect-ratio iframe {
 	position: absolute;
 	width: 100%;
 	height: 100%;
 	left: 0;
 	top: 0;
-  }
+}
 
-  .cct-banner {
+.cct-banner {
+	margin-top:-$sc-margin-lv3;
 	width: 100%;
-	margin-bottom:$sc-margin-lv6;
-	h1{color:inherit;}
+	margin-bottom: $sc-margin-lv6;
+
+	h1 {
+		color: inherit;
+	}
 }
 
 .cct-banner-inner {
 	margin-left: calc(50% - 50vw);
-  width: 100vw;
-  background-size:cover;
+	width: 100vw;
+	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;
 }
 
 .cct-banner-inner-container {
 	@extend .container;
-	padding:2.5% 2.5% 6% 6%;
+	padding: 2.5% 2.5% 6% 6%;
 }
-
-.grid2-flex{
+.grid{
+	margin-left: calc(50% - 50vw);
+	width: 100vw;
+}
+.grid-inner{
+	@extend .container;
+}
+.grid2-flex {
 	@media (min-width: $screen-sm-min) {
-		display:flex;
+		display: flex;
+	}
+
+	img {
+		display: block;
+		max-width: 100%;
+	}
+
+	@media (max-width: $screen-xs-max) {
 		div{
-			width:50%;
+			width:100%!important;
 		}
 	}
-	img{
+}
+
+.grid2-cell {
+	padding-left: $sc-padding-lv3;
+	padding-right: $sc-padding-lv3;
+	width: 100% !important;
+}
+
+.grid3-flex {
+	@media (min-width: $screen-sm-min) {
+		display: flex;
+		flex-wrap: wrap;
+
+		div {
+			width: 33.3%;
+		}
+	}
+
+	img {
 		display: block;
+		max-width: 100%;
+	}
+
+	@media (max-width: $screen-xs-max) {
+		div{
+			width:100%!important;
+		}
+	}
+
+	@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max){
+		div.grow25{
+			width:50%!important;
+		}
+		div.grow50{
+			width:100%!important;
+		}
+		div.grow33{
+			width:33%!important;
+		}
 	}
 }
-.grid2-cell{
-	padding-left:$sc-padding-lv3;
-	padding-right:$sc-padding-lv3;
-	width:100%!important;
+
+.grid3-cell {
+	padding-left: $sc-padding-lv3;
+	padding-right: $sc-padding-lv3;
+	width: 100% !important;
 }

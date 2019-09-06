@@ -2,10 +2,7 @@
     "name": "SMTTypes",
     "fantasyName": "SMT Types",
     "vendor": "bb1",
-    "version": "1.0.0",
     "type": "extension",
-    "target": "SCA,SCS",
-    "description": "This extension includes handy custom content types for SMT.",
     "cct": [
         {
             "icon": "img/cct_bb1_youtubecct_icon.svg",
@@ -27,15 +24,25 @@
             "registercct_id": "cct_bb1_grid2",
             "label": "2x Grid CCT",
             "description": "2x Grid for SMT."
+        },
+        {
+            "icon": "img/cct_bb1_grid3cct_icon.svg",
+            "settings_record": "customrecord_bb1_grid3_cct",
+            "registercct_id": "cct_bb1_grid3",
+            "label": "3x Grid CCT",
+            "description": "3x Grid for SMT."
         }
     ],
-    "skins": [],
+    "target": "SCA,SCS",
+    "version": "1.0.0",
+    "description": "This extension includes handy custom content types for SMT.",
     "assets": {
         "img": {
             "files": [
                 "img/cct_bb1_youtubecct_icon.svg",
                 "img/cct_bb1_bannercct_icon.svg",
-                "img/cct_bb1_grid2cct_icon.svg"
+                "img/cct_bb1_grid2cct_icon.svg",
+                "img/cct_bb1_grid3cct_icon.svg"
             ]
         },
         "fonts": {
@@ -45,6 +52,18 @@
             "files": []
         }
     },
+    "templates": {
+        "application": {
+            "shopping": {
+                "files": [
+                    "Modules/YouTubeCCT/Templates/bb1_smttypes_youtubecct.tpl",
+                    "Modules/BannerCCT/Templates/bb1_smttypes_bannercct.tpl",
+                    "Modules/Grid2CCT/Templates/bb1_smttypes_grid2cct.tpl",
+                    "Modules/Grid3CCT/Templates/bb1_smttypes_grid3cct.tpl"
+                ]
+            }
+        }
+    },
     "sass": {
         "entry_points": {
             "shopping": "Modules/YouTubeCCT/Sass/_smttypes.scss"
@@ -52,17 +71,6 @@
         "files": [
             "Modules/YouTubeCCT/Sass/_smttypes.scss"
         ]
-    },
-    "templates": {
-        "application": {
-            "shopping": {
-                "files": [
-                    "Modules/YouTubeCCT/Templates/bb1_smttypes_youtubecct.tpl",
-                    "Modules/BannerCCT/Templates/bb1_smttypes_bannercct.tpl",
-                    "Modules/Grid2CCT/Templates/bb1_smttypes_grid2cct.tpl"
-                ]
-            }
-        }
     },
     "javascript": {
         "entry_points": {
@@ -74,10 +82,10 @@
                     "Modules/YouTubeCCT/JavaScript/bb1.SMTTypes.YouTubeCCT.js",
                     "Modules/YouTubeCCT/JavaScript/YouTubeCCT.View.js",
                     "Modules/BannerCCT/JavaScript/BannerCCT.View.js",
-                    "Modules/Grid2CCT/JavaScript/Grid2CCT.View.js"
+                    "Modules/Grid2CCT/JavaScript/Grid2CCT.View.js",
+                    "Modules/Grid3CCT/JavaScript/Grid3CCT.View.js"
                 ]
             }
         }
-    },
-    "local_folder": "Workspace/SMTTypes"
+    }
 }

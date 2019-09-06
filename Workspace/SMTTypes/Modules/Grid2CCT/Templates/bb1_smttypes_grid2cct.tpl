@@ -1,6 +1,8 @@
+<div class="grid" style="background-color:{{custrecord_bb1_grid2_cct_bgbannercolour}};">
+  <div class="grid-inner">
 <div class="grid2-flex">
   <div
-    style="background-color:{{custrecord_bb1_grid2_cct_bgcolour1}};color:{{custrecord_bb1_grid2_cct_fgcolour1}};">
+    style="width:{{grow1}}%;background-color:{{custrecord_bb1_grid2_cct_bgcolour1}};color:{{custrecord_bb1_grid2_cct_fgcolour1}};">
     {{#if showImage1}}
     <img src="{{custrecord_bb1_grid2_cct_image1_url}}" />
     {{else}}
@@ -10,7 +12,7 @@
     {{/if}}
   </div>
   <div
-    style="background-color:{{custrecord_bb1_grid2_cct_bgcolour2}};color:{{custrecord_bb1_grid2_cct_fgcolour2}};">
+    style="width:{{grow2}}%;background-color:{{custrecord_bb1_grid2_cct_bgcolour2}};color:{{custrecord_bb1_grid2_cct_fgcolour2}};">
     {{#if showImage2}}
     <img src="{{custrecord_bb1_grid2_cct_image2_url}}" />
     {{else}}
@@ -19,6 +21,8 @@
     </div>
     {{/if}}
   </div>
+</div>
+</div>
 </div>
 
 

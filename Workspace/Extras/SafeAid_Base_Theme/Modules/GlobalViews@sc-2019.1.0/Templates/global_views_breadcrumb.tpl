@@ -1,4 +1,3 @@
-<div id="banner-breadcrumb-top" class="content-banner banner-breadcrumb-top" data-cms-area="breadcrumb_top" data-cms-area-filters="global"></div>
 <ul class="global-views-breadcrumb" itemprop="breadcrumb">
 	{{#each pages}}
 		{{#if @last}}
@@ -16,7 +15,6 @@
 		{{/if}}
 	{{/each}}
 </ul>
-<div id="banner-breadcrumb-bottom" class="content-banner banner-breadcrumb-bottom" data-cms-area="breadcrumb_bottom" data-cms-area-filters="global"></div>
 
 
 

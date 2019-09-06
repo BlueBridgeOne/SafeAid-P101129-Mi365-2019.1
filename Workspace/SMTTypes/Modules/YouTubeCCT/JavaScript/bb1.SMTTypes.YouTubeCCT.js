@@ -10,12 +10,14 @@ define(
 ,   [
 		'bb1.SMTTypes.YouTubeCCT.View',
 		'bb1.SMTTypes.BannerCCT.View',
-		'bb1.SMTTypes.Grid2CCT.View'
+		'bb1.SMTTypes.Grid2CCT.View',
+		'bb1.SMTTypes.Grid3CCT.View'
 	]
 ,   function (
 		YouTubeCCTView,
 		BannerCCTView,
-		Grid2CCTView
+		Grid2CCTView,
+		Grid3CCTView
 	)
 {
 	'use strict';
@@ -49,6 +51,15 @@ define(
 				
 				// The view to render the CCT
 			,	view: Grid2CCTView
+			});
+			
+			CMS.registerCustomContentType({
+				
+				// this property value MUST be lowercase
+				id: 'cct_bb1_grid3'
+				
+				// The view to render the CCT
+			,	view: Grid3CCTView
 			});
 		}
 	};
