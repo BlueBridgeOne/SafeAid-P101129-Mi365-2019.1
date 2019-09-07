@@ -3,6 +3,7 @@
     style="background-color:{{custrecord_bb1_banner_cct_bgcolour}};color:{{custrecord_bb1_banner_cct_fgcolour}};{{#if custrecord_bb1_banner_cct_bgimage_url}}background-image:url('{{custrecord_bb1_banner_cct_bgimage_url}}');{{/if}}">
     <div class="cct-banner-inner-container">
       <h1>{{custrecord_bb1_banner_cct_title}}</h1>
+      <h3>{{custrecord_bb1_banner_cct_subtitle}}</h3>
     </div>
   </div>
 </div>

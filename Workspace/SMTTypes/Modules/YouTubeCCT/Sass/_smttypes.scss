@@ -20,8 +20,11 @@
 	width: 100%;
 	margin-bottom: $sc-margin-lv6;
 
-	h1 {
+	h1,h3 {
 		color: inherit;
+	}
+	h3{	
+		margin-top:-1rem;
 	}
 }
 
@@ -35,7 +38,7 @@
 
 .cct-banner-inner-container {
 	@extend .container;
-	padding: 2.5% 2.5% 6% 6%;
+	padding: 2.5% 2.5% 4% 6%;
 }
 .grid{
 	margin-left: calc(50% - 50vw);
@@ -62,8 +65,7 @@
 }
 
 .grid2-cell {
-	padding-left: $sc-padding-lv3;
-	padding-right: $sc-padding-lv3;
+	padding: $sc-padding-lv3;
 	width: 100% !important;
 }
 

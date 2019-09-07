@@ -61,6 +61,7 @@ $row-space: $sc-padding-lv3;
 
 .table-flex {
 	width:100%;
+	@extend .table-striped;
 	@include table-flex-fold-all;
 
 	//p elements inside lists are defined with custom attributes

@@ -20,6 +20,8 @@
 	@extend .col-xs-12;
 	@extend .col-sm-9;
 
+	background-color: $white;
+
 	@media (min-width: $screen-sm-min){
 		margin-bottom: 70px;
 	}

@@ -32,6 +32,48 @@
 // <p style="font-weight: $sc-font-weight-semibold;">Freedom lies in being bold. - font weight $sc-font-weight-semibold.</p>
 // <p style="font-weight: $sc-font-weight-bold;">Freedom lies in being bold. - font weight $sc-font-weight-bold.</p>
 //
+
+
+@font-face {
+    font-family: "UniversLTPro-45Light";
+    src: url(getThemeAssetsPath("fonts/Linotype-UniversLTPro45Light.eot")); /* IE9 Compat Modes */
+    src: url(getThemeAssetsPath("fonts/Linotype-UniversLTPro45Light.eot?#iefix")) format("embedded-opentype"), /* IE6-IE8 */
+      url(getThemeAssetsPath("fonts/Linotype-UniversLTPro45Light.otf")) format("opentype"), /* Open Type Font */
+      url(getThemeAssetsPath("fonts/Linotype-UniversLTPro45Light.svg")) format("svg"), /* Legacy iOS */
+      url(getThemeAssetsPath("fonts/Linotype-UniversLTPro45Light.ttf")) format("truetype"), /* Safari, Android, iOS */
+      url(getThemeAssetsPath("fonts/Linotype-UniversLTPro45Light.woff")) format("woff"), /* Modern Browsers */
+      url(getThemeAssetsPath("fonts/Linotype-UniversLTPro45Light.woff2")) format("woff2"); /* Modern Browsers */
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "UniversLTPro-BoldCond";
+    src: url(getThemeAssetsPath("fonts/Linotype-UniversLTPro47LtCnBold.eot")); /* IE9 Compat Modes */
+    src: url(getThemeAssetsPath("fonts/Linotype-UniversLTPro47LtCnBold.eot?#iefix")) format("embedded-opentype"), /* IE6-IE8 */
+      url(getThemeAssetsPath("fonts/Linotype-UniversLTPro47LtCnBold.otf")) format("opentype"), /* Open Type Font */
+      url(getThemeAssetsPath("fonts/Linotype-UniversLTPro47LtCnBold.svg")) format("svg"), /* Legacy iOS */
+      url(getThemeAssetsPath("fonts/Linotype-UniversLTPro47LtCnBold.ttf")) format("truetype"), /* Safari, Android, iOS */
+      url(getThemeAssetsPath("fonts/Linotype-UniversLTPro47LtCnBold.woff")) format("woff"), /* Modern Browsers */
+      url(getThemeAssetsPath("fonts/Linotype-UniversLTPro47LtCnBold.woff2")) format("woff2"); /* Modern Browsers */
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "NimbusSanCon-Bla";
+    src: url(getThemeAssetsPath("fonts/URW-NimbusSanCon-Bla.eot")); /* IE9 Compat Modes */
+    src: url(getThemeAssetsPath("fonts/URW-NimbusSanCon-Bla.eot?#iefix")) format("embedded-opentype"), /* IE6-IE8 */
+      url(getThemeAssetsPath("fonts/URW-NimbusSanCon-Bla.otf")) format("opentype"), /* Open Type Font */
+      url(getThemeAssetsPath("fonts/URW-NimbusSanCon-Bla.svg")) format("svg"), /* Legacy iOS */
+      url(getThemeAssetsPath("fonts/URW-NimbusSanCon-Bla.ttf")) format("truetype"), /* Safari, Android, iOS */
+      url(getThemeAssetsPath("fonts/URW-NimbusSanCon-Bla.woff")) format("woff"), /* Modern Browsers */
+      url(getThemeAssetsPath("fonts/URW-NimbusSanCon-Bla.woff2")) format("woff2"); /* Modern Browsers */
+    font-weight: normal;
+    font-style: normal;
+  }
+
+
 // Styleguide 1.2
 $sc-font-size-base: 16px;
 $sc-font-size-xxs: 0.75rem;
@@ -39,12 +81,12 @@ $sc-font-size-xs: 0.87rem;
 $sc-font-size-s: 0.93rem;
 $sc-font-size-m: 1rem;
 $sc-font-size-l: 1.3rem;
-$sc-font-size-xl: 1.9rem;
-$sc-font-size-xxl: 2.8rem;
-$sc-font-size-xxxl: 4rem;
+$sc-font-size-xl: 2rem;
+$sc-font-size-xxl: 3rem;
+$sc-font-size-xxxl: 4.5rem;
 
 // Font family
-$sc-font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$sc-font-family: "UniversLTPro-45Light","Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 // Font weight
 $sc-font-weight-light: 300;

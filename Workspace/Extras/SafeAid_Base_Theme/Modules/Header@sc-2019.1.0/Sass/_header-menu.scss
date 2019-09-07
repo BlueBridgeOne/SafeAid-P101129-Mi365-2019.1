@@ -40,6 +40,8 @@
 .header-menu-level1-anchor {
 	display: block;
 	position: relative;
+	font-family: "NimbusSanCon-Bla";
+	font-size:$sc-font-size-l;
 
 	padding: $sc-padding-lv2;
 	margin-right: $sc-main-navigation-link-margin-right;
@@ -50,43 +52,23 @@
     text-transform: $sc-main-navigation-link-text-transform;
     letter-spacing: $sc-main-navigation-link-letter-spacing;
 
-    border-style: solid;
-	border-color: $sc-main-navigation-link-border-color;
+    border-color: $sc-main-navigation-link-border-color;
 
-	border-top-width: $sc-main-navigation-link-border-top-width;
-	padding-top: ($sc-padding-lv2) - ($sc-main-navigation-link-border-top-width);
+	padding-top: 15px;
 
-	border-bottom-width: $sc-main-navigation-link-border-bottom-width;
-	padding-bottom: ($sc-padding-lv2) - ($sc-main-navigation-link-border-bottom-width);
 	line-height: 34px;
+	height:54px;
 
     &:hover, &:focus{
 		color: $sc-main-navigation-link-hover-color;
 		background-color: $sc-main-navigation-link-hover-background-color;
 
-		border-style: solid;
-		border-color: $sc-main-navigation-link-hover-border-color;
-
-		border-top-width: $sc-main-navigation-link-hover-border-top-width;
-		padding-top: ($sc-padding-lv2) - ($sc-main-navigation-link-hover-border-top-width);
-
-		border-bottom-width: $sc-main-navigation-link-hover-border-bottom-width;
-		padding-bottom: ($sc-padding-lv2) - ($sc-main-navigation-link-hover-border-bottom-width);
-	}
+}
 
 	&:active {
 		color: $sc-main-navigation-link-active-color;
 		background-color: $sc-main-navigation-link-active-background-color;
-
-		border-style: solid;
-		border-color: $sc-main-navigation-link-active-border-color;
-
-		border-top-width: $sc-main-navigation-link-active-border-top-width;
-		padding-top: ($sc-padding-lv2) - ($sc-main-navigation-link-active-border-top-width);
-
-		border-bottom-width: $sc-main-navigation-link-active-border-bottom-width;
-		padding-bottom: ($sc-padding-lv2) - ($sc-main-navigation-link-active-border-bottom-width);
-	}
+}
 }
 
 .open .header-menu-level1-anchor{
@@ -112,7 +94,8 @@
 .header-menu-level2-anchor {
 	text-transform: $sc-main-navigation-submenu-heading-text-transform;
 	text-decoration: $sc-main-navigation-submenu-heading-text-decoration;
-	font-weight: $sc-font-weight-semibold;
+	font-family: "NimbusSanCon-Bla";
+	font-size:$sc-font-size-l;
 	color: $sc-main-navigation-submenu-heading-color;
 	padding-bottom: $sc-padding-lv1;
 	margin-bottom: $sc-margin-lv2;
