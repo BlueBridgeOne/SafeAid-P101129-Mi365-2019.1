@@ -13,17 +13,23 @@
   </ul>
 
   <div class="mi365-buttons">
+    {{#if showWearers}}
+    <button class="mi365-button" data-action="wearers">Wearers</button>
+    {{/if}}
     {{#if showStock}}
-    <button class="button-secondary button-medium" data-action="stock">Stock</button>
+    <button class="mi365-button" data-action="stock">Stock</button>
     {{/if}}
     {{#if showTransfers}}
-    <button class="button-secondary button-medium" data-action="transfers">Transfers</button>
+    <button class="mi365-button" data-action="transfers">Transfers</button>
     {{/if}}
     {{#if showConfirm}}
-    <button class="button-secondary button-medium" data-action="confirm">Confirm</button>
+    <button class="mi365-button" data-action="confirm">Confirm</button>
     {{/if}}
     {{#if showDelete}}
-    <button class="button-secondary button-medium" data-action="delete">Delete</button>
+    <button class="mi365-button" data-action="delete">Delete</button>
+    {{/if}}
+    {{#if showStartTransfer}}
+    <button class="mi365-button" data-action="start-transfer">Transfer to Wearer</button>
     {{/if}}
   </div>
 
@@ -51,6 +57,7 @@
           <input type="text" readonly class="mi365-information-input-large" value="{{value}}"></div>
       </div>
       {{/ifEquals}}
+
       {{#ifEquals type "record"}}
       <div class="mi365-information-row {{#unless ../editable}}mi365-information-input-readonly{{/unless}}"
         data-input="{{id}}" data-validation="control-group"><label class="mi365-information-label" for="{{id}}">
@@ -79,6 +86,22 @@
       </div>
       {{/ifEquals}}
 
+      {{#ifEquals type "choice"}}
+      <div class="mi365-information-row {{#unless ../editable}}mi365-information-input-readonly{{/unless}}"
+        data-input="{{id}}" data-validation="control-group"><label class="mi365-information-label" for="{{id}}">
+          {{label}} {{#if ../editable}}{{#if mandatory}}<small class="mi365-information-input-required">*</small>
+          {{else}} <small class="mi365-information-input-optional">(optional)</small>{{/if}}{{/if}}</label>
+        <div class="mi365-information-group-form-controls" data-validation="control">
+         
+          <select {{#unless ../editable}}readonly{{/unless}} class="mi365-information-input-large"
+            id="{{id}}" name="{{id}}">
+            {{#each value.choice}}
+            <option value={{value}} {{#ifEquals value ../value.value}}selected{{/ifEquals}}>{{text}}</option>
+            {{/each}}
+            </select></div>
+      </div>
+      {{/ifEquals}}
+
       {{#ifEquals type "signature"}}
       <div class="mi365-information-row {{#unless ../editable}}mi365-information-input-readonly{{/unless}}"
         data-input="{{id}}" data-validation="control-group"><label class="mi365-information-label" for="{{id}}">
@@ -99,6 +122,9 @@
         {{/if}}
         {{/each}}
     </fieldset>
+          {{#if task}}
+      <input type="hidden" id="task" name="task" value="{{task}}">
+      {{/if}}
     {{#if editable}}
     <div class="mi365-information-form-actions"><button type="submit"
         class="mi365-information-button-update">{{#if confirmText}}{{confirmText}}{{else}}Update{{/if}}</button></div>

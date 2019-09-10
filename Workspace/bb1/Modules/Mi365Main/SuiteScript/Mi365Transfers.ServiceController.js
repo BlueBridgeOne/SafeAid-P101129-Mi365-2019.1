@@ -85,20 +85,7 @@ define(
 					var id = request.getParameter("id");
 					var wearer = request.getParameter("wearer");
 					var area = request.getParameter("area");
-					// if(task=="new"){
 
-					// 		var rec=nlapiCreateRecord(this.recordtype);
-
-					// 		rec.setFieldValue("custrecord_bb1_sca_area_company",customer);
-					// 		rec.setFieldValue("name","Transfer #"+Math.floor(Math.random()*1000000));
-					// 		id=nlapiSubmitRecord(rec, true, true);
-
-					// 		rec=nlapiLoadRecord(this.recordtype, id);
-					// 		rec.setFieldValue("name","Transfer #"+id);
-					// 		nlapiSubmitRecord(rec, true, true);
-
-
-					// }
 
 
 					//nlapiLogExecution("debug", "field values",JSON.stringify(customer.getFieldValues()));

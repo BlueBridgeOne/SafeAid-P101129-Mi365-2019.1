@@ -89,7 +89,8 @@
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Transfers.Collection.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Transfers.Model.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Transfers.View.js",
-                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365ConfirmTransfer.View.js"
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365ConfirmTransfer.View.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365StartTransfer.View.js"
                 ]
             }
         }

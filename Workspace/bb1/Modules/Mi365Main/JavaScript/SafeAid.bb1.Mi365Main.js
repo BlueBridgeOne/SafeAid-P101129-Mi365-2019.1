@@ -1,13 +1,17 @@
 /*BB1 G Truslove 2017*/
 
 define(
-	'SafeAid.bb1.Mi365Main', [
+	'SafeAid.bb1.Mi365Main', ['Handlebars',
 		 'SafeAid.bb1.Mi365Router'
 	],
 	function (
-		 Mi365Router
+		Handlebars,Mi365Router
 	) {
 		'use strict';
+
+		Handlebars.registerHelper('toJSON', function(obj) {
+			return JSON.stringify(obj, null, 3);
+		});
 
 		return {
 			mountToApp: function mountToApp(container) {
@@ -23,6 +27,7 @@ define(
 					function(result) {
 						console.log(result);
 					});
+
 
 
 

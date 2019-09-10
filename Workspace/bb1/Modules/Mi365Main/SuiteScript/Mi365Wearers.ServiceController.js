@@ -37,7 +37,7 @@ define(
 			}, {
 				id: "custrecord_bb1_sca_wearer_area",
 				label: "Area",
-				type: "text",
+				type: "record",
 				mandatory: true,
 				list: true
 			}],
@@ -63,6 +63,7 @@ define(
 
 					var task = request.getParameter("task");
 					var id = request.getParameter("id");
+					var area = request.getParameter("area");
 					if (task == "new") {
 						
 							var rec = nlapiCreateRecord(this.recordtype);
@@ -99,6 +100,11 @@ define(
 							["isinactive", "is", "F"]
 						];
 
+						if (area) {
+							filter.unshift("AND");
+							filter.unshift(["custrecord_bb1_sca_wearer_area", "anyof", area]);
+						}
+
 						var find = [];
 						for (var j = 0; j < this.fields.length; j++) {
 							if (this.fields[j].list || this.fields[j].listonly || id) {
@@ -110,9 +116,9 @@ define(
 							filter.unshift("AND");
 							filter.unshift(["internalid", "is", id]);
 						}
-						nlapiLogExecution("debug", "filter ", JSON.stringify(filter));
-						nlapiLogExecution("debug", "find ", JSON.stringify(find));
-						nlapiLogExecution("debug", "this.recordtype ", this.recordtype);
+						// nlapiLogExecution("debug", "filter ", JSON.stringify(filter));
+						// nlapiLogExecution("debug", "find ", JSON.stringify(find));
+						// nlapiLogExecution("debug", "this.recordtype ", this.recordtype);
 
 						var contactSearch = nlapiSearchRecord(this.recordtype, null,
 							filter,
@@ -141,11 +147,47 @@ define(
 									}
 								}
 
+								if (id) { //add area choices
+
+									data.custrecord_bb1_sca_wearer_area.choice = [];
+									if (data.custrecord_bb1_sca_wearer_area.value) {
+										filter = [
+											["isinactive", "is", "F"],
+											"AND",
+											["custrecord_bb1_sca_area_company", "is", customer]
+	
+										];
+	
+										find = [];
+										find.push(new nlobjSearchColumn("name"));
+	
+	
+	
+										var areaSearch = nlapiSearchRecord("customrecord_bb1_sca_area", null,
+											filter,
+											find
+										);
+										var wresult;
+										if (areaSearch) {
+	
+											for (var j = 0; j < areaSearch.length; j++) {
+												wresult = areaSearch[j];
+												data.custrecord_bb1_sca_wearer_area.choice.push({
+													value: wresult.getId(),
+													text: wresult.getValue("name")
+												});
+											}
+										}
+									}
+	
+								}
+
 								results.push(data);
 							}
 						}
 						if (id) {
 							if (results.length > 0) {
+								
 								return results[0];
 							} else {
 								throw (new Error("The wearer could not found."));

@@ -49,7 +49,7 @@ define('SafeAid.bb1.Mi365Wearer.View', [
 		},{
 			id: "custrecord_bb1_sca_wearer_area",
 			label: "Area",
-			type: "text",
+			type: "choice",
 			mandatory: true,
 			list:true
 		}],
@@ -120,14 +120,25 @@ var deleteId=this.model.get("id");
 		,
 		getContext: function getContext() {
 
-			//{id:"custentity_bb1_sca_allowviewreports",label:"Allow View Reports",type:"checkbox"};
 			for (var i = 0; i < this.fields.length; i++) {
 				if (!this.fields[i].listonly) {
 					if (this.model.get(this.fields[i].id)) {
 						this.fields[i].value = this.model.get(this.fields[i].id);
 					}
+					if(this.fields[i].type=="choice"){
+						var choiceValue=this.fields[i].value;
+						for(var j=0;j<choiceValue.choice.length;j++){
+							if(choiceValue.choice[j].value==choiceValue.value){
+								choiceValue.choice.unshift(choiceValue.choice.splice(j, 1)[0]);
+								break;
+							}
+						}
+						this.fields[i].value=choiceValue;
+					}
 				}
 			}
+		
+			
 			return {
 				title:"Wearer",
 				model: this.model,

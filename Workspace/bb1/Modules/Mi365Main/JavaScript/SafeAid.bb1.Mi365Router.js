@@ -15,6 +15,7 @@ define('SafeAid.bb1.Mi365Router', [
     'SafeAid.bb1.Mi365Transfers.View',
     'SafeAid.bb1.Mi365Transfer.View',
     'SafeAid.bb1.Mi365ConfirmTransfer.View',
+    'SafeAid.bb1.Mi365StartTransfer.View',
     'SafeAid.bb1.Mi365Buyers.Collection',
     'SafeAid.bb1.Mi365Buyers.Model',
     'SafeAid.bb1.Mi365Areas.Collection',
@@ -43,6 +44,7 @@ define('SafeAid.bb1.Mi365Router', [
     Mi365TransfersView,
     Mi365TransferView,
     Mi365ConfirmTransferView,
+    Mi365StartTransferView,
     Mi365BuyersCollection,
     Mi365BuyersModel,
     Mi365AreasCollection,
@@ -75,7 +77,9 @@ define('SafeAid.bb1.Mi365Router', [
             'Mi365/area/stock/:id': 'AreaStocks',
             'Mi365/stock/:id': 'Stock',
             'Mi365/wearer/transfers/:id': 'WearerTransfers',
+            'Mi365/area/wearers/:id': 'AreaWearers',
             'Mi365/area/transfers/:id': 'AreaTransfers',
+            'Mi365/area/transfers/new/:id': 'StartTransfer',
             'Mi365/transfer/:id': 'Transfer',
             'Mi365/transfer/confirm/:id': 'ConfirmTransfer'
 
@@ -176,6 +180,19 @@ define('SafeAid.bb1.Mi365Router', [
                 view.showContent();
             });
         },
+        AreaWearers: function (id) {
+            var collection = new Mi365WearersCollection();
+            var view = new Mi365WearersView({
+                collection: collection,
+                application: this.application
+            });
+
+            collection.fetch({
+                data: {area:id}
+            }).done(function () {
+                view.showContent();
+            });
+        },
         Wearers: function () {
             var collection = new Mi365WearersCollection();
             var view = new Mi365WearersView({
@@ -245,6 +262,24 @@ define('SafeAid.bb1.Mi365Router', [
                 data: {
                     id: id,
 					t: new Date().getTime()
+                }
+            }).done(function () {
+                view.showContent();
+            });
+        },        
+        StartTransfer: function (id) {
+            var model = new Mi365StocksModel();
+            var view = new Mi365StartTransferView({
+                model: model,
+                application: this.application
+            });
+
+            model.fetch({
+                data: {
+                    id: id,
+                    t: new Date().getTime(),
+                    includeWearers:"T"
+                    
                 }
             }).done(function () {
                 view.showContent();

@@ -112,9 +112,13 @@ define('SafeAid.bb1.Mi365Buyer.View', [
 			'click [data-action="delete"]': 'deleteRecord'
 		},
 		deleteRecord: function (e) {
+
+			var self=this;
+			Tools.showConfirmInModal(this.application, _('Delete Buyer').translate(), _('Please confirm you want to delete this record.').translate(), function () {
+
 			console.log("delete Record");
 			var model = new Mi365BuyersModel();
-var deleteId=this.model.get("id");
+var deleteId=self.model.get("id");
 
 			model.fetch({
 				data: {
@@ -128,6 +132,8 @@ var deleteId=this.model.get("id");
 					trigger: true
 				});
 			});
+
+		});
 		},
 		showSuccess: function () {
 			if (this.$savingForm) {

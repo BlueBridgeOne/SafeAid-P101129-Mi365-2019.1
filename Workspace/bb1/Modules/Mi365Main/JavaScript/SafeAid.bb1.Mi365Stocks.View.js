@@ -49,6 +49,7 @@ define('SafeAid.bb1.Mi365Stocks.View', [
 			//@method getContext @return SafeAid.bb1.Mi365Main.View.Context
 			,
 		getContext: function getContext() {
+			
 			var title = "All",
 				active = "All",
 				breadcrumbs = [],

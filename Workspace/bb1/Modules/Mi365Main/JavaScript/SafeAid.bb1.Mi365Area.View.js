@@ -49,37 +49,53 @@ define('SafeAid.bb1.Mi365Area.View', [
 			'submit form': 'saveForm',
 			'click [data-action="delete"]': 'deleteRecord',
 			'click [data-action="stock"]': 'showStock',
-			'click [data-action="transfers"]': 'showTransfers'
+			'click [data-action="transfers"]': 'showTransfers',
+			'click [data-action="wearers"]': 'showWearers'
 		},
 		showStock: function (e) {
-			var stockId=this.model.get("id");
-			Backbone.history.navigate('#Mi365/area/stock/'+stockId, {
+			var stockId = this.model.get("id");
+			Backbone.history.navigate('#Mi365/area/stock/' + stockId, {
 				trigger: true
 			});
 		},
 		showTransfers: function (e) {
-			var transferId=this.model.get("id");
-			Backbone.history.navigate('#Mi365/area/transfers/'+transferId, {
+			var transferId = this.model.get("id");
+			Backbone.history.navigate('#Mi365/area/transfers/' + transferId, {
+				trigger: true
+			});
+		},
+		showWearers: function (e) {
+			var areaId = this.model.get("id");
+			Backbone.history.navigate('#Mi365/area/wearers/' + areaId, {
 				trigger: true
 			});
 		},
 		deleteRecord: function (e) {
-			console.log("delete Record");
-			var model = new Mi365AreasModel();
-var deleteId=this.model.get("id");
+			var self=this;
+			Tools.showConfirmInModal(this.application, _('Delete Area').translate(), _('Please confirm you want to delete this record.').translate(), function () {
 
-			model.fetch({
-				data: {
-					id: deleteId,
-					task: "delete",
-					t: new Date().getTime()
-				}
-			}).always(function () {
-				console.log("deleted " + deleteId);
-				Backbone.history.navigate('#Mi365/areas', {
-					trigger: true
+				console.log("delete Record");
+				var model = new Mi365AreasModel();
+				var deleteId = self.model.get("id");
+
+				model.fetch({
+					data: {
+						id: deleteId,
+						task: "delete",
+						t: new Date().getTime()
+					}
+				}).always(function () {
+					console.log("deleted " + deleteId);
+					Backbone.history.navigate('#Mi365/areas', {
+						trigger: true
+					});
 				});
+
+
 			});
+
+
+
 		},
 		showSuccess: function () {
 			if (this.$savingForm) {
@@ -105,15 +121,19 @@ var deleteId=this.model.get("id");
 				}
 			}
 			return {
-				title:"Area",
+				title: "Area",
 				model: this.model,
 				fields: this.fields || [],
-				editable:true,
-				showDelete:true,
-				showStock:true,
-				showTransfers:true,
-				breadcrumbs:[{href:"#Mi365/wearers",label:"Areas"}],
-				active:this.model.get("name")
+				editable: true,
+				showDelete: true,
+				showStock: true,
+				showTransfers: true,
+				showWearers: true,
+				breadcrumbs: [{
+					href: "#Mi365/wearers",
+					label: "Areas"
+				}],
+				active: this.model.get("name")
 			};
 		}
 	});

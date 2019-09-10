@@ -8,7 +8,7 @@
 			<li class="global-views-breadcrumb-item-active"> Wearers </li>
 </ul>
   <div class="mi365-buttons">
-    <button class="button-secondary button-medium" data-action="new">New</button>
+    <button class="mi365-button" data-action="new">New</button>
   </div>
   <table class="mi365-records">
     <thead class="mi365-records-head">
@@ -35,7 +35,7 @@
             class="recordviews-selectable-value">{{custrecord_bb1_sca_wearer_phone}}</span>
         </td>
         <td class="recordviews-selectable-td"> <span class="recordviews-selectable-label">Area:</span> <span
-            class="recordviews-selectable-value">{{custrecord_bb1_sca_wearer_area}}</span>
+            class="recordviews-selectable-value"><a href="Mi365/area/{{custrecord_bb1_sca_wearer_area.value}}">{{custrecord_bb1_sca_wearer_area.text}}</a></span>
         </td>
       </tr>
       {{/each}}

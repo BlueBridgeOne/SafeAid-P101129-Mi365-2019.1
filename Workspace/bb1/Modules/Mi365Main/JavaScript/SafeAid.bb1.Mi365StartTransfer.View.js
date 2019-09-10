@@ -1,5 +1,5 @@
 // @module SafeAid.bb1.Mi365Main
-define('SafeAid.bb1.Mi365Stock.View', [
+define('SafeAid.bb1.Mi365StartTransfer.View', [
 	'SafeAid.bb1.Mi365Stocks.Model',
 	'safeaid_bb1_mi365record.tpl',
 	'Utils',
@@ -30,39 +30,25 @@ define('SafeAid.bb1.Mi365Stock.View', [
 			mandatory: true,
 			list: true
 		}, {
-			id: "custrecord_bb1_sca_companystock_location",
-			label: "Location",
-			type: "record",
-			mandatory: true,
-			list: true
-		}, {
 			id: "custrecord_bb1_sca_companystock_area",
-			label: "Area",
+			label: "From Area",
 			type: "record",
 			list: true,
 			mandatory: true,
 			url: "#Mi365/area/"
 		}, {
 			id: "custrecord_bb1_sca_companystock_wearer",
-			label: "Wearer",
-			type: "record",
+			label: "To Wearer",
+			type: "choice",
 			list: true,
 			mandatory: true,
 			url: "#Mi365/wearer/"
 		}, {
 			id: "custrecord_bb1_sca_companystock_quantity",
 			label: "Quantity",
-			type: "readonlytext",
+			type: "text",
 			mandatory: true,
 			list: true
-		}, {
-			id: "custrecord_bb1_sca_companystock_minquant",
-			label: "Re-Order Minimum",
-			type: "text"
-		}, {
-			id: "custrecord_bb1_sca_companystock_maxquant",
-			label: "Re-Order Maximum",
-			type: "text"
 		}],
 		initialize: function (options) {
 
@@ -81,27 +67,21 @@ define('SafeAid.bb1.Mi365Stock.View', [
 
 			,
 		events: {
-			'submit form': 'saveForm',
-			'click [data-action="start-transfer"]': 'startTransfer'
+			'submit form': 'saveForm'
 		},
-		startTransfer: function (e) {
-			console.log("start Transfer");
-
-			var stockId = this.model.get("id");
-
-			console.log("stock " + stockId);
-				Backbone.history.navigate('#Mi365/area/transfers/new/'+stockId, {
+		showSuccess: function (res) {
+			if (this.$savingForm) {
+				//Redirect here!
+				//Bit of a hack, I returned the new transfer record, which gets mixed with the old stock record. But at least the data is available to use.
+				Backbone.history.navigate('#Mi365/transfer/' + res.get("id"), {
 					trigger: true
 				});
-		},
-		showSuccess: function () {
-			if (this.$savingForm) {
-				Tools.showSuccessInModal(this.application, _('Update Success').translate(), _('This wearer has been successfully updated!').translate());
+
 			}
 		},
 		showError: function (err) {
 			if (this.$savingForm) {
-				Tools.showErrorInModal(this.application, _('Update Failed!').translate(), _(err).translate());
+				Tools.showErrorInModal(this.application, _('Transfer Failed!').translate(), _(err).translate());
 			}
 		},
 		childViews: {}
@@ -111,7 +91,7 @@ define('SafeAid.bb1.Mi365Stock.View', [
 
 			//{id:"custentity_bb1_sca_allowviewreports",label:"Allow View Reports",type:"checkbox"};
 			var newFields = [],
-				location, breadcrumbs = [],title="Stock";
+				location, breadcrumbs = [];
 
 			for (var i = 0; i < this.fields.length; i++) {
 				if (!this.fields[i].listonly) {
@@ -123,29 +103,27 @@ define('SafeAid.bb1.Mi365Stock.View', [
 						location = this.fields[i].value.text;
 					} else if (location == "Area") {
 						if (this.fields[i].id == "custrecord_bb1_sca_companystock_area") {
-							title = this.model.get("custrecord_bb1_sca_companystock_area").text+" Stock";
 							newFields.push(this.fields[i]);
-							breadcrumbs= [{
-								href: "#Mi365/area/"+this.fields[i].value.value,
+							breadcrumbs = [{
+								href: "#Mi365/area/" + this.fields[i].value.value,
 								label: this.fields[i].value.text
-							},{
-								href: "#Mi365/area/stock/"+this.fields[i].value.value,
+							}, {
+								href: "#Mi365/area/stock/" + this.fields[i].value.value,
 								label: "Stock"
 							}];
-						} else if (this.fields[i].id == "custrecord_bb1_sca_companystock_minquant" || this.fields[i].id == "custrecord_bb1_sca_companystock_maxquant" || this.fields[i].id == "custrecord_bb1_sca_companystock_quantity")
+						} else if (this.fields[i].id == "task" || this.fields[i].id == "custrecord_bb1_sca_companystock_minquant" || this.fields[i].id == "custrecord_bb1_sca_companystock_maxquant" || this.fields[i].id == "custrecord_bb1_sca_companystock_quantity")
 							newFields.push(this.fields[i]);
 					} else if (location == "Wearer") {
 						if (this.fields[i].id == "custrecord_bb1_sca_companystock_wearer") {
-							title = this.model.get("custrecord_bb1_sca_companystock_Wearer").text+" Stock";
 							newFields.push(this.fields[i]);
-							breadcrumbs= [{
-								href: "#Mi365/wearer/"+this.fields[i].value.value,
+							breadcrumbs = [{
+								href: "#Mi365/wearer/" + this.fields[i].value.value,
 								label: this.fields[i].value.text
-							},{
-								href: "#Mi365/wearer/stock/"+this.fields[i].value.value,
+							}, {
+								href: "#Mi365/wearer/stock/" + this.fields[i].value.value,
 								label: "Stock"
 							}];
-						} else if (this.fields[i].id == "custrecord_bb1_sca_companystock_quantity") {
+						} else if (this.fields[i].id == "task" || this.fields[i].id == "custrecord_bb1_sca_companystock_quantity") {
 							newFields.push(this.fields[i]);
 						}
 					} else {
@@ -153,19 +131,16 @@ define('SafeAid.bb1.Mi365Stock.View', [
 					}
 				}
 			}
-			var allowTransfers=false;
-			if(location=="Area"&&parseInt(this.model.get("custrecord_bb1_sca_companystock_quantity"))>0){
-				allowTransfers=true;
-			}
-		
+			this.model.set("custrecord_bb1_sca_companystock_quantity", 1);
 			return {
-				title: title,
+				title: "Transfer Stock to Wearer",
 				model: this.model,
 				fields: newFields || [],
 				editable: true,
 				breadcrumbs: breadcrumbs,
-				showStartTransfer:allowTransfers,
-				active: this.model.get("custrecord_bb1_sca_companystock_item").text
+				active: this.model.get("custrecord_bb1_sca_companystock_item").text,
+				confirmText: "Transfer",
+				task: "starttransfer"
 			};
 		}
 	});

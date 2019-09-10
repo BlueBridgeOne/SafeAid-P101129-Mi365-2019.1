@@ -8,7 +8,8 @@
 */ 
 
 .mi365-info-card {
-    @extend .info-card;
+	margin-top:$sc-padding-lv3;
+	margin-bottom:$sc-padding-lv3;
 }
 
 .mi365-info-card-content {
@@ -85,4 +86,11 @@ color: $sc-color-theme-500;
 }
 #mySignCanvas{max-width:600px;max-height:300px;display:block;}
 .readonly-sign{max-width:400px!important;max-height:200px!important;}
+
+.mi365-button{
+	@extend .button-secondary;
+	@extend .button-medium;
+margin-bottom:$sc-margin-lv1;
+min-width:150px;
+}
 
