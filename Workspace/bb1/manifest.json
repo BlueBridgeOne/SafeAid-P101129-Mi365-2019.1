@@ -23,7 +23,8 @@
                 "services/Mi365Wearers.Service.ss",
                 "services/Mi365Alerts.Service.ss",
                 "services/Mi365Stocks.Service.ss",
-                "services/Mi365Transfers.Service.ss"
+                "services/Mi365Transfers.Service.ss",
+                "services/Mi365Overview.Service.ss"
             ]
         }
     },
@@ -90,7 +91,8 @@
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Transfers.Model.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Transfers.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365ConfirmTransfer.View.js",
-                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365StartTransfer.View.js"
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365StartTransfer.View.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Overview.Model.js"
                 ]
             }
         }
@@ -111,7 +113,9 @@
             "Modules/Mi365Main/SuiteScript/Mi365Stocks.ServiceController.js",
             "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Stocks.js",
             "Modules/Mi365Main/SuiteScript/Mi365Transfers.ServiceController.js",
-            "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Transfers.js"
+            "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Transfers.js",
+            "Modules/Mi365Main/SuiteScript/Mi365Overview.ServiceController.js",
+            "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Overview.js"
         ]
     },
     "local_folder": "Workspace/bb1"

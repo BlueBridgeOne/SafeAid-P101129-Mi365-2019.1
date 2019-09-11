@@ -38,7 +38,15 @@
 
 .cct-banner-inner-container {
 	@extend .container;
-	padding: 2.5% 2.5% 4% 6%;
+	padding: 2.5% 2.5% 4% 60px;
+
+	@media (min-width: $screen-md-min) {
+		padding: 2.5% 2.5% 4% 50px;
+	}
+
+	@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max){
+		padding: 2.5% 2.5% 4% 60px;
+	}
 }
 .grid{
 	margin-left: calc(50% - 50vw);

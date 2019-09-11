@@ -75,6 +75,7 @@ define('SafeAid.bb1.Mi365Transfer.View', [
 			type: "signature"
 		}],
 		initialize: function (options) {
+this.overview=options.overview;
 
 				var bind = {};
 				for (var i = 0; i < this.fields.length; i++) {
@@ -116,6 +117,7 @@ define('SafeAid.bb1.Mi365Transfer.View', [
 			}
 		},
 		render: function () {
+			
 try{
 			this._render();
 			var confirmed = false,
@@ -157,6 +159,8 @@ try{
 		}
 		},
 		getContext: function getContext() {
+			var allowEdit=this.overview.get("custentity_bb1_sca_allowtransferstock")=="T";
+			
 			var confirmed = false,
 				newFields = [];
 			//{id:"custentity_bb1_sca_allowviewreports",label:"Allow View Reports",type:"checkbox"};
@@ -179,7 +183,7 @@ try{
 				fields: newFields || [],
 				editable: false,
 				showDelete: false,
-				showConfirm: !confirmed,
+				showConfirm: (!confirmed)&&allowEdit,
 				breadcrumbs: [{
 					href: "#Mi365/wearer/" + this.model.get("custrecord_bb1_sca_costocktrans_wearer").value,
 					label: "Wearer"

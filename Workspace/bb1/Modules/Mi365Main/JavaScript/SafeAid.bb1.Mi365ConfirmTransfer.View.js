@@ -55,6 +55,7 @@ define('SafeAid.bb1.Mi365ConfirmTransfer.View', [
 			mandatory: true
 		}],
 		initialize: function (options) {
+this.overview=options.overview;
 
 				var bind = {};
 				for (var i = 0; i < this.fields.length; i++) {
@@ -190,6 +191,7 @@ define('SafeAid.bb1.Mi365ConfirmTransfer.View', [
 		},
 
 		getContext: function getContext() {
+			var allowTransferStock=this.overview.get("custentity_bb1_sca_allowtransferstock")=="T";
 			var confirmed = false,
 				newFields = [];
 			//{id:"custentity_bb1_sca_allowviewreports",label:"Allow View Reports",type:"checkbox"};
@@ -214,7 +216,7 @@ define('SafeAid.bb1.Mi365ConfirmTransfer.View', [
 				title: "Confirm Transfer",
 				model: this.model,
 				fields: newFields || [],
-				editable: true,
+				editable: allowTransferStock,
 				showDelete: false,
 				breadcrumbs: [{
 					href: "#Mi365/transfer/" + this.model.get("id"),

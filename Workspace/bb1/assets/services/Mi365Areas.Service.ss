@@ -8,7 +8,6 @@ function service(request, response)
 	} 
 	catch(ex)
 	{
-		console.log('SafeAid.bb1.Mi365Areas.ServiceController ', ex);
 		var controller = require('ServiceController');
 		controller.response = response;
 		controller.request = request;

@@ -26,6 +26,12 @@ define('bb1.SMTTypes.BannerCCT.View'
 		template: bb1_smttypes_bannercct_tpl
 	,	getContext: function getContext()
 		{
+			if(!this.settings.custrecord_bb1_banner_cct_title||this.settings.custrecord_bb1_banner_cct_title==""){
+				this.settings.custrecord_bb1_banner_cct_title="&nsbp";
+			}
+			if(!this.settings.custrecord_bb1_banner_cct_subtitle||this.settings.custrecord_bb1_banner_cct_subtitle==""){
+				this.settings.custrecord_bb1_banner_cct_subtitle="&nsbp";
+			}
 			return this.settings;
 		}
 	});

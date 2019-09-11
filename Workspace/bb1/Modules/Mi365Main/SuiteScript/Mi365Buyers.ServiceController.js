@@ -75,9 +75,21 @@ define(
 				label: "Allow Edit Wearers",
 				type: "checkbox"
 			}, {
+				id: "custentity_bb1_sca_alloweditstock",
+				label: "Allow Edit Stock",
+				type: "checkbox"
+			},{
+				id: "custentity_bb1_sca_allowtransferstock",
+				label: "Allow Transfer Stock",
+				type: "checkbox"
+			}, {
 				id: "custentity_bb1_sca_alloweditspendrules",
 				label: "Allow Edit Spend Rules",
 				type: "checkbox"
+			}, {
+				id: "custentity_bb1_sca_allowviewareas",
+				label: "Allow View Area",
+				type: "multichoice"
 			}],
 
 			// The values in this object are the validation needed for the current service.
@@ -90,7 +102,7 @@ define(
 			get: function get() {
 					//nlapiLogExecution("debug", "SafeAid.bb1.Mi365Buyers.ServiceController.get "+request);
 					var shoppingSession = nlapiGetWebContainer().getShoppingSession();
-					var customer = shoppingSession.getCustomer();
+					
 					var context = nlapiGetContext();
 					var contact = context.getContact();
 					if(!(contact>0)){
@@ -167,7 +179,7 @@ define(
 							for (var j = 0; j < this.fields.length; j++) {
 								if (this.fields[j].list || this.fields[j].listonly || id) {
 									find.push(new nlobjSearchColumn(this.fields[j].id));
-									if (this.fields[j].type == "record") {
+									if (this.fields[j].type == "record"||this.fields[j].type == "multichoice") {
 										data[this.fields[j].id] = {
 											value: result.getValue(this.fields[j].id),
 											text: result.getText(this.fields[j].id)
@@ -176,6 +188,41 @@ define(
 										data[this.fields[j].id] = result.getValue(this.fields[j].id);
 									}
 								}
+							}
+
+							if (id) { //add area choices
+
+								data.custentity_bb1_sca_allowviewareas.choice = [];
+								
+									filter = [
+										["isinactive", "is", "F"],
+										"AND",
+										["custrecord_bb1_sca_area_company", "is", customer]
+
+									];
+
+									find = [];
+									find.push(new nlobjSearchColumn("name"));
+
+
+
+									var areaSearch = nlapiSearchRecord("customrecord_bb1_sca_area", null,
+										filter,
+										find
+									);
+									var wresult;
+									if (areaSearch) {
+
+										for (var j = 0; j < areaSearch.length; j++) {
+											wresult = areaSearch[j];
+											data.custentity_bb1_sca_allowviewareas.choice.push({
+												value: wresult.getId(),
+												text: wresult.getValue("name")
+											});
+										}
+									}
+								
+
 							}
 
 							results.push(data);
@@ -196,7 +243,7 @@ define(
 				,
 			post: function post() {
 				var shoppingSession = nlapiGetWebContainer().getShoppingSession();
-					var customer = shoppingSession.getCustomer();
+					
 					var context = nlapiGetContext();
 					var contact = context.getContact();
 					if(!(contact>0)){

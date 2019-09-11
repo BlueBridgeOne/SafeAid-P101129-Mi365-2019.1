@@ -59,7 +59,7 @@ define(
 			get: function get() {
 					nlapiLogExecution("debug", "SafeAid.bb1.Mi365Stocks.ServiceController.get " + request);
 					var shoppingSession = nlapiGetWebContainer().getShoppingSession();
-					var customer = shoppingSession.getCustomer();
+					
 					var context = nlapiGetContext();
 					var contact = context.getContact();
 					if (!(contact > 0)) {
@@ -183,7 +183,7 @@ define(
 				,
 			post: function post() {
 				var shoppingSession = nlapiGetWebContainer().getShoppingSession();
-				var customer = shoppingSession.getCustomer();
+				
 				var context = nlapiGetContext();
 				var contact = context.getContact();
 				if (!(contact > 0)) {

@@ -8,7 +8,9 @@
 			<li class="global-views-breadcrumb-item-active"> Wearers </li>
 </ul>
   <div class="mi365-buttons">
+    {{#if showNew}}
     <button class="mi365-button" data-action="new">New</button>
+    {{/if}}
   </div>
   <table class="mi365-records">
     <thead class="mi365-records-head">

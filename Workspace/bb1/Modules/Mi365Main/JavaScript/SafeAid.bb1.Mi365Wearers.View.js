@@ -12,7 +12,7 @@ define('SafeAid.bb1.Mi365Wearers.View', [
 
 			,
 		initialize: function (options) {
-
+this.overview=options.overview;
 			}
 
 			,
@@ -49,7 +49,10 @@ define('SafeAid.bb1.Mi365Wearers.View', [
 			//@method getContext @return SafeAid.bb1.Mi365Main.View.Context
 			,
 		getContext: function getContext() {
+			var allowEdit=this.overview.get("custentity_bb1_sca_alloweditwearers")=="T";
+			
 			return {
+				showNew:allowEdit,
 				models: this.collection.models
 			};
 		}

@@ -65,6 +65,7 @@ define('SafeAid.bb1.Mi365Stock.View', [
 			type: "text"
 		}],
 		initialize: function (options) {
+this.overview=options.overview;
 
 				var bind = {};
 				for (var i = 0; i < this.fields.length; i++) {
@@ -108,7 +109,9 @@ define('SafeAid.bb1.Mi365Stock.View', [
 		//@method getContext @return SafeAid.bb1.Mi365Main.View.Context
 		,
 		getContext: function getContext() {
-
+			var allowEdit=this.overview.get("custentity_bb1_sca_alloweditstock")=="T";
+			var allowTransferStock=this.overview.get("custentity_bb1_sca_allowtransferstock")=="T";
+			
 			//{id:"custentity_bb1_sca_allowviewreports",label:"Allow View Reports",type:"checkbox"};
 			var newFields = [],
 				location, breadcrumbs = [],title="Stock";
@@ -162,9 +165,9 @@ define('SafeAid.bb1.Mi365Stock.View', [
 				title: title,
 				model: this.model,
 				fields: newFields || [],
-				editable: true,
+				editable: allowEdit,
 				breadcrumbs: breadcrumbs,
-				showStartTransfer:allowTransfers,
+				showStartTransfer:allowTransfers&&allowEdit&&allowTransferStock,
 				active: this.model.get("custrecord_bb1_sca_companystock_item").text
 			};
 		}

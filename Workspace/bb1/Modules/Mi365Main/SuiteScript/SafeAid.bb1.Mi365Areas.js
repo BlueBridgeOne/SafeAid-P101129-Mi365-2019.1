@@ -10,6 +10,5 @@ define('SafeAid.bb1.Mi365Areas'
 		Mi365AreasServiceController
 	)
 {
-	nlapiLogExecution("debug","SafeAid.bb1.Mi365Areas.ServiceController "+request);
 	'use strict';
 });

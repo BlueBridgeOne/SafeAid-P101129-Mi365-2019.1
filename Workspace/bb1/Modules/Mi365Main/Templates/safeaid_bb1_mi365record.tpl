@@ -50,7 +50,7 @@
       </div>
       {{/ifEquals}}
       {{#ifEquals type "readonlytext"}}
-      <div class="mi365-information-row" data-input="{{id}}" data-validation="control-group"><label
+      <div class="mi365-information-row {{#unless ../editable}}mi365-information-input-readonly{{/unless}}" data-input="{{id}}" data-validation="control-group"><label
           class="mi365-information-label" for="{{id}}">
           {{label}}</label>
         <div class="mi365-information-group-form-controls" data-validation="control">
@@ -92,13 +92,19 @@
           {{label}} {{#if ../editable}}{{#if mandatory}}<small class="mi365-information-input-required">*</small>
           {{else}} <small class="mi365-information-input-optional">(optional)</small>{{/if}}{{/if}}</label>
         <div class="mi365-information-group-form-controls" data-validation="control">
-         
+         {{#if ../editable}}
           <select {{#unless ../editable}}readonly{{/unless}} class="mi365-information-input-large"
             id="{{id}}" name="{{id}}">
             {{#each value.choice}}
             <option value={{value}} {{#ifEquals value ../value.value}}selected{{/ifEquals}}>{{text}}</option>
             {{/each}}
-            </select></div>
+            </select>
+            {{else}}
+            {{#if url}}<a href="{{url}}{{value.value}}">{{/if}}{{value.text}}{{#if url}}</a>{{else}}
+<input type="text" readonly class="mi365-information-input-large" value="{{value.text}}">
+{{/if}}
+            {{/if}}
+            </div>
       </div>
       {{/ifEquals}}
 

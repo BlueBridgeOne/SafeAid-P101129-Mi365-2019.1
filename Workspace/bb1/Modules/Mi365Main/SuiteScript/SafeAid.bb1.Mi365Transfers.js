@@ -10,6 +10,5 @@ define('SafeAid.bb1.Mi365Transfers'
 		Mi365TransfersServiceController
 	)
 {
-	nlapiLogExecution("debug","SafeAid.bb1.Mi365Transfers.ServiceController "+request);
 	'use strict';
 });

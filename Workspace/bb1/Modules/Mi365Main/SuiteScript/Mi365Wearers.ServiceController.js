@@ -52,7 +52,7 @@ define(
 			get: function get() {
 					nlapiLogExecution("debug", "SafeAid.bb1.Mi365Wearers.ServiceController.get " + request);
 					var shoppingSession = nlapiGetWebContainer().getShoppingSession();
-					var customer = shoppingSession.getCustomer();
+					
 					var context = nlapiGetContext();
 					var contact = context.getContact();
 					if(!(contact>0)){
@@ -150,7 +150,7 @@ define(
 								if (id) { //add area choices
 
 									data.custrecord_bb1_sca_wearer_area.choice = [];
-									if (data.custrecord_bb1_sca_wearer_area.value) {
+									
 										filter = [
 											["isinactive", "is", "F"],
 											"AND",
@@ -178,7 +178,7 @@ define(
 												});
 											}
 										}
-									}
+									
 	
 								}
 
@@ -203,7 +203,7 @@ define(
 				,
 			post: function post() {
 				var shoppingSession = nlapiGetWebContainer().getShoppingSession();
-				var customer = shoppingSession.getCustomer();
+				
 				var context = nlapiGetContext();
 				var contact = context.getContact();
 				if(!(contact>0)){

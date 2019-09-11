@@ -51,6 +51,7 @@ define('SafeAid.bb1.Mi365StartTransfer.View', [
 			list: true
 		}],
 		initialize: function (options) {
+this.overview=options.overview;
 
 				var bind = {};
 				for (var i = 0; i < this.fields.length; i++) {
@@ -88,6 +89,7 @@ define('SafeAid.bb1.Mi365StartTransfer.View', [
 		//@method getContext @return SafeAid.bb1.Mi365Main.View.Context
 		,
 		getContext: function getContext() {
+			var allowTransferStock=this.overview.get("custentity_bb1_sca_allowtransferstock")=="T";
 
 			//{id:"custentity_bb1_sca_allowviewreports",label:"Allow View Reports",type:"checkbox"};
 			var newFields = [],
@@ -136,7 +138,7 @@ define('SafeAid.bb1.Mi365StartTransfer.View', [
 				title: "Transfer Stock to Wearer",
 				model: this.model,
 				fields: newFields || [],
-				editable: true,
+				editable: allowTransferStock,
 				breadcrumbs: breadcrumbs,
 				active: this.model.get("custrecord_bb1_sca_companystock_item").text,
 				confirmText: "Transfer",

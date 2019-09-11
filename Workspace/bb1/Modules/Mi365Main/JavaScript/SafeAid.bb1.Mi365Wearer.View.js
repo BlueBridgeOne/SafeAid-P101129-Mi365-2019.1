@@ -51,9 +51,11 @@ define('SafeAid.bb1.Mi365Wearer.View', [
 			label: "Area",
 			type: "choice",
 			mandatory: true,
-			list:true
+			list:true,
+			url:"#Mi365/area/"
 		}],
 		initialize: function (options) {
+			this.overview=options.overview;
 
 				var bind = {};
 				for (var i = 0; i < this.fields.length; i++) {
@@ -119,7 +121,8 @@ var deleteId=this.model.get("id");
 		//@method getContext @return SafeAid.bb1.Mi365Main.View.Context
 		,
 		getContext: function getContext() {
-
+			var allowEdit=this.overview.get("custentity_bb1_sca_alloweditwearers")=="T";
+			
 			for (var i = 0; i < this.fields.length; i++) {
 				if (!this.fields[i].listonly) {
 					if (this.model.get(this.fields[i].id)) {
@@ -143,8 +146,8 @@ var deleteId=this.model.get("id");
 				title:"Wearer",
 				model: this.model,
 				fields: this.fields || [],
-				editable:true,
-				showDelete:true,
+				editable:allowEdit,
+				showDelete:allowEdit,
 				showStock:true,
 				showTransfers:true,
 				breadcrumbs:[{href:"#Mi365/wearers",label:"Wearers"}],

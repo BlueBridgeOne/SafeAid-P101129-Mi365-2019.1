@@ -30,7 +30,7 @@ define('SafeAid.bb1.Mi365Area.View', [
 			mandatory: true
 		}],
 		initialize: function (options) {
-
+this.overview=options.overview;
 				var bind = {};
 				for (var i = 0; i < this.fields.length; i++) {
 					if (!this.fields[i].listonly) {
@@ -111,7 +111,8 @@ define('SafeAid.bb1.Mi365Area.View', [
 		//@method getContext @return SafeAid.bb1.Mi365Main.View.Context
 		,
 		getContext: function getContext() {
-
+			var allowEdit=this.overview.get("custentity_bb1_sca_alloweditareas")=="T";
+			
 			//{id:"custentity_bb1_sca_allowviewreports",label:"Allow View Reports",type:"checkbox"};
 			for (var i = 0; i < this.fields.length; i++) {
 				if (!this.fields[i].listonly) {
@@ -124,8 +125,8 @@ define('SafeAid.bb1.Mi365Area.View', [
 				title: "Area",
 				model: this.model,
 				fields: this.fields || [],
-				editable: true,
-				showDelete: true,
+				editable: allowEdit,
+				showDelete: allowEdit,
 				showStock: true,
 				showTransfers: true,
 				showWearers: true,

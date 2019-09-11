@@ -27,7 +27,10 @@ define('SafeAid.bb1.Mi365Router', [
     'SafeAid.bb1.Mi365Stocks.Collection',
     'SafeAid.bb1.Mi365Stocks.Model',
     'SafeAid.bb1.Mi365Transfers.Collection',
-    'SafeAid.bb1.Mi365Transfers.Model'
+    'SafeAid.bb1.Mi365Transfers.Model',
+    'SafeAid.bb1.Mi365Overview.Model',
+    'jQuery',
+    'Profile.Model'
 ], function (
     Backbone,
     Mi365DashboardView,
@@ -56,12 +59,35 @@ define('SafeAid.bb1.Mi365Router', [
     Mi365StocksCollection,
     Mi365StocksModel,
     Mi365TransfersCollection,
-    Mi365TransfersModel) {
+    Mi365TransfersModel,
+    Mi365OverviewModel,
+    jQuery,
+    ProfileModel) {
 
 
     return Backbone.Router.extend({
         initialize: function (application) {
+            var self=this;
             this.application = application;
+
+            ProfileModel.getPromise().done(function() {
+            self.overview = new Mi365OverviewModel();
+
+            self.overview.fetch({
+                data: {
+                    t: new Date().getTime()
+                }
+            }).done(function () { //show Mi365 if silver or better.
+                console.log(self.overview);
+                var level = self.overview.get("level");
+                console.log("level: "+level);
+                if (level && level != "bronze") {
+                    var menu = jQuery("a[data-id='mi365']");
+                    menu.css("display", "block");
+                }
+            });
+        });
+
         },
         routes: {
             'Mi365': 'Dashboard',
@@ -86,7 +112,8 @@ define('SafeAid.bb1.Mi365Router', [
         },
         Dashboard: function () {
             var view = new Mi365DashboardView({
-                application: this.application
+                application: this.application,
+                overview:this.overview
             });
             view.showContent();
         },
@@ -94,13 +121,14 @@ define('SafeAid.bb1.Mi365Router', [
             var model = new Mi365TransfersModel();
             var view = new Mi365ConfirmTransferView({
                 model: model,
-                application: this.application
+                application: this.application,
+                overview:this.overview
             });
 
             model.fetch({
                 data: {
                     id: id,
-					t: new Date().getTime()
+                    t: new Date().getTime()
                 }
             }).done(function () {
                 view.showContent();
@@ -110,42 +138,45 @@ define('SafeAid.bb1.Mi365Router', [
             var model = new Mi365BuyersModel();
             var view = new Mi365BuyerView({
                 model: model,
-                application: this.application
+                application: this.application,
+                overview:this.overview
             });
 
             model.fetch({
                 data: {
                     id: id,
-					t: new Date().getTime()
+                    t: new Date().getTime()
                 }
             }).done(function () {
                 view.showContent();
+                
             });
         },
         Buyers: function () {
             var collection = new Mi365BuyersCollection();
             var view = new Mi365BuyersView({
                 collection: collection,
-                application: this.application
+                application: this.application,
+                overview:this.overview
             });
-
             collection.fetch({
                 data: {}
             }).done(function () {
-                view.showContent();
+               view.showContent();     
             });
         },
         Area: function (id) {
             var model = new Mi365AreasModel();
             var view = new Mi365AreaView({
                 model: model,
-                application: this.application
+                application: this.application,
+                overview:this.overview
             });
 
             model.fetch({
                 data: {
                     id: id,
-					t: new Date().getTime()
+                    t: new Date().getTime()
                 }
             }).done(function () {
                 view.showContent();
@@ -155,7 +186,8 @@ define('SafeAid.bb1.Mi365Router', [
             var collection = new Mi365AreasCollection();
             var view = new Mi365AreasView({
                 collection: collection,
-                application: this.application
+                application: this.application,
+                overview:this.overview
             });
 
             collection.fetch({
@@ -168,13 +200,14 @@ define('SafeAid.bb1.Mi365Router', [
             var model = new Mi365WearersModel();
             var view = new Mi365WearerView({
                 model: model,
-                application: this.application
+                application: this.application,
+                overview:this.overview
             });
 
             model.fetch({
                 data: {
                     id: id,
-					t: new Date().getTime()
+                    t: new Date().getTime()
                 }
             }).done(function () {
                 view.showContent();
@@ -184,11 +217,14 @@ define('SafeAid.bb1.Mi365Router', [
             var collection = new Mi365WearersCollection();
             var view = new Mi365WearersView({
                 collection: collection,
-                application: this.application
+                application: this.application,
+                overview:this.overview
             });
 
             collection.fetch({
-                data: {area:id}
+                data: {
+                    area: id
+                }
             }).done(function () {
                 view.showContent();
             });
@@ -197,7 +233,8 @@ define('SafeAid.bb1.Mi365Router', [
             var collection = new Mi365WearersCollection();
             var view = new Mi365WearersView({
                 collection: collection,
-                application: this.application
+                application: this.application,
+                overview:this.overview
             });
 
             collection.fetch({
@@ -210,13 +247,14 @@ define('SafeAid.bb1.Mi365Router', [
             var model = new Mi365AlertsModel();
             var view = new Mi365AlertView({
                 model: model,
-                application: this.application
+                application: this.application,
+                overview:this.overview
             });
 
             model.fetch({
                 data: {
                     id: id,
-					t: new Date().getTime()
+                    t: new Date().getTime()
                 }
             }).done(function () {
                 view.showContent();
@@ -226,7 +264,8 @@ define('SafeAid.bb1.Mi365Router', [
             var collection = new Mi365AlertsCollection();
             var view = new Mi365AlertsView({
                 collection: collection,
-                application: this.application
+                application: this.application,
+                overview:this.overview
             });
 
             collection.fetch({
@@ -239,47 +278,50 @@ define('SafeAid.bb1.Mi365Router', [
             var model = new Mi365TransfersModel();
             var view = new Mi365TransferView({
                 model: model,
-                application: this.application
+                application: this.application,
+                overview:this.overview
             });
 
             model.fetch({
                 data: {
                     id: id,
-					t: new Date().getTime()
+                    t: new Date().getTime()
                 }
             }).done(function () {
                 view.showContent();
             });
-        },        
+        },
         Stock: function (id) {
             var model = new Mi365StocksModel();
             var view = new Mi365StockView({
                 model: model,
-                application: this.application
+                application: this.application,
+                overview:this.overview
             });
 
             model.fetch({
                 data: {
                     id: id,
-					t: new Date().getTime()
+                    t: new Date().getTime()
                 }
             }).done(function () {
                 view.showContent();
             });
-        },        
+        },
         StartTransfer: function (id) {
             var model = new Mi365StocksModel();
             var view = new Mi365StartTransferView({
                 model: model,
-                application: this.application
+                application: this.application,
+                overview:this.overview
             });
 
             model.fetch({
                 data: {
                     id: id,
                     t: new Date().getTime(),
-                    includeWearers:"T"
-                    
+                    includeWearers: "T"
+
                 }
             }).done(function () {
                 view.showContent();
@@ -290,12 +332,15 @@ define('SafeAid.bb1.Mi365Router', [
             var view = new Mi365StocksView({
                 collection: collection,
                 application: this.application,
-                wearer:id
+                wearer: id,
+                overview:this.overview
             });
 
             collection.fetch({
-                data: {wearer: id,
-					t: new Date().getTime()}
+                data: {
+                    wearer: id,
+                    t: new Date().getTime()
+                }
             }).done(function () {
                 view.showContent();
             });
@@ -305,27 +350,31 @@ define('SafeAid.bb1.Mi365Router', [
             var view = new Mi365StocksView({
                 collection: collection,
                 application: this.application,
-                area:id
+                area: id,
+                overview:this.overview
             });
 
             collection.fetch({
-                data: {area: id,
-					t: new Date().getTime()}
+                data: {
+                    area: id,
+                    t: new Date().getTime()
+                }
             }).done(function () {
                 view.showContent();
             });
-        },        
+        },
         Transfer: function (id) {
             var model = new Mi365TransfersModel();
             var view = new Mi365TransferView({
                 model: model,
-                application: this.application
+                application: this.application,
+                overview:this.overview
             });
 
             model.fetch({
                 data: {
                     id: id,
-					t: new Date().getTime()
+                    t: new Date().getTime()
                 }
             }).done(function () {
                 view.showContent();
@@ -336,12 +385,15 @@ define('SafeAid.bb1.Mi365Router', [
             var view = new Mi365TransfersView({
                 collection: collection,
                 application: this.application,
-                wearer:id
+                wearer: id,
+                overview:this.overview
             });
 
             collection.fetch({
-                data: {wearer: id,
-					t: new Date().getTime()}
+                data: {
+                    wearer: id,
+                    t: new Date().getTime()
+                }
             }).done(function () {
                 view.showContent();
             });
@@ -351,12 +403,15 @@ define('SafeAid.bb1.Mi365Router', [
             var view = new Mi365TransfersView({
                 collection: collection,
                 application: this.application,
-                area:id
+                area: id,
+                overview:this.overview
             });
 
             collection.fetch({
-                data: {area: id,
-					t: new Date().getTime()}
+                data: {
+                    area: id,
+                    t: new Date().getTime()
+                }
             }).done(function () {
                 view.showContent();
             });

@@ -5,92 +5,135 @@
 	Example:
 	@import "other-sass-file.scss";
 	@import "../../<other module>/Sass/other-sass-file.scss";
-*/ 
+*/
 
 .mi365-info-card {
-	margin-top:$sc-padding-lv3;
-	margin-bottom:$sc-padding-lv3;
+	margin-top: $sc-padding-lv3;
+	margin-bottom: $sc-padding-lv3;
 }
 
 .mi365-info-card-content {
-    @extend .info-card-content;
-    color: $sc-color-secondary;
-    font-weight: bold;
+	@extend .info-card-content;
+	color: $sc-color-secondary;
+	font-weight: bold;
 }
 
-.mi365-records{
+.mi365-records {
 	@extend .table-flex-record-selectable-navigable;
 }
 
-.mi365-records-head tr{
+.mi365-records-head tr {
 	display: none;
-	@media (min-width: $screen-md-min){
+
+	@media (min-width: $screen-md-min) {
 		display: table-row;
 	}
 }
 
-.mi365-records-head th{
+.mi365-records-head th {
 	text-align: right;
 	padding-bottom: $sc-padding-lv2;
 	font-weight: normal;
 	border-bottom: 1px solid $sc-color-theme-border-light;
 }
 
-.mi365-records-body td{
+.mi365-records-body td {
 	vertical-align: middle;
 
-	@media (min-width: $screen-md-min){
+	@media (min-width: $screen-md-min) {
 		height: 60px;
 	}
 }
+
 .mi365-information-row,
-.mi365-information-form-actions{
+.mi365-information-form-actions {
 	margin-top: $sc-margin-lv4;
 }
-.mi365-information-input-required{
+
+.mi365-information-input-required {
 	@extend .input-required;
 }
-.mi365-information-input-optional{
+
+.mi365-information-input-optional {
 	@extend .input-optional;
 }
-.mi365-information-input-large{
+
+.mi365-information-input-large {
 	@extend .input-large;
 }
-.mi365-information-input-readonly{
-	label{text-align:right;display:inline-block;padding-right:10px;color:#666;min-width:100px;}
-	input{border:none;padding:0;display:inline-block;color: $sc-color-copy-dark;width:auto!important;}
-	div{display:inline;}
+
+.mi365-information-input-readonly {
+	label {
+		text-align: right;
+		display: inline-block;
+		padding-right: 10px;
+		color: #666;
+		min-width: 100px;
+	}
+
+	input {
+		border: none;
+		padding: 0;
+		display: inline-block;
+		color: $sc-color-copy-dark;
+		width: auto !important;
+	}
+
+	div {
+		display: inline;
+	}
 }
-.mi365-information-button-update{
+
+.mi365-information-button-update {
 	@extend .button-primary;
 	@extend .button-medium;
-	margin-right:$sc-margin-lv2;
-	margin-bottom:$sc-margin-lv2;
+	margin-right: $sc-margin-lv2;
+	margin-bottom: $sc-margin-lv2;
 
 	@media (min-width: $screen-sm-min) {
 		margin-bottom: 0;
 	}
 }
-.mi365-fields-group-input-checkbox {
-    font-weight: $sc-font-weight-normal;
-}
-.mi365-icon{text-align:right;display:inline-block;padding-right:10px;min-width:100px;}
-.mi365-icon-true{
-	@extend .icon-ok-sign;
-	color:$sc-color-success;
-}
-.mi365-icon-false{
-@extend .fa;
-@extend %fa-times-circle;
-color: $sc-color-theme-500;
-}
-#mySignCanvas{max-width:600px;max-height:300px;display:block;}
-.readonly-sign{max-width:400px!important;max-height:200px!important;}
 
-.mi365-button{
+.mi365-fields-group-input-checkbox {
+	font-weight: $sc-font-weight-normal;
+}
+
+.mi365-icon {
+	text-align: right;
+	display: inline-block;
+	padding-right: 10px;
+	min-width: 100px;
+}
+
+.mi365-icon-true {
+	@extend .icon-ok-sign;
+	color: $sc-color-success;
+}
+
+.mi365-icon-false {
+	@extend .fa;
+	@extend %fa-times-circle;
+	color: $sc-color-theme-500;
+}
+
+#mySignCanvas {
+	max-width: 600px;
+	max-height: 300px;
+	display: block;
+}
+
+.readonly-sign {
+	max-width: 400px !important;
+	max-height: 200px !important;
+}
+
+.mi365-button {
 	@extend .button-secondary;
 	@extend .button-medium;
-margin-bottom:$sc-margin-lv1;
-min-width:150px;
+	margin-bottom: $sc-margin-lv1;
+	min-width: 150px;
 }
-
+a[data-id="mi365"] { 
+display:none;
+}

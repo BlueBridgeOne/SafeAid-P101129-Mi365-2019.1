@@ -2,12 +2,12 @@
 // Load all your starter dependencies in backend for your extension here
 // ----------------
 
-define('SafeAid.bb1.Mi365Alerts'
+define('SafeAid.bb1.Mi365Overview'
 ,	[
-		'SafeAid.bb1.Mi365Alerts.ServiceController'
+		'SafeAid.bb1.Mi365Overview.ServiceController'
 	]
 ,	function (
-		Mi365AlertsServiceController
+		Mi365OverviewServiceController
 	)
 {
 	'use strict';

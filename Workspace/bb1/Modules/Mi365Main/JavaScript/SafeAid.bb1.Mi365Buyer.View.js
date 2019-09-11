@@ -87,11 +87,21 @@ define('SafeAid.bb1.Mi365Buyer.View', [
 			label: "Allow Edit Wearers",
 			type: "checkbox"
 		}, {
+			id: "custentity_bb1_sca_alloweditstock",
+			label: "Allow Edit Stock",
+			type: "checkbox"
+		},{
+			id: "custentity_bb1_sca_allowtransferstock",
+			label: "Allow Transfer Stock",
+			type: "checkbox"
+		}, {
 			id: "custentity_bb1_sca_alloweditspendrules",
 			label: "Allow Edit Spend Rules",
 			type: "checkbox"
 		}],
 		initialize: function (options) {
+
+			this.overview=options.overview;
 
 				var bind = {};
 				for (var i = 0; i < this.fields.length; i++) {
@@ -158,12 +168,16 @@ var deleteId=self.model.get("id");
 					}
 				}
 			}
+			var allowEdit=this.overview.get("custentity_bb1_sca_alloweditbuyers")=="T";
+			if(this.overview.get("id")==this.model.get("id")){
+				allowEdit=false; // You can't edit yourself.
+			}
 			return {
 				title:"Buyer",
 				model: this.model,
 				fields: this.fields || [],
-				editable:true,
-				showDelete:true,
+				editable:allowEdit,
+				showDelete:allowEdit,
 				breadcrumbs:[{href:"#Mi365/buyers",label:"Buyers"}],
 				active:this.model.get("entityid")
 			};

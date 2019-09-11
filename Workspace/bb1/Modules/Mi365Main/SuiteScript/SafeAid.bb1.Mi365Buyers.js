@@ -10,6 +10,5 @@ define('SafeAid.bb1.Mi365Buyers'
 		Mi365BuyersServiceController
 	)
 {
-	nlapiLogExecution("debug","SafeAid.bb1.Mi365Buyers.ServiceController "+request);
 	'use strict';
 });

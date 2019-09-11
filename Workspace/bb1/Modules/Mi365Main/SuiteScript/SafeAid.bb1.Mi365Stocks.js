@@ -10,6 +10,5 @@ define('SafeAid.bb1.Mi365Stocks'
 		Mi365StocksServiceController
 	)
 {
-	nlapiLogExecution("debug","SafeAid.bb1.Mi365Stocks.ServiceController "+request);
 	'use strict';
 });
