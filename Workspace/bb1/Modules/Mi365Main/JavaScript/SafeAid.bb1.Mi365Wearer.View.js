@@ -52,7 +52,7 @@ define('SafeAid.bb1.Mi365Wearer.View', [
 			type: "choice",
 			mandatory: true,
 			list:true,
-			url:"#Mi365/area/"
+			url:"Mi365/area/"
 		}],
 		initialize: function (options) {
 			this.overview=options.overview;
@@ -150,7 +150,7 @@ var deleteId=this.model.get("id");
 				showDelete:allowEdit,
 				showStock:true,
 				showTransfers:true,
-				breadcrumbs:[{href:"#Mi365/wearers",label:"Wearers"}],
+				breadcrumbs:[{href:"Mi365/wearers",label:"Wearers"}],
 				active:this.model.get("name")
 			};
 		}

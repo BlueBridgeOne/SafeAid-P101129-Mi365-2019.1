@@ -260,7 +260,11 @@ define(
 
 					for (var j = 0; j < this.fields.length; j++) {
 						if (this.data[this.fields[j].id] && !this.fields[j].listonly) {
+							if(this.fields[j].type=="multichoice"){
+								rec.setFieldValue(this.fields[j].id, this.data[this.fields[j].id].split(','));
+							}else{
 							rec.setFieldValue(this.fields[j].id, this.data[this.fields[j].id]);
+							}
 						}
 					}
 					nlapiSubmitRecord(rec, true, true);

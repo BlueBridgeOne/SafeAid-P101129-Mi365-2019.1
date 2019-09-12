@@ -52,11 +52,11 @@ define(
 			get: function get() {
 					nlapiLogExecution("debug", "SafeAid.bb1.Mi365Wearers.ServiceController.get " + request);
 					var shoppingSession = nlapiGetWebContainer().getShoppingSession();
-					
+
 					var context = nlapiGetContext();
 					var contact = context.getContact();
-					if(!(contact>0)){
-						throw(new Error("Please sign-in to view this information."));
+					if (!(contact > 0)) {
+						throw (new Error("Please sign-in to view this information."));
 					}
 					var customer = context.getUser();
 					nlapiLogExecution("debug", "context", "id=" + id + " " + context.getUser() + " " + context.getCompany() + " " + context.getEmail() + " " + context.getName() + " " + context.getContact());
@@ -65,26 +65,28 @@ define(
 					var id = request.getParameter("id");
 					var area = request.getParameter("area");
 					if (task == "new") {
-						
-							var rec = nlapiCreateRecord(this.recordtype);
 
-							rec.setFieldValue("custrecord_bb1_sca_wearer_customer",customer);
-							rec.setFieldValue("name", "Wearer #" + Math.floor(Math.random() * 1000000));
-							id = nlapiSubmitRecord(rec, true, true);
+						var rec = nlapiCreateRecord(this.recordtype);
 
-							rec = nlapiLoadRecord(this.recordtype, id);
-							rec.setFieldValue("name", "Wearer #" + id);
-							nlapiSubmitRecord(rec, true, true);
+						rec.setFieldValue("custrecord_bb1_sca_wearer_customer", customer);
+						rec.setFieldValue("name", "Wearer #" + Math.floor(Math.random() * 1000000));
+						id = nlapiSubmitRecord(rec, true, true);
 
-						
+						rec = nlapiLoadRecord(this.recordtype, id);
+						rec.setFieldValue("name", "Wearer #" + id);
+						nlapiSubmitRecord(rec, true, true);
+
+
 					} else if (task == "delete") {
-						
-							var rec = nlapiLoadRecord(this.recordtype, id);
-							rec.setFieldValue("isinactive", "T");
-							nlapiSubmitRecord(rec, true, true);
 
-						
+						var rec = nlapiLoadRecord(this.recordtype, id);
+						rec.setFieldValue("isinactive", "T");
+						nlapiSubmitRecord(rec, true, true);
+
+
 					}
+					var custentity_bb1_sca_allowviewareas = nlapiLookupField('contact', contact, 'custentity_bb1_sca_allowviewareas') || "";
+					var allowAreas = custentity_bb1_sca_allowviewareas.split(",");
 
 
 
@@ -101,8 +103,24 @@ define(
 						];
 
 						if (area) {
+
+							var found = false;
+							for (var i = 0; i < allowAreas.length; i++) {
+								if (allowAreas[i] == area) {
+									found = true;
+									break;
+								}
+							}
+							if (!found) {
+								throw (new Error("You do not have permission to view this area."));
+							}
+
 							filter.unshift("AND");
 							filter.unshift(["custrecord_bb1_sca_wearer_area", "anyof", area]);
+						}else{
+							filter.unshift("AND");
+							filter.unshift(["custrecord_bb1_sca_wearer_area", "anyof", allowAreas]);
+							
 						}
 
 						var find = [];
@@ -150,36 +168,36 @@ define(
 								if (id) { //add area choices
 
 									data.custrecord_bb1_sca_wearer_area.choice = [];
-									
-										filter = [
-											["isinactive", "is", "F"],
-											"AND",
-											["custrecord_bb1_sca_area_company", "is", customer]
-	
-										];
-	
-										find = [];
-										find.push(new nlobjSearchColumn("name"));
-	
-	
-	
-										var areaSearch = nlapiSearchRecord("customrecord_bb1_sca_area", null,
-											filter,
-											find
-										);
-										var wresult;
-										if (areaSearch) {
-	
-											for (var j = 0; j < areaSearch.length; j++) {
-												wresult = areaSearch[j];
-												data.custrecord_bb1_sca_wearer_area.choice.push({
-													value: wresult.getId(),
-													text: wresult.getValue("name")
-												});
-											}
+
+									filter = [
+										["isinactive", "is", "F"],
+										"AND",
+										["custrecord_bb1_sca_area_company", "is", customer]
+
+									];
+
+									find = [];
+									find.push(new nlobjSearchColumn("name"));
+
+
+
+									var areaSearch = nlapiSearchRecord("customrecord_bb1_sca_area", null,
+										filter,
+										find
+									);
+									var wresult;
+									if (areaSearch) {
+
+										for (var j = 0; j < areaSearch.length; j++) {
+											wresult = areaSearch[j];
+											data.custrecord_bb1_sca_wearer_area.choice.push({
+												value: wresult.getId(),
+												text: wresult.getValue("name")
+											});
 										}
-									
-	
+									}
+
+
 								}
 
 								results.push(data);
@@ -187,7 +205,7 @@ define(
 						}
 						if (id) {
 							if (results.length > 0) {
-								
+
 								return results[0];
 							} else {
 								throw (new Error("The wearer could not found."));
@@ -203,11 +221,11 @@ define(
 				,
 			post: function post() {
 				var shoppingSession = nlapiGetWebContainer().getShoppingSession();
-				
+
 				var context = nlapiGetContext();
 				var contact = context.getContact();
-				if(!(contact>0)){
-					throw(new Error("Please sign-in to view this information."));
+				if (!(contact > 0)) {
+					throw (new Error("Please sign-in to view this information."));
 				}
 				var customer = context.getUser();
 				nlapiLogExecution("debug", "context", "id=" + id + " " + context.getUser() + " " + context.getCompany() + " " + context.getEmail() + " " + context.getName() + " " + context.getContact());

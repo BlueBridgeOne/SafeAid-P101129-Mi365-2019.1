@@ -106,7 +106,7 @@ var deleteId=this.model.get("id");
 				model: this.model,
 				fields: this.fields || [],
 				editable:false,
-				breadcrumbs:[{href:"#Mi365/alerts",label:"Alerts"}],
+				breadcrumbs:[{href:"Mi365/alerts",label:"Alerts"}],
 				active:this.model.get("created")
 			};
 		}

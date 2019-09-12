@@ -82,8 +82,7 @@ define('SafeAid.bb1.Mi365Router', [
                 var level = self.overview.get("level");
                 console.log("level: "+level);
                 if (level && level != "bronze") {
-                    var menu = jQuery("a[data-id='mi365']");
-                    menu.css("display", "block");
+                    $("<style>").text("a[data-id='mi365']{ display:block!important; }").appendTo("head");
                 }
             });
         });

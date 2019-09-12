@@ -72,7 +72,7 @@ define('SafeAid.bb1.Mi365Stocks.View', [
 				}
 				active = "Stock";
 				breadcrumbs = [{
-					href: "#Mi365/wearer/" + this.wearer,
+					href: "Mi365/wearer/" + this.wearer,
 					label: "Wearer"
 				}];
 			} else if (this.area) {
@@ -81,7 +81,7 @@ define('SafeAid.bb1.Mi365Stocks.View', [
 				}
 				active = "Stock";
 				breadcrumbs = [{
-					href: "#Mi365/area/" + this.area,
+					href: "Mi365/area/" + this.area,
 					label: "Area"
 				}];
 			}

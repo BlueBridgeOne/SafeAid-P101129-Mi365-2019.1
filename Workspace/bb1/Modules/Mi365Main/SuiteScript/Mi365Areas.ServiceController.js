@@ -16,7 +16,7 @@ define(
 				label: "Name",
 				type: "text",
 				mandatory: true,
-				list:true
+				list: true
 			}],
 
 			// The values in this object are the validation needed for the current service.
@@ -27,72 +27,89 @@ define(
 
 			,
 			get: function get() {
-					nlapiLogExecution("debug", "SafeAid.bb1.Mi365Areas.ServiceController.get "+request);
+					nlapiLogExecution("debug", "SafeAid.bb1.Mi365Areas.ServiceController.get " + request);
 					var shoppingSession = nlapiGetWebContainer().getShoppingSession();
-					
+
 					var context = nlapiGetContext();
 					var contact = context.getContact();
-					if(!(contact>0)){
-						throw(new Error("Please sign-in to view this information."));
+					if (!(contact > 0)) {
+						throw (new Error("Please sign-in to view this information."));
 					}
 					var customer = context.getUser();
 					nlapiLogExecution("debug", "context", "id=" + id + " " + context.getUser() + " " + context.getCompany() + " " + context.getEmail() + " " + context.getName() + " " + context.getContact());
-					
+
 					var task = request.getParameter("task");
 					var id = request.getParameter("id");
-					if(task=="new"){
-						
-							var rec=nlapiCreateRecord(this.recordtype);
-							
-							rec.setFieldValue("custrecord_bb1_sca_area_company",customer);
-							rec.setFieldValue("name","Area #"+Math.floor(Math.random()*1000000));
-							id=nlapiSubmitRecord(rec, true, true);
-							
-							rec=nlapiLoadRecord(this.recordtype, id);
-							rec.setFieldValue("name","Area #"+id);
-							nlapiSubmitRecord(rec, true, true);
-							
-						
-					}else if(task=="delete"){
-						
-							var rec = nlapiLoadRecord(this.recordtype, id);
-							rec.setFieldValue("isinactive","T");
-							nlapiSubmitRecord(rec, true, true);
-						
-						
+					if (task == "new") {
+
+						var rec = nlapiCreateRecord(this.recordtype);
+
+						rec.setFieldValue("custrecord_bb1_sca_area_company", customer);
+						rec.setFieldValue("name", "Area #" + Math.floor(Math.random() * 1000000));
+						id = nlapiSubmitRecord(rec, true, true);
+
+						rec = nlapiLoadRecord(this.recordtype, id);
+						rec.setFieldValue("name", "Area #" + id);
+						nlapiSubmitRecord(rec, true, true);
+
+
+					} else if (task == "delete") {
+
+						var rec = nlapiLoadRecord(this.recordtype, id);
+						rec.setFieldValue("isinactive", "T");
+						nlapiSubmitRecord(rec, true, true);
+
+
 					}
 
-					
-					
+
+					var custentity_bb1_sca_allowviewareas = nlapiLookupField('contact', contact, 'custentity_bb1_sca_allowviewareas') || "";
+					var allowAreas = custentity_bb1_sca_allowviewareas.split(",");
+
 
 					//nlapiLogExecution("debug", "field values",JSON.stringify(customer.getFieldValues()));
 					//nlapiLogExecution("debug", "field values",JSON.stringify(customer.getCustomFields()));
-					
-					
 
-						var filter = [
-							["custrecord_bb1_sca_area_company", "anyof", customer],
-							"AND",
-							["isinactive", "is", "F"]
-						];
-						var find = [];
-						for (var j = 0; j < this.fields.length; j++) {
-							if (this.fields[j].list || this.fields[j].listonly || id) {
-								find.push(new nlobjSearchColumn(this.fields[j].id));
+
+
+					var filter = [
+						["custrecord_bb1_sca_area_company", "anyof", customer],
+						"AND",
+						["isinactive", "is", "F"]
+
+					];
+					var find = [];
+					for (var j = 0; j < this.fields.length; j++) {
+						if (this.fields[j].list || this.fields[j].listonly || id) {
+							find.push(new nlobjSearchColumn(this.fields[j].id));
+						}
+					}
+
+					if (id) {
+						var found = false;
+						for (var i = 0; i < allowAreas.length; i++) {
+							if (allowAreas[i] == id) {
+								found = true;
+								break;
 							}
 						}
+						if (!found) {
+							throw (new Error("You do not have permission to view this area."));
 
-						if (id) {
-							filter.unshift("AND");
-							filter.unshift(["internalid", "is", id]);
 						}
-						var contactSearch = nlapiSearchRecord(this.recordtype, null,
-							filter,
-							find
-						);
-						var result, results = [],
-							data;
-							if(contactSearch){
+						filter.unshift("AND");
+						filter.unshift(["internalid", "is", id]);
+					} else {
+						filter.unshift("AND");
+						filter.unshift(["internalid", "anyof", allowAreas]);
+					}
+					var contactSearch = nlapiSearchRecord(this.recordtype, null,
+						filter,
+						find
+					);
+					var result, results = [],
+						data;
+					if (contactSearch) {
 						for (var i = 0; i < contactSearch.length; i++) {
 							result = contactSearch[i];
 							data = {
@@ -116,43 +133,43 @@ define(
 							results.push(data);
 						}
 					}
-						if (id) {
-							if (results.length > 0) {
-								return results[0];
-							} else {
-								throw (new Error("The area could not found."));
-							}
+					if (id) {
+						if (results.length > 0) {
+							return results[0];
 						} else {
-							return results;
+							throw (new Error("The area could not found."));
 						}
-					
+					} else {
+						return results;
+					}
+
 				}
 
 				,
 			post: function post() {
 				var shoppingSession = nlapiGetWebContainer().getShoppingSession();
-					
-					var context = nlapiGetContext();
-					var contact = context.getContact();
-					if(!(contact>0)){
-						throw(new Error("Please sign-in to view this information."));
-					}
-					var customer = context.getUser();
-					nlapiLogExecution("debug", "context", "id=" + id + " " + context.getUser() + " " + context.getCompany() + " " + context.getEmail() + " " + context.getName() + " " + context.getContact());
-					
+
+				var context = nlapiGetContext();
+				var contact = context.getContact();
+				if (!(contact > 0)) {
+					throw (new Error("Please sign-in to view this information."));
+				}
+				var customer = context.getUser();
+				nlapiLogExecution("debug", "context", "id=" + id + " " + context.getUser() + " " + context.getCompany() + " " + context.getEmail() + " " + context.getName() + " " + context.getContact());
+
 
 				var id = request.getParameter("id");
-				
-				
-					var rec = nlapiLoadRecord(this.recordtype, this.data.id);
 
-					for (var j = 0; j < this.fields.length; j++) {
-						if (this.data[this.fields[j].id] && !this.fields[j].listonly) {
-							rec.setFieldValue(this.fields[j].id, this.data[this.fields[j].id]);
-						}
+
+				var rec = nlapiLoadRecord(this.recordtype, this.data.id);
+
+				for (var j = 0; j < this.fields.length; j++) {
+					if (this.data[this.fields[j].id] && !this.fields[j].listonly) {
+						rec.setFieldValue(this.fields[j].id, this.data[this.fields[j].id]);
 					}
-					nlapiSubmitRecord(rec, true, true);
-				
+				}
+				nlapiSubmitRecord(rec, true, true);
+
 				return {
 					ok: true
 				}

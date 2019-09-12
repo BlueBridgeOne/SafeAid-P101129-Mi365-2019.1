@@ -74,6 +74,10 @@ define(
 					var area = request.getParameter("area");
 					var includeWearers = "T" == request.getParameter("includeWearers");
 
+					var custentity_bb1_sca_allowviewareas = nlapiLookupField('contact', contact, 'custentity_bb1_sca_allowviewareas') || "";
+					var allowAreas = custentity_bb1_sca_allowviewareas.split(",");
+
+
 					//nlapiLogExecution("debug", "field values",JSON.stringify(customer.getFieldValues()));
 					//nlapiLogExecution("debug", "field values",JSON.stringify(customer.getCustomFields()));
 
@@ -87,8 +91,23 @@ define(
 						filter.unshift("AND");
 						filter.unshift(["custrecord_bb1_sca_companystock_wearer", "anyof", wearer]);
 					} else if (area) {
+
+						var found = false;
+						for (var i = 0; i < allowAreas.length; i++) {
+							if (allowAreas[i] == area) {
+								found = true;
+								break;
+							}
+						}
+						if (!found) {
+							throw (new Error("You do not have permission to view this area."));
+						}
+
 						filter.unshift("AND");
 						filter.unshift(["custrecord_bb1_sca_companystock_area", "anyof", area]);
+					}else{
+						filter.unshift("AND");
+						filter.unshift(["custrecord_bb1_sca_companystock_area", "anyof", allowAreas]);
 					}
 					var find = [];
 					for (var j = 0; j < this.fields.length; j++) {

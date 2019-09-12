@@ -41,14 +41,14 @@ define('SafeAid.bb1.Mi365Stock.View', [
 			type: "record",
 			list: true,
 			mandatory: true,
-			url: "#Mi365/area/"
+			url: "Mi365/area/"
 		}, {
 			id: "custrecord_bb1_sca_companystock_wearer",
 			label: "Wearer",
 			type: "record",
 			list: true,
 			mandatory: true,
-			url: "#Mi365/wearer/"
+			url: "Mi365/wearer/"
 		}, {
 			id: "custrecord_bb1_sca_companystock_quantity",
 			label: "Quantity",
@@ -129,10 +129,10 @@ this.overview=options.overview;
 							title = this.model.get("custrecord_bb1_sca_companystock_area").text+" Stock";
 							newFields.push(this.fields[i]);
 							breadcrumbs= [{
-								href: "#Mi365/area/"+this.fields[i].value.value,
+								href: "Mi365/area/"+this.fields[i].value.value,
 								label: this.fields[i].value.text
 							},{
-								href: "#Mi365/area/stock/"+this.fields[i].value.value,
+								href: "Mi365/area/stock/"+this.fields[i].value.value,
 								label: "Stock"
 							}];
 						} else if (this.fields[i].id == "custrecord_bb1_sca_companystock_minquant" || this.fields[i].id == "custrecord_bb1_sca_companystock_maxquant" || this.fields[i].id == "custrecord_bb1_sca_companystock_quantity")
@@ -142,10 +142,10 @@ this.overview=options.overview;
 							title = this.model.get("custrecord_bb1_sca_companystock_Wearer").text+" Stock";
 							newFields.push(this.fields[i]);
 							breadcrumbs= [{
-								href: "#Mi365/wearer/"+this.fields[i].value.value,
+								href: "Mi365/wearer/"+this.fields[i].value.value,
 								label: this.fields[i].value.text
 							},{
-								href: "#Mi365/wearer/stock/"+this.fields[i].value.value,
+								href: "Mi365/wearer/stock/"+this.fields[i].value.value,
 								label: "Stock"
 							}];
 						} else if (this.fields[i].id == "custrecord_bb1_sca_companystock_quantity") {

@@ -50,8 +50,8 @@
       </div>
       {{/ifEquals}}
       {{#ifEquals type "readonlytext"}}
-      <div class="mi365-information-row {{#unless ../editable}}mi365-information-input-readonly{{/unless}}" data-input="{{id}}" data-validation="control-group"><label
-          class="mi365-information-label" for="{{id}}">
+      <div class="mi365-information-row {{#unless ../editable}}mi365-information-input-readonly{{/unless}}"
+        data-input="{{id}}" data-validation="control-group"><label class="mi365-information-label" for="{{id}}">
           {{label}}</label>
         <div class="mi365-information-group-form-controls" data-validation="control">
           <input type="text" readonly class="mi365-information-input-large" value="{{value}}"></div>
@@ -92,19 +92,48 @@
           {{label}} {{#if ../editable}}{{#if mandatory}}<small class="mi365-information-input-required">*</small>
           {{else}} <small class="mi365-information-input-optional">(optional)</small>{{/if}}{{/if}}</label>
         <div class="mi365-information-group-form-controls" data-validation="control">
-         {{#if ../editable}}
-          <select {{#unless ../editable}}readonly{{/unless}} class="mi365-information-input-large"
-            id="{{id}}" name="{{id}}">
+          {{#if ../editable}}
+          <select {{#unless ../editable}}readonly{{/unless}} class="mi365-information-input-large" id="{{id}}"
+            name="{{id}}">
             {{#each value.choice}}
             <option value={{value}} {{#ifEquals value ../value.value}}selected{{/ifEquals}}>{{text}}</option>
             {{/each}}
-            </select>
-            {{else}}
-            {{#if url}}<a href="{{url}}{{value.value}}">{{/if}}{{value.text}}{{#if url}}</a>{{else}}
-<input type="text" readonly class="mi365-information-input-large" value="{{value.text}}">
-{{/if}}
-            {{/if}}
-            </div>
+          </select>
+          {{else}}
+          {{#if url}}<a href="{{url}}{{value.value}}">{{/if}}{{value.text}}{{#if url}}</a>{{else}}
+          <input type="text" readonly class="mi365-information-input-large" value="{{value.text}}">
+          {{/if}}
+          {{/if}}
+        </div>
+      </div>
+      {{/ifEquals}}
+
+      {{#ifEquals type "multichoice"}}
+      <div class="mi365-information-row {{#unless ../editable}}mi365-information-input-readonly{{/unless}}"
+        data-input="{{id}}" data-validation="control-group">
+        <h4 class="mi365-information-label" for="{{id}}">
+          {{label}} {{#if ../editable}}{{#if mandatory}}<small class="mi365-information-input-required">*</small>
+          {{/if}}{{/if}}</h4>
+        <div class="mi365-information-group-form-controls" data-validation="control" data-multichoice="{{id}}">
+          {{#if ../editable}}
+          <input id="{{id}}" name="{{id}}" type="hidden" value="{{value.value}}">
+
+          {{#each value.choice}}
+          <p><input type="checkbox" {{#if selected}}checked{{/if}} value="T" data-unchecked-value="F" data-id="{{value}}" data-action="multichoice">{{text}}</p>
+          {{/each}}
+
+          {{else}}
+          {{#each value.choice}}
+
+          {{#if selected}}
+          <p><span class="mi365-icon"><i class="mi365-icon-true" /></span> {{text}}</p>
+          {{else}}
+          <p><span class="mi365-icon"><i class="mi365-icon-false" /></span> {{text}}</p>
+          {{/if}}
+
+          {{/each}}
+          {{/if}}
+        </div>
       </div>
       {{/ifEquals}}
 
@@ -114,12 +143,13 @@
           {{label}} {{#if ../editable}}{{#if mandatory}}<small class="mi365-information-input-required">*</small>
           {{else}} <small class="mi365-information-input-optional">(optional)</small>{{/if}}{{/if}}</label>
         <div class="mi365-information-group-form-controls" data-validation="control">
-           {{#if ../editable}}
+          {{#if ../editable}}
           <canvas id="mySignCanvas" width="600" height="300" style="width:100%;border:1px solid #CCC;">
           </canvas>
           <input id="{{id}}" name="{{id}}" value="{{value}}" type="hidden" />
           {{else}}
-          <canvas id="mySignCanvas" class="readonly-sign" width="600" height="300" style="width:100%;border:1px solid #CCC;">
+          <canvas id="mySignCanvas" class="readonly-sign" width="600" height="300"
+            style="width:100%;border:1px solid #CCC;">
           </canvas>
           {{/if}}
         </div>
@@ -128,9 +158,9 @@
         {{/if}}
         {{/each}}
     </fieldset>
-          {{#if task}}
-      <input type="hidden" id="task" name="task" value="{{task}}">
-      {{/if}}
+    {{#if task}}
+    <input type="hidden" id="task" name="task" value="{{task}}">
+    {{/if}}
     {{#if editable}}
     <div class="mi365-information-form-actions"><button type="submit"
         class="mi365-information-button-update">{{#if confirmText}}{{confirmText}}{{else}}Update{{/if}}</button></div>

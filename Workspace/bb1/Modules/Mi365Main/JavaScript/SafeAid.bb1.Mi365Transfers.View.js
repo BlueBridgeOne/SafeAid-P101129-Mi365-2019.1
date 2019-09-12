@@ -55,7 +55,7 @@ break;
 				}
 				active = "Transfers";
 				breadcrumbs = [{
-					href: "#Mi365/wearer/" + this.wearer,
+					href: "Mi365/wearer/" + this.wearer,
 					label: "Wearer"
 				}];
 			} else if (this.area) {
@@ -64,7 +64,7 @@ break;
 				}
 				active = "Transfers";
 				breadcrumbs = [{
-					href: "#Mi365/area/" + this.area,
+					href: "Mi365/area/" + this.area,
 					label: "Area"
 				}];
 			}

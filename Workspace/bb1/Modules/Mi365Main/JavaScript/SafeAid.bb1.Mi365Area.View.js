@@ -131,7 +131,7 @@ this.overview=options.overview;
 				showTransfers: true,
 				showWearers: true,
 				breadcrumbs: [{
-					href: "#Mi365/wearers",
+					href: "Mi365/areas",
 					label: "Areas"
 				}],
 				active: this.model.get("name")
