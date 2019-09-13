@@ -18,7 +18,11 @@ define('SafeAid.bb1.Mi365Stocks.View', [
 		},
 		events: {
 			'click [data-action="go-to-record"]': 'goToRecord',
-			'click [data-action="new"]': 'newRecord'
+			'click [data-action="new"]': 'newRecord',
+			'click a': 'stopBubble'
+		},
+		stopBubble:function(e){
+			e.stopPropagation();
 		},
 		newRecord: function (e) {
 			console.log("new Record");

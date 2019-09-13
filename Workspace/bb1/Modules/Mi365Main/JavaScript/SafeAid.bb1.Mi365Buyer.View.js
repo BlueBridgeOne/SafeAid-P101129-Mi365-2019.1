@@ -95,13 +95,31 @@ define('SafeAid.bb1.Mi365Buyer.View', [
 			label: "Allow Transfer Stock",
 			type: "checkbox"
 		}, {
-			id: "custentity_bb1_sca_alloweditspendrules",
-			label: "Allow Edit Spend Rules",
+			id: "custentity_bb1_sca_alloweditbudgets",
+			label: "Allow Edit Budgets",
 			type: "checkbox"
 		}, {
 			id: "custentity_bb1_sca_allowviewareas",
 			label: "Allow View Areas",
 			type: "multichoice"
+		}
+	
+		, {
+			id: "custentity_bb1_sca_budget",
+			label: "Budget",
+			type: "text"
+		}, {
+			id: "custentity_bb1_sca_duration",
+			label: "Duration",
+			type: "record"
+		}, {
+			id: "custentity_bb1_sca_currentspend",
+			label: "Current Spend",
+			type: "inlinetext"
+		}, {
+			id: "custentity_bb1_sca_startdate",
+			label: "Current Start Date",
+			type: "inlinetext"
 		}],
 		initialize: function (options) {
 

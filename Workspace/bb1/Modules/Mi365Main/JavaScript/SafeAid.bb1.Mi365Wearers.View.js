@@ -18,7 +18,11 @@ this.overview=options.overview;
 			,
 		events: {
 			'click [data-action="go-to-record"]': 'goToRecord',
-			'click [data-action="new"]': 'newRecord'
+			'click [data-action="new"]': 'newRecord',
+			'click a': 'stopBubble'
+		},
+		stopBubble:function(e){
+			e.stopPropagation();
 		},
 		newRecord: function (e) {
 			console.log("new Record");

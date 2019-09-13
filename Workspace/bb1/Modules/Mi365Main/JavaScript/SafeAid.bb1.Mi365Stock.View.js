@@ -109,6 +109,7 @@ this.overview=options.overview;
 		//@method getContext @return SafeAid.bb1.Mi365Main.View.Context
 		,
 		getContext: function getContext() {
+			
 			var allowEdit=this.overview.get("custentity_bb1_sca_alloweditstock")=="T";
 			var allowTransferStock=this.overview.get("custentity_bb1_sca_allowtransferstock")=="T";
 			
@@ -118,6 +119,7 @@ this.overview=options.overview;
 
 			for (var i = 0; i < this.fields.length; i++) {
 				if (!this.fields[i].listonly) {
+
 					if (this.model.get(this.fields[i].id)) {
 						this.fields[i].value = this.model.get(this.fields[i].id);
 					}
@@ -126,7 +128,7 @@ this.overview=options.overview;
 						location = this.fields[i].value.text;
 					} else if (location == "Area") {
 						if (this.fields[i].id == "custrecord_bb1_sca_companystock_area") {
-							title = this.model.get("custrecord_bb1_sca_companystock_area").text+" Stock";
+							title = this.fields[i].value.text+" Stock";
 							newFields.push(this.fields[i]);
 							breadcrumbs= [{
 								href: "Mi365/area/"+this.fields[i].value.value,
@@ -139,7 +141,7 @@ this.overview=options.overview;
 							newFields.push(this.fields[i]);
 					} else if (location == "Wearer") {
 						if (this.fields[i].id == "custrecord_bb1_sca_companystock_wearer") {
-							title = this.model.get("custrecord_bb1_sca_companystock_Wearer").text+" Stock";
+							title = this.fields[i].value.text+" Stock";
 							newFields.push(this.fields[i]);
 							breadcrumbs= [{
 								href: "Mi365/wearer/"+this.fields[i].value.value,
@@ -148,6 +150,7 @@ this.overview=options.overview;
 								href: "Mi365/wearer/stock/"+this.fields[i].value.value,
 								label: "Stock"
 							}];
+							
 						} else if (this.fields[i].id == "custrecord_bb1_sca_companystock_quantity") {
 							newFields.push(this.fields[i]);
 						}
@@ -160,7 +163,7 @@ this.overview=options.overview;
 			if(location=="Area"&&parseInt(this.model.get("custrecord_bb1_sca_companystock_quantity"))>0){
 				allowTransfers=true;
 			}
-		
+			
 			return {
 				title: title,
 				model: this.model,

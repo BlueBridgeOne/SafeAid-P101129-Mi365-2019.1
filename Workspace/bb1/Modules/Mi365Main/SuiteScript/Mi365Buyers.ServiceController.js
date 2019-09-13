@@ -90,6 +90,24 @@ define(
 				id: "custentity_bb1_sca_allowviewareas",
 				label: "Allow View Area",
 				type: "multichoice"
+			}
+		
+			, {
+				id: "custentity_bb1_sca_budget",
+				label: "Budget",
+				type: "text"
+			}, {
+				id: "custentity_bb1_sca_duration",
+				label: "Duration",
+				type: "record"
+			}, {
+				id: "custentity_bb1_sca_currentspend",
+				label: "Current Spend",
+				type: "inlinetext"
+			}, {
+				id: "custentity_bb1_sca_startdate",
+				label: "Current Start Date",
+				type: "inlinetext"
 			}],
 
 			// The values in this object are the validation needed for the current service.
@@ -232,7 +250,7 @@ define(
 							if (results.length > 0) {
 								return results[0];
 							} else {
-								throw (new Error("The buyer could not found."));
+								throw (new Error("The buyer could not be found."));
 							}
 						} else {
 							return results;

@@ -19,7 +19,11 @@ define('SafeAid.bb1.Mi365Transfers.View', [
 
 			,
 		events: {
-			'click [data-action="go-to-record"]': 'goToRecord'
+			'click [data-action="go-to-record"]': 'goToRecord',
+			'click a': 'stopBubble'
+		},
+		stopBubble:function(e){
+			e.stopPropagation();
 		},
 		goToRecord: function (e) {
 				var id = e.currentTarget.getAttribute("data-id");

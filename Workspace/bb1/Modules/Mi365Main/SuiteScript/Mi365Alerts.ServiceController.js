@@ -139,7 +139,7 @@ define(
 							if (results.length > 0) {
 								return results[0];
 							} else {
-								throw (new Error("The alert could not found."));
+								throw (new Error("The alert could not be found."));
 							}
 						} else {
 							return results;

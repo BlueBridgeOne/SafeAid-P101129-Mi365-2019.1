@@ -208,7 +208,7 @@ define(
 
 								return results[0];
 							} else {
-								throw (new Error("The wearer could not found."));
+								throw (new Error("The wearer could not be found or is not allowed to be viewed."));
 							}
 						} else {
 							return results;

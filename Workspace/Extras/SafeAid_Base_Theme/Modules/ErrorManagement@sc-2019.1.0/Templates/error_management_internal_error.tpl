@@ -1,7 +1,7 @@
 <div class="error-management-internal-error">
     <div class="error-management-internal-error-header">
 			{{#if pageHeader}}
-				<h1>{{pageHeader}}</h1>
+				<h2>{{pageHeader}}</h2>
 			{{/if}}
 
     	<div id="main-banner" class="error-management-internal-error-main-banner"></div>

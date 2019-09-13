@@ -1,7 +1,7 @@
 <div class="error-management-forbidden-error">
     <div class="error-management-forbidden-error-header">
 	{{#if pageHeader}}
-		<h1>{{pageHeader}}</h1>
+		<h2>{{pageHeader}}</h2>
 	{{/if}}
 	
     	<div id="main-banner" class="error-management-forbidden-error-main-banner"></div>

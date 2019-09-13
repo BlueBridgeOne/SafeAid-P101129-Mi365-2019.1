@@ -83,8 +83,8 @@ define(
 				label: "Allow Transfer Stock",
 				type: "checkbox"
 			},  {
-				id: "custentity_bb1_sca_alloweditspendrules",
-				label: "Allow Edit Spend Rules",
+				id: "custentity_bb1_sca_alloweditbudgets",
+				label: "Allow Edit Budgets",
 				type: "checkbox"
 			}],
 

@@ -1,6 +1,6 @@
 <div class="error-management-expired-link-header">
 	{{#if pageHeader}}
-		<h1 class="error-management-expired-link-header-title">{{pageHeader}}</h1>
+		<h2 class="error-management-expired-link-header-title">{{pageHeader}}</h2>
 	{{/if}}
 
 	<div id="main-banner" class="error-management-expired-link-main-banner"></div>

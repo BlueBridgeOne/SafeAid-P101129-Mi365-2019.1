@@ -3,7 +3,7 @@
 
     <div class="error-management-page-not-found-header">
 	{{#if pageHeader}}
-		<h1>{{pageHeader}}</h1>
+		<h2>{{pageHeader}}</h2>
 	{{/if}}
 
 	   <div id="main-banner" class="error-management-page-not-found-main-banner"></div>

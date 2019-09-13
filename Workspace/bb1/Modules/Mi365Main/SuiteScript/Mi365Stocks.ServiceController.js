@@ -106,8 +106,8 @@ define(
 						filter.unshift("AND");
 						filter.unshift(["custrecord_bb1_sca_companystock_area", "anyof", area]);
 					}else{
-						filter.unshift("AND");
-						filter.unshift(["custrecord_bb1_sca_companystock_area", "anyof", allowAreas]);
+						filter.push("AND");
+						filter.push([["custrecord_bb1_sca_companystock_location","is",2],"OR",["custrecord_bb1_sca_companystock_area", "anyof", allowAreas]]);
 					}
 					var find = [];
 					for (var j = 0; j < this.fields.length; j++) {
@@ -191,7 +191,7 @@ define(
 						if (results.length > 0) {
 							return results[0];
 						} else {
-							throw (new Error("The stock could not found."));
+							throw (new Error("The stock could not be found or is not allowed to be viewed."));
 						}
 					} else {
 						return results;
