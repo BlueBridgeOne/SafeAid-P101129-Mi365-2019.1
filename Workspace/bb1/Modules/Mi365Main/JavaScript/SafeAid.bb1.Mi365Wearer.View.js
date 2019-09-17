@@ -53,6 +53,36 @@ define('SafeAid.bb1.Mi365Wearer.View', [
 			mandatory: true,
 			list:true,
 			url:"Mi365/area/"
+		}, {
+			id:"title",
+			label: "Wearer Budget",
+			type: "title",
+			permission:"budget"
+		}
+		, {
+			id: "custrecord_bb1_sca_wearer_budget",
+			label: "Budget",
+			type: "text",
+			mandatory:true,
+			permission:"budget"
+		}, {
+			id: "custrecord_bb1_sca_wearer_duration",
+			label: "Duration",
+			type: "choice",
+			mandatory:true,
+			permission:"budget"
+		}, {
+			id: "custrecord_bb1_sca_wearer_currentspend",
+			label: "Current Spend",
+			type: "inlinetext",
+			mandatory:true,
+			permission:"budget"
+		}, {
+			id: "custrecord_bb1_sca_wearer_startdate",
+			label: "Current Start Date",
+			type: "inlinetext",
+			mandatory:true,
+			permission:"budget"
 		}],
 		initialize: function (options) {
 			this.overview=options.overview;
@@ -122,9 +152,12 @@ var deleteId=this.model.get("id");
 		,
 		getContext: function getContext() {
 			var allowEdit=this.overview.get("custentity_bb1_sca_alloweditwearers")=="T";
-			
+			var allowEditBudgets = this.overview.get("custentity_bb1_sca_alloweditbudgets") == "T";
+			var newFields = [];
+
 			for (var i = 0; i < this.fields.length; i++) {
 				if (!this.fields[i].listonly) {
+					if (allowEditBudgets || this.fields[i].permission != "budget") {
 					if (this.model.get(this.fields[i].id)) {
 						this.fields[i].value = this.model.get(this.fields[i].id);
 					}
@@ -138,6 +171,8 @@ var deleteId=this.model.get("id");
 						}
 						this.fields[i].value=choiceValue;
 					}
+					newFields.push(this.fields[i]);
+					}
 				}
 			}
 		
@@ -145,7 +180,7 @@ var deleteId=this.model.get("id");
 			return {
 				title:"Wearer",
 				model: this.model,
-				fields: this.fields || [],
+				fields: newFields,
 				editable:allowEdit,
 				showDelete:allowEdit,
 				showStock:true,

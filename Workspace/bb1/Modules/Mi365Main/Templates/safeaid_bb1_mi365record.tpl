@@ -49,7 +49,7 @@
             id="{{id}}" name="{{id}}" value="{{value}}"></div>
       </div>
       {{/ifEquals}}
-      {{#ifEquals type "readonlytext"}}
+      {{#ifEquals type "inlinetext"}}
       <div class="mi365-information-row {{#unless ../editable}}mi365-information-input-readonly{{/unless}}"
         data-input="{{id}}" data-validation="control-group"><label class="mi365-information-label" for="{{id}}">
           {{label}}</label>
@@ -101,7 +101,6 @@
           </select>
           {{else}}
           {{#if url}}<a href="{{url}}{{value.value}}">{{/if}}{{value.text}}{{#if url}}</a>{{else}}
-          <input type="text" readonly class="mi365-information-input-large" value="{{value.text}}">
           {{/if}}
           {{/if}}
         </div>
@@ -119,7 +118,8 @@
           <input id="{{id}}" name="{{id}}" type="hidden" value="{{value.value}}">
 
           {{#each value.choice}}
-          <p><input type="checkbox" {{#if selected}}checked{{/if}} value="T" data-unchecked-value="F" data-id="{{value}}" data-action="multichoice">{{text}}</p>
+          <p><input type="checkbox" {{#if selected}}checked{{/if}} value="T" data-unchecked-value="F"
+              data-id="{{value}}" data-action="multichoice">{{text}}</p>
           {{/each}}
 
           {{else}}
@@ -152,6 +152,12 @@
             style="width:100%;border:1px solid #CCC;">
           </canvas>
           {{/if}}
+        </div>
+        {{/ifEquals}}
+
+        {{#ifEquals type "title"}}
+        <div class="mi365-information-row">
+          <h4 class="mi365-information-label">{{label}}</h4>
         </div>
         {{/ifEquals}}
 

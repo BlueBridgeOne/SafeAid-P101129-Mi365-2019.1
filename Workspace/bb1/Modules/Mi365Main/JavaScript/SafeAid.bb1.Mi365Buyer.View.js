@@ -102,24 +102,35 @@ define('SafeAid.bb1.Mi365Buyer.View', [
 			id: "custentity_bb1_sca_allowviewareas",
 			label: "Allow View Areas",
 			type: "multichoice"
-		}
-	
-		, {
+		}, {
+			id: "title",
+			label: "Buyer Budget",
+			type: "title",
+			permission: "budget"
+		}, {
 			id: "custentity_bb1_sca_budget",
 			label: "Budget",
-			type: "text"
+			type: "text",
+			mandatory: true,
+			permission: "budget"
 		}, {
 			id: "custentity_bb1_sca_duration",
 			label: "Duration",
-			type: "record"
+			type: "choice",
+			mandatory: true,
+			permission: "budget"
 		}, {
 			id: "custentity_bb1_sca_currentspend",
 			label: "Current Spend",
-			type: "inlinetext"
+			type: "inlinetext",
+			mandatory: true,
+			permission: "budget"
 		}, {
 			id: "custentity_bb1_sca_startdate",
 			label: "Current Start Date",
-			type: "inlinetext"
+			type: "inlinetext",
+			mandatory: true,
+			permission: "budget"
 		}],
 		initialize: function (options) {
 
@@ -156,8 +167,8 @@ define('SafeAid.bb1.Mi365Buyer.View', [
 					selected.push($(this).attr("data-id"));
 				}
 			});
-			
-			parent.find("#"+parentId).val(selected.join(","));
+
+			parent.find("#" + parentId).val(selected.join(","));
 		},
 		deleteRecord: function (e) {
 
@@ -197,16 +208,21 @@ define('SafeAid.bb1.Mi365Buyer.View', [
 		//@method getContext @return SafeAid.bb1.Mi365Main.View.Context
 		,
 		getContext: function getContext() {
-			try {
-				//{id:"custentity_bb1_sca_allowviewreports",label:"Allow View Reports",type:"checkbox"};
-				for (var i = 0; i < this.fields.length; i++) {
-					if (!this.fields[i].listonly) {
+			var allowEdit = this.overview.get("custentity_bb1_sca_alloweditbuyers") == "T";
+			var allowEditBudgets = this.overview.get("custentity_bb1_sca_alloweditbudgets") == "T";
+			var newFields = [];
+			console.log(this.fields);
+			
+			//{id:"custentity_bb1_sca_allowviewreports",label:"Allow View Reports",type:"checkbox"};
+			for (var i = 0; i < this.fields.length; i++) {
+				if (!this.fields[i].listonly) {
+					if ( allowEditBudgets || this.fields[i].permission != "budget") {
 						if (this.model.get(this.fields[i].id)) {
 							this.fields[i].value = this.model.get(this.fields[i].id);
 						}
 
 						if (this.fields[i].type == "multichoice") {
-							console.log(this.fields[i]);
+
 							var choiceValue = this.fields[i].value.value.split(',');
 
 							var hchoiceValue = {};
@@ -221,13 +237,12 @@ define('SafeAid.bb1.Mi365Buyer.View', [
 								}
 							}
 						}
-
+						newFields.push(this.fields[i]);
 					}
 				}
-			} catch (err) {
-				console.log(err);
 			}
-			var allowEdit = this.overview.get("custentity_bb1_sca_alloweditbuyers") == "T";
+
+
 			if (this.overview.get("id") == this.model.get("id")) {
 				allowEdit = false; // You can't edit yourself.
 			}
@@ -236,7 +251,7 @@ define('SafeAid.bb1.Mi365Buyer.View', [
 			return {
 				title: "Buyer",
 				model: this.model,
-				fields: this.fields || [],
+				fields: newFields,
 				editable: allowEdit,
 				showDelete: allowEdit,
 				breadcrumbs: [{

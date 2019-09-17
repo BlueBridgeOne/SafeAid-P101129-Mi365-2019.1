@@ -40,7 +40,7 @@ define('SafeAid.bb1.Mi365ConfirmTransfer.View', [
 		}, {
 			id: "custrecord_bb1_sca_costocktrans_quantity",
 			label: "Quantity",
-			type: "readonlytext",
+			type: "inlinetext",
 			mandatory: true,
 			list: true
 		},  {

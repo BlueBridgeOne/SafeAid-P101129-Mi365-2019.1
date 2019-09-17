@@ -86,6 +86,24 @@ define(
 				id: "custentity_bb1_sca_alloweditbudgets",
 				label: "Allow Edit Budgets",
 				type: "checkbox"
+			}, {
+				id: "custentity_bb1_sca_budget",
+				label: "Budget",
+				type: "text",
+				mandatory: true
+			}, {
+				id: "custentity_bb1_sca_duration",
+				label: "Duration",
+				type: "choice",
+				mandatory: true
+			}, {
+				id: "custentity_bb1_sca_currentspend",
+				label: "Current Spend",
+				type: "inlinetext"
+			}, {
+				id: "custentity_bb1_sca_startdate",
+				label: "Current Start Date",
+				type: "inlinetext"
 			}],
 
 			// The values in this object are the validation needed for the current service.

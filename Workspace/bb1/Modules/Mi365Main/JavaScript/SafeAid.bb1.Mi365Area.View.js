@@ -28,6 +28,37 @@ define('SafeAid.bb1.Mi365Area.View', [
 			label: "Name",
 			type: "text",
 			mandatory: true
+		}
+		, {
+			id:"title",
+			label: "Area Budget",
+			type: "title",
+			permission:"budget"
+		}
+		, {
+			id: "custrecord_bb1_sca_area_budget",
+			label: "Budget",
+			type: "text",
+			mandatory:true,
+			permission:"budget"
+		}, {
+			id: "custrecord_bb1_sca_area_duration",
+			label: "Duration",
+			type: "choice",
+			mandatory:true,
+			permission:"budget"
+		}, {
+			id: "custrecord_bb1_sca_area_currentspend",
+			label: "Current Spend",
+			type: "inlinetext",
+			mandatory:true,
+			permission:"budget"
+		}, {
+			id: "custrecord_bb1_sca_area_startdate",
+			label: "Current Start Date",
+			type: "inlinetext",
+			mandatory:true,
+			permission:"budget"
 		}],
 		initialize: function (options) {
 this.overview=options.overview;
@@ -112,19 +143,25 @@ this.overview=options.overview;
 		,
 		getContext: function getContext() {
 			var allowEdit=this.overview.get("custentity_bb1_sca_alloweditareas")=="T";
+			var allowEditBudgets=this.overview.get("custentity_bb1_sca_alloweditbudgets")=="T";
 			
-			//{id:"custentity_bb1_sca_allowviewreports",label:"Allow View Reports",type:"checkbox"};
+			
+			var newFields=[];
+
 			for (var i = 0; i < this.fields.length; i++) {
 				if (!this.fields[i].listonly) {
 					if (this.model.get(this.fields[i].id)) {
 						this.fields[i].value = this.model.get(this.fields[i].id);
+					}
+					if(allowEditBudgets||this.fields[i].permission!="budget"){
+					newFields.push(this.fields[i]);
 					}
 				}
 			}
 			return {
 				title: "Area",
 				model: this.model,
-				fields: this.fields || [],
+				fields: newFields,
 				editable: allowEdit,
 				showDelete: allowEdit,
 				showStock: true,

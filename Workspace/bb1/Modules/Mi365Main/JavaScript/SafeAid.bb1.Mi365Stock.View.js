@@ -52,7 +52,7 @@ define('SafeAid.bb1.Mi365Stock.View', [
 		}, {
 			id: "custrecord_bb1_sca_companystock_quantity",
 			label: "Quantity",
-			type: "readonlytext",
+			type: "inlinetext",
 			mandatory: true,
 			list: true
 		}, {

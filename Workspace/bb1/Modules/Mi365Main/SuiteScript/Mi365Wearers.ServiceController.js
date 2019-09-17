@@ -40,6 +40,30 @@ define(
 				type: "record",
 				mandatory: true,
 				list: true
+			}, {
+				id: "custrecord_bb1_sca_wearer_budget",
+				label: "Budget",
+				type: "text",
+				mandatory:true,
+				permission:"budget"
+			}, {
+				id: "custrecord_bb1_sca_wearer_duration",
+				label: "Duration",
+				type: "choice",
+				mandatory:true,
+				permission:"budget"
+			}, {
+				id: "custrecord_bb1_sca_wearer_currentspend",
+				label: "Current Spend",
+				type: "inlinetext",
+				mandatory:true,
+				permission:"budget"
+			}, {
+				id: "custrecord_bb1_sca_wearer_startdate",
+				label: "Current Start Date",
+				type: "inlinetext",
+				mandatory:true,
+				permission:"budget"
 			}],
 
 			// The values in this object are the validation needed for the current service.
@@ -154,7 +178,7 @@ define(
 								for (var j = 0; j < this.fields.length; j++) {
 									if (this.fields[j].list || this.fields[j].listonly || id) {
 										find.push(new nlobjSearchColumn(this.fields[j].id));
-										if (this.fields[j].type == "record") {
+										if (this.fields[j].type == "record"||this.fields[j].type == "choice") {
 											data[this.fields[j].id] = {
 												value: result.getValue(this.fields[j].id),
 												text: result.getText(this.fields[j].id)
@@ -165,7 +189,18 @@ define(
 									}
 								}
 
-								if (id) { //add area choices
+								if (id) { //add choices
+
+									data.custrecord_bb1_sca_wearer_duration.choice = [{
+										value: "1",
+										text: "Per Month"
+									}, {
+										value: "2",
+										text: "Per Quarter"
+									}, {
+										value: "3",
+										text: "Per Year"
+									}];
 
 									data.custrecord_bb1_sca_wearer_area.choice = [];
 
