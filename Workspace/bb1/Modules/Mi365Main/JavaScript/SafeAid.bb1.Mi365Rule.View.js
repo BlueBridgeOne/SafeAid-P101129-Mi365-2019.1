@@ -146,16 +146,31 @@ define('SafeAid.bb1.Mi365Rule.View', [
 				breadcrumbs = [],
 				title = "Rule";
 
-			if (this.model.get("custrecord_bb1_sca_rule_wearer")) {
+			if (this.model.get("custrecord_bb1_sca_rule_wearer")&&this.model.get("custrecord_bb1_sca_rule_wearer").value) {
 				location = "Wearer";
 			}
+
+		
+			
 			for (var i = 0; i < this.fields.length; i++) {
 				if (!this.fields[i].listonly) {
 
 					if (this.model.get(this.fields[i].id)) {
 						this.fields[i].value = this.model.get(this.fields[i].id);
 					}
-					//Only show certain fields depening on area or wearer.
+
+					if(this.fields[i].type=="choice"){
+						var choiceValue=this.fields[i].value;
+						for(var j=0;j<choiceValue.choice.length;j++){
+							if(choiceValue.choice[j].value==choiceValue.value){
+								choiceValue.choice.unshift(choiceValue.choice.splice(j, 1)[0]);
+								break;
+							}
+						}
+						this.fields[i].value=choiceValue;
+					}
+
+					
 					if (location == "Area") {
 						if (this.fields[i].id == "custrecord_bb1_sca_rule_area") {
 							title = this.fields[i].value.text + " Rule";

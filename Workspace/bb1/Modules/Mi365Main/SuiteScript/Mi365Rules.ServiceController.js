@@ -185,8 +185,10 @@ define(
 									value: "3",
 									text: "Per Year"
 								}];
-								
-									data.custrecord_bb1_sca_rule_wearer.choice = [];
+								if(!data.custrecord_bb1_sca_rule_wearer){
+									data.custrecord_bb1_sca_rule_wearer={};
+								}
+									data.custrecord_bb1_sca_rule_wearer.choice = [{text:""}];
 									if (data.custrecord_bb1_sca_rule_area.value) {
 										filter = [
 											["isinactive", "is", "F"],
@@ -214,7 +216,10 @@ define(
 											}
 										}
 									}
-
+									if(!data.custrecord_bb1_sca_rule_item){
+										data.custrecord_bb1_sca_rule_item={};
+									}
+									data.custrecord_bb1_sca_rule_item.choice = [{text:""}];
 									filter = [
 										["isinactive", "is", "F"],
 										"AND",

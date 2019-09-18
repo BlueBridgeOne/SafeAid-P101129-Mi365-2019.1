@@ -129,6 +129,18 @@ define(
 					var customer = context.getUser();
 					nlapiLogExecution("debug", "context", context.getUser() + " " + context.getCompany() + " " + context.getEmail() + " " + context.getName() + " " + context.getContact());
 					
+					var custentity_bb1_sca_membership;
+					if(customer){
+					try{
+						custentity_bb1_sca_membership = nlapiLookupField('customer', customer, 'custentity_bb1_sca_membership');
+					}catch(err){
+						try{
+						custentity_bb1_sca_membership = nlapiLookupField('lead', customer, 'custentity_bb1_sca_membership');
+						}catch(err2){
+							
+						}
+					}
+				}
 
 						var filter = [
 							["custentity_bb1_sca_buyer", "is", "T"],
@@ -157,7 +169,9 @@ define(
 							result = contactSearch[i];
 							data = {
 								id: result.getId(),
-								level:"silver"
+								level:"silver",
+								custentity_bb1_sca_membership:custentity_bb1_sca_membership
+
 							};
 
 							for (var j = 0; j < this.fields.length; j++) {
@@ -175,6 +189,7 @@ define(
 							}
 
 							results.push(data);
+							break;
 						}
 					}
 						
@@ -183,7 +198,8 @@ define(
 							} else {
 								return {
 									id: contact,
-									level:"bronze"
+									level:"bronze",
+									custentity_bb1_sca_membership:custentity_bb1_sca_membership
 								};
 							}
 						
