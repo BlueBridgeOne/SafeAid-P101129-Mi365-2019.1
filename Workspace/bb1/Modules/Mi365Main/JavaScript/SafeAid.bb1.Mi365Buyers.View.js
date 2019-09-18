@@ -36,7 +36,7 @@ define('SafeAid.bb1.Mi365Buyers.View', [
 				}
 			}).done(function () {
 				console.log("created new");
-				Backbone.history.navigate('Mi365/buyer/' + this.id, {
+				Backbone.history.navigate('Mi365/buyer/' + model.get("id"), {
 					trigger: true
 				});
 			});

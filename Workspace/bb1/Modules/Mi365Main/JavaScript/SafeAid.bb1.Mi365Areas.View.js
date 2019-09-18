@@ -33,7 +33,7 @@ this.overview=options.overview;
 				}
 			}).done(function () {
 				console.log("created new");
-				Backbone.history.navigate('Mi365/area/' + this.id, {
+				Backbone.history.navigate('Mi365/area/' + model.get("id"), {
 					trigger: true
 				});
 			});

@@ -36,7 +36,7 @@ this.overview=options.overview;
 				}
 			}).done(function () {
 				console.log("created new");
-				Backbone.history.navigate('Mi365/wearer/' + this.id, {
+				Backbone.history.navigate('Mi365/wearer/' + model.get("id"), {
 					trigger: true
 				});
 			});
@@ -56,7 +56,6 @@ this.overview=options.overview;
 			var allowEdit=this.overview.get("custentity_bb1_sca_alloweditwearers")=="T";
 			
 			return {
-				showNew:allowEdit,
 				models: this.collection.models
 			};
 		}

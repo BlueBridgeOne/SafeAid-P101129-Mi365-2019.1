@@ -39,7 +39,7 @@ define('SafeAid.bb1.Mi365Rules.View', [
 				}
 			}).done(function () {
 				console.log("created new");
-				Backbone.history.navigate('Mi365/rule/' + this.id, {
+				Backbone.history.navigate('Mi365/rule/' + model.get("id"), {
 					trigger: true
 				});
 			});

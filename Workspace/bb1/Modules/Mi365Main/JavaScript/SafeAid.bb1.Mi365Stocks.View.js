@@ -36,7 +36,7 @@ define('SafeAid.bb1.Mi365Stocks.View', [
 				}
 			}).done(function () {
 				console.log("created new");
-				Backbone.history.navigate('Mi365/stock/' + this.id, {
+				Backbone.history.navigate('Mi365/stock/' + model.get("id"), {
 					trigger: true
 				});
 			});
