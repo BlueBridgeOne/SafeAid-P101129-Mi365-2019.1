@@ -87,6 +87,10 @@ define(
 				label: "Allow Edit Budgets",
 				type: "checkbox"
 			}, {
+				id: "custentity_bb1_sca_alloweditrules",
+				label: "Allow Edit Rules",
+				type: "checkbox"
+			}, {
 				id: "custentity_bb1_sca_budget",
 				label: "Budget",
 				type: "text",

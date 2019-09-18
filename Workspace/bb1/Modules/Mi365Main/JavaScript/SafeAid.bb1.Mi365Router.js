@@ -12,6 +12,8 @@ define('SafeAid.bb1.Mi365Router', [
     'SafeAid.bb1.Mi365Alert.View',
     'SafeAid.bb1.Mi365Stocks.View',
     'SafeAid.bb1.Mi365Stock.View',
+    'SafeAid.bb1.Mi365Rules.View',
+    'SafeAid.bb1.Mi365Rule.View',
     'SafeAid.bb1.Mi365Transfers.View',
     'SafeAid.bb1.Mi365Transfer.View',
     'SafeAid.bb1.Mi365ConfirmTransfer.View',
@@ -26,6 +28,8 @@ define('SafeAid.bb1.Mi365Router', [
     'SafeAid.bb1.Mi365Alerts.Model',
     'SafeAid.bb1.Mi365Stocks.Collection',
     'SafeAid.bb1.Mi365Stocks.Model',
+    'SafeAid.bb1.Mi365Rules.Collection',
+    'SafeAid.bb1.Mi365Rules.Model',
     'SafeAid.bb1.Mi365Transfers.Collection',
     'SafeAid.bb1.Mi365Transfers.Model',
     'SafeAid.bb1.Mi365Overview.Model',
@@ -45,6 +49,8 @@ define('SafeAid.bb1.Mi365Router', [
     Mi365AlertView,
     Mi365StocksView,
     Mi365StockView,
+    Mi365RulesView,
+    Mi365RuleView,
     Mi365TransfersView,
     Mi365TransferView,
     Mi365ConfirmTransferView,
@@ -59,6 +65,8 @@ define('SafeAid.bb1.Mi365Router', [
     Mi365AlertsModel,
     Mi365StocksCollection,
     Mi365StocksModel,
+    Mi365RulesCollection,
+    Mi365RulesModel,
     Mi365TransfersCollection,
     Mi365TransfersModel,
     Mi365OverviewModel,
@@ -103,6 +111,11 @@ define('SafeAid.bb1.Mi365Router', [
             'Mi365/wearer/stock/:id': 'WearerStocks',
             'Mi365/area/stock/:id': 'AreaStocks',
             'Mi365/stock/:id': 'Stock',
+            'Mi365/wearer/rule/:id': 'WearerRules',
+            'Mi365/area/rule/:id': 'AreaRules',
+            'Mi365/wearer/rules/:id': 'WearerRules',
+            'Mi365/area/rules/:id': 'AreaRules',
+            'Mi365/rule/:id': 'Rule',
             'Mi365/wearer/transfers/:id': 'WearerTransfers',
             'Mi365/area/wearers/:id': 'AreaWearers',
             'Mi365/area/transfers/:id': 'AreaTransfers',
@@ -321,6 +334,23 @@ define('SafeAid.bb1.Mi365Router', [
                 error: this.getErrorFunction()
             });
         },
+        Rule: function (id) {
+            var model = new Mi365RulesModel();
+            var view = new Mi365RuleView({
+                model: model,
+                application: this.application,
+                overview: this.overview
+            });
+
+            model.fetch({
+                data: {
+                    id: id,
+                    t: new Date().getTime()
+                },
+                success: this.getSuccessFunction(view),
+                error: this.getErrorFunction()
+            });
+        },
         StartTransfer: function (id) {
             var model = new Mi365StocksModel();
             var view = new Mi365StartTransferView({
@@ -361,6 +391,42 @@ define('SafeAid.bb1.Mi365Router', [
         AreaStocks: function (id) {
             var collection = new Mi365StocksCollection();
             var view = new Mi365StocksView({
+                collection: collection,
+                application: this.application,
+                area: id,
+                overview: this.overview
+            });
+
+            collection.fetch({
+                data: {
+                    area: id,
+                    t: new Date().getTime()
+                },
+                success: this.getSuccessFunction(view),
+                error: this.getErrorFunction()
+            });
+        },
+        WearerRules: function (id) {
+            var collection = new Mi365RulesCollection();
+            var view = new Mi365RulesView({
+                collection: collection,
+                application: this.application,
+                wearer: id,
+                overview: this.overview
+            });
+
+            collection.fetch({
+                data: {
+                    wearer: id,
+                    t: new Date().getTime()
+                },
+                success: this.getSuccessFunction(view),
+                error: this.getErrorFunction()
+            });
+        },
+        AreaRules: function (id) {
+            var collection = new Mi365RulesCollection();
+            var view = new Mi365RulesView({
                 collection: collection,
                 application: this.application,
                 area: id,

@@ -19,6 +19,9 @@
     {{#if showStock}}
     <button class="mi365-button" data-action="stock">Stock</button>
     {{/if}}
+    {{#if showRules}}
+    <button class="mi365-button" data-action="rules">Rules</button>
+    {{/if}}
     {{#if showTransfers}}
     <button class="mi365-button" data-action="transfers">Transfers</button>
     {{/if}}

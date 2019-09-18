@@ -24,7 +24,8 @@
                 "services/Mi365Alerts.Service.ss",
                 "services/Mi365Stocks.Service.ss",
                 "services/Mi365Transfers.Service.ss",
-                "services/Mi365Overview.Service.ss"
+                "services/Mi365Overview.Service.ss",
+                "services/Mi365Rules.Service.ss"
             ]
         }
     },
@@ -50,7 +51,8 @@
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365wearers.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365record.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365stocks.tpl",
-                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365transfers.tpl"
+                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365transfers.tpl",
+                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365rules.tpl"
                 ]
             }
         }
@@ -92,7 +94,11 @@
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Transfers.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365ConfirmTransfer.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365StartTransfer.View.js",
-                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Overview.Model.js"
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Overview.Model.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Rule.View.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Rules.Collection.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Rules.Model.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Rules.View.js"
                 ]
             }
         }
@@ -115,7 +121,9 @@
             "Modules/Mi365Main/SuiteScript/Mi365Transfers.ServiceController.js",
             "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Transfers.js",
             "Modules/Mi365Main/SuiteScript/Mi365Overview.ServiceController.js",
-            "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Overview.js"
+            "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Overview.js",
+            "Modules/Mi365Main/SuiteScript/Mi365Rules.ServiceController.js",
+            "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Rules.js"
         ]
     },
     "local_folder": "Workspace/bb1"

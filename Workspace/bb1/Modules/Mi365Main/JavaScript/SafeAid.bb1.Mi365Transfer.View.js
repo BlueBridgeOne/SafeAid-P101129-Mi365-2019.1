@@ -101,7 +101,7 @@ this.overview=options.overview;
 
 
 			console.log("confirm " + confirmId);
-			Backbone.history.navigate('#Mi365/transfer/confirm/' + confirmId, {
+			Backbone.history.navigate('Mi365/transfer/confirm/' + confirmId, {
 				trigger: true
 			});
 

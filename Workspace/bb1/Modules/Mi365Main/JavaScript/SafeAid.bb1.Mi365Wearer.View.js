@@ -105,17 +105,24 @@ define('SafeAid.bb1.Mi365Wearer.View', [
 			'submit form': 'saveForm',
 			'click [data-action="delete"]': 'deleteRecord',
 			'click [data-action="stock"]': 'showStock',
+			'click [data-action="rules"]': 'showRules',
 			'click [data-action="transfers"]': 'showTransfers'
+		},
+		showRules: function (e) {
+			var wearerId=this.model.get("id");
+			Backbone.history.navigate('Mi365/wearer/rule/'+wearerId, {
+				trigger: true
+			});
 		},
 		showStock: function (e) {
 			var stockId=this.model.get("id");
-			Backbone.history.navigate('#Mi365/wearer/stock/'+stockId, {
+			Backbone.history.navigate('Mi365/wearer/stock/'+stockId, {
 				trigger: true
 			});
 		},
 		showTransfers: function (e) {
 			var transferId=this.model.get("id");
-			Backbone.history.navigate('#Mi365/wearer/transfers/'+transferId, {
+			Backbone.history.navigate('Mi365/wearer/transfers/'+transferId, {
 				trigger: true
 			});
 		},
@@ -132,7 +139,7 @@ var deleteId=this.model.get("id");
 				}
 			}).always(function () {
 				console.log("deleted " + deleteId);
-				Backbone.history.navigate('#Mi365/wearers', {
+				Backbone.history.navigate('Mi365/wearers', {
 					trigger: true
 				});
 			});
@@ -153,6 +160,7 @@ var deleteId=this.model.get("id");
 		getContext: function getContext() {
 			var allowEdit=this.overview.get("custentity_bb1_sca_alloweditwearers")=="T";
 			var allowEditBudgets = this.overview.get("custentity_bb1_sca_alloweditbudgets") == "T";
+			var allowEditRules = this.overview.get("custentity_bb1_sca_alloweditrules") == "T";
 			var newFields = [];
 
 			for (var i = 0; i < this.fields.length; i++) {
@@ -184,6 +192,7 @@ var deleteId=this.model.get("id");
 				editable:allowEdit,
 				showDelete:allowEdit,
 				showStock:true,
+				showRules:allowEditRules,
 				showTransfers:true,
 				breadcrumbs:[{href:"Mi365/wearers",label:"Wearers"}],
 				active:this.model.get("name")

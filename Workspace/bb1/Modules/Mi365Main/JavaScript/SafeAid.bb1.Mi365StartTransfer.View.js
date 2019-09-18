@@ -74,7 +74,7 @@ this.overview=options.overview;
 			if (this.$savingForm) {
 				//Redirect here!
 				//Bit of a hack, I returned the new transfer record, which gets mixed with the old stock record. But at least the data is available to use.
-				Backbone.history.navigate('#Mi365/transfer/' + res.get("id"), {
+				Backbone.history.navigate('Mi365/transfer/' + res.get("id"), {
 					trigger: true
 				});
 

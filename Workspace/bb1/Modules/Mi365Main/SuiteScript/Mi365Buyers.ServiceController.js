@@ -87,6 +87,10 @@ define(
 					label: "Allow Edit Budgets",
 					type: "checkbox"
 				}, {
+					id: "custentity_bb1_sca_alloweditrules",
+					label: "Allow Edit Rules",
+					type: "checkbox"
+				}, {
 					id: "custentity_bb1_sca_allowviewareas",
 					label: "Allow View Area",
 					type: "multichoice"
@@ -203,7 +207,7 @@ define(
 
 							for (var j = 0; j < this.fields.length; j++) {
 								if (this.fields[j].list || this.fields[j].listonly || id) {
-									find.push(new nlobjSearchColumn(this.fields[j].id));
+									//find.push(new nlobjSearchColumn(this.fields[j].id));
 									if (this.fields[j].type == "record" || this.fields[j].type == "multichoice" || this.fields[j].type == "choice") {
 										data[this.fields[j].id] = {
 											value: result.getValue(this.fields[j].id),

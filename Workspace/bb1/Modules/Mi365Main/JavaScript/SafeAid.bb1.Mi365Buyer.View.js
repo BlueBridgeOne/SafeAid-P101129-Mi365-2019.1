@@ -99,6 +99,10 @@ define('SafeAid.bb1.Mi365Buyer.View', [
 			label: "Allow Edit Budgets",
 			type: "checkbox"
 		}, {
+			id: "custentity_bb1_sca_alloweditrules",
+			label: "Allow Edit Rules",
+			type: "checkbox"
+		}, {
 			id: "custentity_bb1_sca_allowviewareas",
 			label: "Allow View Areas",
 			type: "multichoice"
@@ -187,7 +191,7 @@ define('SafeAid.bb1.Mi365Buyer.View', [
 					}
 				}).always(function () {
 					console.log("deleted " + deleteId);
-					Backbone.history.navigate('#Mi365/buyers', {
+					Backbone.history.navigate('Mi365/buyers', {
 						trigger: true
 					});
 				});

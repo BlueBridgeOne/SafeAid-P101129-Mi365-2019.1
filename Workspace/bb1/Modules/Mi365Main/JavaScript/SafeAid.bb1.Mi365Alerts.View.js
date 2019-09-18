@@ -32,7 +32,7 @@ define('SafeAid.bb1.Mi365Alerts.View', [
 				}
 			}).done(function () {
 				console.log("cleared");
-				Backbone.history.navigate('#Mi365/alerts', {
+				Backbone.history.navigate('Mi365/alerts', {
 					trigger: false
 				});
 			});
@@ -40,7 +40,7 @@ define('SafeAid.bb1.Mi365Alerts.View', [
 		goToRecord: function (e) {
 				var id = e.currentTarget.getAttribute("data-id");
 				if (id) {
-					Backbone.history.navigate('#Mi365/alert/' + id, {
+					Backbone.history.navigate('Mi365/alert/' + id, {
 						trigger: true
 					});
 				}

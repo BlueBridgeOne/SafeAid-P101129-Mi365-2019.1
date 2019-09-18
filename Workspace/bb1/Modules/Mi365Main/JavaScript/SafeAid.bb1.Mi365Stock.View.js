@@ -91,7 +91,7 @@ this.overview=options.overview;
 			var stockId = this.model.get("id");
 
 			console.log("stock " + stockId);
-				Backbone.history.navigate('#Mi365/area/transfers/new/'+stockId, {
+				Backbone.history.navigate('Mi365/area/transfers/new/'+stockId, {
 					trigger: true
 				});
 		},

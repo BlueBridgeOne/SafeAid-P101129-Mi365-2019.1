@@ -164,7 +164,7 @@ this.overview=options.overview;
 			if (this.$savingForm) {
 				
 				var confirmId = this.model.get("id");
-				Backbone.history.navigate('#Mi365/transfer/' + confirmId, {
+				Backbone.history.navigate('Mi365/transfer/' + confirmId, {
 					trigger: true
 				});
 			}

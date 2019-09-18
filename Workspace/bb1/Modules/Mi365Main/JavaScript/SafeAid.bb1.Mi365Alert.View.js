@@ -73,7 +73,7 @@ var deleteId=this.model.get("id");
 				}
 			}).always(function () {
 				console.log("deleted " + deleteId);
-				Backbone.history.navigate('#Mi365/alerts', {
+				Backbone.history.navigate('Mi365/alerts', {
 					trigger: true
 				});
 			});

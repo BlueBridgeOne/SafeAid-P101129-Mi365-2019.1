@@ -36,7 +36,7 @@ this.overview=options.overview;
 				}
 			}).done(function () {
 				console.log("created new");
-				Backbone.history.navigate('#Mi365/wearer/' + this.id, {
+				Backbone.history.navigate('Mi365/wearer/' + this.id, {
 					trigger: true
 				});
 			});
@@ -44,7 +44,7 @@ this.overview=options.overview;
 		goToRecord: function (e) {
 				var id = e.currentTarget.getAttribute("data-id");
 				if (id) {
-					Backbone.history.navigate('#Mi365/wearer/' + id, {
+					Backbone.history.navigate('Mi365/wearer/' + id, {
 						trigger: true
 					});
 				}

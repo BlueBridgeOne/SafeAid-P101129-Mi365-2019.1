@@ -80,24 +80,31 @@ this.overview=options.overview;
 			'submit form': 'saveForm',
 			'click [data-action="delete"]': 'deleteRecord',
 			'click [data-action="stock"]': 'showStock',
+			'click [data-action="rules"]': 'showRules',
 			'click [data-action="transfers"]': 'showTransfers',
 			'click [data-action="wearers"]': 'showWearers'
 		},
 		showStock: function (e) {
 			var stockId = this.model.get("id");
-			Backbone.history.navigate('#Mi365/area/stock/' + stockId, {
+			Backbone.history.navigate('Mi365/area/stock/' + stockId, {
+				trigger: true
+			});
+		},
+		showRules: function (e) {
+			var areaId = this.model.get("id");
+			Backbone.history.navigate('Mi365/area/rules/' + areaId, {
 				trigger: true
 			});
 		},
 		showTransfers: function (e) {
 			var transferId = this.model.get("id");
-			Backbone.history.navigate('#Mi365/area/transfers/' + transferId, {
+			Backbone.history.navigate('Mi365/area/transfers/' + transferId, {
 				trigger: true
 			});
 		},
 		showWearers: function (e) {
 			var areaId = this.model.get("id");
-			Backbone.history.navigate('#Mi365/area/wearers/' + areaId, {
+			Backbone.history.navigate('Mi365/area/wearers/' + areaId, {
 				trigger: true
 			});
 		},
@@ -117,7 +124,7 @@ this.overview=options.overview;
 					}
 				}).always(function () {
 					console.log("deleted " + deleteId);
-					Backbone.history.navigate('#Mi365/areas', {
+					Backbone.history.navigate('Mi365/areas', {
 						trigger: true
 					});
 				});
@@ -144,6 +151,7 @@ this.overview=options.overview;
 		getContext: function getContext() {
 			var allowEdit=this.overview.get("custentity_bb1_sca_alloweditareas")=="T";
 			var allowEditBudgets=this.overview.get("custentity_bb1_sca_alloweditbudgets")=="T";
+			var allowEditRules=this.overview.get("custentity_bb1_sca_alloweditrules")=="T";
 			
 			
 			var newFields=[];
@@ -165,6 +173,7 @@ this.overview=options.overview;
 				editable: allowEdit,
 				showDelete: allowEdit,
 				showStock: true,
+				showRules: allowEditRules,
 				showTransfers: true,
 				showWearers: true,
 				breadcrumbs: [{

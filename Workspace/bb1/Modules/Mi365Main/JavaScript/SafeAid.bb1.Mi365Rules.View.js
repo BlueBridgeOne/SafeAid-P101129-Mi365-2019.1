@@ -1,34 +1,53 @@
 // @module SafeAid.bb1.Mi365Main
-define('SafeAid.bb1.Mi365Transfers.View', [
-	'safeaid_bb1_mi365transfers.tpl', 'SafeAid.bb1.Mi365Transfers.Model', 'Utils', 'Backbone', 'jQuery', 'underscore'
+define('SafeAid.bb1.Mi365Rules.View', [
+	'safeaid_bb1_mi365rules.tpl', 'SafeAid.bb1.Mi365Rules.Model', 'Utils', 'Backbone', 'jQuery', 'underscore'
 ], function (
-	safeaid_bb1_mi365transfers_tpl, Mi365TransfersModel, Utils, Backbone, jQuery, _
+	safeaid_bb1_mi365rules_tpl, Mi365RulesModel, Utils, Backbone, jQuery, _
 ) {
 	'use strict';
 
 	return Backbone.View.extend({
 
-		template: safeaid_bb1_mi365transfers_tpl
+		template: safeaid_bb1_mi365rules_tpl
 
 			,
 		initialize: function (options) {
 			this.application = options.application;
 			this.wearer = options.wearer;
 			this.area = options.area;
-			}
-
-			,
+			this.overview=options.overview;
+		},
 		events: {
 			'click [data-action="go-to-record"]': 'goToRecord',
+			'click [data-action="new"]': 'newRecord',
 			'click a': 'stopBubble'
 		},
 		stopBubble:function(e){
 			e.stopPropagation();
 		},
+		newRecord: function (e) {
+			console.log("new Record");
+			var self =this;
+			var model = new Mi365RulesModel();
+
+			model.fetch({
+				data: {
+					task: "new",
+					area:self.area,
+					wearer:self.wearer,
+					t: new Date().getTime()
+				}
+			}).done(function () {
+				console.log("created new");
+				Backbone.history.navigate('Mi365/rule/' + this.id, {
+					trigger: true
+				});
+			});
+		},
 		goToRecord: function (e) {
 				var id = e.currentTarget.getAttribute("data-id");
 				if (id) {
-					Backbone.history.navigate('Mi365/transfer/' + id, {
+					Backbone.history.navigate('Mi365/rule/' + id, {
 						trigger: true
 					});
 				}
@@ -37,6 +56,9 @@ define('SafeAid.bb1.Mi365Transfers.View', [
 			//@method getContext @return SafeAid.bb1.Mi365Main.View.Context
 			,
 		getContext: function getContext() {
+			
+			var allowEdit=this.overview.get("custentity_bb1_sca_alloweditrules")=="T";
+
 			var title = "All",
 				active = "All",
 				breadcrumbs = [],
@@ -46,18 +68,18 @@ define('SafeAid.bb1.Mi365Transfers.View', [
 			for (var i = 0; i < this.collection.models.length; i++) {
 				model = this.collection.models[i];
 				if (this.wearer) {
-					title = model.get("custrecord_bb1_sca_costocktrans_wearer").text;
+					title = model.get("custrecord_bb1_sca_rule_wearer").text;
 					break;
 				} else if (this.area) {
-					title = model.get("custrecord_bb1_sca_costocktrans_area").text;
+					title = model.get("custrecord_bb1_sca_rule_area").text;
 				}
-break;
+				break;
 			}
 			if (this.wearer) {
 				if (title == "All") {
 					title == "Wearer";
 				}
-				active = "Transfers";
+				active = "Rule";
 				breadcrumbs = [{
 					href: "Mi365/wearer/" + this.wearer,
 					label: "Wearer"
@@ -66,16 +88,16 @@ break;
 				if (title == "All") {
 					title == "Area";
 				}
-				active = "Transfers";
+				active = "Rule";
 				breadcrumbs = [{
 					href: "Mi365/area/" + this.area,
 					label: "Area"
 				}];
 			}
-
 			return {
-				title: title + " Transfers",
+				title: title + " Rules",
 				breadcrumbs: breadcrumbs,
+				showNew: allowEdit,
 				models: this.collection.models,
 				active: active
 			};

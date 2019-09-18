@@ -36,7 +36,7 @@ define('SafeAid.bb1.Mi365Buyers.View', [
 				}
 			}).done(function () {
 				console.log("created new");
-				Backbone.history.navigate('#Mi365/buyer/' + this.id, {
+				Backbone.history.navigate('Mi365/buyer/' + this.id, {
 					trigger: true
 				});
 			});
@@ -44,7 +44,7 @@ define('SafeAid.bb1.Mi365Buyers.View', [
 		goToRecord: function (e) {
 				var id = e.currentTarget.getAttribute("data-id");
 				if (id) {
-					Backbone.history.navigate('#Mi365/buyer/' + id, {
+					Backbone.history.navigate('Mi365/buyer/' + id, {
 						trigger: true
 					});
 				}

@@ -36,7 +36,7 @@ define('SafeAid.bb1.Mi365Stocks.View', [
 				}
 			}).done(function () {
 				console.log("created new");
-				Backbone.history.navigate('#Mi365/stock/' + this.id, {
+				Backbone.history.navigate('Mi365/stock/' + this.id, {
 					trigger: true
 				});
 			});
@@ -44,7 +44,7 @@ define('SafeAid.bb1.Mi365Stocks.View', [
 		goToRecord: function (e) {
 				var id = e.currentTarget.getAttribute("data-id");
 				if (id) {
-					Backbone.history.navigate('#Mi365/stock/' + id, {
+					Backbone.history.navigate('Mi365/stock/' + id, {
 						trigger: true
 					});
 				}
