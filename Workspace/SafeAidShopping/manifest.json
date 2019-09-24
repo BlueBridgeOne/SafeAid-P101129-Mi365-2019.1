@@ -1,0 +1,67 @@
+{
+    "name": "SafeAidShopping",
+    "fantasyName": "SafeAid Shopping",
+    "vendor": "bb1",
+    "version": "1.0.0",
+    "type": "extension",
+    "target": "SCA,SCS",
+    "description": "The shopping features for safeaid.",
+    "skins": [],
+    "assets": {
+        "img": {
+            "files": []
+        },
+        "fonts": {
+            "files": []
+        },
+        "services": {
+            "files": [
+                "services/AddToCart.Service.ss"
+            ]
+        }
+    },
+    "configuration": {
+        "files": []
+    },
+    "sass": {
+        "entry_points": {
+            "shopping": "Modules/Cart/Sass/_safeaidshopping-cart.scss"
+        },
+        "files": [
+            "Modules/Cart/Sass/_safeaidshopping-cart.scss"
+        ]
+    },
+    "templates": {
+        "application": {
+            "shopping": {
+                "files": [
+                    "Modules/Cart/Templates/bb1_cart_add_to_cart_button.tpl",
+                    "Modules/Cart/Templates/bb1_safeaidshopping_addtocart.tpl"
+                ]
+            }
+        }
+    },
+    "javascript": {
+        "entry_points": {
+            "shopping": "Modules/Cart/JavaScript/bb1.SafeAidShopping.Cart.js"
+        },
+        "application": {
+            "shopping": {
+                "files": [
+                    "Modules/Cart/JavaScript/bb1.SafeAidShopping.Cart.js",
+                    "Modules/Cart/JavaScript/bb1.Cart.AddToCart.Button.View.js",
+                    "Modules/Cart/JavaScript/bb1.SafeAidShopping.AddToCart.View.js",
+                    "Modules/Cart/JavaScript/SafeAid.bb1.AddToCart.Model.js"
+                ]
+            }
+        }
+    },
+    "ssp-libraries": {
+        "entry_point": "Modules/Cart/SuiteScript/AddToCart.ServiceController.js",
+        "files": [
+            "Modules/Cart/SuiteScript/AddToCart.ServiceController.js",
+            "Modules/Cart/SuiteScript/SafeAid.bb1.AddToCart.js"
+        ]
+    },
+    "local_folder": "Workspace/SafeAidShopping"
+}

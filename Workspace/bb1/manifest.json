@@ -2,11 +2,12 @@
     "name": "bb1",
     "fantasyName": "Mi365",
     "vendor": "SafeAid",
-    "type": "extension",
-    "cct": [],
-    "target": "SCA,SCS",
     "version": "1.0.0",
+    "type": "extension",
+    "target": "SCA,SCS",
     "description": "Manage Mi365 area of website.",
+    "cct": [],
+    "skins": [],
     "assets": {
         "img": {
             "files": []
@@ -31,6 +32,14 @@
     "configuration": {
         "files": []
     },
+    "sass": {
+        "entry_points": {
+            "myaccount": "Modules/Mi365Main/Sass/_bb1-mi365main.scss"
+        },
+        "files": [
+            "Modules/Mi365Main/Sass/_bb1-mi365main.scss"
+        ]
+    },
     "templates": {
         "application": {
             "myaccount": {
@@ -47,14 +56,6 @@
                 ]
             }
         }
-    },
-    "sass": {
-        "entry_points": {
-            "myaccount": "Modules/Mi365Main/Sass/_bb1-mi365main.scss"
-        },
-        "files": [
-            "Modules/Mi365Main/Sass/_bb1-mi365main.scss"
-        ]
     },
     "javascript": {
         "entry_points": {
@@ -124,5 +125,6 @@
             "Modules/Mi365Main/SuiteScript/Mi365Rules.ServiceController.js",
             "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Rules.js"
         ]
-    }
+    },
+    "local_folder": "Workspace/bb1"
 }

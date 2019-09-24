@@ -17,6 +17,9 @@
       "SMTTypes": [
         "myaccount",
         "checkout"
+      ],
+      "SafeAidShopping": [
+        "shopping"
       ]
     }
   }

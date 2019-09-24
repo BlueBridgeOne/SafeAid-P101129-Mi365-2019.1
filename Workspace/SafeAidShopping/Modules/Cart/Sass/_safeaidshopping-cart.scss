@@ -1,0 +1,20 @@
+.addtocart-row {
+	margin-bottom: $sc-margin-lv4;
+}
+
+.addtocart-input-required {
+	@extend .input-required;
+}
+.addtocart-input-optional {
+	@extend .input-optional;
+}
+
+.addtocart-input-large {
+	@extend .input-large;
+}
+#custcol_bb1_sca_area-container,#custcol_bb1_sca_wearer-container{
+	display:none;
+}
+.header-mini-cart{
+	a{min-width:0!important;}
+}

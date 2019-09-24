@@ -77,8 +77,11 @@ define(
 					var wearer = request.getParameter("wearer");
 					var area = request.getParameter("area");
 
-					var custentity_bb1_sca_allowviewareas = nlapiLookupField('contact', contact, 'custentity_bb1_sca_allowviewareas') || "";
-					var allowAreas = custentity_bb1_sca_allowviewareas.split(",");
+					var custentity_bb1_sca_allowviewareas = nlapiLookupField('contact', contact, 'custentity_bb1_sca_allowviewareas');
+				if(custentity_bb1_sca_allowviewareas==null){
+					custentity_bb1_sca_allowviewareas="0";
+				}
+				var allowAreas = custentity_bb1_sca_allowviewareas.split(",");
 
 					if (task == "new") {
 

@@ -28,6 +28,7 @@
         "extmech_parent": "-15",
         "extensions_path": [
             "Workspace/SMTTypes",
+            "Workspace/SafeAidShopping",
             "Workspace/bb1"
         ],
         "theme_path": "Workspace/Extras/SafeAid_Base_Theme",
