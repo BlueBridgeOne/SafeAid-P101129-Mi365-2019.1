@@ -63,7 +63,7 @@ define(
 
 				$("body").off('hidden.bs.modal', modalClosed);
 			},
-			modalClosed: function () {
+			modalClosed: function () { //Hack to stop strange double hits.
 					window.showingModal = false;
 					console.log("closed!");
 				}
@@ -71,7 +71,7 @@ define(
 				//@method getAddToCartValidators Returns the extra validation to add a product into the cart
 				//@return {BackboneValidationObject}
 				,
-			getAddToCartValidators: function getAddToCartValidators() {
+			getAddToCartValidators: function getAddToCartValidators() { // Out the box function
 					var self = this;
 
 					return {
@@ -102,12 +102,12 @@ define(
 				//@param {jQuery.Event} e
 				//@return {Boolean}
 				,
-			submitHandler: function submitHandler(e) {
+			submitHandler: function submitHandler(e) { //Out the box function
 
 				return this.addToCart(e);
 			},
 
-			showChoiceInModal: function (success) {
+			showChoiceInModal: function (success) { //Show the area and wearer choices
 					var self = this;
 					if (!window.showingModal) { //Stop annoying double popup
 						console.log("showChoiceInModal");
@@ -126,7 +126,12 @@ define(
 							}
 						}).done(function () {
 							//show choice modal
+							
+							if(model.get("areas").length==0){
+success();
+							}else{
 							view.showInModal();
+							}
 						});
 
 					}
@@ -136,7 +141,7 @@ define(
 				// @param {jQuery.Event} e
 				// @return {Boolean}
 				,
-			addToCart: function addToCart(e) {
+			addToCart: function addToCart(e) { //Modified OTB function.
 
 					try {
 
@@ -148,7 +153,7 @@ define(
 						}
 						//if the choice modal is a success, then add the items to the cart, using the selected area and wearer.
 						var success = function (area, wearer) {
-							//add the values from the modal to the model. try saying that 3 times fast!
+							//add the values from the choice modal to the model. try saying that 3 times fast!
 							
 							var options = self.model.get("options");
 							var cartOptionId;
@@ -185,9 +190,11 @@ define(
 								self.model.set("custcol_bb1_sca_wearer", null);
 							}
 						
-console.log(self.model);
+
 
 							window.showingModal = false;
+
+							//standard code to add item to cart.
 							if (!self.model.isNew() && self.model.get('source') === 'cart') {
 								cart_promise = self.cart.updateProduct(self.model);
 								cart_promise.done(function () {

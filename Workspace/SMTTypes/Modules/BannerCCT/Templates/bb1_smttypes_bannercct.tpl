@@ -1,6 +1,6 @@
 <div class="cct-banner">
   <div class="cct-banner-inner"
-    style="background-color:{{custrecord_bb1_banner_cct_bgcolour}};color:{{custrecord_bb1_banner_cct_fgcolour}};{{#if custrecord_bb1_banner_cct_bgimage_url}}background-image:url('{{custrecord_bb1_banner_cct_bgimage_url}}');{{/if}}">
+    style="background-color:{{custrecord_bb1_banner_cct_bgcolour}};color:{{custrecord_bb1_banner_cct_fgcolour}};{{#if custrecord_bb1_banner_cct_bgimage_url}}background-image:url('{{resizeImage custrecord_bb1_banner_cct_bgimage_url 'zoom'}}');{{/if}}">
     <div class="cct-banner-inner-container">
       <h1>{{custrecord_bb1_banner_cct_title}}</h1>
       <h3>{{custrecord_bb1_banner_cct_subtitle}}</h3>

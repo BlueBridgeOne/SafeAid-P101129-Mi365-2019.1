@@ -12,9 +12,57 @@
 .addtocart-input-large {
 	@extend .input-large;
 }
-#custcol_bb1_sca_area-container,#custcol_bb1_sca_wearer-container{
+#custcol_bb1_sca_area-container,#custcol_bb1_sca_wearer-container,#cseg_bb1_brand-container{
 	display:none;
 }
-.header-mini-cart{
-	a{min-width:0!important;}
+#in-modal-custcol_bb1_sca_area-container,#in-modal-custcol_bb1_sca_wearer-container,#in-modal-cseg_bb1_brand-container{
+	display:none;
+}
+.cart-lines-options{
+	div[name='Area']{display:none;}
+	div[name='Wearer']{display:none;}
+}
+.quick-order{display:none;}
+
+
+.cart-wearer-title{
+	background:$sc-color-theme-background;
+	border: 1px solid $sc-color-theme-border;
+}
+.cart-wearer-title-toggle{
+	padding:$sc-padding-lv2;
+	display:block;
+	line-height:50px;
+	i{margin-top:-.5rem;}
+	.collapsed{
+		i{
+			-webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+		}
+	}
+}
+.cart-wearer-body{
+	padding:$sc-padding-lv2;
+	border: 1px solid $sc-color-theme-border;
+	border-top-style:none;
+}
+.cart-wearer-title-details-count{
+	@extend .cart-detailed-title-details-count;
+font-family:"NimbusSanCon-Bla";
+}
+
+.cart-warning-icon {
+		@extend .icon-warning;
+}
+.cart-cancel-button {
+	@extend .button-positioning-stack2next;
+	@extend .button-secondary;
+	@extend .button-large;
+}
+.cart-continue-button {
+	@extend .button-positioning-stack2next;
+	@extend .button-primary;
+	@extend .button-large;
 }

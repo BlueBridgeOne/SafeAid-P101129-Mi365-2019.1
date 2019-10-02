@@ -4,7 +4,7 @@
       <div class="{{medium1}}"
         style="width:{{grow1}}%;background-color:{{custrecord_bb1_grid3_cct_bgcolour1}};color:{{custrecord_bb1_grid3_cct_fgcolour1}};">
         {{#if showImage1}}
-        <img src="{{custrecord_bb1_grid3_cct_image1_url}}" />
+        <img src="{{resizeImage custrecord_bb1_grid3_cct_image1_url 'main'}}" />
         {{else}}
         <div class="grid3-cell">
           {{{custrecord_bb1_grid3_cct_content1}}}
@@ -14,7 +14,7 @@
       <div class="{{medium2}}"
         style="width:{{grow2}}%;background-color:{{custrecord_bb1_grid3_cct_bgcolour2}};color:{{custrecord_bb1_grid3_cct_fgcolour2}};">
         {{#if showImage2}}
-        <img src="{{custrecord_bb1_grid3_cct_image2_url}}" />
+        <img src="{{resizeImage custrecord_bb1_grid3_cct_image2_url 'main'}}" />
         {{else}}
         <div class="grid3-cell">
           {{{custrecord_bb1_grid3_cct_content2}}}
@@ -24,7 +24,7 @@
       <div class="{{medium3}}"
         style="width:{{grow3}}%;background-color:{{custrecord_bb1_grid3_cct_bgcolour3}};color:{{custrecord_bb1_grid3_cct_fgcolour3}};">
         {{#if showImage3}}
-        <img src="{{custrecord_bb1_grid3_cct_image3_url}}" />
+        <img src="{{resizeImage custrecord_bb1_grid3_cct_image3_url 'main'}}" />
         {{else}}
         <div class="grid3-cell">
           {{{custrecord_bb1_grid3_cct_content3}}}

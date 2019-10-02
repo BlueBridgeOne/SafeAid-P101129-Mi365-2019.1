@@ -37,7 +37,7 @@
 			<div data-confirm-message class="cart-detailed-confirm-message"></div>
 
 			<div class="cart-detailed-item-view-cell-actionable-table cart-detailed-table-row-with-border">
-				<div data-view="Item.ListNavigable">
+				<div data-view="LinesExtension">
 				</div>
 			</div>
 

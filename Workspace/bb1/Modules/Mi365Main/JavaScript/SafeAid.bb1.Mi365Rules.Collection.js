@@ -8,7 +8,7 @@ define('SafeAid.bb1.Mi365Rules.Collection',
   function (Backbone, Model,Utils) {
     return Backbone.Collection.extend({
       model: Model,
-      url: Utils.getAbsoluteUrl(Utils.getAbsoluteUrl(getExtensionAssetsPath('services/Mi365Rules.Service.ss')))
+      url: Utils.getAbsoluteUrl(getExtensionAssetsPath('services/Mi365Rules.Service.ss'))
     });
   }
 );

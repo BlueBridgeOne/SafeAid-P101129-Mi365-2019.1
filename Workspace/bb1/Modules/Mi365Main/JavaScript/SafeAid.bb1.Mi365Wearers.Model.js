@@ -7,7 +7,7 @@ define('SafeAid.bb1.Mi365Wearers.Model',
   ],
   function (Backbone, _,Utils) {
     return Backbone.CachedModel.extend({
-      urlRoot: Utils.getAbsoluteUrl(Utils.getAbsoluteUrl(getExtensionAssetsPath('services/Mi365Wearers.Service.ss')))
+      urlRoot: Utils.getAbsoluteUrl(getExtensionAssetsPath('services/Mi365Wearers.Service.ss'))
     });
   }
 );

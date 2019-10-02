@@ -4,7 +4,7 @@
   <div
     style="width:{{grow1}}%;background-color:{{custrecord_bb1_grid2_cct_bgcolour1}};color:{{custrecord_bb1_grid2_cct_fgcolour1}};">
     {{#if showImage1}}
-    <img src="{{custrecord_bb1_grid2_cct_image1_url}}" />
+    <img src="{{resizeImage custrecord_bb1_grid2_cct_image1_url 'main'}}" />
     {{else}}
     <div class="grid2-cell">
     {{{custrecord_bb1_grid2_cct_content1}}}
@@ -14,7 +14,7 @@
   <div
     style="width:{{grow2}}%;background-color:{{custrecord_bb1_grid2_cct_bgcolour2}};color:{{custrecord_bb1_grid2_cct_fgcolour2}};">
     {{#if showImage2}}
-    <img src="{{custrecord_bb1_grid2_cct_image2_url}}" />
+    <img src="{{resizeImage custrecord_bb1_grid2_cct_image2_url 'main'}}" />
     {{else}}
     <div class="grid2-cell">
     {{{custrecord_bb1_grid2_cct_content2}}}

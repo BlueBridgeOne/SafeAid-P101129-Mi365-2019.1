@@ -34,3 +34,10 @@ body{
 .cms-content ol li {
 	list-style: decimal;
 }
+
+.header-mini-cart{
+	a{min-width:0!important;}
+}
+.cart-promocode-form-summary-button-apply-promocode{
+	min-width:0!important;
+}

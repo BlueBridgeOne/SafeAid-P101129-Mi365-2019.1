@@ -8,7 +8,7 @@ define('SafeAid.bb1.Mi365Wearers.Collection',
   function (Backbone, Model,Utils) {
     return Backbone.Collection.extend({
       model: Model,
-      url: Utils.getAbsoluteUrl(Utils.getAbsoluteUrl(getExtensionAssetsPath('services/Mi365Wearers.Service.ss')))
+      url: Utils.getAbsoluteUrl(getExtensionAssetsPath('services/Mi365Wearers.Service.ss'))
     });
   }
 );

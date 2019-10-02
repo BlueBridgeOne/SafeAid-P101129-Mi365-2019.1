@@ -2,11 +2,10 @@
     "name": "SafeAidShopping",
     "fantasyName": "SafeAid Shopping",
     "vendor": "bb1",
-    "version": "1.0.0",
     "type": "extension",
     "target": "SCA,SCS",
+    "version": "1.0.0",
     "description": "The shopping features for safeaid.",
-    "skins": [],
     "assets": {
         "img": {
             "files": []
@@ -16,12 +15,25 @@
         },
         "services": {
             "files": [
-                "services/AddToCart.Service.ss"
+                "services/AddToCart.Service.ss",
+                "services/CartApproval.Service.ss"
             ]
         }
     },
     "configuration": {
         "files": []
+    },
+    "templates": {
+        "application": {
+            "shopping": {
+                "files": [
+                    "Modules/Cart/Templates/bb1_cart_add_to_cart_button.tpl",
+                    "Modules/Cart/Templates/bb1_safeaidshopping_addtocart.tpl",
+                    "Modules/Cart/Templates/bb1_cart_list.tpl",
+                    "Modules/Cart/Templates/bb1_cart_approval.tpl"
+                ]
+            }
+        }
     },
     "sass": {
         "entry_points": {
@@ -30,16 +42,6 @@
         "files": [
             "Modules/Cart/Sass/_safeaidshopping-cart.scss"
         ]
-    },
-    "templates": {
-        "application": {
-            "shopping": {
-                "files": [
-                    "Modules/Cart/Templates/bb1_cart_add_to_cart_button.tpl",
-                    "Modules/Cart/Templates/bb1_safeaidshopping_addtocart.tpl"
-                ]
-            }
-        }
     },
     "javascript": {
         "entry_points": {
@@ -51,7 +53,11 @@
                     "Modules/Cart/JavaScript/bb1.SafeAidShopping.Cart.js",
                     "Modules/Cart/JavaScript/bb1.Cart.AddToCart.Button.View.js",
                     "Modules/Cart/JavaScript/bb1.SafeAidShopping.AddToCart.View.js",
-                    "Modules/Cart/JavaScript/SafeAid.bb1.AddToCart.Model.js"
+                    "Modules/Cart/JavaScript/SafeAid.bb1.AddToCart.Model.js",
+                    "Modules/Cart/JavaScript/bb1.Cart.List.View.js",
+                    "Modules/Cart/JavaScript/Tools.js",
+                    "Modules/Cart/JavaScript/bb1.Cart.Approval.View.js",
+                    "Modules/Cart/JavaScript/SafeAid.bb1.CartApproval.Model.js"
                 ]
             }
         }
@@ -60,8 +66,9 @@
         "entry_point": "Modules/Cart/SuiteScript/AddToCart.ServiceController.js",
         "files": [
             "Modules/Cart/SuiteScript/AddToCart.ServiceController.js",
-            "Modules/Cart/SuiteScript/SafeAid.bb1.AddToCart.js"
+            "Modules/Cart/SuiteScript/SafeAid.bb1.AddToCart.js",
+            "Modules/Cart/SuiteScript/CartApproval.ServiceController.js",
+            "Modules/Cart/SuiteScript/SafeAid.bb1.CartApproval.js"
         ]
-    },
-    "local_folder": "Workspace/SafeAidShopping"
+    }
 }

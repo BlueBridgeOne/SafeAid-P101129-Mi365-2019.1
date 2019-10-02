@@ -1,4 +1,4 @@
-define('SafeAid.bb1.AddToCart.Model',
+define('SafeAid.bb1.CartApproval.Model',
   [
   'Backbone',
   'underscore',
@@ -6,7 +6,7 @@ define('SafeAid.bb1.AddToCart.Model',
   ],
   function (Backbone, _,Utils) {
     return Backbone.CachedModel.extend({
-      urlRoot: Utils.getAbsoluteUrl(getExtensionAssetsPath('services/AddToCart.Service.ss'))
+      urlRoot: Utils.getAbsoluteUrl(getExtensionAssetsPath('services/CartApproval.Service.ss'))
     });
   }
 );
