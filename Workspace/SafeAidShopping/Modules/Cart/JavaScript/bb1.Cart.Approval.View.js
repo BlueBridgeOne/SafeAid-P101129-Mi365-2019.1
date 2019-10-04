@@ -42,6 +42,9 @@ define(
 						case "WARNING_AREA_BUDGET":
 								warning.text="The order exceeds "+values.area.text+"'s budget of £"+values.budget+" for this "+durations[values.duration]+".";
 							break;
+							case "WARNING_WEARER_BUDGET":
+								warning.text="The order exceeds "+values.wearer.text+"'s budget of £"+values.budget+" for this "+durations[values.duration]+".";
+							break;
 						case "WARNING_RULE_AREA_MAX":
 								warning.text="Only "+values.max+" "+values.item.text+"'s can be purchased for "+values.area.text+"'s during this "+durations[values.duration]+".";
 							break;

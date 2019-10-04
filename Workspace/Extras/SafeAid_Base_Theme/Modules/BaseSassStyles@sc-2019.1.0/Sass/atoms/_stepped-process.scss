@@ -125,11 +125,11 @@
 .stepped-process-step-disabled {
 	border-color: $sc-color-theme-border-light;
 	background-color: $sc-neutral-shade-0;
-	color: $sc-color-theme-500;
+	color: #999;
 	cursor: default;
 
 	&:hover, &:visited, &:focus{
-		color: $sc-color-theme-500;
+		color: #666;
 	}
 
 	@media (min-width: $screen-sm-min) {

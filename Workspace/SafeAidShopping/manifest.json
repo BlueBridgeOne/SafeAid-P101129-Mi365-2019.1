@@ -2,10 +2,11 @@
     "name": "SafeAidShopping",
     "fantasyName": "SafeAid Shopping",
     "vendor": "bb1",
+    "version": "1.0.0",
     "type": "extension",
     "target": "SCA,SCS",
-    "version": "1.0.0",
     "description": "The shopping features for safeaid.",
+    "skins": [],
     "assets": {
         "img": {
             "files": []
@@ -23,6 +24,14 @@
     "configuration": {
         "files": []
     },
+    "sass": {
+        "entry_points": {
+            "shopping": "Modules/Cart/Sass/_safeaidshopping-cart.scss"
+        },
+        "files": [
+            "Modules/Cart/Sass/_safeaidshopping-cart.scss"
+        ]
+    },
     "templates": {
         "application": {
             "shopping": {
@@ -34,14 +43,6 @@
                 ]
             }
         }
-    },
-    "sass": {
-        "entry_points": {
-            "shopping": "Modules/Cart/Sass/_safeaidshopping-cart.scss"
-        },
-        "files": [
-            "Modules/Cart/Sass/_safeaidshopping-cart.scss"
-        ]
     },
     "javascript": {
         "entry_points": {
@@ -70,5 +71,6 @@
             "Modules/Cart/SuiteScript/CartApproval.ServiceController.js",
             "Modules/Cart/SuiteScript/SafeAid.bb1.CartApproval.js"
         ]
-    }
+    },
+    "local_folder": "Workspace/SafeAidShopping"
 }

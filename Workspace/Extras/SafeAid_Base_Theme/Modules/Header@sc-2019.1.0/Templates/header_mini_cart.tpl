@@ -34,9 +34,9 @@
 				</a>
 			</div>
 			<div class="header-mini-cart-buttons-right">
-				<a id="btn-proceed-checkout" class="header-mini-cart-button-checkout" data-action="approve">
+				<a href="#" class="header-mini-cart-button-checkout" data-touchpoint="checkout" data-hashtag="#" >
 					{{translate 'Checkout'}}
-			</a>
+				</a>
 			</div>
 		</div>
 

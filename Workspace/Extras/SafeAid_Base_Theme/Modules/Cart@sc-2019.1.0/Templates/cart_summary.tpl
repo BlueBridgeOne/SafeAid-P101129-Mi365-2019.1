@@ -188,10 +188,13 @@
 
 	{{#if showActions}}
 		<div class="cart-summary-button-container">
-			<a id="btn-proceed-checkout" class="cart-summary-button-proceed-checkout {{#if showProceedButton}} cart-summary-button-proceed-checkout-sb {{/if}}" data-action="approve">
-					{{translate 'Proceed to Checkout'}}
+			<a id="btn-proceed-checkout" class="cart-summary-button-proceed-checkout {{#if showProceedButton}} cart-summary-button-proceed-checkout-sb {{/if}}" href="#" data-touchpoint="checkout" data-hashtag="#">
+				{{translate 'Proceed to Checkout'}}
 			</a>
-
+<br />
+			<a id="btn-proceed-checkout" class="cart-summary-button-proceed-checkout {{#if showProceedButton}} cart-summary-button-proceed-checkout-sb {{/if}}" data-action="approve">
+				{{translate 'Temp GT Approval Test! Proceed to Checkout'}}
+			</a>
 			{{#if showPaypalButton}}
 				<div class="cart-summary-btn-paypal-express">
 					<a href="#" data-touchpoint="checkout" data-hashtag="#" data-parameters="paypalexpress=T">

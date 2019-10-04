@@ -21,7 +21,7 @@
 	@extend .col-sm-9;
 
 	background-color: $white;
-
+margin-top:$sc-margin-lv3;
 	@media (min-width: $screen-sm-min){
 		margin-bottom: 70px;
 	}

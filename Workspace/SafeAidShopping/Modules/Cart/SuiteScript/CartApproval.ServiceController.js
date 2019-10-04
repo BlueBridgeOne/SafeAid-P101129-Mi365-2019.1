@@ -310,7 +310,7 @@ define(
 							area.custrecord_bb1_sca_area_currentspend = parseFloat(area.custrecord_bb1_sca_area_currentspend);
 						}
 						var enddate = this.getEndDate(area.custrecord_bb1_sca_area_startdate,area.custrecord_bb1_sca_area_duration);
-						
+						var today=new Date();
 						if (today >= enddate) { //Start new duration
 							area.custrecord_bb1_sca_area_startdate = this.getStartDate(new Date(),area.custrecord_bb1_sca_area_duration);
 							area.custrecord_bb1_sca_area_currentspend = 0;
