@@ -8,6 +8,7 @@
 
 .paymentinstrument-creditcard-edit {
     @extend .address-edit;
+    background: none;
 }
 
 .paymentinstrument-creditcard-edit-form-button-submit {

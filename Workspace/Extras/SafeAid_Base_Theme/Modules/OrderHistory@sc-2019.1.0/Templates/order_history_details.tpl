@@ -40,6 +40,19 @@
 					{{translate '<span class="order-history-details-header-quote-info-quote-label">Created from: </span> <a href="$(0)" class="order-history-details-header-date">$(1)</a>'quoteURL quoteName}}
 				</p>
 				{{/if}}
+				{{#if showApproved}}
+					<p class="order-history-details-header-purchase-order-number-info">
+						<span class="order-history-details-header-purchase-order-info-purchase-order-number-label">Mi365 Status: </span> <span class="order-history-details-header-purchase-order-number mi365-status-success">Approved</span>
+					</p>
+				{{/if}}
+				{{#if approvalRequired}}
+					<p class="order-history-details-header-purchase-order-number-info">
+						<span class="order-history-details-header-purchase-order-info-purchase-order-number-label">Mi365 Status: </span> <span class="order-history-details-header-purchase-order-number mi365-status-error">Approval Required</span>
+					</p>
+					{{#each warnings}}
+<p class="mi365-status-warning"><i class="cart-warning-icon"></i> {{text}}</p>
+{{/each}}
+				{{/if}}
 			</div>
 			<div class="order-history-details-header-col-right">
 				<p class="order-history-details-header-status-info">

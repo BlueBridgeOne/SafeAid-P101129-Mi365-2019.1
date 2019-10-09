@@ -137,3 +137,13 @@
 a[data-id="mi365"] { 
 display:none;
 }
+
+.mi365-status-success {
+	color: $sc-color-success;
+}
+.mi365-status-warning {
+	color: $sc-color-warning;
+}
+.mi365-status-error {
+	color: $sc-color-error;
+}

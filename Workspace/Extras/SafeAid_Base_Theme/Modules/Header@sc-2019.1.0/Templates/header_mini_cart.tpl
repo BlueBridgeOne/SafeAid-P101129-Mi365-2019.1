@@ -1,4 +1,4 @@
-<a class="header-mini-cart-menu-cart-link {{#if showLines}}header-mini-cart-menu-cart-link-enabled{{/if}}" data-type="mini-cart" title="{{translate 'Cart'}}" data-touchpoint="{{cartTouchPoint}}" data-hashtag="#cart" href="#">
+<a class="header-mini-cart-menu-cart-link {{#if showLines}}header-mini-cart-menu-cart-link-enabled{{/if}}" data-type="mini-cart" title="{{translate 'Cart'}}" data-action="approve">
 	<i class="header-mini-cart-menu-cart-icon"></i>
 	<span class="header-mini-cart-menu-cart-legend">
 		{{#if isLoading}}
@@ -34,7 +34,7 @@
 				</a>
 			</div>
 			<div class="header-mini-cart-buttons-right">
-				<a href="#" class="header-mini-cart-button-checkout" data-touchpoint="checkout" data-hashtag="#" >
+				<a href="#" class="header-mini-cart-button-checkout" data-action="approve" >
 					{{translate 'Checkout'}}
 				</a>
 			</div>
