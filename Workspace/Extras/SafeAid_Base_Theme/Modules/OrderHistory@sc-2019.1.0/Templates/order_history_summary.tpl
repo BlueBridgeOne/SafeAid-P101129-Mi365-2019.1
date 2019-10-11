@@ -104,6 +104,11 @@
 			</a>
 		{{/if}}
 
+{{#if approvalRequired}}
+			<a data-action="approve" class="order-history-summary-button-download-pdf">
+				{{translate 'Approve (to do...)'}}
+			</a>
+		{{/if}}
 		<!-- DOWNLOAD AS PDF -->
 		<a href="{{pdfUrl}}" target="_blank" class="order-history-summary-button-download-pdf">
 			{{translate 'Download PDF'}}

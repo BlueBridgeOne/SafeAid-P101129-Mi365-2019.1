@@ -100,7 +100,7 @@ $sc-color-star-error: $sc-color-error;
 
 .icon-warning {
 	@extend .icon;
-	@extend %fa-exclamation;
+	@extend %fa-exclamation-triangle;
 }
 
 .icon-container-error {

@@ -2,10 +2,10 @@
 
 define(
 	'SafeAid.bb1.Mi365Main', ['Handlebars',
-		'SafeAid.bb1.Mi365Router', 'OrderHistory.Details.View'
+		'SafeAid.bb1.Mi365Router', 'OrderHistory.Details.View','OrderHistory.Summary.View'
 	],
 	function (
-		Handlebars, Mi365Router, OrderHistoryDetails
+		Handlebars, Mi365Router, OrderHistoryDetails,OrderHistorySummary
 	) {
 		'use strict';
 
@@ -21,56 +21,76 @@ define(
 
 					getContext: _.wrap(OrderHistoryDetails.prototype.getContext, function (getContext, options) {
 						var res = getContext.apply(this, _.rest(arguments));
-						console.log(res);
-						var options = res.model.get("options");
-						//console.log(options);
-						if (options.custbody_bb1_sca_approvalstatus == "3") {
-							res.showApproved = true;
-						} else if (options.custbody_bb1_sca_approvalstatus == "2") {
-							res.approvalRequired = true;
-							var warnings = [];
-							if (options.custbody_bb1_sca_approvaldata) {
-								console.log(options.custbody_bb1_sca_approvaldata);
-								var custbody_bb1_sca_approvaldata = JSON.parse(options.custbody_bb1_sca_approvaldata);
-								console.log(custbody_bb1_sca_approvaldata.warnings);
-								warnings = custbody_bb1_sca_approvaldata.warnings || []
+						
+							console.log(res);
+							var options = res.model.get("options");
+							//console.log(options);
+							if (options.custbody_bb1_sca_approvalstatus == "3") {
+								res.showApproved = true;
+							} else if (options.custbody_bb1_sca_approvalstatus == "2") {
+								res.approvalRequired = true;
+								var warnings = [];
+								if (options.custbody_bb1_sca_approvaldata) {
+									//console.log(options.custbody_bb1_sca_approvaldata);
+									var custbody_bb1_sca_approvaldata = JSON.parse(options.custbody_bb1_sca_approvaldata);
+									//console.log(custbody_bb1_sca_approvaldata.warnings);
+									warnings = custbody_bb1_sca_approvaldata.warnings || []
 
-								var warning;
-								var durations = {
-									"1": "month",
-									"2": "quarter",
-									"3": "year"
-								};
-								//console.log(warnings);
-								for (var i = 0; i < warnings.length; i++) {
-									warning = warnings[i];
-									values = warning.values;
-									switch (warning.message) {
-										case "WARNING_BUYER_BUDGET":
-											warning.text = "The order exceeds your budget of £" + values.budget + " for this " + durations[values.duration] + ".";
-											break;
-										case "WARNING_AREA_BUDGET":
-											warning.text = "The order exceeds " + values.area.text + "'s budget of £" + values.budget + " for this " + durations[values.duration] + ".";
-											break;
-										case "WARNING_WEARER_BUDGET":
-											warning.text = "The order exceeds " + values.wearer.text + "'s budget of £" + values.budget + " for this " + durations[values.duration] + ".";
-											break;
-										case "WARNING_RULE_AREA_MAX":
-											warning.text = "Only " + values.max + " " + values.item.text + "'s can be purchased for " + values.area.text + "'s during this " + durations[values.duration] + ".";
-											break;
-										case "WARNING_RULE_WEARER_MAX":
-											warning.text = "Only " + values.max + " " + values.item.text + "'s can be purchased for " + values.wearer.text + " during this " + durations[values.duration] + ".";
-											break;
+									var warning,values;
+									var durations = {
+										"1": "month",
+										"2": "quarter",
+										"3": "year"
+									};
+									//console.log(warnings);
+									for (var i = 0; i < warnings.length; i++) {
+										warning = warnings[i];
+										values = warning.values;
+										
+										switch (warning.message) {
+											case "WARNING_BUYER_BUDGET":
+												warning.text = "The order exceeds your budget of £" + values.budget + " for this " + durations[values.duration] + ".";
+												break;
+											case "WARNING_AREA_BUDGET":
+												warning.text = "The order exceeds " + values.area.text + "'s budget of £" + values.budget + " for this " + durations[values.duration] + ".";
+												break;
+											case "WARNING_WEARER_BUDGET":
+												warning.text = "The order exceeds " + values.wearer.text + "'s budget of £" + values.budget + " for this " + durations[values.duration] + ".";
+												break;
+											case "WARNING_RULE_AREA_MAX":
+												warning.text = "Only " + values.max + " " + values.item.text + "'s can be purchased for " + values.area.text + "'s during this " + durations[values.duration] + ".";
+												break;
+											case "WARNING_RULE_WEARER_MAX":
+												warning.text = "Only " + values.max + " " + values.item.text + "'s can be purchased for " + values.wearer.text + " during this " + durations[values.duration] + ".";
+												break;
+										
+										}
 									}
-								}
 
+								}
+								res.warnings = warnings;
+								console.log("show warnings");
+								console.log(warnings);
 							}
-							res.warnings=warnings;
-							console.log(warnings);
-						}
+						
 						return res;
 					})
 				});
+
+
+				//show approve button on order history.
+				_.extend(OrderHistorySummary.prototype, {
+
+					getContext: _.wrap(OrderHistorySummary.prototype.getContext, function (getContext, options) {
+						var res = getContext.apply(this, _.rest(arguments));
+						var options = res.model.get("options");
+						//console.log(options);
+						if (options.custbody_bb1_sca_approvalstatus == "2") {
+							res.approvalRequired = true;
+						}
+							return res;
+						})
+					});
 
 
 

@@ -147,3 +147,6 @@ display:none;
 .mi365-status-error {
 	color: $sc-color-error;
 }
+.cart-warning-icon {
+	@extend .icon-warning;
+}
