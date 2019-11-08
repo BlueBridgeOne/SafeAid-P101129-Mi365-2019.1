@@ -2,14 +2,11 @@
     "credentials": {
         "is_scis": false,
         "user_agent": "sc-extension-devtools/2019.1.0",
-        "email": "gtruslove@bluebridgeone.com",
+        "email": "gordon@code25.com",
         "account": "5474721",
-        "role": 1000,
+        "role": 3,
         "hostname": "5474721.restlets.api.netsuite.com",
         "website": "2",
-        "domain": "safeaid.bb1.website",
-        "webapp_id": "289",
-        "target_folder": "289",
-        "roleId": 1000
+        "roleId": 3
     }
 }

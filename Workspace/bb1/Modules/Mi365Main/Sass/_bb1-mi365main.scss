@@ -134,19 +134,82 @@
 	margin-bottom: $sc-margin-lv1;
 	min-width: 150px;
 }
-a[data-id="mi365"] { 
-display:none;
+
+a[data-id="mi365"] {
+	display: none;
 }
 
 .mi365-status-success {
 	color: $sc-color-success;
 }
+
 .mi365-status-warning {
 	color: $sc-color-warning;
 }
+
 .mi365-status-error {
 	color: $sc-color-error;
 }
+
 .cart-warning-icon {
 	@extend .icon-warning;
+}
+
+.mi365-icon-buyer {
+	@extend .fa;
+	@extend %fa-credit-card;
+}
+
+.mi365-icon-area {
+	@extend .fa;
+	@extend %fa-map-o;
+}
+
+.mi365-icon-wearer {
+	@extend .fa;
+	@extend %fa-users;
+}
+
+.mi365-icon-alert {
+	@extend .fa;
+	@extend %fa-bell;
+}
+
+.mi365-dashboard-button {
+	@extend .col-xs-6;
+	@extend .col-sm-3;
+	@extend .col-md-2;
+
+	a {
+		display: block;
+		text-align: center;
+		font-size: $sc-h4-font-size;
+		
+		border:1px solid $sc-color-theme-border-light;
+		padding:$sc-padding-lv2 $sc-padding-lv2 0 $sc-padding-lv2;
+		margin-top:$sc-margin-lv3;
+		margin-bottom:$sc-margin-lv3;
+
+		&:hover{
+			border:1px solid $sc-color-theme-border;
+			background-color:$sc-color-theme-100;
+		}
+
+		@media (min-width: $screen-md-min) {
+			font-size: $sc-h4-desktop-font-size;
+			padding:$sc-padding-lv4;
+		}
+
+		i {
+			font-size: $sc-h2-font-size;
+
+			@media (min-width: $screen-md-min) {
+				font-size: $sc-h2-desktop-font-size;
+			}
+
+			margin-bottom: $sc-margin-lv2;
+			display:block;
+		}
+
+	}
 }

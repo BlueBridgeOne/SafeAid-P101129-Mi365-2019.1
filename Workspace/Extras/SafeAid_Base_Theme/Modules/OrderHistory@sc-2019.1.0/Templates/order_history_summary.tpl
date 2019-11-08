@@ -106,7 +106,7 @@
 
 {{#if approvalRequired}}
 			<a data-action="approve" class="order-history-summary-button-download-pdf">
-				{{translate 'Approve (to do...)'}}
+				{{translate 'Approve'}}
 			</a>
 		{{/if}}
 		<!-- DOWNLOAD AS PDF -->

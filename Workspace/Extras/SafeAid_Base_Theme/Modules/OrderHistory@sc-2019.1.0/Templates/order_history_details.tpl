@@ -49,10 +49,7 @@
 					<p class="order-history-details-header-purchase-order-number-info">
 						<span class="order-history-details-header-purchase-order-info-purchase-order-number-label">Mi365 Status: </span> <span class="order-history-details-header-purchase-order-number mi365-status-error">Approval Required</span>
 					</p>
-					{{#each warnings}}
-<p class="mi365-status-warning"><i class="cart-warning-icon"></i> {{text}}</p>
-{{/each}}
-				{{/if}}
+					
 			</div>
 			<div class="order-history-details-header-col-right">
 				<p class="order-history-details-header-status-info">
@@ -65,6 +62,14 @@
 				</p>
 			</div>
 
+		</div>
+		<div class="order-history-details-header-row">
+			<div class="col-xs-12">
+{{#each warnings}}
+<p class="mi365-status-warning">&bull; {{text}}</p>
+{{/each}}
+				{{/if}}
+			</div>
 		</div>
 	</div>
 

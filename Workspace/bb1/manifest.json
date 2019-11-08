@@ -24,7 +24,8 @@
                 "services/Mi365Stocks.Service.ss",
                 "services/Mi365Transfers.Service.ss",
                 "services/Mi365Overview.Service.ss",
-                "services/Mi365Rules.Service.ss"
+                "services/Mi365Rules.Service.ss",
+                "services/Mi365Order.Service.ss"
             ]
         }
     },
@@ -97,7 +98,8 @@
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Rule.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Rules.Collection.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Rules.Model.js",
-                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Rules.View.js"
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Rules.View.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Order.Model.js"
                 ]
             }
         }
@@ -122,7 +124,9 @@
             "Modules/Mi365Main/SuiteScript/Mi365Overview.ServiceController.js",
             "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Overview.js",
             "Modules/Mi365Main/SuiteScript/Mi365Rules.ServiceController.js",
-            "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Rules.js"
+            "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Rules.js",
+            "Modules/Mi365Main/SuiteScript/Mi365Order.ServiceController.js",
+            "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Order.js"
         ]
     }
 }
