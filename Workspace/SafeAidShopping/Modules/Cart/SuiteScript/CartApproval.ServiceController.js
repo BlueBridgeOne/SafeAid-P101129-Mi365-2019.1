@@ -20,7 +20,7 @@ define(
 
 				var buyer = this.getBuyer(contact);
 				var warnings = [];
-				var items = order.getItems(["internalid", "quantity", "options", "displayname", "amount", "amount_formatted", "parent"]);
+				var items = order.getItems(["internalid", "quantity", "options", "displayname", "amount", "amount_formatted", "parent"])||[];
 				var options, wearerChecks = [],
 					areaChecks = []; //Get a list of the checks that are needed.
 				var areas = [],

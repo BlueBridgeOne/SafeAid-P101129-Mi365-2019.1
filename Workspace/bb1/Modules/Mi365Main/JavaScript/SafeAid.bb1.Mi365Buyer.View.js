@@ -257,6 +257,7 @@ define('SafeAid.bb1.Mi365Buyer.View', [
 
 
 			return {
+				icon:"buyer",
 				title: "Buyer",
 				model: this.model,
 				fields: newFields,

@@ -1,6 +1,6 @@
 <section class="mi365-info-card">
   <span class="mi365-info-card-content">
-    <h2>{{title}}</h2>
+    <h2><i class="mi365-icon-transfer"></i> {{title}}</h2>
   </span>
   <ul class="global-views-breadcrumb" itemprop="breadcrumb">
     <li class="global-views-breadcrumb-item"><a href="#Mi365"> Mi365 </a></li>
@@ -31,9 +31,9 @@
         <td class="recordviews-selectable-td"> <span class="recordviews-selectable-label">Date:</span> <span
             class="recordviews-selectable-value">{{created}}</span> </td>
         <td class="recordviews-selectable-td"> <span class="recordviews-selectable-label">From Area:</span> <span
-            class="recordviews-selectable-value"><a href="#Mi365/area/{{custrecord_bb1_sca_costocktrans_area.value}}">{{custrecord_bb1_sca_costocktrans_area.text}}</a></span> </td>
+            class="recordviews-selectable-value"><a href="#Mi365/area/{{custrecord_bb1_sca_costocktrans_area.value}}"><i class="mi365-icon-area"></i> {{custrecord_bb1_sca_costocktrans_area.text}}</a></span> </td>
         <td class="recordviews-selectable-td"> <span class="recordviews-selectable-label">To Wearer:</span> <span
-            class="recordviews-selectable-value"><a href="#Mi365/wearer/{{custrecord_bb1_sca_costocktrans_wearer.value}}">{{custrecord_bb1_sca_costocktrans_wearer.text}}</a></span> </td>
+            class="recordviews-selectable-value"><a href="#Mi365/wearer/{{custrecord_bb1_sca_costocktrans_wearer.value}}"><i class="mi365-icon-wearer"></i> {{custrecord_bb1_sca_costocktrans_wearer.text}}</a></span> </td>
         <td class="recordviews-selectable-td"> <span class="recordviews-selectable-label">Quantity:</span> <span
             class="recordviews-selectable-value">{{custrecord_bb1_sca_costocktrans_quantity}}</span> </td>
         <td class="recordviews-selectable-td"> <span class="recordviews-selectable-label">Confirmed:</span> <span

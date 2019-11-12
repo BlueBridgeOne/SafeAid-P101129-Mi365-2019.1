@@ -167,6 +167,7 @@ this.overview=options.overview;
 				}
 			}
 			return {
+				icon:"area",
 				title: "Area",
 				model: this.model,
 				fields: newFields,

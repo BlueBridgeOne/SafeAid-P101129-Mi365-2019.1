@@ -167,12 +167,44 @@ a[data-id="mi365"] {
 
 .mi365-icon-wearer {
 	@extend .fa;
+	@extend %fa-user;
+}
+.mi365-icon-wearers {
+	@extend .fa;
 	@extend %fa-users;
 }
 
 .mi365-icon-alert {
 	@extend .fa;
 	@extend %fa-bell;
+}
+.mi365-icon-report {
+	@extend .fa;
+	@extend %fa-bar-chart;
+}
+.mi365-icon-stock {
+	@extend .fa;
+	@extend %fa-archive;
+}
+.mi365-icon-rule {
+	@extend .fa;
+	@extend %fa-hand-stop-o;
+}
+.mi365-icon-transfer {
+	@extend .fa;
+	@extend %fa-exchange;
+}
+.mi365-icon-new {
+	@extend .fa;
+	@extend %fa-plus-circle;
+}
+.mi365-icon-delete {
+	@extend .fa;
+	@extend %fa-trash;
+}
+.mi365-icon-confirm {
+	@extend .fa;
+	@extend %fa-check-circle;
 }
 
 .mi365-dashboard-button {
@@ -212,4 +244,9 @@ a[data-id="mi365"] {
 		}
 
 	}
+}
+.mi365-report-total{
+	padding:$sc-padding-lv3;
+	font-weight:bold;
+	text-align: right;
 }

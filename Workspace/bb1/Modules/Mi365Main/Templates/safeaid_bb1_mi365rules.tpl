@@ -1,6 +1,6 @@
 <section class="mi365-info-card">
   <span class="mi365-info-card-content">
-    <h2>{{title}}</h2>
+    <h2><i class="mi365-icon-rule"></i> {{title}}</h2>
   </span>
   <ul class="global-views-breadcrumb" itemprop="breadcrumb">
     <li class="global-views-breadcrumb-item"><a href="#Mi365"> Mi365 </a></li>
@@ -13,7 +13,7 @@
   </ul>
   <div class="mi365-buttons">
     {{#if showNew}}
-    <button class="mi365-button" data-action="new">New</button>
+    <button class="mi365-button" data-action="new">New <i class="mi365-icon-new"></i></button>
     {{/if}}
   </div>
   <table class="mi365-records">
@@ -38,11 +38,11 @@
             class="recordviews-selectable-value">{{custrecord_bb1_sca_rule_item.text}}</span> </td>
         <td class="recordviews-selectable-td"> <span class="recordviews-selectable-label">Area:</span> <span
             class="recordviews-selectable-value"><a
-              href="#Mi365/area/{{custrecord_bb1_sca_rule_area.value}}">{{custrecord_bb1_sca_rule_area.text}}</a></span>
+              href="#Mi365/area/{{custrecord_bb1_sca_rule_area.value}}"><i class="mi365-icon-area"></i> {{custrecord_bb1_sca_rule_area.text}}</a></span>
         </td>
         <td class="recordviews-selectable-td"> <span class="recordviews-selectable-label">Wearer:</span> <span
             class="recordviews-selectable-value">{{#if custrecord_bb1_sca_rule_wearer.value}}<a
-              href="#Mi365/wearer/{{custrecord_bb1_sca_rule_wearer.value}}">{{custrecord_bb1_sca_rule_wearer.text}}</a>{{else}}All{{/if}}</span>
+              href="#Mi365/wearer/{{custrecord_bb1_sca_rule_wearer.value}}"><i class="mi365-icon-wearer"></i> {{custrecord_bb1_sca_rule_wearer.text}}</a>{{else}}All{{/if}}</span>
         </td>
         <td class="recordviews-selectable-td"> <span class="recordviews-selectable-label">Quantity:</span> <span
             class="recordviews-selectable-value">{{custrecord_bb1_sca_rule_quantity}}</span> </td>

@@ -52,7 +52,8 @@ define('SafeAid.bb1.Mi365Wearer.View', [
 			type: "choice",
 			mandatory: true,
 			list:true,
-			url:"Mi365/area/"
+			url:"Mi365/area/",
+			icon:"area"
 		}, {
 			id:"title",
 			label: "Wearer Budget",
@@ -186,6 +187,7 @@ var deleteId=this.model.get("id");
 		
 			
 			return {
+				icon:"wearer",
 				title:"Wearer",
 				model: this.model,
 				fields: newFields,

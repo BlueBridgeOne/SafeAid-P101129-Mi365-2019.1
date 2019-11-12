@@ -1,6 +1,6 @@
 <section class="mi365-info-card">
   <span class="mi365-info-card-content">
-    <h2>{{title}}</h2>
+    <h2>{{#if icon}}<i class="mi365-icon-{{icon}}"></i> {{/if}}{{title}}</h2>
   </span>
   <ul class="global-views-breadcrumb" itemprop="breadcrumb">
     <li class="global-views-breadcrumb-item"><a href="#Mi365"> Mi365 </a></li>
@@ -14,25 +14,25 @@
 
   <div class="mi365-buttons">
     {{#if showWearers}}
-    <button class="mi365-button" data-action="wearers">Wearers</button>
+    <button class="mi365-button" data-action="wearers">Wearers <i class="mi365-icon-wearers"></i></button>
     {{/if}}
     {{#if showStock}}
-    <button class="mi365-button" data-action="stock">Stock</button>
+    <button class="mi365-button" data-action="stock">Stock <i class="mi365-icon-stock"></i></button>
     {{/if}}
     {{#if showRules}}
-    <button class="mi365-button" data-action="rules">Rules</button>
+    <button class="mi365-button" data-action="rules">Rules <i class="mi365-icon-rule"></i></button>
     {{/if}}
     {{#if showTransfers}}
-    <button class="mi365-button" data-action="transfers">Transfers</button>
+    <button class="mi365-button" data-action="transfers">Transfers <i class="mi365-icon-transfer"></i></button>
     {{/if}}
     {{#if showConfirm}}
-    <button class="mi365-button" data-action="confirm">Confirm</button>
+    <button class="mi365-button" data-action="confirm">Confirm <i class="mi365-icon-confirm"></i></button>
     {{/if}}
     {{#if showDelete}}
-    <button class="mi365-button" data-action="delete">Delete</button>
+    <button class="mi365-button" data-action="delete">Delete <i class="mi365-icon-delete"></i></button>
     {{/if}}
     {{#if showStartTransfer}}
-    <button class="mi365-button" data-action="start-transfer">Transfer to Wearer</button>
+    <button class="mi365-button" data-action="start-transfer">Transfer to Wearer <i class="mi365-icon-transfer"></i></button>
     {{/if}}
   </div>
 
@@ -67,7 +67,7 @@
           {{label}} {{#if ../editable}}{{#if mandatory}}<small class="mi365-information-input-required">*</small>
           {{else}} <small class="mi365-information-input-optional">(optional)</small>{{/if}}{{/if}}</label>
         <div class="mi365-information-group-form-controls" data-validation="control">
-          {{#if url}}<a href="{{url}}{{value.value}}">{{/if}}{{value.text}}{{#if url}}</a>{{/if}}
+          {{#if url}}<a href="{{url}}{{value.value}}">{{#if icon}}<i class="mi365-icon-{{icon}}"></i> {{/if}}{{/if}}{{value.text}}{{#if url}}</a>{{/if}}
         </div>
       </div>
       {{/ifEquals}}

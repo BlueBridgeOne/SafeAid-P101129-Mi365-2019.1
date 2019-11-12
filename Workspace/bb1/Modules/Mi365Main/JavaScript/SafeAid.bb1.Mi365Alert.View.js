@@ -102,6 +102,7 @@ var deleteId=this.model.get("id");
 				}
 			}
 			return {
+				icon:"alert",
 				title:"Alert",
 				model: this.model,
 				fields: this.fields || [],

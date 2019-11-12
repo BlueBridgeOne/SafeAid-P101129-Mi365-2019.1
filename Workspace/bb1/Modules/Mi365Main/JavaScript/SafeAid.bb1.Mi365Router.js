@@ -6,6 +6,8 @@ define('SafeAid.bb1.Mi365Router', [
     'SafeAid.bb1.Mi365Buyer.View',
     'SafeAid.bb1.Mi365Areas.View',
     'SafeAid.bb1.Mi365Area.View',
+    'SafeAid.bb1.Mi365Reports.View',
+    'SafeAid.bb1.Mi365Report.View',
     'SafeAid.bb1.Mi365Wearers.View',
     'SafeAid.bb1.Mi365Wearer.View',
     'SafeAid.bb1.Mi365Alerts.View',
@@ -33,6 +35,7 @@ define('SafeAid.bb1.Mi365Router', [
     'SafeAid.bb1.Mi365Transfers.Collection',
     'SafeAid.bb1.Mi365Transfers.Model',
     'SafeAid.bb1.Mi365Overview.Model',
+    'SafeAid.bb1.Mi365Reports.Model',
     'jQuery',
     'Profile.Model',
     'ErrorManagement.InternalError.View'
@@ -43,6 +46,8 @@ define('SafeAid.bb1.Mi365Router', [
     Mi365BuyerView,
     Mi365AreasView,
     Mi365AreaView,
+    Mi365ReportsView,
+    Mi365ReportView,
     Mi365WearersView,
     Mi365WearerView,
     Mi365AlertsView,
@@ -70,6 +75,7 @@ define('SafeAid.bb1.Mi365Router', [
     Mi365TransfersCollection,
     Mi365TransfersModel,
     Mi365OverviewModel,
+    Mi365ReportsModel,
     jQuery,
     ProfileModel,
     InternalError) {
@@ -102,10 +108,12 @@ define('SafeAid.bb1.Mi365Router', [
             'Mi365': 'Dashboard',
             'Mi365/buyers': 'Buyers',
             'Mi365/areas': 'Areas',
+            'Mi365/reports': 'Reports',
             'Mi365/wearers': 'Wearers',
             'Mi365/alerts': 'Alerts',
             'Mi365/buyer/:id': 'Buyer',
             'Mi365/area/:id': 'Area',
+            'Mi365/report/:id': 'Report',
             'Mi365/wearer/:id': 'Wearer',
             'Mi365/alert/:id': 'Alert',
             'Mi365/wearer/stock/:id': 'WearerStocks',
@@ -222,6 +230,30 @@ define('SafeAid.bb1.Mi365Router', [
                 error: this.getErrorFunction()
             })
             ;
+        },
+        Report: function (id) {
+            var model = new Mi365ReportsModel();
+            var view = new Mi365ReportView({
+                model: model,
+                application: this.application,
+                overview: this.overview
+            });
+
+            model.fetch({
+                data: {
+                    id: id,
+                    t: new Date().getTime()
+                },
+                success: this.getSuccessFunction(view),
+                error: this.getErrorFunction()
+            });
+        },
+        Reports: function () {
+            var view = new Mi365ReportsView({
+                application: this.application,
+                overview: this.overview
+            });
+            view.showContent();
         },
         Wearer: function (id) {
             var model = new Mi365WearersModel();

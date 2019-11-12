@@ -35,14 +35,16 @@ define('SafeAid.bb1.Mi365Rule.View', [
 			type: "record",
 			list: true,
 			mandatory: true,
-			url: "Mi365/area/"
+			url: "Mi365/area/",
+			icon:"area"
 		}, {
 			id: "custrecord_bb1_sca_rule_wearer",
 			label: "Wearer",
 			type: "choice",
 			list: true,
 			mandatory: true,
-			url: "Mi365/wearer/"
+			url: "Mi365/wearer/",
+			icon:"wearer"
 		}, {
 			id: "custrecord_bb1_sca_rule_quantity",
 			label: "Quantity",
@@ -199,6 +201,7 @@ define('SafeAid.bb1.Mi365Rule.View', [
 				}
 			}
 			return {
+				icon:"rule",
 				title: title,
 				model: this.model,
 				fields: newFields || [],

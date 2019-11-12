@@ -1,6 +1,6 @@
 <section class="mi365-info-card">
   <span class="mi365-info-card-content">
-    <h2>Buyers</h2>
+    <h2><i class="mi365-icon-buyer"></i> Buyers</h2>
   </span>
   <ul class="global-views-breadcrumb" itemprop="breadcrumb">
     <li class="global-views-breadcrumb-item"><a href="#Mi365"> Mi365 </a></li>
@@ -9,7 +9,7 @@
 </ul>
   <div class="mi365-buttons">
     {{#if showNew}}
-    <button class="mi365-button" data-action="new">New</button>
+    <button class="mi365-button" data-action="new">New <i class="mi365-icon-new"></i></button>
     {{/if}}
   </div>
   <table class="mi365-records">

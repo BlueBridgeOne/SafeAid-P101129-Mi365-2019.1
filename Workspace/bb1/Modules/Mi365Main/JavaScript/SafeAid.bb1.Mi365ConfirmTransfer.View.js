@@ -29,14 +29,16 @@ define('SafeAid.bb1.Mi365ConfirmTransfer.View', [
 			type: "record",
 			mandatory: true,
 			list: true,
-			url: "Mi365/area/"
+			url: "Mi365/area/",
+			icon:"area"
 		}, {
 			id: "custrecord_bb1_sca_costocktrans_wearer",
 			label: "To Wearer",
 			type: "record",
 			mandatory: true,
 			list: true,
-			url: "Mi365/wearer/"
+			url: "Mi365/wearer/",
+			icon:"wearer"
 		}, {
 			id: "custrecord_bb1_sca_costocktrans_quantity",
 			label: "Quantity",
@@ -213,6 +215,7 @@ this.overview=options.overview;
 				}
 			}
 			return {
+				icon:"transfer",
 				title: "Confirm Transfer",
 				model: this.model,
 				fields: newFields || [],

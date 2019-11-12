@@ -1,6 +1,6 @@
 <section class="mi365-info-card">
   <span class="mi365-info-card-content">
-    <h2>Alerts</h2>
+    <h2><i class="mi365-icon-alert"></i> Alerts</h2>
   </span>
   <ul class="global-views-breadcrumb" itemprop="breadcrumb">
     <li class="global-views-breadcrumb-item"><a href="#Mi365"> Mi365 </a></li>
@@ -8,7 +8,7 @@
 			<li class="global-views-breadcrumb-item-active"> Alerts </li>
 </ul>
   <div class="mi365-buttons">
-    <button class="mi365-button" data-action="clear">Clear</button>
+    <button class="mi365-button" data-action="clear">Clear <i class="mi365-icon-delete"></i></button>
   </div>
   <table class="mi365-records">
     <thead class="mi365-records-head">

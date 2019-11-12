@@ -113,6 +113,7 @@ define(
 						}
 					}).done(function () {
 						console.log("approved order");
+						Backbone.localCache={};
 						Backbone.history.loadUrl();
 					});
 				}
@@ -156,6 +157,11 @@ define(
 						name: _('Alerts').translate(),
 						url: 'Mi365/alerts',
 						index: 5
+					}, {
+						id: 'reports',
+						name: _('Reports').translate(),
+						url: 'Mi365/reports',
+						index: 6
 					}]
 				};
 			}

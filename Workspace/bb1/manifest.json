@@ -25,7 +25,8 @@
                 "services/Mi365Transfers.Service.ss",
                 "services/Mi365Overview.Service.ss",
                 "services/Mi365Rules.Service.ss",
-                "services/Mi365Order.Service.ss"
+                "services/Mi365Order.Service.ss",
+                "services/Mi365Reports.Service.ss"
             ]
         }
     },
@@ -44,7 +45,9 @@
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365record.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365stocks.tpl",
                     "Modules/Mi365Main/Templates/safeaid_bb1_mi365transfers.tpl",
-                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365rules.tpl"
+                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365rules.tpl",
+                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365reports.tpl",
+                    "Modules/Mi365Main/Templates/safeaid_bb1_mi365report.tpl"
                 ]
             }
         }
@@ -99,7 +102,10 @@
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Rules.Collection.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Rules.Model.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Rules.View.js",
-                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Order.Model.js"
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Order.Model.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Report.View.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Reports.Model.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Reports.View.js"
                 ]
             }
         }
@@ -126,7 +132,9 @@
             "Modules/Mi365Main/SuiteScript/Mi365Rules.ServiceController.js",
             "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Rules.js",
             "Modules/Mi365Main/SuiteScript/Mi365Order.ServiceController.js",
-            "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Order.js"
+            "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Order.js",
+            "Modules/Mi365Main/SuiteScript/Mi365Reports.ServiceController.js",
+            "Modules/Mi365Main/SuiteScript/SafeAid.bb1.Mi365Reports.js"
         ]
     }
 }

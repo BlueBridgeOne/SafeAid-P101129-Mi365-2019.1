@@ -23,14 +23,16 @@ define(
 				type: "record",
 				list: true,
 				mandatory: true,
-				url: "Mi365/area/"
+				url: "Mi365/area/",
+				icon:"area"
 			}, {
 				id: "custrecord_bb1_sca_rule_wearer",
 				label: "Wearer",
 				type: "record",
 				list: true,
 				mandatory: true,
-				url: "Mi365/wearer/"
+				url: "Mi365/wearer/",
+				icon:"wearer"
 			}, {
 				id: "custrecord_bb1_sca_rule_quantity",
 				label: "Quantity",

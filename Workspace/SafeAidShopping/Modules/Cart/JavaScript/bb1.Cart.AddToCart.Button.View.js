@@ -61,7 +61,7 @@ define(
 
 				this.model.off('change', this.render, this);
 
-				$("body").off('hidden.bs.modal', modalClosed);
+				$("body").off('hidden.bs.modal', this.modalClosed);
 			},
 			modalClosed: function () { //Hack to stop strange double hits.
 					window.showingModal = false;
