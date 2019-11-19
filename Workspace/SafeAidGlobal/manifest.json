@@ -1,0 +1,96 @@
+{
+    "name": "SafeAidGlobal",
+    "fantasyName": "SafeAid Global",
+    "vendor": "bb1",
+    "version": "1.0.0",
+    "type": "extension",
+    "target": "SCA,SCS",
+    "description": "The global features for safeaid.",
+    "skins": [],
+    "assets": {
+        "img": {
+            "files": []
+        },
+        "fonts": {
+            "files": []
+        },
+        "services": {
+            "files": [
+                "services/Mi365Overview.Service.ss"
+            ]
+        }
+    },
+    "configuration": {
+        "files": []
+    },
+    "sass": {
+        "entry_points": {
+            "shopping": "Modules/Header/Sass/_safeaidglobal.scss",
+            "myaccount": "Modules/Header/Sass/_safeaidglobal.scss",
+            "checkout": "Modules/Header/Sass/_safeaidglobal.scss"
+        },
+        "files": [
+            "Modules/Header/Sass/_safeaidglobal.scss"
+        ]
+    },
+    "templates": {
+        "application": {
+            "shopping": {
+                "files": [
+                    "Modules/Header/Templates/bb1_headeralerts.tpl"
+                ]
+            },
+            "checkout": {
+                "files": [
+                    "Modules/Header/Templates/bb1_headeralerts.tpl"
+                ]
+            },
+            "myaccount": {
+                "files": [
+                    "Modules/Header/Templates/bb1_headeralerts.tpl"
+                ]
+            }
+        }
+    },
+    "javascript": {
+        "entry_points": {
+            "shopping": "Modules/Header/JavaScript/SafeAid.bb1.Global.js",
+            "checkout": "Modules/Header/JavaScript/SafeAid.bb1.Global.js",
+            "myaccount": "Modules/Header/JavaScript/SafeAid.bb1.Global.js"
+        },
+        "application": {
+            "shopping": {
+                "files": [
+                    "Modules/Header/JavaScript/SafeAid.bb1.Mi365Overview.js",
+                    "Modules/Header/JavaScript/SafeAid.bb1.Mi365Overview.Model.js",
+                    "Modules/Header/JavaScript/SafeAid.bb1.Global.js",
+                    "Modules/Header/JavaScript/SafeAid.bb1.HeaderAlerts.View.js"
+                ]
+            },
+            "checkout": {
+                "files": [
+                    "Modules/Header/JavaScript/SafeAid.bb1.Mi365Overview.js",
+                    "Modules/Header/JavaScript/SafeAid.bb1.Mi365Overview.Model.js",
+                    "Modules/Header/JavaScript/SafeAid.bb1.Global.js",
+                    "Modules/Header/JavaScript/SafeAid.bb1.HeaderAlerts.View.js"
+                ]
+            },
+            "myaccount": {
+                "files": [
+                    "Modules/Header/JavaScript/SafeAid.bb1.Mi365Overview.js",
+                    "Modules/Header/JavaScript/SafeAid.bb1.Mi365Overview.Model.js",
+                    "Modules/Header/JavaScript/SafeAid.bb1.Global.js",
+                    "Modules/Header/JavaScript/SafeAid.bb1.HeaderAlerts.View.js"
+                ]
+            }
+        }
+    },
+    "ssp-libraries": {
+        "entry_point": "Modules/Header/SuiteScript/Mi365Overview.ServiceController.js",
+        "files": [
+            "Modules/Header/SuiteScript/Mi365Overview.ServiceController.js",
+            "Modules/Header/SuiteScript/SafeAid.bb1.Mi365Overview.js"
+        ]
+    },
+    "local_folder": "Workspace/SafeAidGlobal"
+}

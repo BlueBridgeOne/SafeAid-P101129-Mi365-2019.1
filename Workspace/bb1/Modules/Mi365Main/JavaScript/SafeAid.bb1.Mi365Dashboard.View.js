@@ -6,6 +6,7 @@ define('SafeAid.bb1.Mi365Dashboard.View'
 	,	'Backbone'
 	,	'jQuery'
 	,	'underscore'
+	,'Mi365Overview'
 	]
 ,	function (
 		safeaid_bb1_mi365dashboard_tpl
@@ -13,6 +14,7 @@ define('SafeAid.bb1.Mi365Dashboard.View'
 	,	Backbone
 	,	jQuery
 	,	_
+	,Mi365Overview
 	)
 {
 	'use strict';
@@ -23,7 +25,8 @@ define('SafeAid.bb1.Mi365Dashboard.View'
 		template: safeaid_bb1_mi365dashboard_tpl
 
 	,	initialize: function (options) {
-
+		this.overview=Mi365Overview.get();
+		var self=this;Mi365Overview.done(function(model){self.overview=model;self.render();});
 			
 		}
 

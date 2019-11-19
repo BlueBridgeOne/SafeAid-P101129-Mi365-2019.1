@@ -34,7 +34,7 @@ define('SafeAid.bb1.Mi365Router', [
     'SafeAid.bb1.Mi365Rules.Model',
     'SafeAid.bb1.Mi365Transfers.Collection',
     'SafeAid.bb1.Mi365Transfers.Model',
-    'SafeAid.bb1.Mi365Overview.Model',
+    'Mi365Overview',
     'SafeAid.bb1.Mi365Reports.Model',
     'jQuery',
     'Profile.Model',
@@ -74,7 +74,7 @@ define('SafeAid.bb1.Mi365Router', [
     Mi365RulesModel,
     Mi365TransfersCollection,
     Mi365TransfersModel,
-    Mi365OverviewModel,
+    Mi365Overview,
     Mi365ReportsModel,
     jQuery,
     ProfileModel,
@@ -85,17 +85,11 @@ define('SafeAid.bb1.Mi365Router', [
         initialize: function (application) {
             var self = this;
             this.application = application;
-
+console.log("Mi365Overview",Mi365Overview);
             ProfileModel.getPromise().done(function () {
-                self.overview = new Mi365OverviewModel();
-
-                self.overview.fetch({
-                    data: {
-                        t: new Date().getTime()
-                    }
-                }).done(function () { //show Mi365 if silver or better.
-                    console.log(self.overview);
-                    var level = self.overview.get("level");
+                Mi365Overview.done(function (overview) { //show Mi365 if silver or better.
+                    console.log(overview);
+                    var level = overview.get("level");
                     console.log("level: " + level);
                     if (level && level != "bronze") {
                         $("<style>").text("a[data-id='mi365']{ display:block!important; }").appendTo("head");
@@ -147,8 +141,7 @@ define('SafeAid.bb1.Mi365Router', [
         ,
         Dashboard: function () {
             var view = new Mi365DashboardView({
-                application: this.application,
-                overview: this.overview
+                application: this.application
             });
             view.showContent();
         },
@@ -156,8 +149,7 @@ define('SafeAid.bb1.Mi365Router', [
             var model = new Mi365TransfersModel();
             var view = new Mi365ConfirmTransferView({
                 model: model,
-                application: this.application,
-                overview: this.overview
+                application: this.application
             });
 
             model.fetch({
@@ -173,8 +165,7 @@ define('SafeAid.bb1.Mi365Router', [
             var model = new Mi365BuyersModel();
             var view = new Mi365BuyerView({
                 model: model,
-                application: this.application,
-                overview: this.overview
+                application: this.application
             });
 
             model.fetch({
@@ -190,8 +181,7 @@ define('SafeAid.bb1.Mi365Router', [
             var collection = new Mi365BuyersCollection();
             var view = new Mi365BuyersView({
                 collection: collection,
-                application: this.application,
-                overview: this.overview
+                application: this.application
             });
             collection.fetch({
                 data: {},
@@ -203,8 +193,7 @@ define('SafeAid.bb1.Mi365Router', [
             var model = new Mi365AreasModel();
             var view = new Mi365AreaView({
                 model: model,
-                application: this.application,
-                overview: this.overview
+                application: this.application
             });
 
             model.fetch({
@@ -220,8 +209,7 @@ define('SafeAid.bb1.Mi365Router', [
             var collection = new Mi365AreasCollection();
             var view = new Mi365AreasView({
                 collection: collection,
-                application: this.application,
-                overview: this.overview
+                application: this.application
             });
 
             collection.fetch({
@@ -235,8 +223,7 @@ define('SafeAid.bb1.Mi365Router', [
             var model = new Mi365ReportsModel();
             var view = new Mi365ReportView({
                 model: model,
-                application: this.application,
-                overview: this.overview
+                application: this.application
             });
 
             model.fetch({
@@ -250,8 +237,7 @@ define('SafeAid.bb1.Mi365Router', [
         },
         Reports: function () {
             var view = new Mi365ReportsView({
-                application: this.application,
-                overview: this.overview
+                application: this.application
             });
             view.showContent();
         },
@@ -259,8 +245,7 @@ define('SafeAid.bb1.Mi365Router', [
             var model = new Mi365WearersModel();
             var view = new Mi365WearerView({
                 model: model,
-                application: this.application,
-                overview: this.overview
+                application: this.application
             });
             model.fetch({
                 data: {
@@ -275,8 +260,7 @@ define('SafeAid.bb1.Mi365Router', [
             var collection = new Mi365WearersCollection();
             var view = new Mi365WearersView({
                 collection: collection,
-                application: this.application,
-                overview: this.overview
+                application: this.application
             });
 
             collection.fetch({
@@ -291,8 +275,7 @@ define('SafeAid.bb1.Mi365Router', [
             var collection = new Mi365WearersCollection();
             var view = new Mi365WearersView({
                 collection: collection,
-                application: this.application,
-                overview: this.overview
+                application: this.application
             });
 
             collection.fetch({
@@ -305,8 +288,7 @@ define('SafeAid.bb1.Mi365Router', [
             var model = new Mi365AlertsModel();
             var view = new Mi365AlertView({
                 model: model,
-                application: this.application,
-                overview: this.overview
+                application: this.application
             });
 
             model.fetch({
@@ -322,8 +304,7 @@ define('SafeAid.bb1.Mi365Router', [
             var collection = new Mi365AlertsCollection();
             var view = new Mi365AlertsView({
                 collection: collection,
-                application: this.application,
-                overview: this.overview
+                application: this.application
             });
 
             collection.fetch({
@@ -336,8 +317,7 @@ define('SafeAid.bb1.Mi365Router', [
             var model = new Mi365TransfersModel();
             var view = new Mi365TransferView({
                 model: model,
-                application: this.application,
-                overview: this.overview
+                application: this.application
             });
 
             model.fetch({
@@ -353,8 +333,7 @@ define('SafeAid.bb1.Mi365Router', [
             var model = new Mi365StocksModel();
             var view = new Mi365StockView({
                 model: model,
-                application: this.application,
-                overview: this.overview
+                application: this.application
             });
 
             model.fetch({
@@ -370,8 +349,7 @@ define('SafeAid.bb1.Mi365Router', [
             var model = new Mi365RulesModel();
             var view = new Mi365RuleView({
                 model: model,
-                application: this.application,
-                overview: this.overview
+                application: this.application
             });
 
             model.fetch({
@@ -387,8 +365,7 @@ define('SafeAid.bb1.Mi365Router', [
             var model = new Mi365StocksModel();
             var view = new Mi365StartTransferView({
                 model: model,
-                application: this.application,
-                overview: this.overview
+                application: this.application
             });
 
             model.fetch({
@@ -407,8 +384,7 @@ define('SafeAid.bb1.Mi365Router', [
             var view = new Mi365StocksView({
                 collection: collection,
                 application: this.application,
-                wearer: id,
-                overview: this.overview
+                wearer: id
             });
 
             collection.fetch({
@@ -425,8 +401,7 @@ define('SafeAid.bb1.Mi365Router', [
             var view = new Mi365StocksView({
                 collection: collection,
                 application: this.application,
-                area: id,
-                overview: this.overview
+                area: id
             });
 
             collection.fetch({
@@ -443,8 +418,7 @@ define('SafeAid.bb1.Mi365Router', [
             var view = new Mi365RulesView({
                 collection: collection,
                 application: this.application,
-                wearer: id,
-                overview: this.overview
+                wearer: id
             });
 
             collection.fetch({
@@ -461,8 +435,7 @@ define('SafeAid.bb1.Mi365Router', [
             var view = new Mi365RulesView({
                 collection: collection,
                 application: this.application,
-                area: id,
-                overview: this.overview
+                area: id
             });
 
             collection.fetch({
@@ -478,8 +451,7 @@ define('SafeAid.bb1.Mi365Router', [
             var model = new Mi365TransfersModel();
             var view = new Mi365TransferView({
                 model: model,
-                application: this.application,
-                overview: this.overview
+                application: this.application
             });
 
             model.fetch({
@@ -496,8 +468,7 @@ define('SafeAid.bb1.Mi365Router', [
             var view = new Mi365TransfersView({
                 collection: collection,
                 application: this.application,
-                wearer: id,
-                overview: this.overview
+                wearer: id
             });
 
             collection.fetch({
@@ -514,8 +485,7 @@ define('SafeAid.bb1.Mi365Router', [
             var view = new Mi365TransfersView({
                 collection: collection,
                 application: this.application,
-                area: id,
-                overview: this.overview
+                area: id
             });
 
             collection.fetch({

@@ -196,9 +196,6 @@ $sc-sidebar-size: 246px;
 	float: left;
 	position: relative;
 
-	@media (min-width: $screen-md-min) {
-		margin-left: $sc-margin-lv4;
-	}
 }
 
 .header-menu-searchmobile {

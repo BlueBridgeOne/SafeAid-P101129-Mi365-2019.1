@@ -10,6 +10,41 @@
 			<li class="global-views-breadcrumb-item-active"> {{name}}</li>
 </ul>
 
+<div class="list-header-view-datepicker-from">
+							<label class="list-header-view-from" for="from">{{rangeFilterLabel}}</label>
+
+							<div class="list-header-view-datepicker-container-input">
+								<input class="list-header-view-accordion-body-input" id="from" name="from" type="date" autocomplete="off" data-format="yyyy-mm-dd" value="{{selectedRangeFrom}}" data-action="range-filter" data-todayhighlight="true"/>
+
+								<i class="list-header-view-accordion-body-calendar-icon"></i>
+								<a class="list-header-view-accordion-body-clear" data-action="clear-value">
+									<i class="list-header-view-accordion-body-clear-icon"></i>
+								</a>
+							</div>
+						</div>
+
+						<div class="list-header-view-datepicker-to">
+							<label class="list-header-view-to" for="to">{{translate 'to'}}</label>
+
+							<div class="list-header-view-datepicker-container-input">
+								<input class="list-header-view-accordion-body-input" id="to" name="to" type="date" autocomplete="off" data-format="yyyy-mm-dd" value="{{selectedRangeTo}}" data-action="range-filter" data-todayhighlight="true"/>
+
+								<i class="list-header-view-accordion-body-calendar-icon"></i>
+								<a class="list-header-view-accordion-body-clear" data-action="clear-value">
+									<i class="list-header-view-accordion-body-clear-icon"></i>
+								</a>
+							</div>
+						</div>
+{{#if showFilters}}
+            <label class="list-header-view-filters">
+							<select name="filter" class="list-header-view-accordion-body-select" data-action="filter">
+								{{#each filters}}
+									<option value="{{value}}"  {{#if selected}} selected {{/if}}>{{text}}</option>
+								{{/each}}
+							</select>
+						</label>
+{{/if}}
+
   <table class="mi365-records">
     <thead class="mi365-records-head">
       <tr class="mi365-records-head-row">
@@ -35,6 +70,7 @@
     </thead>
     <tbody class="mi365-records-body">
       {{#each lines}}
+      {{#if show}}
       <tr class="recordviews-selectable-row" >
         <td class="recordviews-selectable-td"> <span class="recordviews-selectable-label">Order#:</span> <span
             class="recordviews-selectable-value">{{tranid}}</span> </td>
@@ -64,6 +100,7 @@
             class="recordviews-selectable-value">&pound;{{total}}</span> </td>
             {{/if}}
       </tr>
+      {{/if}}
       {{/each}}
     </tbody>
   </table>

@@ -1,8 +1,8 @@
 // @module SafeAid.bb1.Mi365Main
 define('SafeAid.bb1.Mi365Areas.View', [
-	'safeaid_bb1_mi365areas.tpl', 'SafeAid.bb1.Mi365Areas.Model', 'Utils', 'Backbone', 'jQuery', 'underscore'
+	'safeaid_bb1_mi365areas.tpl', 'SafeAid.bb1.Mi365Areas.Model', 'Utils', 'Backbone', 'jQuery', 'underscore','Mi365Overview'
 ], function (
-	safeaid_bb1_mi365areas_tpl, Mi365AreasModel, Utils, Backbone, jQuery, _
+	safeaid_bb1_mi365areas_tpl, Mi365AreasModel, Utils, Backbone, jQuery, _,Mi365Overview
 ) {
 	'use strict';
 
@@ -12,7 +12,8 @@ define('SafeAid.bb1.Mi365Areas.View', [
 
 			,
 		initialize: function (options) {
-this.overview=options.overview;
+			this.overview=Mi365Overview.get();
+			var self=this;Mi365Overview.done(function(model){self.overview=model;self.render();});
 			}
 
 			,

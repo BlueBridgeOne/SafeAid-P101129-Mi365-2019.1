@@ -17,10 +17,12 @@
 
 
 			<div class="header-right-menu">
+				
 				<div class="header-menu-profile" data-view="Header.Profile">
 				</div>
 				<div class="header-menu-locator-mobile" data-view="StoreLocatorHeaderLink"></div>
 				<div class="header-menu-searchmobile" data-view="SiteSearch.Button"></div>
+				<div data-view="alerts"></div>
 				<div class="header-menu-cart">
 					<div class="header-menu-cart-dropdown" >
 						<div data-view="Header.MiniCart"></div>

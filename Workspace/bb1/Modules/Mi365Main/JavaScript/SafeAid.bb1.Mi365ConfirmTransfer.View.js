@@ -6,7 +6,8 @@ define('SafeAid.bb1.Mi365ConfirmTransfer.View', [
 	'Backbone',
 	'Tools', 'Backbone.FormView',
 	'jQuery',
-	'underscore'
+	'underscore',
+	'Mi365Overview'
 ], function (
 	Mi365TransfersModel,
 	safeaid_bb1_mi365record_tpl,
@@ -15,7 +16,9 @@ define('SafeAid.bb1.Mi365ConfirmTransfer.View', [
 	Tools,
 	BackboneFormView,
 	jQuery,
-	_
+	_,
+	Mi365Overview
+
 ) {
 	'use strict';
 
@@ -57,7 +60,8 @@ define('SafeAid.bb1.Mi365ConfirmTransfer.View', [
 			mandatory: true
 		}],
 		initialize: function (options) {
-this.overview=options.overview;
+			this.overview=Mi365Overview.get();
+			var self=this;Mi365Overview.done(function(model){self.overview=model;self.render();});
 
 				var bind = {};
 				for (var i = 0; i < this.fields.length; i++) {

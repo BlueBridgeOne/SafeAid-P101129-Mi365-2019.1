@@ -24,7 +24,7 @@ define(
 				list: true,
 				mandatory: true,
 				url: "Mi365/area/",
-				icon:"area"
+				icon: "area"
 			}, {
 				id: "custrecord_bb1_sca_rule_wearer",
 				label: "Wearer",
@@ -32,7 +32,7 @@ define(
 				list: true,
 				mandatory: true,
 				url: "Mi365/wearer/",
-				icon:"wearer"
+				icon: "wearer"
 			}, {
 				id: "custrecord_bb1_sca_rule_quantity",
 				label: "Quantity",
@@ -80,10 +80,10 @@ define(
 					var area = request.getParameter("area");
 
 					var custentity_bb1_sca_allowviewareas = nlapiLookupField('contact', contact, 'custentity_bb1_sca_allowviewareas');
-				if(custentity_bb1_sca_allowviewareas==null){
-					custentity_bb1_sca_allowviewareas="0";
-				}
-				var allowAreas = custentity_bb1_sca_allowviewareas.split(",");
+					if (custentity_bb1_sca_allowviewareas == null) {
+						custentity_bb1_sca_allowviewareas = "0";
+					}
+					var allowAreas = custentity_bb1_sca_allowviewareas.split(",");
 
 					if (task == "new") {
 
@@ -92,11 +92,11 @@ define(
 							rec.setFieldValue("custrecord_bb1_sca_rule_wearer", wearer);
 
 							var wearer_area = nlapiLookupField('customrecord_bb1_sca_rule', wearer, 'custrecord_bb1_sca_wearer_area');
-							rec.setFieldValue("custrecord_bb1_sca_rule_area", wearer_area);
-						}else if (area) {
+							rec.setFieldValue("custrecord_bb1_sca_rule_area", wearer_area.value);
+						} else if (area) {
 							rec.setFieldValue("custrecord_bb1_sca_rule_area", area);
 						}
-						
+
 						id = nlapiSubmitRecord(rec, true, true);
 
 
@@ -190,68 +190,72 @@ define(
 									value: "3",
 									text: "Per Year"
 								}];
-								if(!data.custrecord_bb1_sca_rule_wearer){
-									data.custrecord_bb1_sca_rule_wearer={};
+								if (!data.custrecord_bb1_sca_rule_wearer) {
+									data.custrecord_bb1_sca_rule_wearer = {};
 								}
-									data.custrecord_bb1_sca_rule_wearer.choice = [{text:""}];
-									if (data.custrecord_bb1_sca_rule_area.value) {
-										filter = [
-											["isinactive", "is", "F"],
-											"AND",
-											["custrecord_bb1_sca_wearer_area", "is", data.custrecord_bb1_sca_rule_area.value]
-
-										];
-
-										find = [];
-										find.push(new nlobjSearchColumn("name"));
-
-										var wearerSearch = nlapiSearchRecord("customrecord_bb1_sca_wearer", null,
-											filter,
-											find
-										);
-										var wresult;
-										if (wearerSearch) {
-
-											for (var j = 0; j < wearerSearch.length; j++) {
-												wresult = wearerSearch[j];
-												data.custrecord_bb1_sca_rule_wearer.choice.push({
-													value: wresult.getId(),
-													text: wresult.getValue("name")
-												});
-											}
-										}
-									}
-									if(!data.custrecord_bb1_sca_rule_item){
-										data.custrecord_bb1_sca_rule_item={};
-									}
-									data.custrecord_bb1_sca_rule_item.choice = [{text:""}];
+								data.custrecord_bb1_sca_rule_wearer.choice = [{
+									text: ""
+								}];
+								if (data.custrecord_bb1_sca_rule_area.value) {
 									filter = [
 										["isinactive", "is", "F"],
 										"AND",
-										["type","anyof","Assembly","InvtPart","Kit"]
+										["custrecord_bb1_sca_wearer_area", "is", data.custrecord_bb1_sca_rule_area.value]
 
 									];
 
 									find = [];
-									find.push(new nlobjSearchColumn("itemid"));
+									find.push(new nlobjSearchColumn("name"));
 
-									var itemSearch = nlapiSearchRecord("item", null,
+									var wearerSearch = nlapiSearchRecord("customrecord_bb1_sca_wearer", null,
 										filter,
 										find
 									);
-									var iresult;
-									if (itemSearch) {
+									var wresult;
+									if (wearerSearch) {
 
-										for (var j = 0; j < itemSearch.length; j++) {
-											iresult = itemSearch[j];
-											data.custrecord_bb1_sca_rule_item.choice.push({
-												value: iresult.getId(),
-												text: iresult.getValue("itemid")
+										for (var j = 0; j < wearerSearch.length; j++) {
+											wresult = wearerSearch[j];
+											data.custrecord_bb1_sca_rule_wearer.choice.push({
+												value: wresult.getId(),
+												text: wresult.getValue("name")
 											});
 										}
 									}
+								}
+								if (!data.custrecord_bb1_sca_rule_item) {
+									data.custrecord_bb1_sca_rule_item = {};
+								}
+								data.custrecord_bb1_sca_rule_item.choice = [{
+									text: ""
+								}];
+								filter = [
+									["isinactive", "is", "F"],
+									"AND",
+									["type", "anyof", "Assembly", "InvtPart", "Kit"]
 
-								
+								];
+
+								find = [];
+								find.push(new nlobjSearchColumn("itemid"));
+
+								var itemSearch = nlapiSearchRecord("item", null,
+									filter,
+									find
+								);
+								var iresult;
+								if (itemSearch) {
+
+									for (var j = 0; j < itemSearch.length; j++) {
+										iresult = itemSearch[j];
+										data.custrecord_bb1_sca_rule_item.choice.push({
+											value: iresult.getId(),
+											text: iresult.getValue("itemid")
+										});
+									}
+								}
+
+
 							}
 
 
@@ -283,16 +287,25 @@ define(
 				var customer = context.getUser();
 				nlapiLogExecution("debug", "context", "id=" + id + " " + context.getUser() + " " + context.getCompany() + " " + context.getEmail() + " " + context.getName() + " " + context.getContact());
 
-				nlapiLogExecution("debug", "data start transfer", JSON.stringify(this.data));
+				//nlapiLogExecution("debug", "data start transfer", JSON.stringify(this.data));
 
 				var id = request.getParameter("id");
 
 				var rec = nlapiLoadRecord(this.recordtype, this.data.id);
-
+var value;
 				for (var j = 0; j < this.fields.length; j++) {
-					if (this.data[this.fields[j].id] && !this.fields[j].listonly) {
-						rec.setFieldValue(this.fields[j].id, this.data[this.fields[j].id]);
+					value=this.data[this.fields[j].id];
+					if (value && !this.fields[j].listonly) {
+						try{
+						if (value.value) {
+							rec.setFieldValue(this.fields[j].id, value.value);
+						} else {
+							rec.setFieldValue(this.fields[j].id, value);
+						}
+					}catch(e){
+					nlapiLogExecution("debug", "update rule", "unable to set "+this.fields[j].id+" to "+value+". "+e);
 					}
+				}
 				}
 				nlapiSubmitRecord(rec, true, true);
 

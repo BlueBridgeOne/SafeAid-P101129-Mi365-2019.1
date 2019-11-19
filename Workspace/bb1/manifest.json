@@ -105,7 +105,8 @@
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Order.Model.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Report.View.js",
                     "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Reports.Model.js",
-                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Reports.View.js"
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Reports.View.js",
+                    "Modules/Mi365Main/JavaScript/SafeAid.bb1.Mi365Overview.js"
                 ]
             }
         }

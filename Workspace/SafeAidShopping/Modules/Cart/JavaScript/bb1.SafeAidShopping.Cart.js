@@ -82,6 +82,7 @@ var latestApplication;
 						latestApplication = options.application;
 					})
 				});
+				
 
 				//Same again, approval for mini cart.
 				if (!HeaderMiniCart.prototype.events) {

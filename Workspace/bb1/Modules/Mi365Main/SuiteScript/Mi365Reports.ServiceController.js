@@ -31,11 +31,23 @@ define(
 				var task = request.getParameter("task");
 				var id = request.getParameter("id");
 
+			var to =request.getParameter("to")|| this.formatDate(new Date());
+			var fromd = new Date();
+			fromd.setMonth(fromd.getMonth() - 1);
+			var from = request.getParameter("from")||this.formatDate(fromd);
+
+			var todate=this.parseDate(to);
+			var fromdate=this.parseDate(from);
+
 				var filters = [
 					["type", "anyof", "SalesOrd"],
 
 					"AND",
-					["name", "anyof", customer]
+					["name", "anyof", customer], 
+					"AND", 
+					["trandate","onorbefore",this.nsformatDate(todate)], 
+					"AND", 
+					["trandate","onorafter",this.nsformatDate(fromdate)]
 				];
 
 				var columns = [
@@ -135,9 +147,46 @@ define(
 				return {
 					id: id,
 					name: name,
-					lines: lines
+					lines: lines,
+					to:to,
+					from:from
 				};
 
+			}
+			,nsformatDate:function(d){
+				var month = '' + (d.getMonth() + 1),
+					day = '' + d.getDate(),
+					year = d.getFullYear();
+	
+				if (month.length < 2) {
+					month = '0' + month;
+				}
+				if (day.length < 2) {
+					day = '0' + day;
+				}
+	
+				return [day,month,year].join('/');
+			}
+
+			,formatDate: function (d) {
+				var month = '' + (d.getMonth() + 1),
+					day = '' + d.getDate(),
+					year = d.getFullYear();
+	
+				if (month.length < 2) {
+					month = '0' + month;
+				}
+				if (day.length < 2) {
+					day = '0' + day;
+				}
+	
+				return [year, month, day].join('-');
+			},
+			parseDate:function(d){
+				var parts = d.split("-");
+return new Date(parseInt(parts[0], 10),
+                  parseInt(parts[1], 10) - 1,
+                  parseInt(parts[2], 10));
 			}
 		});
 	}
