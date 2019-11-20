@@ -1,0 +1,151 @@
+{
+    "type": "object",
+        "subtab": {
+            "id": "footer",
+            "title": "Footer",
+            "description": "Footer settings",
+            "docRef": "bridgehead_4393101142",
+            "group": "layout"
+        },
+    "properties": {
+        "footer.navigationLinks": {
+            "group": "layout",
+            "subtab": "footer",
+            "type": "array",
+            "title": "Footer navigation",
+            "description": "Footer navigation links that goes in the footer",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "text": {
+                        "type": "string",
+                        "title": "Text",
+                        "description": ""
+                    },
+                    "href": {
+                         "type": "string",
+                         "title": "URL",
+                         "description": ""
+                    },
+                    "columnBreak": {
+                        "type": "boolean",
+                        "title": "Column Break",
+                        "description": "True will start a new link column"
+                    },
+                    "classes": {
+                        "type": "string",
+                        "title": "CSS Classes",
+                        "description": "CSS classes to add to the list element"
+                    }
+                }
+            },
+            "default": [
+                {
+                    "text": "Popular Links",
+                    "classes": "footer-content-nav-list-heading"
+                },
+                {
+                    "text": "About Us",
+                    "href": "/about-us"
+                },
+                {
+                    "text": "Mi365",
+                    "touchpoint": "myaccount",
+                    "hashtag": "#mi365",
+                    "href": "/mi365"
+                },
+                {
+                    "text": "Corporate Social Responsibility",
+                    "href": "/corporate-social-responsibility"
+                },
+                {
+                    "text": "Testimonials",
+                    "href": "/testimonials"
+                },
+                {
+                    "text": "Contact Us",
+                    "href": "/contact-us"
+                },
+                {
+                    "text": "Useful Information",
+                    "classes": "footer-content-nav-list-heading",
+                    "columnBreak": true
+                },
+                {
+                    "text": "Delivery Details",
+                    "href": "/delivery-details"
+                },
+                {
+                    "text": "Size Guide",
+                    "href": "/size-guide"
+                },
+                {
+                    "text": "Returns Information",
+                    "href": "/returns-information"
+                },
+                {
+                    "text": "Terms & Conditions",
+                    "href": "/terms-and-conditions"
+                },
+                {
+                    "text": "Privacy Policy",
+                    "href": "/privacy-policy"
+                },
+                {
+                    "text": "Cookie Policy",
+                    "href": "/cookie-policy"
+                },
+                {
+                    "text": "How To Find Us",
+                    "href": "/how-to-find-us"
+                },
+                {
+                    "text": "Site Map",
+                    "href": "/sitemap"
+                },
+                {
+                    "text": "GDPR Policy",
+                    "href": "/gdpr-policy"
+                },
+                {
+                    "text": "Features",
+                    "classes": "footer-content-nav-list-heading",
+                    "columnBreak": true
+                },
+                {
+                    "text": "Brand It",
+                    "href": "/brand-it"
+                },
+                {
+                    "text": "Resource Centre",
+                    "href": "/resource-center"
+                },
+                {
+                    "text": "Blog",
+                    "href": "/blog"
+                },
+                {
+                    "text": "Request a Brochure",
+                    "href": "/request-a-brochure"
+                },
+                {
+                    "text": "Account",
+                    "classes": "footer-content-nav-list-heading",
+                    "columnBreak": true
+                },
+                {
+                    "text": "Trade dashboard",
+                    "touchpoint": "myaccount",
+                    "hashtag": "#",
+                    "href": "/"
+                },
+                {
+                    "text": "My Return Requests",
+                    "touchpoint": "myaccount",
+                    "hashtag": "#",
+                    "href": "/"
+                }
+            ]
+        }
+    }
+}

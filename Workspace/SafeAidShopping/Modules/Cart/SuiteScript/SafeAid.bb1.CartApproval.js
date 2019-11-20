@@ -3,12 +3,12 @@
 // ----------------
 
 define('SafeAid.bb1.CartApproval'
-,	[
-		'SafeAid.bb1.CartApproval.ServiceController'
-	]
-,	function (
-	CartApprovalServiceController
-	)
+, [
+  'SafeAid.bb1.CartApproval.ServiceController'
+ ]
+, function (
+ CartApprovalServiceController
+ )
 {
-	'use strict';
+ 'use strict';
 });

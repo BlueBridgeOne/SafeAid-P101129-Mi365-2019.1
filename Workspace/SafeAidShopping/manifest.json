@@ -9,7 +9,12 @@
     "skins": [],
     "assets": {
         "img": {
-            "files": []
+            "files": [
+                "img/safeaid-footer-bsif.png",
+                "img/safeaid-footer-copyright.png",
+                "img/safeaid-footer-payment.png",
+                "img/safeaid-footer-risqs.gif"
+            ]
         },
         "fonts": {
             "files": []
@@ -22,14 +27,20 @@
         }
     },
     "configuration": {
-        "files": []
+        "files": [
+            "Modules/Footer/Configuration/Footer.json"
+        ]
     },
     "sass": {
         "entry_points": {
-            "shopping": "Modules/Cart/Sass/_safeaidshopping-cart.scss"
+            "shopping": "Modules/Main/Sass/_bb1-safeaidshopping-main.scss"
         },
         "files": [
-            "Modules/Cart/Sass/_safeaidshopping-cart.scss"
+            "Modules/Cart/Sass/_safeaidshopping-cart.scss",
+            "Modules/Main/Sass/_bb1-safeaidshopping-main.scss",
+            "Modules/MyCatalogue/Sass/_bb1-safeaidshopping-mycatalogue.scss",
+            "Modules/ProductDetails/Sass/_bb1-safeaidshopping-productdetails-multibuy.scss",
+            "Modules/Footer/Sass/_bb1-safeaidshopping-footer.scss"
         ]
     },
     "templates": {
@@ -39,14 +50,19 @@
                     "Modules/Cart/Templates/bb1_cart_add_to_cart_button.tpl",
                     "Modules/Cart/Templates/bb1_safeaidshopping_addtocart.tpl",
                     "Modules/Cart/Templates/bb1_cart_list.tpl",
-                    "Modules/Cart/Templates/bb1_cart_approval.tpl"
+                    "Modules/Cart/Templates/bb1_cart_approval.tpl",
+                    "Modules/MyCatalogue/Templates/bb1_safeaidshopping_mycatalogue.tpl",
+                    "Modules/MyCatalogue/Templates/bb1_safeaidshopping_mycatalogue_itemcell.tpl",
+                    "Modules/ProductDetails/Templates/bb1_safeaidshopping_productdetails_multibuy.tpl",
+                    "Modules/ProductDetails/Templates/bb1_safeaidshopping_productdetails_multibuy_colourselector.tpl",
+                    "Modules/Footer/Templates/bb1_safeaidshopping_footer.tpl"
                 ]
             }
         }
     },
     "javascript": {
         "entry_points": {
-            "shopping": "Modules/Cart/JavaScript/bb1.SafeAidShopping.Cart.js"
+            "shopping": "Modules/Main/JavaScript/bb1.SafeAidShopping.Main.js"
         },
         "application": {
             "shopping": {
@@ -58,19 +74,33 @@
                     "Modules/Cart/JavaScript/bb1.Cart.List.View.js",
                     "Modules/Cart/JavaScript/Tools.js",
                     "Modules/Cart/JavaScript/bb1.Cart.Approval.View.js",
-                    "Modules/Cart/JavaScript/SafeAid.bb1.CartApproval.Model.js"
+                    "Modules/Cart/JavaScript/SafeAid.bb1.CartApproval.Model.js",
+                    "Modules/Main/JavaScript/bb1.SafeAidShopping.Main.js",
+                    "Modules/MyCatalogue/JavaScript/bb1.SafeAidShopping.MyCatalogue.Collection.js",
+                    "Modules/MyCatalogue/JavaScript/bb1.SafeAidShopping.MyCatalogue.js",
+                    "Modules/MyCatalogue/JavaScript/bb1.SafeAidShopping.MyCatalogue.List.View.js",
+                    "Modules/MyCatalogue/JavaScript/bb1.SafeAidShopping.MyCatalogue.ItemCell.View.js",
+                    "Modules/MyCatalogue/JavaScript/bb1.SafeAidShopping.MyCatalogue.Model.js",
+                    "Modules/MyCatalogue/JavaScript/bb1.SafeAidShopping.MyCatalogue.Router.js",
+                    "Modules/ProductDetails/JavaScript/bb1.SafeAidShopping.ProductDetails.js",
+                    "Modules/ProductDetails/JavaScript/bb1.SafeAidShopping.ProductDetails.MultiBuy.View.js",
+                    "Modules/ProductDetails/JavaScript/bb1.SafeAidShopping.ProductDetails.MultiBuy.ColourSelector.View.js",
+                    "Modules/Footer/JavaScript/bb1.SafeAidShopping.Footer.js",
+                    "Modules/Profile/JavaScript/bb1.SafeAidShopping.Profile.js"
                 ]
             }
         }
     },
     "ssp-libraries": {
-        "entry_point": "Modules/Cart/SuiteScript/AddToCart.ServiceController.js",
+        "entry_point": "Modules/Main/SuiteScript/bb1.SafeAidShopping.Main.js",
         "files": [
             "Modules/Cart/SuiteScript/AddToCart.ServiceController.js",
             "Modules/Cart/SuiteScript/SafeAid.bb1.AddToCart.js",
             "Modules/Cart/SuiteScript/CartApproval.ServiceController.js",
-            "Modules/Cart/SuiteScript/SafeAid.bb1.CartApproval.js"
+            "Modules/Cart/SuiteScript/SafeAid.bb1.CartApproval.js",
+            "Modules/Main/SuiteScript/bb1.SafeAidShopping.Main.js",
+            "Modules/Profile/SuiteScript/bb1.SafeAidShopping.Profile.js"
         ]
     },
-    "local_folder": "Workspace/SafeAidShopping"
+    "local_folder": "Workspace\\SafeAidShopping"
 }
