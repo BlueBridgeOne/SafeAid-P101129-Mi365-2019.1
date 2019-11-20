@@ -87,6 +87,8 @@
 
 		</section>
 
+		<div data-view="MultiBuy.MatrixOptions"></div>
+		
 		<div data-cms-area="product_details_full_cms_area_5" data-cms-area-filters="page_type"></div>
 		<div data-cms-area="product_details_full_cms_area_6" data-cms-area-filters="path"></div>
 
