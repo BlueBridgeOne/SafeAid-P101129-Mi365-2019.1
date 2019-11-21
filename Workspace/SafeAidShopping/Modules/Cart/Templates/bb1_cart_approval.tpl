@@ -5,6 +5,6 @@
 {{/each}}
 <br />
 <button class="cart-cancel-button" data-action="cancel" data-dismiss="modal">
-			{{translate 'Change Order'}}
-	</button>
+   {{translate 'Change Order'}}
+ </button>
 <a class="cart-continue-button" data-action="confirm" href="#" data-touchpoint="checkout" data-hashtag="#">{{translate 'Proceed to Checkout'}}</a>

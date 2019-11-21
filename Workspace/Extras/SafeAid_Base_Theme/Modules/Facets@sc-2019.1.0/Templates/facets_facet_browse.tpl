@@ -12,7 +12,7 @@
 					<div data-view="Facets.CategorySidebar" class="facets-facet-browse-facets-sidebar"></div>
 				{{/if}}
 
-				<div data-view="Facets.FacetedNavigation" data-exclude-facets="commercecategoryname,category"></div>
+				<div data-view="Facets.FacetedNavigation" data-exclude-facets="commercecategoryname,category,custitem_bb1_sca_customers,custitem_bb1_sca_buyers"></div>
 
 				<div data-cms-area="facet_navigation_bottom" data-cms-area-filters="page_type"></div>
 			</div>
