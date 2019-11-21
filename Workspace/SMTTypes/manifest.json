@@ -2,10 +2,7 @@
     "name": "SMTTypes",
     "fantasyName": "SMT Types",
     "vendor": "bb1",
-    "version": "1.0.0",
     "type": "extension",
-    "target": "SCA,SCS",
-    "description": "This extension includes handy custom content types for SMT.",
     "cct": [
         {
             "icon": "img/cct_bb1_youtubecct_icon.svg",
@@ -16,10 +13,10 @@
         },
         {
             "icon": "img/cct_bb1_bannercct_icon.svg",
-            "settings_record": "customrecord_bb1_banner_cct",
-            "registercct_id": "cct_bb1_banner",
-            "label": "Banner CCT",
-            "description": "Banner for SMT."
+            "settings_record": "customrecord_bb1_banner",
+            "registercct_id": "cct_bb1_banner2",
+            "label": "Banner 2",
+            "description": "Banner 2 for SMT."
         },
         {
             "icon": "img/cct_bb1_grid2cct_icon.svg",
@@ -36,7 +33,9 @@
             "description": "3x Grid for SMT."
         }
     ],
-    "skins": [],
+    "target": "SCA,SCS",
+    "version": "1.0.0",
+    "description": "This extension includes handy custom content types for SMT.",
     "assets": {
         "img": {
             "files": [
@@ -53,14 +52,6 @@
             "files": []
         }
     },
-    "sass": {
-        "entry_points": {
-            "shopping": "Modules/YouTubeCCT/Sass/_smttypes.scss"
-        },
-        "files": [
-            "Modules/YouTubeCCT/Sass/_smttypes.scss"
-        ]
-    },
     "templates": {
         "application": {
             "shopping": {
@@ -72,6 +63,14 @@
                 ]
             }
         }
+    },
+    "sass": {
+        "entry_points": {
+            "shopping": "Modules/YouTubeCCT/Sass/_smttypes.scss"
+        },
+        "files": [
+            "Modules/YouTubeCCT/Sass/_smttypes.scss"
+        ]
     },
     "javascript": {
         "entry_points": {
@@ -88,6 +87,5 @@
                 ]
             }
         }
-    },
-    "local_folder": "Workspace/SMTTypes"
+    }
 }

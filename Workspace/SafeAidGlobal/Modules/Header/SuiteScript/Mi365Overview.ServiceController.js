@@ -128,7 +128,7 @@ define(
 				var context = nlapiGetContext();
 				var contact = context.getContact();
 				var muteerrors = request.getParameter("muteerrors");
-
+				var custentity_bb1_sca_membership = 1;
 				if (!(contact > 0)) {
 					if (muteerrors) {
 
@@ -136,7 +136,7 @@ define(
 							id: contact,
 							level: "bronze",
 							custentity_bb1_sca_membership: custentity_bb1_sca_membership,
-							alerts:0
+							alerts: 0
 						};
 
 					} else {
@@ -146,9 +146,15 @@ define(
 				var customer = context.getUser();
 				nlapiLogExecution("debug", "context", context.getUser() + " " + context.getCompany() + " " + context.getEmail() + " " + context.getName() + " " + context.getContact());
 
-				var custentity_bb1_sca_membership;
+				var custom;
 				if (customer) {
+					
 					try {
+
+
+						custom = nlapiGetWebContainer().getShoppingSession().getCustomer().getCustomFieldValues();
+
+
 						custentity_bb1_sca_membership = nlapiLookupField('customer', customer, 'custentity_bb1_sca_membership');
 					} catch (err) {
 						try {
@@ -158,6 +164,8 @@ define(
 						}
 					}
 				}
+				custom = nlapiGetWebContainer().getShoppingSession().getCustomer().getCustomFieldValues();
+				nlapiLogExecution("debug", "membership", customer + " " + custentity_bb1_sca_membership + " " + JSON.stringify(custom));
 
 				var filter = [
 					["custentity_bb1_sca_buyer", "is", "T"],

@@ -38,7 +38,7 @@ define(
 			CMS.registerCustomContentType({
 				
 				// this property value MUST be lowercase
-				id: 'cct_bb1_banner'
+				id: 'cct_bb1_banner2'
 				
 				// The view to render the CCT
 			,	view: BannerCCTView
