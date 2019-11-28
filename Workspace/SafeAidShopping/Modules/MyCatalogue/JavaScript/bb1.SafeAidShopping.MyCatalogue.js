@@ -28,7 +28,7 @@ define(
        profile = ProfileModel.getInstance(),
        contactIsBuyer = profile.get('contactIsBuyer');
    
-   if (contactIsBuyer) {
+   /*if (contactIsBuyer) {
      
     var customerShowStandardItems = profile.get('customerShowStandardItems'),
         contactOverrideCustomerItems = profile.get('contactOverrideCustomerItems'),
@@ -57,7 +57,7 @@ define(
      placeholder: ''
     });
     
-   }
+   }*/
    
    if (layout) {
     var pageType = layout.application.getComponent('PageType');
