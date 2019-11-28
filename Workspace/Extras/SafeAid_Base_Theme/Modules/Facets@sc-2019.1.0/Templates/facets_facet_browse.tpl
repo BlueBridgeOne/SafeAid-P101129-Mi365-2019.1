@@ -1,3 +1,7 @@
+{{#if isCategory}}
+<div data-view="Facets.Browse.CategoryHeading"></div>
+{{/if}}
+
 <section class="facets-facet-browse">
 	<div data-cms-area="item_list_banner" data-cms-area-filters="page_type"></div>
 
@@ -26,8 +30,6 @@
 
 				{{#if isCategory}}
 					<div class="facets-facet-browse-category">
-						<div data-view="Facets.Browse.CategoryHeading"></div>
-
 						<div data-view="Facets.CategoryCells"></div>
 					</div>
 				{{/if}}
