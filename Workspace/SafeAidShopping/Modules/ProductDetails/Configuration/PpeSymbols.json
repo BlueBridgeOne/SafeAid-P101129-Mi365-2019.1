@@ -1,0 +1,185 @@
+{
+    "type": "object",
+        "subtab": {
+            "id": "ppeSymbols",
+            "title": "PPE Symbols",
+            "description": "Images for the PPE Symbols",
+            "docRef": "bridgehead_87458787458",
+            "group": "layout"
+        },
+    "properties": {
+        "ppeSymbols.images": {
+            "group": "layout",
+            "subtab": "ppeSymbols",
+            "type": "array",
+            "title": "PPE Symbols",
+            "description": "Images used for the PPE symbols",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "text": {
+                        "type": "string",
+                        "title": "Text",
+                        "description": "Must exactly match the custom list label"
+                    },
+                    "url": {
+                         "type": "string",
+                         "title": "Image URL",
+                         "description": "URL of the PPE symbol image"
+                    },
+                    "classes": {
+                        "type": "string",
+                        "title": "CSS Classes",
+                        "description": "CSS classes to add to the layout element"
+                    }
+                }
+            },
+            "default": [
+                {
+                    "text": "ARC",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "AS",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "Breathable",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "CAT1",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "CAT2",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "CAT3",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "Composite Mid",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "Composite Toe",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "Correct EN Standard",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "ENISO20471",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "FR",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "Heat Resistant",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "Hood",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "ID",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "Impact Resistant",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "Interacts",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "Metal Free",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "Metatarsal",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "Phone",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "Reversible",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "RISTOM",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "S1",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "S1P",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "S2",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "S3",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "S4",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "S5",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "SB",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "Side Zip",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "SRA",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "SRC",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "Steel Mid",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "Steel Toe",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "Thermal Lining",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "Vegan",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                },
+                {
+                    "text": "Weatherproof",
+                    "url": "http://safeaid.bb1.website/s/extensions/bb1/SafeAidShopping/1.0.0/img/safeaid-ppe-symbol-test.png"
+                }
+            ]
+        }
+    }
+}

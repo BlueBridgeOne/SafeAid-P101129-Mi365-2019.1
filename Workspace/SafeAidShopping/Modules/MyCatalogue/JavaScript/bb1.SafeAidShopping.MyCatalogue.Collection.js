@@ -41,6 +41,7 @@ define(
    
    delete sessionSearchApiParams[this.customersFacetId];
    delete sessionSearchApiParams[this.buyersFacetId];
+   delete sessionSearchApiParams.custitem_bb1_sca_standarditem;
    
    var url = _.addParamsToUrl(
     profile.getSearchApiUrl(),

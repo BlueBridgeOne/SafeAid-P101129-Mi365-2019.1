@@ -1,0 +1,63 @@
+.facets-browse-category-heading-list-header {
+ display: block;
+ position: relative;
+ background: #323232;
+ max-height: 400px;
+ overflow: hidden;
+ margin: -15px 0 0;
+ padding: 0;
+ 
+ .facets-browse-category-heading-main-description {
+  max-width: 1200px;
+  z-index: 100;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  left: 9%;
+  margin: 0 auto;
+  
+  h1 {
+   color: #fff;
+   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+   font-style: normal;
+   font-weight: 900;
+   font-size: 30px;
+   margin: 7% 0 0 0;
+   text-transform: uppercase;
+   
+   span.second-word {
+    font-weight: 300;
+    margin: 0;
+   }
+   
+   @media (min-width: $screen-sm-min) {
+    font-size: 50px;
+   }
+   
+   @media (min-width: $screen-md-min) {
+    font-size: 70px;
+   }
+   
+   @media (min-width: $screen-lg-min) {
+    font-size: 100px;
+   }
+  }
+  
+  h1, h2 {
+   line-height: 0.8;
+  }
+ }
+ 
+ .facets-browse-category-heading-main-image {
+  display: block;
+  
+  img {
+   display: block;
+   width: 100%;
+   opacity: 0.3;
+  }
+ }
+}

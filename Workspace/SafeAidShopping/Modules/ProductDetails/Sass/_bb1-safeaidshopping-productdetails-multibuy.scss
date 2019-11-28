@@ -8,21 +8,25 @@
 }
 
 .product-details-multibuy-quantities {
+ @extend .col-xs-9;
  @extend .col-sm-10;
 }
 
 .product-details-multibuy-actions {
+ @extend .col-xs-3;
  @extend .col-sm-2;
 }
 
-.product-details-multibuy-quantity-table {
+.product-details-multibuy-quantity-table-desktop,
+.product-details-multibuy-quantity-table-mobile {
+ display: none;
  border-collapse: separate;
  border-spacing: 5px;
  
  td {
   padding: 5px 10px;
-  border: 2px solid #777777;
-  color: #777777;
+  border: 2px solid #aaaaaa;
+  color: #999999;
   font-size: 13px;
   text-align: center;
   vertical-align: middle;
@@ -30,6 +34,21 @@
  
  tr:nth-child(3n) td:last-child {
   border-radius: 0 0 15px 0;
+ }
+}
+
+.product-details-multibuy-quantity-table-mobile {
+ display: table;
+}
+
+@media (min-width: $screen-sm-min) {
+
+ .product-details-multibuy-quantity-table-desktop {
+  display: table;
+ }
+ 
+ .product-details-multibuy-quantity-table-mobile {
+  display: none;
  }
 }
 

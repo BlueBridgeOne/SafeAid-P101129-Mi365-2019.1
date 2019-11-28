@@ -46,7 +46,13 @@ define(
    else if (!customerShowStandardItems) {
     searchApiParams.custitem_bb1_sca_customers = profile.get('customersFacetValueUrl') || 'XXXXXXXXXXXXXXXX';
    }
+   else {
+    searchApiParams.custitem_bb1_sca_standarditem = 'Yes';
+   }
   
+  }
+  else {
+   searchApiParams.custitem_bb1_sca_standarditem = 'Yes';
   }
    
   return searchApiParams;

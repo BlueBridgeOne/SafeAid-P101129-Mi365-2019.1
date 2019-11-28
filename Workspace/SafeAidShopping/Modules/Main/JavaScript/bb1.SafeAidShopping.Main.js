@@ -4,6 +4,7 @@ define(
  [
   'bb1.SafeAidShopping.Profile',
   'bb1.SafeAidShopping.Cart',
+  'bb1.SafeAidShopping.ProductList',
   'bb1.SafeAidShopping.ProductDetails',
   'bb1.SafeAidShopping.MyCatalogue',
   'bb1.SafeAidShopping.Footer'
@@ -12,6 +13,7 @@ define(
  (
   Profile,
   Cart,
+  ProductList,
   ProductDetails,
   MyCatalogue,
   Footer
