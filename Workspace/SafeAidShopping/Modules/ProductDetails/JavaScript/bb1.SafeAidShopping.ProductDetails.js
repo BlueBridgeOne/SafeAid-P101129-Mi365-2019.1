@@ -116,7 +116,7 @@ define(
     var profile = ProfileModel.getInstance(),
         contactIsBuyer = profile.get('contactIsBuyer'),
         item = this.model.get('item'),
-        isStandardItem = item.get('custitem_bb1_sca_standarditem') == 'Yes';
+        isStandardItem = item.get('custitem_bb1_sca_standarditem') == 'true';
     
     if (contactIsBuyer) {
       
