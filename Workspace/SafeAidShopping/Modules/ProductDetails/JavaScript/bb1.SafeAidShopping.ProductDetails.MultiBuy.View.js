@@ -269,9 +269,13 @@ define(
         item = this.model.get('item'),
         itemOptions = this.model.getVisibleOptions(),
         colourOptions = item.getOption('custcol_bb1_matrix_colour'),
-        sizeOptions = item.getOption('custcol_bb1_matrix_size'),
+        matrixSizeOptions = item.getOption('custcol_bb1_matrix_size'),
+        gloveOptions = item.getOption('custitem_bb1_matrix_gloves'),
+        footwearOptions = item.getOption('custitem_bb1_matrix_footwear'),
+        ladiesWearOptions = item.getOption('custitem_bb1_matrix_ladieswear'),
+        sizeOptions = matrixSizeOptions || gloveOptions || footwearOptions || ladiesWearOptions,
         multiBuyOptions = [];
-        
+    
     if (colourOptions && colourOptions.values && sizeOptions && sizeOptions.values) {
      _.each(colourOptions.get('values'), function(colourOption) {
        if (colourOption.internalid) {
@@ -295,6 +299,7 @@ define(
           });
          }
         });
+        multiBuyOption.mobileRowSpan = multiBuyOption.sizeOptions.length + 1;
         multiBuyOptions.push(multiBuyOption);
        }
      });

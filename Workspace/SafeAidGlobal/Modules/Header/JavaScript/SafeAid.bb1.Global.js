@@ -2,10 +2,10 @@
 
 define(
 	'SafeAid.bb1.Global', [
-	'Handlebars','SafeAid.bb1.HeaderAlerts.View', 'Header.View'
+	'Handlebars','SafeAid.bb1.HeaderAlerts.View', 'Header.View', 'bb1.SafeAidGlobal.Menu'
 	],
 	function (
-		Handlebars,HeaderAlertsView,Header
+		Handlebars,HeaderAlertsView,Header, Menu
 	) {
 		'use strict';
 
@@ -19,6 +19,8 @@ define(
 				Header.prototype.childViews.alerts=function(){
 					return new HeaderAlertsView({application:container});
 				}
+    
+    Menu.mountToApp(container);
 			}
 		};
 	});

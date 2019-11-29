@@ -13,7 +13,17 @@
                 "img/safeaid-footer-bsif.png",
                 "img/safeaid-footer-copyright.png",
                 "img/safeaid-footer-payment.png",
-                "img/safeaid-footer-risqs.gif"
+                "img/safeaid-footer-risqs.gif",
+                "img/safeaid-product-list-banner-desktop.jpg",
+                "img/safeaid-product-list-banner-mobile.jpg",
+                "img/safeaid-ppe-symbol-test.png",
+                "img/safeaid-size-guide-ladies-bust.jpg",
+                "img/safeaid-size-guide-ladies-waist.jpg",
+                "img/safeaid-size-guide-leg-length.jpg",
+                "img/safeaid-size-guide-mens-chest.jpg",
+                "img/safeaid-size-guide-mens-neck.jpg",
+                "img/safeaid-size-guide-mens-waist.jpg",
+                "img/safeaid-ppe-symbol-test-sm.png"
             ]
         },
         "fonts": {
@@ -28,7 +38,8 @@
     },
     "configuration": {
         "files": [
-            "Modules/Footer/Configuration/Footer.json"
+            "Modules/Footer/Configuration/Footer.json",
+            "Modules/ProductDetails/Configuration/PpeSymbols.json"
         ]
     },
     "sass": {
@@ -39,8 +50,10 @@
             "Modules/Cart/Sass/_safeaidshopping-cart.scss",
             "Modules/Main/Sass/_bb1-safeaidshopping-main.scss",
             "Modules/MyCatalogue/Sass/_bb1-safeaidshopping-mycatalogue.scss",
-            "Modules/ProductDetails/Sass/_bb1-safeaidshopping-productdetails-multibuy.scss",
-            "Modules/Footer/Sass/_bb1-safeaidshopping-footer.scss"
+            "Modules/Footer/Sass/_bb1-safeaidshopping-footer.scss",
+            "Modules/ProductList/Sass/_bb1-safeaidshopping-productlist.scss",
+            "Modules/ProductDetails/Sass/_bb1-safeaidshopping-productdetails.scss",
+            "Modules/ProductDetails/Sass/_bb1-safeaidshopping-productdetails-multibuy.scss"
         ]
     },
     "templates": {
@@ -55,7 +68,10 @@
                     "Modules/MyCatalogue/Templates/bb1_safeaidshopping_mycatalogue_itemcell.tpl",
                     "Modules/ProductDetails/Templates/bb1_safeaidshopping_productdetails_multibuy.tpl",
                     "Modules/ProductDetails/Templates/bb1_safeaidshopping_productdetails_multibuy_colourselector.tpl",
-                    "Modules/Footer/Templates/bb1_safeaidshopping_footer.tpl"
+                    "Modules/Footer/Templates/bb1_safeaidshopping_footer.tpl",
+                    "Modules/ProductList/Templates/bb1_safeaidshopping_productlist_category_heading.tpl",
+                    "Modules/ProductDetails/Templates/bb1_safeaidshopping_productdetails_sizeguide.tpl",
+                    "Modules/ProductDetails/Templates/bb1_safeaidshopping_productdetails.tpl"
                 ]
             }
         }
@@ -86,7 +102,9 @@
                     "Modules/ProductDetails/JavaScript/bb1.SafeAidShopping.ProductDetails.MultiBuy.View.js",
                     "Modules/ProductDetails/JavaScript/bb1.SafeAidShopping.ProductDetails.MultiBuy.ColourSelector.View.js",
                     "Modules/Footer/JavaScript/bb1.SafeAidShopping.Footer.js",
-                    "Modules/Profile/JavaScript/bb1.SafeAidShopping.Profile.js"
+                    "Modules/Profile/JavaScript/bb1.SafeAidShopping.Profile.js",
+                    "Modules/ProductList/JavaScript/bb1.SafeAidShopping.ProductList.js",
+                    "Modules/ProductDetails/JavaScript/bb1.SafeAidShopping.ProductDetails.SizeGuide.View.js"
                 ]
             }
         }

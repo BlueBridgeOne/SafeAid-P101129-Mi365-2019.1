@@ -5,7 +5,6 @@ define(
   'bb1_safeaidshopping_productdetails_multibuy_colourselector.tpl',
   
   'Backbone',
-  'Backbone.CompositeView',
   'jQuery',
   'underscore'
  ],
@@ -13,7 +12,6 @@ define(
   bb1_safeaidshopping_productdetails_multibuy_colourselector_tpl,
   
   Backbone,
-  BackboneCompositeView,
   jQuery,
   _
  )

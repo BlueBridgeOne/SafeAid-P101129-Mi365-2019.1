@@ -1,19 +1,15 @@
-//@module bb1.SafeAidShopping.MyCatalogue
+//@module bb1.SafeAidGlobal.Menu
 define(
- 'bb1.SafeAidShopping.MyCatalogue',
+ 'bb1.SafeAidGlobal.Menu',
  [
   'Profile.Model',
   'SC.Configuration',
-  'bb1.SafeAidShopping.MyCatalogue.Router',
-  'bb1.SafeAidShopping.MyCatalogue.List.View',
   'underscore',
   'Utils'
  ],
  function (
   ProfileModel,
   Configuration,
-  MyCatalogueRouter,
-  MyCatalogueListView,
   _,
   Utils
  )
@@ -28,7 +24,7 @@ define(
        profile = ProfileModel.getInstance(),
        contactIsBuyer = profile.get('contactIsBuyer');
    
-   /*if (contactIsBuyer) {
+   if (contactIsBuyer) {
      
     var customerShowStandardItems = profile.get('customerShowStandardItems'),
         contactOverrideCustomerItems = profile.get('contactOverrideCustomerItems'),
@@ -57,25 +53,9 @@ define(
      placeholder: ''
     });
     
-   }*/
-   
-   if (layout) {
-    var pageType = layout.application.getComponent('PageType');
-     pageType.registerPageType({
-      'name': 'MyCatalogue',
-      'routes': [
-       'my-catalogue',
-       'my-catalogue?:options'
-      ],
-      'view': MyCatalogueListView,
-      'defaultTemplate': {
-       'name': 'safeaid_bb1_mycatalogue.tpl',
-       'displayName': 'My Catalogue',
-       'thumbnail': Utils.getAbsoluteUrl('img/default-layout-transaction-list.png')
-      }
-     });
-    };
    }
+   
+  }
 
  };
  

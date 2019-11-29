@@ -1,0 +1,80 @@
+.product-details-full-content-header-title {
+ font-family: "UniversLTPro-45Light","Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+ font-size: 3.5rem;
+}
+
+.product-details-standards-container,
+.product-details-specification-container,
+.product-details-certificate-container,
+.product-details-size-guide-container,
+.product-details-ppe-symbols-container {
+ margin-bottom: $sc-margin-lv1;
+}
+
+.product-details-standards-label,
+.product-details-specification-label,
+.product-details-certificate-label,
+.product-details-size-guide-label,
+.product-details-ppe-symbols-label {
+ font-size: $sc-font-size-s;
+ color: $sc-color-copy-light;
+ 
+ a {
+  color: $sc-color-copy-light;
+  
+  &:hover {
+   color: #f18830;
+  }
+ }
+}
+
+.product-details-standards-value,
+.product-details-specification-value,
+.product-details-certificate-value,
+.product-details-size-guide-value,
+.product-details-ppe-symbols-value {
+ font-size: $sc-font-size-s;
+ color: $sc-color-copy-light;
+}
+
+.product-details-ppe-symbols-image img {
+ max-height: 30px;
+ margin-right: 10px;
+}
+
+.product-details-specification-icon {
+ @extend .fa;
+	@extend %fa-file-pdf-o;
+ margin-right: 5px;
+}
+
+.product-details-certificate-icon {
+ @extend .fa;
+	@extend %fa-file-pdf-o;
+ margin-right: 5px;
+}
+
+.product-details-size-guide-icon {
+ @extend .fa;
+	@extend %fa-file-o;
+ margin-right: 5px;
+}
+
+.product-details-size-guide table {
+ width: 100%;
+}
+
+.product-details-size-guide table tr td {
+ padding: 13px;
+ background: #cccccb;
+ border: thin solid #dcdcdc;
+ border-right: 1px solid #fff;
+ border-bottom: 1px solid #fff;
+ font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+ font-weight: 400;
+ color: #323232;
+}
+
+.product-details-size-guide table tr:nth-child(2n) td {
+ background: #eee;
+}

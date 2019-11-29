@@ -64,7 +64,8 @@
                     "Modules/Header/JavaScript/SafeAid.bb1.Mi365Overview.js",
                     "Modules/Header/JavaScript/SafeAid.bb1.Mi365Overview.Model.js",
                     "Modules/Header/JavaScript/SafeAid.bb1.Global.js",
-                    "Modules/Header/JavaScript/SafeAid.bb1.HeaderAlerts.View.js"
+                    "Modules/Header/JavaScript/SafeAid.bb1.HeaderAlerts.View.js",
+                    "Modules/Header/JavaScript/bb1.SafeAidGlobal.Menu.js"
                 ]
             },
             "checkout": {
@@ -72,7 +73,8 @@
                     "Modules/Header/JavaScript/SafeAid.bb1.Mi365Overview.js",
                     "Modules/Header/JavaScript/SafeAid.bb1.Mi365Overview.Model.js",
                     "Modules/Header/JavaScript/SafeAid.bb1.Global.js",
-                    "Modules/Header/JavaScript/SafeAid.bb1.HeaderAlerts.View.js"
+                    "Modules/Header/JavaScript/SafeAid.bb1.HeaderAlerts.View.js",
+                    "Modules/Header/JavaScript/bb1.SafeAidGlobal.Menu.js"
                 ]
             },
             "myaccount": {
@@ -80,7 +82,8 @@
                     "Modules/Header/JavaScript/SafeAid.bb1.Mi365Overview.js",
                     "Modules/Header/JavaScript/SafeAid.bb1.Mi365Overview.Model.js",
                     "Modules/Header/JavaScript/SafeAid.bb1.Global.js",
-                    "Modules/Header/JavaScript/SafeAid.bb1.HeaderAlerts.View.js"
+                    "Modules/Header/JavaScript/SafeAid.bb1.HeaderAlerts.View.js",
+                    "Modules/Header/JavaScript/bb1.SafeAidGlobal.Menu.js"
                 ]
             }
         }
@@ -92,5 +95,5 @@
             "Modules/Header/SuiteScript/SafeAid.bb1.Mi365Overview.js"
         ]
     },
-    "local_folder": "Workspace/SafeAidGlobal"
+    "local_folder": "Workspace\\SafeAidGlobal"
 }
