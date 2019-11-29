@@ -1,0 +1,170 @@
+<!--
+Description : Custom e-mail template.
+Author : Gordon Truslove
+Date : 11/25/2019, 1:26:12 PM
+-->
+<html>
+
+<head></head>
+
+<body
+    style="color: #4d5256; font-family: Open Sans, Verdana, Arial, Helvetica, sans-serif; font-size: 14px; margin: auto; padding: 27px 0 13px 0; width: 600px;">
+    <div>
+        <div>
+            <img alt="${website.displayName}" src="${website.url}/site/SafeAidLogo.png" /><br />
+            <table border="0" cellpadding="0" cellspacing="0"
+                style="font-family: Open Sans, Verdana, Arial, Helvetica, sans-serif;" width="100%">
+                <tbody>
+                    <tr>
+                        <td style="vertical-align: bottom;"><span
+                                style="color: #4d5256; font-size: 18px; font-weight: 600; line-height: 24px;">Order
+                                Shipped</span></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;"><span
+                                style="color: #4d5256; font-size: 12px; line-height: 16px;">Order number
+                                ${salesorder.memo}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="margin-top: 30px; width: 100%;">
+            <div>
+                <div style="font-size: 14px; font-weight: 600;">Dear <#if customer.isPerson=="T" && (
+                        (customer.firstName)?has_content || (customer.lastName)?has_content )>${customer.firstName}
+                        ${customer.lastName}<#elseif customer.isPerson=="F" && (customer.companyName)?has_content>
+                            ${customer.companyName}<#else>${preferences.naming_customer}</#if>,</div>
+
+                <div>Thank you for shopping at <#if (website.url)?has_content><a href="${website.url}"
+                            style="color: #f18830; font-weight: 600; text-decoration: none;">${website.displayName}</a>
+                        <#else><span style="font-weight: 600;">${website.displayName}</span>
+                    </#if>. Your order has been shipped and will be delivered soon to:</div>
+
+                <div>
+                    <#if (itemfulfillment.shipAddress)?has_content>
+                        <div style="margin-top: 16px;">
+                            <div
+                                style="font-family: Open Sans, Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: 600;">
+                                ${itemfulfillment.shipAddress}</div>
+                        </div>
+                    </#if>
+                </div>
+            </div>
+
+            <div>
+                <div style="margin: 16px 0;"><span style="font-weight: 600">Delivery method:</span>
+                    ${itemfulfillment.shipMethod}</div>
+                <#if (salesorder.trackingLink)?has_content>
+
+                    <div style="margin: 16px 0 32px 0; width: auto;">
+                        <div style="background-color: #ebf5f7; padding: 16px; width: auto;">Tracking information: <a
+                                href="${salesorder.trackingLink}"
+                                style="color: #f18830; text-decoration: none;">${salesorder.linkedtrackingnumbers}</a>
+                        </div>
+                    </div>
+                </#if>
+
+                <div style="font-weight: 600; line-height: 24px; padding-bottom: 10px;">Shipped Items</div>
+
+                <table border="0" cellpadding="5" cellspacing="0"
+                    style="font-family: Open Sans, Verdana, Arial, Helvetica, sans-serif; line-height: 16px; vertical-align: top; width: 100%;">
+                   
+                        <tbody>
+
+                            <!-- Begin Sort by area and wearer -->
+                        <#assign areas=[]>
+                        <#assign lastwearer></#assign>
+                        <#list itemfulfillment.item as allitemline>
+                            <#if areas?seq_contains(allitemline.custcol_bb1_transline_area)>
+                                <#else>
+                                    <#assign areas=areas+[allitemline.custcol_bb1_transline_area]>
+                            </#if>
+                        </#list>
+
+                        <#list areas as area>
+
+                            <tr>
+                                <td colspan="3">
+                                    <br />
+                                    <hr color="#d7f1fa" style="color: #d7f1fa;" />
+                                    <#if area?has_content>
+                                        <h3 style="margin:1em 0 0 0;">${area}
+                                        </h3>
+                                    </#if>
+                                </td>
+                            </tr>
+
+                            <#list itemfulfillment.item?sort_by("custcol_bb1_transline_wearer") as itemline>
+
+                                <#if itemline.custcol_bb1_transline_area==area>
+                                    <#if itemline.custcol_bb1_transline_wearer==lastwearer>
+                                        <#else>
+                                            <#assign lastwearer=itemline.custcol_bb1_transline_wearer>
+                                                <tr>
+                                                    <td colspan="3">
+                                                        <h4 style="margin:.25em 0;">
+                                                            ${itemline.custcol_bb1_transline_wearer}
+                                                        </h4>
+                                                    </td>
+                                                </tr>
+                                    </#if>
+                                    <!-- End Sort by area and wearer-->
+
+
+                            <tr style="margin: 4px 0;">
+                                <td>
+                                    <#if (itemimages[itemline.itemkey])?has_content><img alt=""
+                                            src="${itemimages[itemline.itemkey]}"
+                                            style="display: block; margin-left: auto; margin-right: auto; max-height: 64px; max-width: 64px;" />
+                                    </#if>
+                                </td>
+                                <td style="vertical-align: top;">
+                                    <div>
+                                        <#if (itemurls[itemline.itemkey])?has_content><a
+                                                href="${itemurls[itemline.itemkey]}"
+                                                style="color: #f18830; font-size: 14px; line-height: 16px; text-decoration: none;">${itemline.item}</a>
+                                            <#else> <span
+                                                    style="font-size: 14px; line-height: 16px;">${itemline.item}</span>
+                                        </#if>
+                                    </div>
+                                    <#if (itemline.options)?has_content>
+                                        <#assign br="<br />">
+                                            <#list (itemline.options)?split(br) as option>
+                                                <#assign label=option?substring(0,option?index_of(":"))
+                                                    value=(option?substring(option?index_of(":")+1))?trim>
+
+                                                    <div style="font-size: 12px;"><span
+                                                            style="color: #81878c; text-align: left;">${label}:</span><span
+                                                            style="padding-left: 5px;">${value}</span></div>
+                                            </#list>
+                                    </#if>
+
+                                    <div><span
+                                            style="color: #81878c; font-size: 12px; text-align: left;">Quantity:</span><span
+                                            style="font-size: 12px; padding-left: 5px;">${itemline.quantity}</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            </#if>
+                            </#list>
+                        </#list>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <hr color="#d7f1fa" style="color:#d7f1fa;" />
+        <div>
+            <#if (website.customerCenterUrl)?has_content>
+                <div style="margin-top: 8px; text-align: center;"><span
+                        style="font-family: Open Sans, Verdana, Arial, Helvetica, sans-serif; font-size: 12px;">If you
+                        are a registered customer, you can <a href="${website.customerCenterUrl}"
+                            style="color: #f18830; font-weight: 600; text-decoration: none;">log in</a> to see your
+                        order status</span></div>
+            </#if>
+        </div>
+    </div>
+</body>
+
+</html>

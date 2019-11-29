@@ -1,0 +1,328 @@
+<!--
+Description : Custom e-mail template.
+Author : Gordon Truslove
+Date : 11/25/2019, 1:26:12 PM
+-->
+<html>
+
+<head></head>
+
+<body
+    style="color: #4d5256; font-family: Open Sans, Verdana, Arial, Helvetica, sans-serif; font-size: 14px; margin: auto; padding: 27px 0 13px 0; width: 600px;">
+    <div>
+        <div><img alt="${website.displayName}" src="${website.url}/site/SafeAidLogo.png" /><br />
+            &nbsp;
+            <table border="0" cellpadding="0" cellspacing="0"
+                style="font-family: Open Sans, Verdana, Arial, Helvetica, sans-serif;" width="100%">
+                <tbody>
+                    <tr>
+                        <td style="vertical-align: bottom;"><span
+                                style="color: #4d5256; font-size: 18px; font-weight: 600; line-height: 24px;">Order
+                                Received</span></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;"><span
+                                style="color: #4d5256; font-size: 12px; line-height: 16px;">Order number
+                                ${salesorder.memo}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="margin-top: 30px; width: 100%;">
+            <div>
+                <div style="font-size: 14px; font-weight: 600;">Dear <#if customer.isPerson=="T" && (
+                        (customer.firstName)?has_content || (customer.lastName)?has_content )>${customer.firstName}
+                        ${customer.lastName}<#elseif customer.isPerson=="F" && (customer.companyName)?has_content>
+                            ${customer.companyName}<#else>${preferences.naming_customer}</#if>,</div>
+
+                <div>Thank you for shopping at <#if (website.url)?has_content><a href="${website.url}"
+                            style="color: #f18830; font-weight: 600; text-decoration: none;">${website.displayName}</a>
+                        <#else><span style="font-weight: 600;">${website.displayName}</span>
+                    </#if>. Please find all the order details below and have a nice day.</div>
+
+                <div>- ${website.displayName}</div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div style="font-size: 16px; font-weight: 600; line-height: 24px; padding-bottom: 10px;">Order Summary
+                </div>
+
+                <table border="0" cellpadding="0" cellspacing="0"
+                    style="font-family: Open Sans, Verdana, Arial, Helvetica, sans-serif; vertical-align: top; width: 100%;">
+                    <tbody>
+                        
+                        <!-- Begin Sort by area and wearer -->
+                        <#assign areas=[]>
+                            <#assign lastwearer></#assign>
+                            <#list salesorder.item as allitemline>
+                                <#if areas?seq_contains(allitemline.custcol_bb1_transline_area)>
+                                    <#else>
+                                        <#assign areas=areas+[allitemline.custcol_bb1_transline_area]>
+                                </#if>
+                            </#list>
+
+                            <#list areas as area>
+
+                                <tr>
+                                    <td colspan="3">
+                                        <br />
+                                        <hr color="#d7f1fa" style="color: #d7f1fa;" />
+                                        <#if area?has_content>
+                                            <h3 style="margin:1em 0 0 0;">${area}
+                                            </h3>
+                                        </#if>
+                                    </td>
+                                </tr>
+
+                                <#list salesorder.item?sort_by("custcol_bb1_transline_wearer") as itemline>
+
+                                    <#if itemline.custcol_bb1_transline_area==area>
+                                        <#if itemline.custcol_bb1_transline_wearer==lastwearer>
+                                            <#else>
+                                                <#assign lastwearer=itemline.custcol_bb1_transline_wearer>
+                                                    <tr>
+                                                        <td colspan="3">
+                                                            <h4 style="margin:.25em 0;">
+                                                                ${itemline.custcol_bb1_transline_wearer}
+                                                            </h4>
+                                                        </td>
+                                                    </tr>
+                                        </#if>
+                                        <!-- End Sort by area and wearer-->
+
+                                        <tr>
+                                            <#if itemline.itemType=="Discount">
+                                                <td>&nbsp;</td>
+                                                <td style="font-size: 12px; vertical-align: top;">
+                                                    <div><span style="color: #81878c; text-align: left;">Coupon code
+                                                            applied:</span><span
+                                                            style="padding-left: 5px;">${itemline.amount}</span>
+                                                    </div>
+                                                </td>
+                                                <#else>
+                                                    <td style="padding-top:10px;">
+                                                        <#if (itemimages[itemline.item.internalId])?has_content><img
+                                                                alt="" src="${itemimages[itemline.item.internalId]}"
+                                                                style="display: block; margin-left: auto; margin-right: auto; max-height: 64px; max-width: 64px;" />
+                                                        </#if>
+                                                    </td>
+                                                    <td style="padding-top:10px;">
+                                                        <div>
+                                                            <#if (itemurls[itemline.item.internalId])?has_content><a
+                                                                    href="${itemurls[itemline.item.internalId]}"
+                                                                    style="color: #f18830; font-size: 14px; line-height: 16px; text-decoration: none;">${itemline.item}</a>
+                                                                <#else> <span
+                                                                        style="font-size: 14px; line-height: 16px;">${itemline.item}</span>
+                                                            </#if>
+                                                        </div>
+                                                        <#if (itemline.options)?has_content>
+                                                            <#assign br="<br />">
+
+                                                                <#list (itemline.options)?split(br) as option>
+                                                                    <#assign
+                                                                        label=option?substring(0,option?index_of(":"))
+                                                                        value=(option?substring(option?index_of(":")+1))?trim>
+
+                                                                        <div style="font-size: 12px;"><span
+                                                                                style="color: #81878c; text-align: left;">${label}:</span><span
+                                                                                style="padding-left: 5px;">${value}</span>
+                                                                        </div>
+                                                                </#list>
+                                                        </#if>
+                                                        <#if (itemline.giftCertRecipientEmail)?has_content>
+
+                                                            <div style="font-size: 12px;"><span
+                                                                    style="color: #81878c; text-align: left;">Recipient
+                                                                    Email:</span><span
+                                                                    style="padding-left: 5px;">${itemline.giftCertRecipientEmail}</span>
+                                                            </div>
+                                                        </#if>
+                                                        <#if (itemline.giftCertFrom)?has_content>
+
+                                                            <div style="font-size: 12px;"><span
+                                                                    style="color: #81878c; text-align: left;">From:</span><span
+                                                                    style="padding-left: 5px;">${itemline.giftCertFrom}</span>
+                                                            </div>
+                                                        </#if>
+                                                        <#if (itemline.giftCertMessage)?has_content>
+
+                                                            <div style="font-size: 12px;"><span
+                                                                    style="color: #81878c; text-align: left;">Gift
+                                                                    Message:</span><span
+                                                                    style="padding-left: 5px;">${itemline.giftCertMessage}</span>
+                                                            </div>
+                                                        </#if>
+                                                        <#if (itemline.giftCertRecipientName)?has_content>
+
+                                                            <div style="font-size: 12px;"><span
+                                                                    style="color: #81878c; text-align: left;">Recipient
+                                                                    Name:</span><span
+                                                                    style="padding-left: 5px;">${itemline.giftCertRecipientName}</span>
+                                                            </div>
+                                                        </#if>
+
+                                                        <div style="font-size: 12px;"><span
+                                                                style="color: #81878c; text-align: left;">Quantity:</span><span
+                                                                style="padding-left: 5px;">${itemline.quantity}</span>
+                                                        </div>
+
+                                                        <div style="font-size: 12px;"><span
+                                                                style="color: #81878c; text-align: left;">1
+                                                                each:</span><span
+                                                                style="padding-left: 5px;">${itemline.rate}</span>
+                                                        </div>
+                                                    </td>
+                                                    <td style="text-align: right; padding-top:10px;"><span
+                                                            style="color: #4d5256; font-size: 14px; font-weight: 600;">${itemline.amount}</span>
+                                                    </td>
+                                            </#if>
+                                        </tr>
+                                    </#if>
+                                </#list>
+                            </#list>
+                    </tbody>
+                </table>
+
+                <hr color="#d7f1fa" style="color: #d7f1fa;" />
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                        <tr>
+                            <td align="right">
+                                <table border="0" cellpadding="0" cellspacing="0"
+                                    style="font-family: Open Sans, Verdana, Arial, Helvetica, sans-serif; line-height: 16px; margin: 7px 0; width: auto;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding: 0 20px 0 0;"><span
+                                                    style="color: #81878c; font-size: 12px; text-align: left;">Subtotal</span>
+                                            </td>
+                                            <td style="text-align: right;"><span
+                                                    style="color: #4d5256; font-size: 14px; vertical-align: top;">${salesorder.subTotal}</span>
+                                            </td>
+                                        </tr>
+                                        <#if (salesorder.discountTotal)?has_content>
+                                            <tr>
+                                                <td style="padding: 0 20px 0 0;"><span
+                                                        style="color: #81878c; font-size: 12px; text-align: left;">Discount</span>
+                                                </td>
+                                                <td style="text-align: right;"><span
+                                                        style="color: #4d5256; font-size: 14px; vertical-align: top;">${salesorder.discountTotal}</span>
+                                                </td>
+                                            </tr>
+                                        </#if>
+                                        <#if (salesorder.shippingCost)?has_content>
+                                            <tr>
+                                                <td style="padding: 0 20px 0 0;"><span
+                                                        style="color: #81878c; font-size: 12px; text-align: left;">Shipping</span>
+                                                </td>
+                                                <td style="text-align: right;"><span
+                                                        style="color: #4d5256; font-size: 14px; vertical-align: top;">${salesorder.shippingCost}</span>
+                                                </td>
+                                            </tr>
+                                        </#if>
+                                        <#if (salesorder.taxTotal)?has_content>
+                                            <tr>
+                                                <td style="padding: 0 20px 0 0;"><span
+                                                        style="color: #81878c; font-size: 12px; text-align: left;">Tax</span>
+                                                </td>
+                                                <td style="text-align: right;"><span
+                                                        style="color: #4d5256; font-size: 14px; vertical-align: top;">${salesorder.taxTotal}</span>
+                                                </td>
+                                            </tr>
+                                        </#if>
+                                        <#if (salesorder.tax2total)??>
+                                            <#if (salesorder.tax2total)?has_content>
+                                                <tr>
+                                                    <td style="padding: 0 20px 0 0;"><span
+                                                            style="color: #81878c; font-size: 12px; text-align: left;">Tax2</span>
+                                                    </td>
+                                                    <td style="text-align: right;"><span
+                                                            style="color: #4d5256; font-size: 14px; vertical-align: top;">${salesorder.tax2total}</span>
+                                                    </td>
+                                                </tr>
+                                            </#if>
+                                        </#if>
+                                        <#if (salesorder.giftCertRedemption)?has_content>
+                                            <#list (salesorder.giftCertRedemption) as giftCert>
+                                                <tr>
+                                                    <td style="padding: 0 20px 0 0;"><span
+                                                            style="color: #81878c; font-size: 12px; text-align: left;">Gift
+                                                            Certificate ${giftCert.authCode}
+                                                            (Balance:${giftCert.authCodeAmtRemaining})</span></td>
+                                                    <td style="text-align: right;"><span
+                                                            style="color: #4d5256; font-size: 14px; vertical-align: top;">(${giftCert.authCodeApplied})</span>
+                                                    </td>
+                                                </tr>
+                                            </#list>
+                                        </#if>
+                                        <tr>
+                                            <td style="padding: 0 20px 0 0;"><span
+                                                    style="color: #81878c; font-size: 12px; text-align: left;">TOTAL</span>
+                                            </td>
+                                            <td style="text-align: right;"><span
+                                                    style="color: #4d5256; font-size: 14px; font-weight: 600; vertical-align: top;">${salesorder.total}</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <hr color="#d7f1fa" style="color: #d7f1fa;" />
+                <div>
+                    <#if (salesorder.shipAddress)?has_content || (salesorder.shipMethod)?has_content>
+                        <div style="margin: 17px 0;">
+                            <div><span style="font-size: 14px; font-weight: 600;">Shipping</span></div>
+                            <#if (salesorder.shipAddress)?has_content>
+
+                                <div
+                                    style="font-family: Open Sans, Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold; margin: 6px 0 0 0;">
+                                    Address</div>
+
+                                <div
+                                    style="font-family: Open Sans, Verdana, Arial, Helvetica, sans-serif; font-size: 12px;">
+                                    ${salesorder.shipAddress}</div>
+                            </#if>
+                            <#if (salesorder.shipMethod)?has_content>
+
+                                <div
+                                    style="font-family: Open Sans, Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold; margin: 6px 0 0 0;">
+                                    Method</div>
+
+                                <div
+                                    style="font-family: Open Sans, Verdana, Arial, Helvetica, sans-serif; font-size: 12px;">
+                                    ${salesorder.shipMethod}</div>
+                            </#if>
+                        </div>
+                    </#if>
+                    <#if (salesorder.billAddress)?has_content>
+
+                        <div style="margin:17px 0;">
+                            <div><span style="font-size: 14px; font-weight: 600;">Bill to</span></div>
+
+                            <div
+                                style="font-family: Open Sans, Verdana, Arial, Helvetica, sans-serif; font-size: 12px;">
+                                ${salesorder.billAddress}</div>
+                        </div>
+                    </#if>
+                </div>
+
+                <hr color="#d7f1fa" style="color:#d7f1fa;" />
+            </div>
+        </div>
+
+        <div>
+            <#if (website.customerCenterUrl)?has_content>
+                <div style="text-align: center;"><span
+                        style="font-family: Open Sans, Verdana, Arial, Helvetica, sans-serif; font-size: 12px;">If you
+                        are a registered customer, you can <a href="${website.customerCenterUrl}"
+                            style="color: #f18830; font-weight: 600; text-decoration: none;">log in</a> to see your
+                        order status</span></div>
+            </#if>
+        </div>
+    </div>
+</body>
+
+</html>
