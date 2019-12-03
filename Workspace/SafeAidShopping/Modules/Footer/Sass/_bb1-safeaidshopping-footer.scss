@@ -14,7 +14,7 @@ footer {
 
 .footer-content-nav-list {
  @extend .col-sm-3;
- @extend .col-xs-12;
+ @extend .col-xs-6;
  margin: 0;
  padding-bottom: 40px;
  list-style: none;
@@ -36,28 +36,22 @@ footer {
  a {
   margin: 0;
   text-transform: capitalize;
-  color: #fff;
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 600;
+  color: $white;
+  font-size: $sc-font-size-xs;
   
   &:hover {
-   color: #f68a24;
+   color: $safeaid-orange;
    transition: all 0.3s ease;
   }
  }
  
- &.text-bold,
  &.footer-content-nav-list-heading {
-  margin-bottom: 10px;
-  color: #fff;
-  font-family: "proxima-nova", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-style: normal;
-  font-size: 14px;
-  font-weight: 800;
+     @extend h4;
+     font-family:NimbusSanCon-Bla, sans-serif;
+  margin-bottom: $sc-margin-lv2;
+  color: $white;
   border-bottom: 3px #4c4846 solid;
-  padding-bottom: 10px;
+  padding-bottom: $sc-padding-lv2;
   text-transform: uppercase;
  }
 }
@@ -69,12 +63,8 @@ footer {
  p {
   margin: 0 0 6px 0;
   padding: 0;
-  color: #fff;
-  font-size: 12px;
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 1.5;
+  color: $white;
+  font-size: $sc-font-size-xs;
  }
 }
 

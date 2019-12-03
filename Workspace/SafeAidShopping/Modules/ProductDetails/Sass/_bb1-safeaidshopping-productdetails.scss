@@ -1,15 +1,18 @@
 .product-details-full-content-header-title {
- font-family: "UniversLTPro-45Light","Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
- font-size: 3.5rem;
+ @extend h2;
 }
 
 .product-details-standards-container,
 .product-details-specification-container,
 .product-details-certificate-container,
-.product-details-size-guide-container,
-.product-details-ppe-symbols-container {
+.product-details-size-guide-container{
  margin-bottom: $sc-margin-lv1;
 }
+.product-details-ppe-symbols-container {
+    margin-top: $sc-margin-lv2;
+    margin-bottom: $sc-margin-lv2;
+    clear:both;
+   }
 
 .product-details-standards-label,
 .product-details-specification-label,
@@ -37,9 +40,18 @@
  color: $sc-color-copy-light;
 }
 
+.product-details-ppe-symbols-image{
+    text-align:center;
+    margin-right: 10px;
+    display:inline-block;
+}
 .product-details-ppe-symbols-image img {
- max-height: 30px;
- margin-right: 10px;
+ max-height: 60px;
+}
+.product-details-ppe-symbols-image span{
+    font-size:8px;
+    color: $sc-color-copy-light;
+    display:block;
 }
 
 .product-details-specification-icon {
@@ -77,4 +89,7 @@
 
 .product-details-size-guide table tr:nth-child(2n) td {
  background: #eee;
+}
+.product-details-quickview-item-name{
+    @extend h2;
 }

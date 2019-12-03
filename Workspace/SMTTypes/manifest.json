@@ -2,7 +2,10 @@
     "name": "SMTTypes",
     "fantasyName": "SMT Types",
     "vendor": "bb1",
+    "version": "1.0.0",
     "type": "extension",
+    "target": "SCA,SCS",
+    "description": "This extension includes handy custom content types for SMT.",
     "cct": [
         {
             "icon": "img/cct_bb1_youtubecct_icon.svg",
@@ -33,9 +36,7 @@
             "description": "3x Grid for SMT."
         }
     ],
-    "target": "SCA,SCS",
-    "version": "1.0.0",
-    "description": "This extension includes handy custom content types for SMT.",
+    "skins": [],
     "assets": {
         "img": {
             "files": [
@@ -52,6 +53,14 @@
             "files": []
         }
     },
+    "sass": {
+        "entry_points": {
+            "shopping": "Modules/YouTubeCCT/Sass/_smttypes.scss"
+        },
+        "files": [
+            "Modules/YouTubeCCT/Sass/_smttypes.scss"
+        ]
+    },
     "templates": {
         "application": {
             "shopping": {
@@ -63,14 +72,6 @@
                 ]
             }
         }
-    },
-    "sass": {
-        "entry_points": {
-            "shopping": "Modules/YouTubeCCT/Sass/_smttypes.scss"
-        },
-        "files": [
-            "Modules/YouTubeCCT/Sass/_smttypes.scss"
-        ]
     },
     "javascript": {
         "entry_points": {
@@ -87,5 +88,6 @@
                 ]
             }
         }
-    }
+    },
+    "local_folder": "Workspace/SMTTypes"
 }

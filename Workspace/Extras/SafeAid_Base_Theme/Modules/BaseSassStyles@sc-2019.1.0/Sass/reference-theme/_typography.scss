@@ -12,7 +12,7 @@ $sc-paragraph-margin-top: 0;
 $sc-paragraph-margin-bottom: 0;
 
 // Font variables for h1 elements
-$sc-h1-font-family: "NimbusSanCon-Bla"; /* editable({"type": "string", "label": "Font family"}) */
+$sc-h1-font-family: NimbusSanCon-Bla, sans-serif; /* editable({"type": "string", "label": "Font family"}) */
 $sc-h1-font-size: $sc-font-size-xxl; /* editable({"type": "string", "label": "Mobile size"}) */
 $sc-h1-desktop-font-size: $sc-font-size-xxxl; /* editable({"type": "string", "label": "Desktop size"}) */
 $sc-h1-font-style: normal;
@@ -33,7 +33,7 @@ $sc-h1-text-transform: uppercase; /* editable({
 }) */
 
 // Font variables for h2 elements
-$sc-h2-font-family: "NimbusSanCon-Bla"; /* editable({"type": "string", "label": "Font family"}) */
+$sc-h2-font-family: NimbusSanCon-Bla, sans-serif; /* editable({"type": "string", "label": "Font family"}) */
 $sc-h2-font-size: $sc-font-size-xl; /* editable({"type": "string", "label": "Mobile size"}) */
 $sc-h2-desktop-font-size: $sc-font-size-xxl; /* editable({"type": "string", "label": "Desktop size"}) */
 $sc-h2-font-style: normal;

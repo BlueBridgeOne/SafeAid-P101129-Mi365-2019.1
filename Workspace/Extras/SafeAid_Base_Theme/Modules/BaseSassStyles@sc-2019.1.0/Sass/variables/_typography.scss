@@ -45,6 +45,7 @@
       url(getThemeAssetsPath("fonts/Linotype-UniversLTPro45Light.woff2")) format("woff2"); /* Modern Browsers */
     font-weight: normal;
     font-style: normal;
+    font-display:swap;
   }
 
   @font-face {
@@ -58,6 +59,7 @@
       url(getThemeAssetsPath("fonts/Linotype-UniversLTPro47LtCnBold.woff2")) format("woff2"); /* Modern Browsers */
     font-weight: normal;
     font-style: normal;
+    font-display:swap;
   }
 
   @font-face {
@@ -71,6 +73,7 @@
       url(getThemeAssetsPath("fonts/URW-NimbusSanCon-Bla.woff2")) format("woff2"); /* Modern Browsers */
     font-weight: normal;
     font-style: normal;
+    font-display:swap;
   }
 
 

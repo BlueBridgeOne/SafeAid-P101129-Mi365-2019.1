@@ -6,12 +6,12 @@
 	padding-left: $sc-margin-lv2;
 	padding-right: $sc-margin-lv2;
 	text-align: center;
-	margin-bottom: $sc-margin-lv6;
-	width: 50%;
+	margin-bottom: $sc-margin-lv3;
+	width: 100%;
 
 	@media (min-width: $screen-md-min)
 	{
-		width: 25%;
+		width: 50%;
 	}
 
 }
@@ -27,7 +27,18 @@
 
 .facets-category-cell-title
 {
-	padding: $sc-padding-lv2 $sc-padding-lv1 * 0
+	@extend h3;
+	font-family: $sc-h2-font-family;
+	a{
+	padding: $sc-padding-lv4 $sc-padding-lv3 $sc-padding-lv1 $sc-padding-lv3;
+	background-color:$sc-color-theme-background;
+	display:block;
+	}
+	a:hover{
+		
+		background-color:$sc-color-theme-500;
+		color:$white;
+		}
 }
 
 

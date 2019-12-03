@@ -46,10 +46,10 @@
 
       <div data-cms-area="product_details_full_cms_area_4" data-cms-area-filters="path"></div>
 
-      <div data-view="Product.Sku"></div>
+      <div data-view="Product.Sku" class="product-details-info-cell"></div>
       
       {{#if model.item.custitem_bb1_sca_standards}}
-      <div class="product-details-standards-container">
+      <div class="product-details-standards-container product-details-info-cell">
        <span class="product-details-standards-label">
         Standards:
        </span>
@@ -60,7 +60,7 @@
       {{/if}}
       
       {{#if model.item.custitem_bb1_sca_specification}}
-      <div class="product-details-specification-container">
+      <div class="product-details-specification-container product-details-info-cell">
        <span class="product-details-specification-label">
         <a href="{{model.item.custitem_bb1_sca_specification}}" target="_blank" data-navigation="ignore-click"><i class="product-details-specification-icon" /> Specifications</a>
        </span>
@@ -68,7 +68,7 @@
       {{/if}}
       
       {{#if model.item.custitem_bb1_sca_certificate}}
-      <div class="product-details-certificate-container">
+      <div class="product-details-certificate-container product-details-info-cell">
        <span class="product-details-certificate-label">
         <a href="{{model.item.custitem_bb1_sca_certificate}}" target="_blank" data-navigation="ignore-click"><i class="product-details-certificate-icon" /> Certificate</a>
        </span>
@@ -76,7 +76,7 @@
       {{/if}}
       
       {{#if model.item.custitem_bb1_sca_sizeguide}}
-      <div class="product-details-size-guide-container">
+      <div class="product-details-size-guide-container product-details-info-cell">
        <span class="product-details-size-guide-label">
         <a href="#" data-action="show-size-guide" data-size-guide="{{model.item.custitem_bb1_sca_sizeguide}}"><i class="product-details-size-guide-icon" /> Size Guide</a>
        </span>

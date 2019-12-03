@@ -1,15 +1,14 @@
-<section class="facets-browse-category-heading-list-header">
+<section class="facets-browse-category-heading-list-header" style="{{#if hasBanner}}
+  background-image:url('{{getExtensionAssetsPath banner}}');
+
+ {{/if}}">
  <div class="facets-browse-category-heading-main-description">
   <h1>{{pageheading}}</h1>
   {{#if showDescription}} 
    <p>{{{description}}}</p>
   {{/if}}
  </div>
- {{#if hasBanner}}
-  <div class="facets-browse-category-heading-main-image">
-   <img src="{{getExtensionAssetsPath banner}}" alt="{{pageheading}}" />
-  </div>
- {{/if}}
+ 
 </section>
 
 

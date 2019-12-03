@@ -148,7 +148,7 @@ define(
 
 				var custom;
 				if (customer) {
-					
+
 					try {
 
 
@@ -164,8 +164,20 @@ define(
 						}
 					}
 				}
-				custom = nlapiGetWebContainer().getShoppingSession().getCustomer().getCustomFieldValues();
-				nlapiLogExecution("debug", "membership", customer + " " + custentity_bb1_sca_membership + " " + JSON.stringify(custom));
+				var membership_level = "bronze";
+				switch (custentity_bb1_sca_membership.toString()) {
+					case "2":
+						membership_level = "silver";
+						break;
+					case "3":
+						membership_level = "gold";
+						break;
+					case "4":
+						membership_level = "platinum";
+						break;
+				}
+				
+				nlapiLogExecution("debug", "membership", customer + " " + custentity_bb1_sca_membership);
 
 				var filter = [
 					["custentity_bb1_sca_buyer", "is", "T"],
@@ -194,7 +206,7 @@ define(
 						result = contactSearch[i];
 						data = {
 							id: result.getId(),
-							level: "silver",
+							level: membership_level,
 							custentity_bb1_sca_membership: custentity_bb1_sca_membership
 
 						};
@@ -242,7 +254,7 @@ define(
 				} else {
 					return {
 						id: contact,
-						level: "bronze",
+						level: membership_level,
 						custentity_bb1_sca_membership: custentity_bb1_sca_membership,
 						alerts: 0
 					};

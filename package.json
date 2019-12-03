@@ -40,6 +40,7 @@
         "mime": "2.4.0",
         "nconf": "0.10.0",
         "ns-uploader": "file:./ns_npm_repository/ns-uploader",
+        "nvm": "0.0.4",
         "opn": "5.4.0",
         "plugin-error": "1.0.1",
         "progress": "2.0.3",

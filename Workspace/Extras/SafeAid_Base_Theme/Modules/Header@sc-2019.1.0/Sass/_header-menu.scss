@@ -40,7 +40,7 @@
 .header-menu-level1-anchor {
 	display: block;
 	position: relative;
-	font-family: "NimbusSanCon-Bla";
+	font-family: NimbusSanCon-Bla, sans-serif;
 	font-size:$sc-font-size-l;
 
 	padding: $sc-padding-lv2;
@@ -94,7 +94,7 @@
 .header-menu-level2-anchor {
 	text-transform: $sc-main-navigation-submenu-heading-text-transform;
 	text-decoration: $sc-main-navigation-submenu-heading-text-decoration;
-	font-family: "NimbusSanCon-Bla";
+	font-family: NimbusSanCon-Bla, sans-serif;
 	font-size:$sc-font-size-l;
 	color: $sc-main-navigation-submenu-heading-color;
 	padding-bottom: $sc-padding-lv1;

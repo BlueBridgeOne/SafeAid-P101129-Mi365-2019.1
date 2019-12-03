@@ -8,7 +8,7 @@
 	</div>
 
 	<div data-cms-area="home_cms_area_2" data-cms-area-filters="path"></div>
--->
+
 	<div class="home-slider-container">
 		<div class="home-image-slider">
 			<ul data-slider class="home-image-slider-list">
@@ -80,7 +80,7 @@
 	</div>
 
 	<div data-cms-area="home_cms_area_3" data-cms-area-filters="path"></div>
-<!--
+
 	<div class="home-banner-main">
 	{{#each bottomBannerImages}}
     	<div class="home-banner-main-cell-nth{{@index}}">
@@ -112,10 +112,11 @@
 	</div>
 
 	<div data-cms-area="home_cms_area_4" data-cms-area-filters="path"></div>
--->
+
 	<div class="home-merchandizing-zone">
 		<div data-id="your-merchandising-zone" data-type="merchandising-zone"></div>
 	</div>
+	-->
 </div>
 
 {{!----

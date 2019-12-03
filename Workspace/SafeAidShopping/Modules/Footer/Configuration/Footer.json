@@ -41,12 +41,24 @@
             },
             "default": [
                 {
-                    "text": "Popular Links",
+                    "text": "Popular",
                     "classes": "footer-content-nav-list-heading"
+                },
+                {
+                    "text": "Who We Are",
+                    "href": "/who-we-are"
                 },
                 {
                     "text": "About Us",
                     "href": "/about-us"
+                },
+                {
+                    "text": "Meet The Team",
+                    "href": "/meet-the-team"
+                },
+                {
+                    "text": "Contact Us",
+                    "href": "/contact-us"
                 },
                 {
                     "text": "Mi365",
@@ -55,57 +67,33 @@
                     "href": "/mi365"
                 },
                 {
-                    "text": "Corporate Social Responsibility",
-                    "href": "/corporate-social-responsibility"
-                },
-                {
-                    "text": "Testimonials",
-                    "href": "/testimonials"
-                },
-                {
-                    "text": "Contact Us",
-                    "href": "/contact-us"
-                },
-                {
-                    "text": "Useful Information",
+                    "text": "Useful",
                     "classes": "footer-content-nav-list-heading",
                     "columnBreak": true
+                },
+                {
+                    "text": "Accreditations",
+                    "href": "/accreditations"
                 },
                 {
                     "text": "Delivery Details",
                     "href": "/delivery-details"
                 },
                 {
-                    "text": "Size Guide",
-                    "href": "/size-guide"
-                },
-                {
                     "text": "Returns Information",
                     "href": "/returns-information"
-                },
-                {
-                    "text": "Terms & Conditions",
-                    "href": "/terms-and-conditions"
-                },
-                {
-                    "text": "Privacy Policy",
-                    "href": "/privacy-policy"
                 },
                 {
                     "text": "Cookie Policy",
                     "href": "/cookie-policy"
                 },
                 {
-                    "text": "How To Find Us",
-                    "href": "/how-to-find-us"
+                    "text": "Privacy Policy",
+                    "href": "/privacy-policy"
                 },
                 {
-                    "text": "Site Map",
-                    "href": "/sitemap"
-                },
-                {
-                    "text": "GDPR Policy",
-                    "href": "/gdpr-policy"
+                    "text": "Terms & Conditions",
+                    "href": "/terms-and-conditions"
                 },
                 {
                     "text": "Features",
@@ -113,37 +101,41 @@
                     "columnBreak": true
                 },
                 {
+                    "text": "Training Videos",
+                    "href": "/training-videos"
+                },
+                {
+                    "text": "Training Downloads",
+                    "href": "/training-downloads"
+                },
+                {
                     "text": "Brand It",
                     "href": "/brand-it"
                 },
                 {
-                    "text": "Resource Centre",
-                    "href": "/resource-center"
-                },
-                {
-                    "text": "Blog",
-                    "href": "/blog"
-                },
-                {
-                    "text": "Request a Brochure",
-                    "href": "/request-a-brochure"
-                },
-                {
-                    "text": "Account",
+                    "text": "Other",
                     "classes": "footer-content-nav-list-heading",
                     "columnBreak": true
                 },
                 {
-                    "text": "Trade dashboard",
-                    "touchpoint": "myaccount",
-                    "hashtag": "#",
-                    "href": "/"
+                    "text": "Branding",
+                    "href": "/branding"
                 },
                 {
-                    "text": "My Return Requests",
-                    "touchpoint": "myaccount",
-                    "hashtag": "#",
-                    "href": "/"
+                    "text": "Insight",
+                    "href": "/insight"
+                },
+                {
+                    "text": "Customer Stories",
+                    "href": "/customer-stories"
+                },
+                {
+                    "text": "CSR",
+                    "href": "/csr"
+                },
+                {
+                    "text": "Request a Trade Account",
+                    "href": "/request-a-trade-account"
                 }
             ]
         }

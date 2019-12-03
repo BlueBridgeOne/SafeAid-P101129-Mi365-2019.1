@@ -6,3 +6,6 @@
     margin-bottom: $sc-margin-lv3;
     margin-top: $sc-margin-lv3;
 }
+.facets-empty-title{
+    @extend h2;
+}
