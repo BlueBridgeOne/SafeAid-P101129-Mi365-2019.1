@@ -32,6 +32,7 @@
 
 .facets-facet-browse-list-header-actions {
 	@extend .list-header-actions;
+	display:none;
 }
 
 .facets-facet-browse-list-header-expander {
