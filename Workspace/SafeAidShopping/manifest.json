@@ -2,11 +2,10 @@
     "name": "SafeAidShopping",
     "fantasyName": "SafeAid Shopping",
     "vendor": "bb1",
-    "version": "1.0.0",
     "type": "extension",
     "target": "SCA,SCS",
+    "version": "1.0.0",
     "description": "The shopping features for safeaid.",
-    "skins": [],
     "assets": {
         "img": {
             "files": [
@@ -42,20 +41,6 @@
             "Modules/ProductDetails/Configuration/PpeSymbols.json"
         ]
     },
-    "sass": {
-        "entry_points": {
-            "shopping": "Modules/Main/Sass/_bb1-safeaidshopping-main.scss"
-        },
-        "files": [
-            "Modules/Cart/Sass/_safeaidshopping-cart.scss",
-            "Modules/Main/Sass/_bb1-safeaidshopping-main.scss",
-            "Modules/MyCatalogue/Sass/_bb1-safeaidshopping-mycatalogue.scss",
-            "Modules/Footer/Sass/_bb1-safeaidshopping-footer.scss",
-            "Modules/ProductList/Sass/_bb1-safeaidshopping-productlist.scss",
-            "Modules/ProductDetails/Sass/_bb1-safeaidshopping-productdetails.scss",
-            "Modules/ProductDetails/Sass/_bb1-safeaidshopping-productdetails-multibuy.scss"
-        ]
-    },
     "templates": {
         "application": {
             "shopping": {
@@ -75,6 +60,20 @@
                 ]
             }
         }
+    },
+    "sass": {
+        "entry_points": {
+            "shopping": "Modules/Main/Sass/_bb1-safeaidshopping-main.scss"
+        },
+        "files": [
+            "Modules/Cart/Sass/_safeaidshopping-cart.scss",
+            "Modules/Main/Sass/_bb1-safeaidshopping-main.scss",
+            "Modules/MyCatalogue/Sass/_bb1-safeaidshopping-mycatalogue.scss",
+            "Modules/Footer/Sass/_bb1-safeaidshopping-footer.scss",
+            "Modules/ProductList/Sass/_bb1-safeaidshopping-productlist.scss",
+            "Modules/ProductDetails/Sass/_bb1-safeaidshopping-productdetails.scss",
+            "Modules/ProductDetails/Sass/_bb1-safeaidshopping-productdetails-multibuy.scss"
+        ]
     },
     "javascript": {
         "entry_points": {
@@ -119,6 +118,10 @@
             "Modules/Main/SuiteScript/bb1.SafeAidShopping.Main.js",
             "Modules/Profile/SuiteScript/bb1.SafeAidShopping.Profile.js"
         ]
+<<<<<<< HEAD
     },
     "local_folder": "Workspace/SafeAidShopping"
+=======
+    }
+>>>>>>> 55d2886e03bb6f0fc23157172b70fa2603a7d538
 }
