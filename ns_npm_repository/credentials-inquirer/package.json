@@ -11,7 +11,7 @@
   "dependencies": {
     "inquirer": "3.3.0",
     "q": "1.5.1",
-    "request": "2.61.0",
+    "request": "2.88.0",
     "suitetalk": "file:../suitetalk4node",
     "underscore": "1.8.3"
   }
