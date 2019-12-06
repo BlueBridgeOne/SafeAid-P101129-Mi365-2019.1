@@ -20,8 +20,8 @@ $row-space: $sc-padding-lv3;
 		padding-bottom: $row-space;
 
 		//ie fix
-		float:none \9;
-		width:auto \9;
+		float: none \9;
+		width: auto \9;
 	}
 }
 
@@ -32,35 +32,38 @@ $row-space: $sc-padding-lv3;
 		padding-bottom: $row-space;
 
 		//ie fix
-		float:none \9;
-		width:auto \9;
+		float: none \9;
+		width: auto \9;
 	}
 }
 
 @mixin table-flex-space($column, $position) {
 	.table-flex-#{$column} {
-		@if ($position == 'top') {
+		@if ($position=='top') {
 			padding-top: $row-space;
 		}
-		@else if ($position == 'bottom') {
+
+		@else if ($position=='bottom') {
 
 			@media (min-width: $screen-md-min) {
-			 	padding-bottom: $row-space;
+				padding-bottom: $row-space;
 			}
 		}
-		@else if ($position == 'top-bottom') {
+
+		@else if ($position=='top-bottom') {
 			padding-top: $row-space;
-		 	padding-bottom: $row-space;
+			padding-bottom: $row-space;
 		}
-		@else if ($position == 'neither') {
+
+		@else if ($position=='neither') {
 			padding-top: 0;
-		 	padding-bottom: 0;
+			padding-bottom: 0;
 		}
 	}
 }
 
 .table-flex {
-	width:100%;
+	width: 100%;
 	@extend .table-striped;
 	@include table-flex-fold-all;
 
@@ -165,23 +168,18 @@ $row-space: $sc-padding-lv3;
 
 	//exceptions
 	&.md2sm {
-		@media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
-			@include table-flex-fold-all();
-			@include table-flex-unfold("first");
-			@include table-flex-unfold("last");
-			@include table-flex-space("middle-data", "neither");
-			@include table-flex-space("middle-last", "bottom");
-		}
+		
+
 		@media (max-width: $screen-lg-min) {
-			[class*="-middle"]{
+			[class*="-middle"] {
 				padding-bottom: 0;
 			}
 
-			[class*="-middle"] + [class*="-middle"] {
+			[class*="-middle"]+[class*="-middle"] {
 				padding-top: 0;
 				padding-bottom: $sc-padding-lv3;
 			}
-	}
+		}
 	}
 
 	&.lg2sm {
@@ -192,6 +190,7 @@ $row-space: $sc-padding-lv3;
 		}
 	}
 }
+
 /////////////////////////////////////////////////////////////
 //Base for: Records
 
@@ -232,9 +231,11 @@ $row-space: $sc-padding-lv3;
 		@include table-flex-unfold-all();
 	}
 }
+
 .list-empty {
 	margin-top: $sc-margin-lv3;
 }
+
 .table-flex-head-row-column-quantity,
 .table-flex-head-row-column-price,
 .table-flex-head-row-column-amount,
@@ -243,54 +244,57 @@ $row-space: $sc-padding-lv3;
 	@extend .column-type-amount;
 }
 
-.cms-content{
-    ul>li{
-        margin:.5em 0;
-        list-style: none!important;
-    }
-     ul>li::before {
-        content: "\25CF";
-         color: $safeaid-orange;
-        display: inline-block;
-         width: 1em;
-         margin-left: -1em;
-    }
-     ul {
+.cms-content {
+	ul>li {
+		margin: .5em 0;
+		list-style: none !important;
+	}
+
+	ul>li::before {
+		content: "\25CF";
+		color: $safeaid-orange;
+		display: inline-block;
+		width: 1em;
+		margin-left: -1em;
+	}
+
+	ul {
 		list-style: none;
-		margin-left:$sc-margin-lv8!important;
-    }
+		margin-left: $sc-margin-lv8 !important;
+	}
 
-    ol>li {
-        counter-increment: list;
-        list-style-type: none;
-        position: relative;
-        margin:.5em 0;
-      }
-      
-      /* Output the numbers using the counter() function, but use a custom color, and position the numbers how we want */
-      ol>li:before {
-        color: $safeaid-orange;
-        content: counter(list, lower-alpha) ".";
-        position: absolute;
-        text-align: right;
-        width: 1em;
-         margin-left: -1.2em;
-	  }
-	  ol{
-		margin-left:$sc-margin-lv8!important;
-	  }
-	  
-	  table{
-		  @extend .table;
-		  @extend .table-striped;
-	  }
+	ol>li {
+		counter-increment: list;
+		list-style-type: none;
+		position: relative;
+		margin: .5em 0;
+	}
 
-	  h6{
-		  a{
+	/* Output the numbers using the counter() function, but use a custom color, and position the numbers how we want */
+	ol>li:before {
+		color: $safeaid-orange;
+		content: counter(list, lower-alpha) ".";
+		position: absolute;
+		text-align: right;
+		width: 1em;
+		margin-left: -1.2em;
+	}
+
+	ol {
+		margin-left: $sc-margin-lv8 !important;
+	}
+
+	table {
+		@extend .table;
+		@extend .table-striped;
+	}
+
+	h6 {
+		a {
 			@extend .button-primary;
 			@extend .button-medium;
 			margin: $sc-margin-lv2 0px;
-		  }
-	  }
+		}
+	}
 
 }

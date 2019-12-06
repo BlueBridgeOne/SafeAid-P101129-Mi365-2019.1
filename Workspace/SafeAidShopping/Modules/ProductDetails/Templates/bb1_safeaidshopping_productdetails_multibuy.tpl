@@ -4,10 +4,10 @@
   <table class="product-details-multibuy-quantity-table-desktop">
   {{#each multiBuyOptions}}
    <tr data-multibuy-colour="{{colourId}}">
-    <td rowspan="3">{{colourLabel}}</td>
-    <td>Size</td>
+    <td rowspan="3" class="product-details-multibuy-color swatch-{{colourLabel}}">{{colourLabel}}</td>
+    <th>Size</th>
     {{#each sizeOptions}}
-     <td>{{sizeLabel}}</td>
+     <th>{{sizeLabel}}</th>
     {{/each}}
    </tr>
    <tr>
@@ -19,7 +19,7 @@
    <tr>
    <td>Quantity</td>
    {{#each sizeOptions}}
-    <td><input type="number" class="product-details-multibuy-quantity-input" data-action="multi-buy-update-quantity" data-item-id="{{itemId}}" min="0"></td>
+    <td class="product-details-multibuy-quantity-td"><input type="number" class="product-details-multibuy-quantity-input" data-action="multi-buy-update-quantity" data-item-id="{{itemId}}" min="0" placeholder="0"></td>
    {{/each}}
    </tr>
   {{/each}}
@@ -28,16 +28,16 @@
   <table class="product-details-multibuy-quantity-table-mobile">
   {{#each multiBuyOptions}}
    <tr data-multibuy-colour="{{colourId}}">
-    <td rowspan="{{mobileRowSpan}}">{{colourLabel}}</td>
-    <td>Size</td>
-    <td>Stock</td>
-    <td>Quantity</td>
+    <td rowspan="{{mobileRowSpan}}" class="product-details-multibuy-color swatch-{{colourLabel}}">{{colourLabel}}</td>
+    <th>Size</th>
+    <th>Stock</th>
+    <th>Quantity</th>
    </tr>
    {{#each sizeOptions}}
    <tr>
     <td>{{sizeLabel}}</td>
     <td>{{#with (lookup ../sizeOptions @index)~}}{{available}}{{/with}}</td>
-    <td><input type="number" class="product-details-multibuy-quantity-input" data-action="multi-buy-update-quantity" data-item-id="{{itemId}}" min="0"></td>
+    <td class="product-details-multibuy-quantity-td"><input type="number" class="product-details-multibuy-quantity-input" data-action="multi-buy-update-quantity" data-item-id="{{itemId}}" min="0" placeholder="0"></td>
    </tr>
    {{/each}}
   {{/each}}
@@ -70,7 +70,7 @@
   {{translate 'Quantity'}}
  </label>
  <div data-validation="control">
-  <input type="number" class="product-details-multibuy-single-quantity-input" data-action="multi-buy-update-quantity" data-item-id="{{itemId}}" min="0">
+  <input type="number" class="product-details-multibuy-single-quantity-input" data-action="multi-buy-update-quantity" data-item-id="{{itemId}}" min="0" placeholder="0">
  </div>
 </div>
 {{/if}}

@@ -1,6 +1,7 @@
 .product-line-stock-description-msg-description {
 	@extend .stock-info-description;
 	@extend .product-line-stock-msg;
+	display:none;
 }
 
 .product-line-stock-description-icon-description {

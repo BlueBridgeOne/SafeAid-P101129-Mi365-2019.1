@@ -118,10 +118,5 @@
             "Modules/Main/SuiteScript/bb1.SafeAidShopping.Main.js",
             "Modules/Profile/SuiteScript/bb1.SafeAidShopping.Profile.js"
         ]
-<<<<<<< HEAD
-    },
-    "local_folder": "Workspace/SafeAidShopping"
-=======
     }
->>>>>>> 55d2886e03bb6f0fc23157172b70fa2603a7d538
 }

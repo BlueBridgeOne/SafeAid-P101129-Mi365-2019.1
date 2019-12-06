@@ -3,7 +3,7 @@
 }
 
 .mycatalogue-list-header {
- border-top: 1px solid $sc-color-theme-border-light;
+ 
  padding: $sc-padding-lv3 0;
 }
 
@@ -109,11 +109,13 @@
 }
 
 .mycatalogue-list-item-left {
- @extend .col-xs-2;
+ @extend .col-xs-4;
+ @extend .col-sm-2;
 }
 
 .mycatalogue-list-item-middle {
- @extend .col-xs-3;
+ @extend .col-xs-8;
+ @extend .col-sm-3;
 
  .item-views-price {
   text-align:left;
@@ -121,7 +123,8 @@
 }
 
 .mycatalogue-list-item-right {
- @extend .col-xs-7;
+ @extend .col-xs-12;
+ @extend .col-md-7;
 }
 
 .mycatalogue-list-item-image-wrapper {

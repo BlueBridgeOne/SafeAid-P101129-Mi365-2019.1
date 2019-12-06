@@ -102,7 +102,7 @@ define(
     dataFilters[this.buyersFacetId] = profile.get('contactFacetValueUrl') || 'XXXXXXXXXXXXXXXX';
    }
    else {
-    dataFilters[this.customersFacetId] = profile.get('customersFacetValueUrl') || 'XXXXXXXXXXXXXXXX';
+    dataFilters[this.customersFacetId] = profile.get('customerFacetValueUrl') || 'XXXXXXXXXXXXXXXX';
    }
    
    this.fetch({
