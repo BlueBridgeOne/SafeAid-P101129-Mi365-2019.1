@@ -13,6 +13,11 @@ define(
 			return JSON.stringify(obj, null, 3);
 		});
 
+		$("body",".contact-us-form-primary-submit-button").click(function(){
+			var $input=$(".contact-us-form-subject").find("input");
+			$input.val($input.props("placeholder"));
+		});
+
 		return {
 			mountToApp: function mountToApp(container) {
 

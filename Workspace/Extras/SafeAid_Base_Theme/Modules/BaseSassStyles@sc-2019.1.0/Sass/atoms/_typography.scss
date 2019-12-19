@@ -296,6 +296,16 @@ blockquote {
         font-size: $sc-font-size-xxxl;
     }
 }
+.medium-price {
+    color: $sc-color-copy-dark;
+    font-size: $sc-font-size-xl;
+    font-weight: $sc-font-weight-semibold;
+    line-height: 1.2;
+
+    @media (min-width: $screen-md-min) {
+        font-size: $sc-font-size-xxl;
+    }
+}
 
 .middle-price {
     font-size: $sc-font-size-m;

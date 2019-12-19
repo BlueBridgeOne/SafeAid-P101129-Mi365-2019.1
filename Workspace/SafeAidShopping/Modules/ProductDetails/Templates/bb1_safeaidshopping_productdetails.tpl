@@ -46,8 +46,8 @@
 
       <div data-cms-area="product_details_full_cms_area_4" data-cms-area-filters="path"></div>
 
-      <div data-view="Product.Sku" class="product-details-info-cell"></div>
-      
+      <div data-view="Product.Sku" ></div>
+      <div style="overflow:auto;">
       {{#if model.item.custitem_bb1_sca_standards}}
       <div class="product-details-standards-container product-details-info-cell">
        <span class="product-details-standards-label">
@@ -58,6 +58,7 @@
        </span>
       </div>
       {{/if}}
+      </div>
       
       {{#if model.item.custitem_bb1_sca_specification}}
       <div class="product-details-specification-container product-details-info-cell">

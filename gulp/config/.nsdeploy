@@ -4,9 +4,9 @@
         "user_agent": "sc-extension-devtools/2019.1.0",
         "email": "gordon@code25.com",
         "account": "5474721",
-        "role": 3,
+        "role": 1000,
         "hostname": "5474721.restlets.api.netsuite.com",
         "website": "2",
-        "roleId": 3
+        "roleId": 1000
     }
 }

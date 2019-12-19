@@ -54,7 +54,7 @@ define(
   else {
    searchApiParams.custitem_bb1_sca_standarditem = 'true';
   }
-   
+  
   return searchApiParams;
  });
  

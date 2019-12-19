@@ -11,13 +11,15 @@ define(
 		'bb1.SMTTypes.YouTubeCCT.View',
 		'bb1.SMTTypes.BannerCCT.View',
 		'bb1.SMTTypes.Grid2CCT.View',
-		'bb1.SMTTypes.Grid3CCT.View'
+		'bb1.SMTTypes.Grid3CCT.View',
+		'bb1.SMTTypes.DownloadCCT.View'
 	]
 ,   function (
 		YouTubeCCTView,
 		BannerCCTView,
 		Grid2CCTView,
-		Grid3CCTView
+		Grid3CCTView,
+		DownloadCCTView
 	)
 {
 	'use strict';
@@ -42,6 +44,15 @@ define(
 				
 				// The view to render the CCT
 			,	view: BannerCCTView
+			});
+
+			CMS.registerCustomContentType({
+				
+				// this property value MUST be lowercase
+				id: 'cct_bb1_download'
+				
+				// The view to render the CCT
+			,	view: DownloadCCTView
 			});
 
 			CMS.registerCustomContentType({

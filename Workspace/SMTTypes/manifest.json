@@ -22,6 +22,13 @@
             "description": "Banner 2 for SMT."
         },
         {
+            "icon": "img/cct_bb1_downloadcct_icon.svg",
+            "settings_record": "customrecord_bb1_download",
+            "registercct_id": "cct_bb1_download",
+            "label": "Download",
+            "description": "Download for SMT."
+        },
+        {
             "icon": "img/cct_bb1_grid2cct_icon.svg",
             "settings_record": "customrecord_bb1_grid2_cct",
             "registercct_id": "cct_bb1_grid2",
@@ -43,7 +50,8 @@
                 "img/cct_bb1_youtubecct_icon.svg",
                 "img/cct_bb1_bannercct_icon.svg",
                 "img/cct_bb1_grid2cct_icon.svg",
-                "img/cct_bb1_grid3cct_icon.svg"
+                "img/cct_bb1_grid3cct_icon.svg",
+                "img/cct_bb1_downloadcct_icon.svg"
             ]
         },
         "fonts": {
@@ -68,7 +76,8 @@
                     "Modules/YouTubeCCT/Templates/bb1_smttypes_youtubecct.tpl",
                     "Modules/BannerCCT/Templates/bb1_smttypes_bannercct.tpl",
                     "Modules/Grid2CCT/Templates/bb1_smttypes_grid2cct.tpl",
-                    "Modules/Grid3CCT/Templates/bb1_smttypes_grid3cct.tpl"
+                    "Modules/Grid3CCT/Templates/bb1_smttypes_grid3cct.tpl",
+                    "Modules/DownloadCCT/Templates/bb1_smttypes_downloadcct.tpl"
                 ]
             }
         }
@@ -84,7 +93,8 @@
                     "Modules/YouTubeCCT/JavaScript/YouTubeCCT.View.js",
                     "Modules/BannerCCT/JavaScript/BannerCCT.View.js",
                     "Modules/Grid2CCT/JavaScript/Grid2CCT.View.js",
-                    "Modules/Grid3CCT/JavaScript/Grid3CCT.View.js"
+                    "Modules/Grid3CCT/JavaScript/Grid3CCT.View.js",
+                    "Modules/DownloadCCT/JavaScript/DownloadCCT.View.js"
                 ]
             }
         }

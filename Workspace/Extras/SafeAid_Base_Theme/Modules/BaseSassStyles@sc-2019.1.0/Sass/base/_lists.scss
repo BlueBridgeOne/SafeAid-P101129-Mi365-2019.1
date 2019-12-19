@@ -270,19 +270,56 @@ $row-space: $sc-padding-lv3;
 		margin: .5em 0;
 	}
 
-	/* Output the numbers using the counter() function, but use a custom color, and position the numbers how we want */
+	counter-reset: level1;
+	counter-reset: level2;
+	counter-reset: level3;
+	counter-reset: level4;
+ 
 	ol>li:before {
-		color: $safeaid-orange;
-		content: counter(list, lower-alpha) ".";
 		position: absolute;
-		text-align: right;
-		width: 1em;
-		margin-left: -1.2em;
+			text-align: right;
+			width: 1em;
+			 margin-left: -1.5em;
 	}
-
-	ol {
-		margin-left: $sc-margin-lv8 !important;
+	div>ol>li{
+		counter-increment: level1;
+		&:before {
+			content: counter(level1) ".";
+			color: $safeaid-orange;
+			font-size:1.2rem;
+			margin-top:-.15rem;
+			display:inline-block;
+		  }
 	}
+	div>ol>li>ol>li{
+		counter-increment: level2;
+		&:before {
+			content: counter(level1) "." counter(level2);
+			color: $safeaid-orange;
+			margin-left: -2.5em;
+		  }
+	}
+	div>ol>li>ol>li>ol>li{
+		counter-increment: level3;
+		&:before {
+			content: counter(level1) "." counter(level2) "." counter(level3);
+			color: $safeaid-orange;
+			margin-left: -3.15em;
+		  }
+	}
+	div>ol>li>ol>li>ol>li>ol{
+		counter-reset:level4;
+	}
+	div>ol>li>ol>li>ol>li>ol>li{
+		
+		counter-increment: level4;
+		&:before {
+			content: counter(level1) "." counter(level2) "." counter(level3) "." counter(level4);
+			color: $safeaid-orange;
+			margin-left: -3.75em;
+		  }
+	}
+	
 
 	table {
 		@extend .table;

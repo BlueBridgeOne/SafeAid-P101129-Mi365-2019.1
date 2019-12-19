@@ -61,12 +61,6 @@
                     "href": "/contact-us"
                 },
                 {
-                    "text": "Mi365",
-                    "touchpoint": "myaccount",
-                    "hashtag": "#mi365",
-                    "href": "/mi365"
-                },
-                {
                     "text": "Useful",
                     "classes": "footer-content-nav-list-heading",
                     "columnBreak": true
@@ -113,13 +107,15 @@
                     "href": "/brand-it"
                 },
                 {
+                    "text": "Mi365",
+                    "touchpoint": "myaccount",
+                    "hashtag": "#mi365",
+                    "href": "/mi365"
+                },
+                {
                     "text": "Other",
                     "classes": "footer-content-nav-list-heading",
                     "columnBreak": true
-                },
-                {
-                    "text": "Branding",
-                    "href": "/branding"
                 },
                 {
                     "text": "Insight",

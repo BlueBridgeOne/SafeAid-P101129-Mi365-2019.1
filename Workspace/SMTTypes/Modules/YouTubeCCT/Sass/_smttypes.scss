@@ -38,19 +38,30 @@
 
 .cct-banner-inner-container {
 	@extend .container;
-	padding: 2.5% 2.5% 4% 60px;
+	padding: 2.5% 30px 4% 30px;
 
 	@media (min-width: $screen-md-min) {
-		padding: 2.5% 2.5% 4% 50px;
+		padding: 2.5% 60px 4% 60px;
 	}
 
 	@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max){
-		padding: 2.5% 2.5% 4% 60px;
+		padding: 2.5% 50px 4% 50px;
 	}
 }
 .grid{
 	margin-left: calc(50% - 50vw);
 	width: 100vw;
+
+	margin-bottom:30px;
+
+	@media (min-width: $screen-md-min) {
+		margin-bottom:60px;
+	}
+
+	@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max){
+		margin-bottom:50px;
+	}
+
 }
 .grid-inner{
 	@extend .container;
@@ -62,7 +73,8 @@
 
 	img {
 		display: block;
-		max-width: 100%;
+		width: 100%;
+		
 	}
 
 	@media (max-width: $screen-xs-max) {
@@ -73,7 +85,7 @@
 }
 
 .grid2-cell {
-	padding: $sc-padding-lv3;
+	
 	width: 100% !important;
 }
 
@@ -89,7 +101,7 @@
 
 	img {
 		display: block;
-		max-width: 100%;
+		width: 100%;
 	}
 
 	@media (max-width: $screen-xs-max) {
@@ -112,7 +124,26 @@
 }
 
 .grid3-cell {
-	padding-left: $sc-padding-lv3;
-	padding-right: $sc-padding-lv3;
+	
 	width: 100% !important;
+}
+
+.cct-download{
+	@extend .cms-padding;
+	margin-bottom:$sc-margin-lv3;
+	margin-left:-$sc-margin-lv3;
+	margin-right:-$sc-margin-lv3;
+	overflow:auto;
+	background-color:$sc-color-theme-100;
+	border:1px solid $sc-color-theme-300;
+	img{
+		margin-right:$sc-margin-lv3;
+	}
+	div{
+		display:inline-block;
+		width:auto;
+		float:left;
+		
+		padding:$sc-padding-lv2;
+	}
 }
