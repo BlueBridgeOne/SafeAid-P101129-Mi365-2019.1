@@ -6,7 +6,7 @@
  <header class="product-details-full-header">
   <div id="banner-content-top" class="product-details-full-banner-top"></div>
  </header>
- <div class="product-details-full-divider-desktop"></div>
+ 
  <article class="product-details-full-content" itemscope itemtype="https://schema.org/Product">
   <meta itemprop="url" content="{{itemUrl}}">
   <div id="banner-details-top" class="product-details-full-banner-top-details"></div>
@@ -32,7 +32,7 @@
    </div>
 
    <div class="product-details-full-main-content-right">
-   <div class="product-details-full-divider"></div>
+   
 
    <div class="product-details-full-main">
     {{#if isItemProperlyConfigured}}
@@ -47,7 +47,7 @@
       <div data-cms-area="product_details_full_cms_area_4" data-cms-area-filters="path"></div>
 
       <div data-view="Product.Sku" ></div>
-      
+      <div style="overflow:auto;">
       {{#if model.item.custitem_bb1_sca_standards}}
       <div class="product-details-standards-container product-details-info-cell">
        <span class="product-details-standards-label">
@@ -58,7 +58,8 @@
        </span>
       </div>
       {{/if}}
-      <span style="clear:both;"></span>
+      </div>
+      
       {{#if model.item.custitem_bb1_sca_specification}}
       <div class="product-details-specification-container product-details-info-cell">
        <span class="product-details-specification-label">
@@ -87,7 +88,7 @@
       <div class="product-details-ppe-symbols-container">
        <span class="product-details-ppe-symbols-image">
         {{#each ppeSymbols}}
-        <img src="{{url}}" alt="{{text}}" /> 
+        <img src="{{url}}" alt="{{text}}" title="{{text}}" /><span>{{text}}</span>
         {{/each}}
        </span>
       </div>
@@ -140,8 +141,6 @@
   <div data-cms-area="product_details_full_cms_area_6" data-cms-area-filters="path"></div>
 
   <section data-view="Product.Information"></section>
-
-  <div class="product-details-full-divider-desktop"></div>
 
   <div data-cms-area="product_details_full_cms_area_7" data-cms-area-filters="path"></div>
 

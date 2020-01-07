@@ -16,15 +16,17 @@
 }
 
 .cct-banner {
-	margin-top:-$sc-margin-lv3;
+	margin-top: -$sc-margin-lv3;
 	width: 100%;
 	margin-bottom: $sc-margin-lv6;
 
-	h1,h3 {
+	h1,
+	h3 {
 		color: inherit;
 	}
-	h3{	
-		margin-top:-1rem;
+
+	h3 {
+		margin-top: -1rem;
 	}
 }
 
@@ -44,28 +46,31 @@
 		padding: 2.5% 60px 4% 60px;
 	}
 
-	@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max){
+	@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
 		padding: 2.5% 50px 4% 50px;
 	}
 }
-.grid{
+
+.grid {
 	margin-left: calc(50% - 50vw);
 	width: 100vw;
 
-	margin-bottom:30px;
+	margin-bottom: 30px;
 
 	@media (min-width: $screen-md-min) {
-		margin-bottom:60px;
+		margin-bottom: 60px;
 	}
 
-	@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max){
-		margin-bottom:50px;
+	@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+		margin-bottom: 50px;
 	}
 
 }
-.grid-inner{
+
+.grid-inner {
 	@extend .container;
 }
+
 .grid2-flex {
 	@media (min-width: $screen-sm-min) {
 		display: flex;
@@ -74,18 +79,18 @@
 	img {
 		display: block;
 		width: 100%;
-		
+
 	}
 
 	@media (max-width: $screen-xs-max) {
-		div{
-			width:100%!important;
+		div {
+			width: 100% !important;
 		}
 	}
 }
 
 .grid2-cell {
-	
+
 	width: 100% !important;
 }
 
@@ -105,45 +110,95 @@
 	}
 
 	@media (max-width: $screen-xs-max) {
-		div{
-			width:100%!important;
+		div {
+			width: 100% !important;
 		}
 	}
 
-	@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max){
-		div.grow25{
-			width:50%!important;
+	@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+		div.grow25 {
+			width: 50% !important;
 		}
-		div.grow50{
-			width:100%!important;
+
+		div.grow50 {
+			width: 100% !important;
 		}
-		div.grow33{
-			width:33%!important;
+
+		div.grow33 {
+			width: 33% !important;
 		}
 	}
 }
 
 .grid3-cell {
-	
+
 	width: 100% !important;
 }
 
-.cct-download{
+.cct-download {
 	@extend .cms-padding;
-	margin-bottom:$sc-margin-lv3;
-	margin-left:-$sc-margin-lv3;
-	margin-right:-$sc-margin-lv3;
-	overflow:auto;
-	background-color:$sc-color-theme-100;
-	border:1px solid $sc-color-theme-300;
-	img{
-		margin-right:$sc-margin-lv3;
+	margin-bottom: $sc-margin-lv3;
+	margin-left: -$sc-margin-lv3;
+	margin-right: -$sc-margin-lv3;
+	overflow: auto;
+	background-color: $sc-color-theme-100;
+	border: 1px solid $sc-color-theme-300;
+
+	img {
+		margin-right: $sc-margin-lv3;
 	}
-	div{
-		display:inline-block;
-		width:auto;
-		float:left;
-		
-		padding:$sc-padding-lv2;
+
+	div {
+		display: inline-block;
+		width: auto;
+		float: left;
+
+		padding: $sc-padding-lv2;
+	}
+}
+
+.grid-chevron-right {
+	margin-left: -8%;
+}
+.grid-chevron-middle {
+	margin-left: 30%;
+}
+
+.grid-chevron-left {
+	margin-right: 2.5%;
+	right: 50%;
+}
+
+.grid-chevron-right,
+.grid-chevron-left,
+.grid-chevron-middle {
+	width: 30% !important;
+	position: absolute;
+}
+
+.grid-chevron-right {
+	@media (max-width: $screen-xs-max) {
+		right: auto !important;
+		margin-left: 29% !important;
+		margin-right: auto !important;
+		width: 50% !important;
+	}
+}
+
+.grid-chevron-left {
+	@media (max-width: $screen-xs-max) {
+		right: auto !important;
+		margin-left: 10% !important;
+		margin-right: auto !important;
+		width: 50% !important;
+	}
+}
+
+.grid-chevron-middle {
+	@media (max-width: $screen-xs-max) {
+		right: auto !important;
+		margin-left: 20% !important;
+		margin-right: auto !important;
+		width: 50% !important;
 	}
 }

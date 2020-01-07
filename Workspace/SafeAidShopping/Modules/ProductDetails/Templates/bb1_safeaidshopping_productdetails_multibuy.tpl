@@ -4,7 +4,7 @@
   <table class="product-details-multibuy-quantity-table-desktop">
   {{#each multiBuyOptions}}
    <tr data-multibuy-colour="{{colourId}}">
-    <td rowspan="3" class="product-details-multibuy-color swatch-{{colourLabel}}">{{colourLabel}}</td>
+    <td rowspan="3" class="product-details-multibuy-color swatch-{{makeSafe colourLabel}}">{{colourLabel}}</td>
     <th>Size</th>
     {{#each sizeOptions}}
      <th>{{sizeLabel}}</th>
@@ -17,18 +17,19 @@
    {{/each}}
    </tr>
    <tr>
-   <td>Quantity</td>
+   <td class="product-details-multibuy-quantity-td">Quantity</td>
    {{#each sizeOptions}}
     <td class="product-details-multibuy-quantity-td"><input type="number" class="product-details-multibuy-quantity-input" data-action="multi-buy-update-quantity" data-item-id="{{itemId}}" min="0" placeholder="0"></td>
    {{/each}}
    </tr>
+   <tr class="product-details-multibuy-spacer"><td>&nbsp;</td></tr class="product-details-multibuy-spacer">
   {{/each}}
   </table>
   
   <table class="product-details-multibuy-quantity-table-mobile">
   {{#each multiBuyOptions}}
    <tr data-multibuy-colour="{{colourId}}">
-    <td rowspan="{{mobileRowSpan}}" class="product-details-multibuy-color swatch-{{colourLabel}}">{{colourLabel}}</td>
+    <td rowspan="{{mobileRowSpan}}" class="product-details-multibuy-color swatch-{{makeSafe colourLabel}}">{{colourLabel}}</td>
     <th>Size</th>
     <th>Stock</th>
     <th>Quantity</th>
@@ -40,6 +41,7 @@
     <td class="product-details-multibuy-quantity-td"><input type="number" class="product-details-multibuy-quantity-input" data-action="multi-buy-update-quantity" data-item-id="{{itemId}}" min="0" placeholder="0"></td>
    </tr>
    {{/each}}
+    <tr class="product-details-multibuy-spacer"><td>&nbsp;</td></tr class="product-details-multibuy-spacer">
   {{/each}}
   </table>
  </div>

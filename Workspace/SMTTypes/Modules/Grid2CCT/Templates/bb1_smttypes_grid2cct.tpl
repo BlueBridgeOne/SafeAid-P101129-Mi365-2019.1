@@ -4,6 +4,9 @@
   <div class="cms-padding"
     style="width:{{grow1}}%;background-color:{{custrecord_bb1_grid2_cct_bgcolour1}};color:{{custrecord_bb1_grid2_cct_fgcolour1}};">
     {{#if showImage1}}
+    {{#if custrecord_bb1_grid2_cct_showchevrons}}
+    <img class="grid-chevron-left" src="{{getExtensionAssetsPath "img/cct_bb1_chevrons.svg"}}" />
+    {{/if}}
     <img src="{{resizeImage custrecord_bb1_grid2_cct_image1_url 'main'}}" />
     {{else}}
     <div class="grid2-cell">
@@ -14,6 +17,9 @@
   <div class="cms-padding"
     style="width:{{grow2}}%;background-color:{{custrecord_bb1_grid2_cct_bgcolour2}};color:{{custrecord_bb1_grid2_cct_fgcolour2}};">
     {{#if showImage2}}
+    {{#if custrecord_bb1_grid2_cct_showchevrons}}
+    <img class="grid-chevron-right" src="{{getExtensionAssetsPath "img/cct_bb1_chevrons.svg"}}" />
+    {{/if}}
     <img src="{{resizeImage custrecord_bb1_grid2_cct_image2_url 'main'}}" />
     {{else}}
     <div class="grid2-cell">

@@ -21,7 +21,8 @@ define(
   
   'Backbone.CollectionView',
   'Backbone',
-  'underscore'
+  'underscore',
+  'Handlebars'
  ],
  function (
   ProductDetailsMultiBuyView,
@@ -43,7 +44,8 @@ define(
   
   BackboneCollectionView,
   Backbone,
-  _
+  _,
+  Handlebars
  )
  {
   'use strict';
@@ -101,6 +103,7 @@ define(
     var ppeSymbolsConfig = Configuration.get('ppeSymbols.images', []);
     
     var ppeSymbols = ppeSymbolLabels.length && _.filter(ppeSymbolsConfig, function(ppeSymbol) {
+      
      return ppeSymbolLabels.indexOf(ppeSymbol.text) != -1;
     });
     
@@ -215,6 +218,12 @@ define(
       }
      }
     });
+
+    Handlebars.registerHelper('makeSafe', function (obj) {
+      obj= (obj||"").split(' ').join('-');
+      obj= (obj||"").split('/').join('-');
+      return obj;
+		});
    }
    
   };

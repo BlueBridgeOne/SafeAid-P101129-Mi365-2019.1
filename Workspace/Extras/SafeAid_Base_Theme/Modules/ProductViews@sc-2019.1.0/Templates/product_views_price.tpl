@@ -12,6 +12,7 @@
 						{{comparePriceFormatted}}
 					</small>
 				{{/if}}
+				<span class="ex-vat">ex. VAT</span>
 				<link itemprop="availability" href="{{#if isInStock}}https://schema.org/InStock{{else}}https://schema.org/OutOfStock{{/if}}"/>
 			</span>
 
@@ -27,6 +28,7 @@
 						{{comparePriceFormatted}}
 					</small>
 				{{/if}}
+				<span class="ex-vat">ex. VAT</span>
 				<link itemprop="availability" href="{{#if isInStock}}https://schema.org/InStock{{else}}https://schema.org/OutOfStock{{/if}}"/>
 			</span>
 		{{/if}}

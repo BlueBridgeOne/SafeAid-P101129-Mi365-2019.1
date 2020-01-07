@@ -2,7 +2,7 @@
  <div class="product-details-multibuy-colour-selector">
   {{#each colourOptions}}
    {{#if internalid}}
-   <div class="product-details-multibuy-colour-tile" data-action="show-colour" data-multibuy-colour="{{internalid}}">{{label}}</div>
+   <div class="product-details-multibuy-colour-tile swatch-{{makeSafe label}}" data-action="show-colour" data-multibuy-colour="{{internalid}}">{{label}}</div>
    {{/if}}
   {{/each}}
  </div>

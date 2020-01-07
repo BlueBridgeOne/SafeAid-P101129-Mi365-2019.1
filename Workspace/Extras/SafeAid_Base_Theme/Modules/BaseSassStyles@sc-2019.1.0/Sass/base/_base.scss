@@ -81,3 +81,11 @@ margin-bottom:30px;
 .contact-us-form-subject{
 	display:none;
 }
+
+.cms-content p{
+margin-bottom:1rem;
+}
+.cms-content th{
+	@extend h2;
+	font-size: $font-size-large!important;
+	}

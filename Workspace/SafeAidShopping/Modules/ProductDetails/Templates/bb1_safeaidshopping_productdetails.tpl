@@ -86,11 +86,14 @@
       
       {{#if ppeSymbols}}
       <div class="product-details-ppe-symbols-container">
+          {{#each ppeSymbols}}
        <span class="product-details-ppe-symbols-image">
-        {{#each ppeSymbols}}
-        <img src="{{url}}" alt="{{text}}" title="{{text}}" /><span>{{text}}</span>
-        {{/each}}
+        
+        <img src="{{url}}" alt="{{text}}" title="{{text}}" />
+        <span>{{text}}</span>
+        
        </span>
+       {{/each}}
       </div>
       {{/if}}
 
