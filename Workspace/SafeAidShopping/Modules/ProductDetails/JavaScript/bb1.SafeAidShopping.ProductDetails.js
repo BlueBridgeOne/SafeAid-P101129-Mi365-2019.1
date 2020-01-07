@@ -102,6 +102,7 @@ define(
     var ppeSymbolLabels = (this.model.get('item').get('custitem_bb1_sca_ppesymbols') || '').split(/\s*,\s*/);
     var ppeSymbolsConfig = Configuration.get('ppeSymbols.images', []);
     
+    
     var ppeSymbols = ppeSymbolLabels.length && _.filter(ppeSymbolsConfig, function(ppeSymbol) {
       
      return ppeSymbolLabels.indexOf(ppeSymbol.text) != -1;
