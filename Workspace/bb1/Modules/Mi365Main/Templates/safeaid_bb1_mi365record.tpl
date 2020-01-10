@@ -32,7 +32,8 @@
     <button class="mi365-button" data-action="delete">Delete <i class="mi365-icon-delete"></i></button>
     {{/if}}
     {{#if showStartTransfer}}
-    <button class="mi365-button" data-action="start-transfer">Transfer to Wearer <i class="mi365-icon-transfer"></i></button>
+    <button class="mi365-button" data-action="start-transfer">Transfer to Wearer <i
+        class="mi365-icon-transfer"></i></button>
     {{/if}}
   </div>
 
@@ -67,7 +68,8 @@
           {{label}} {{#if ../editable}}{{#if mandatory}}<small class="mi365-information-input-required">*</small>
           {{else}} <small class="mi365-information-input-optional">(optional)</small>{{/if}}{{/if}}</label>
         <div class="mi365-information-group-form-controls" data-validation="control">
-          {{#if url}}<a href="{{url}}{{value.value}}">{{#if icon}}<i class="mi365-icon-{{icon}}"></i> {{/if}}{{/if}}{{value.text}}{{#if url}}</a>{{/if}}
+          {{#if url}}<a href="{{url}}{{value.value}}">{{#if icon}}<i class="mi365-icon-{{icon}}"></i>
+            {{/if}}{{/if}}{{value.text}}{{#if url}}</a>{{/if}}
         </div>
       </div>
       {{/ifEquals}}
@@ -118,7 +120,7 @@
           {{/if}}{{/if}}</h4>
         <div class="mi365-information-group-form-controls" data-validation="control" data-multichoice="{{id}}">
           {{#if ../editable}}
-          <input id="{{id}}" name="{{id}}" type="hidden" value="{{value.value}}">
+          <input id="{{id}}" name="{{id}}" type="ahidden" value="{{value.value}}">
 
           {{#each value.choice}}
           <p><input type="checkbox" {{#if selected}}checked{{/if}} value="T" data-unchecked-value="F"

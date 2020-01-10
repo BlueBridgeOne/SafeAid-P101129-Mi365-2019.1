@@ -3,7 +3,7 @@ define(
  'bb1.SafeAidShopping.ProductDetails',
  [
   'bb1.SafeAidShopping.ProductDetails.MultiBuy.View',
-  'bb1.SafeAidShopping.ProductDetails.SizeGuide.View',
+  
   'ProductDetails.Full.View',
   'ProductDetails.Base.View',
   'ProductDetails.Options.Selector.View',
@@ -26,7 +26,7 @@ define(
  ],
  function (
   ProductDetailsMultiBuyView,
-  ProductDetailsSizeGuideView,
+  
   ProductDetailsFullView,
   ProductDetailsBaseView,
   ProductDetailsOptionsSelectorView,
@@ -77,24 +77,12 @@ define(
   
   }
   
-  _.extend(ProductDetailsFullView.prototype.baseEvents, {
-   'click [data-action="show-size-guide"]': 'showSizeGuide'
-  });
+  
   
   _.extend(ProductDetailsFullView.prototype, {
    
    template: bb1_safeaidshopping_productdetails_tpl,
    
-   showSizeGuide: function (e) {
-    e.preventDefault();
-    
-    var sizeGuideView = new ProductDetailsSizeGuideView({
-     application: this.application,
-     sizeGuideType: this.model.get('item').get('custitem_bb1_sca_sizeguide')
-    });
-
-    sizeGuideView.showInModal(); 
-   },
    
    getContext: _.wrap(ProductDetailsFullView.prototype.getContext, function(originalGetContext) {
     var results = originalGetContext.apply(this, _.rest(arguments));

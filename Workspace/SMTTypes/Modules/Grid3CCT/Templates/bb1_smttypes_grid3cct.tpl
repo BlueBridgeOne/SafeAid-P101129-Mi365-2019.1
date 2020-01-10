@@ -4,9 +4,9 @@
       <div class="cms-padding {{medium1}}"
         style="width:{{grow1}}%;background-color:{{custrecord_bb1_grid3_cct_bgcolour1}};color:{{custrecord_bb1_grid3_cct_fgcolour1}};">
         {{#if showImage1}}
-        {{#if custrecord_bb1_grid2_cct_showchevrons}}
+        {{#ifEquals custrecord_bb1_grid3_cct_showchevrons 'T'}}
     <img class="grid-chevron-left" src="{{getExtensionAssetsPath "img/cct_bb1_chevrons.svg"}}" />
-    {{/if}}
+    {{/ifEquals}}
         <img src="{{resizeImage custrecord_bb1_grid3_cct_image1_url 'main'}}" />
         {{else}}
         <div class="grid3-cell">
@@ -17,9 +17,9 @@
       <div class="cms-padding {{medium2}}"
         style="width:{{grow2}}%;background-color:{{custrecord_bb1_grid3_cct_bgcolour2}};color:{{custrecord_bb1_grid3_cct_fgcolour2}};">
         {{#if showImage2}}
-        {{#if custrecord_bb1_grid2_cct_showchevrons}}
+        {{#ifEquals custrecord_bb1_grid3_cct_showchevrons 'T'}}
     <img class="grid-chevron-middle" src="{{getExtensionAssetsPath "img/cct_bb1_chevrons.svg"}}" />
-    {{/if}}
+    {{/ifEquals}}
         <img src="{{resizeImage custrecord_bb1_grid3_cct_image2_url 'main'}}" />
         {{else}}
         <div class="grid3-cell">
@@ -30,9 +30,9 @@
       <div class="cms-padding {{medium3}}"
         style="width:{{grow3}}%;background-color:{{custrecord_bb1_grid3_cct_bgcolour3}};color:{{custrecord_bb1_grid3_cct_fgcolour3}};">
         {{#if showImage3}}
-        {{#if custrecord_bb1_grid2_cct_showchevrons}}
+        {{#ifEquals custrecord_bb1_grid3_cct_showchevrons 'T'}}
     <img class="grid-chevron-right" src="{{getExtensionAssetsPath "img/cct_bb1_chevrons.svg"}}" />
-    {{/if}}
+    {{/ifEquals}}
         <img src="{{resizeImage custrecord_bb1_grid3_cct_image3_url 'main'}}" />
         {{else}}
         <div class="grid3-cell">

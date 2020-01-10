@@ -70,7 +70,6 @@
                     "Modules/ProductDetails/Templates/bb1_safeaidshopping_productdetails_multibuy_colourselector.tpl",
                     "Modules/Footer/Templates/bb1_safeaidshopping_footer.tpl",
                     "Modules/ProductList/Templates/bb1_safeaidshopping_productlist_category_heading.tpl",
-                    "Modules/ProductDetails/Templates/bb1_safeaidshopping_productdetails_sizeguide.tpl",
                     "Modules/ProductDetails/Templates/bb1_safeaidshopping_productdetails.tpl"
                 ]
             }
@@ -103,8 +102,7 @@
                     "Modules/ProductDetails/JavaScript/bb1.SafeAidShopping.ProductDetails.MultiBuy.ColourSelector.View.js",
                     "Modules/Footer/JavaScript/bb1.SafeAidShopping.Footer.js",
                     "Modules/Profile/JavaScript/bb1.SafeAidShopping.Profile.js",
-                    "Modules/ProductList/JavaScript/bb1.SafeAidShopping.ProductList.js",
-                    "Modules/ProductDetails/JavaScript/bb1.SafeAidShopping.ProductDetails.SizeGuide.View.js"
+                    "Modules/ProductList/JavaScript/bb1.SafeAidShopping.ProductList.js"
                 ]
             }
         }

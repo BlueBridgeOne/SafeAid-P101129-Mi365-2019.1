@@ -63,6 +63,11 @@ define('SafeAid.bb1.Mi365Wearer.View', [
 			permission:"budget"
 		}
 		, {
+			id: "custrecord_bb1_sca_wearer_usebudget",
+			label: "Use Budget",
+			type: "checkbox",
+			permission:"budget"
+		},{
 			id: "custrecord_bb1_sca_wearer_budget",
 			label: "Budget",
 			type: "text",

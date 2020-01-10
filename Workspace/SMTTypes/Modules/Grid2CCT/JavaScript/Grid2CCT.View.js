@@ -21,7 +21,7 @@ define('bb1.SMTTypes.Grid2CCT.View', [
 		template: bb1_smttypes_grid2cct_tpl,
 		getContext: function getContext() {
 			
-			//console.log(this.settings);
+			
 			switch (this.settings.custrecord_bb1_grid2_cct_align) {
 
 				case "2": //Horizontal 33% / 67%

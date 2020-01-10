@@ -118,6 +118,11 @@ define('SafeAid.bb1.Mi365Buyer.View', [
 			type: "title",
 			permission: "budget"
 		}, {
+			id: "custentity_bb1_sca_usebudget",
+			label: "Use Budget",
+			type: "checkbox",
+			permission: "budget"
+		},{
 			id: "custentity_bb1_sca_budget",
 			label: "Budget",
 			type: "text",
@@ -149,7 +154,7 @@ define('SafeAid.bb1.Mi365Buyer.View', [
 
 				var bind = {};
 				for (var i = 0; i < this.fields.length; i++) {
-					if (!this.fields[i].listonly) {
+					if (!this.fields[i].listonly&&this.fields[i].type!="multichoice") {
 						bind['[name=\"' + this.fields[i].id + '\"]'] = this.fields[i].id;
 					}
 				}
@@ -222,7 +227,7 @@ define('SafeAid.bb1.Mi365Buyer.View', [
 			var allowEdit = this.overview.get("custentity_bb1_sca_alloweditbuyers") == "T";
 			var allowEditBudgets = this.overview.get("custentity_bb1_sca_alloweditbudgets") == "T";
 			var newFields = [];
-			console.log(this.fields);
+			//console.log(this.fields);
 			
 			//{id:"custentity_bb1_sca_allowviewreports",label:"Allow View Reports",type:"checkbox"};
 			for (var i = 0; i < this.fields.length; i++) {
@@ -249,6 +254,7 @@ define('SafeAid.bb1.Mi365Buyer.View', [
 							}
 						}
 						newFields.push(this.fields[i]);
+						
 					}
 				}
 			}

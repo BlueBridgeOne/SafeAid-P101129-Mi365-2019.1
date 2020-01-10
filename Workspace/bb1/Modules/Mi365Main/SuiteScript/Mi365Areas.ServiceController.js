@@ -18,6 +18,11 @@ define(
 				mandatory: true,
 				list: true
 			}, {
+				id: "custrecord_bb1_sca_area_usebudget",
+				label: "Use Budget",
+				type: "checkbox",
+				permission:"budget"
+			},{
 				id: "custrecord_bb1_sca_area_budget",
 				label: "Budget",
 				type: "text",

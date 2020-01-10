@@ -24,7 +24,6 @@
 .product-details-info-cell {
 	display: inline-block;
 	width:50%;
-	float:left;
 	@media (min-width: $screen-sm-min) {
 		margin-right: $sc-margin-lv5;
 		width:auto;
@@ -85,10 +84,6 @@
 .product-details-full-image-gallery-container {
 	margin-bottom: $sc-margin-lv2;
 	width: 100%;
-
-	@media (min-width: $screen-md-min) {
-		margin-bottom: $sc-margin-lv8;
-	}
 }
 
 .product-details-full-gallery-prev-icon,

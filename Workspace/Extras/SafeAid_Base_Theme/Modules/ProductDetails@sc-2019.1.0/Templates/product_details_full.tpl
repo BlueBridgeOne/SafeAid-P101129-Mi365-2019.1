@@ -76,21 +76,24 @@
       </div>
       {{/if}}
       
-      {{#if model.item.custitem_bb1_sca_sizeguide}}
+      {{#ifEquals model.item.custitem_bb1_sca_sizeguide 'Generic'}}
       <div class="product-details-size-guide-container product-details-info-cell">
        <span class="product-details-size-guide-label">
-        <a href="#" data-action="show-size-guide" data-size-guide="{{model.item.custitem_bb1_sca_sizeguide}}"><i class="product-details-size-guide-icon" /> Size Guide</a>
+        <a href="/size-guide"><i class="product-details-size-guide-icon" /> Size Guide</a>
        </span>
       </div>
-      {{/if}}
+      {{/ifEquals}}
       
       {{#if ppeSymbols}}
       <div class="product-details-ppe-symbols-container">
+          {{#each ppeSymbols}}
        <span class="product-details-ppe-symbols-image">
-        {{#each ppeSymbols}}
-        <img src="{{url}}" alt="{{text}}" title="{{text}}" /><span>{{text}}</span>
-        {{/each}}
+        
+        <img src="{{url}}" alt="{{text}}" title="{{text}}" />
+        <span>{{text}}</span>
+        
        </span>
+       {{/each}}
       </div>
       {{/if}}
 
@@ -135,12 +138,14 @@
 
   </section>
 
+<section data-view="Product.Information"></section>
+
   <div data-view="MultiBuy.MatrixOptions"></div>
   
   <div data-cms-area="product_details_full_cms_area_5" data-cms-area-filters="page_type"></div>
   <div data-cms-area="product_details_full_cms_area_6" data-cms-area-filters="path"></div>
 
-  <section data-view="Product.Information"></section>
+  
 
   <div data-cms-area="product_details_full_cms_area_7" data-cms-area-filters="path"></div>
 

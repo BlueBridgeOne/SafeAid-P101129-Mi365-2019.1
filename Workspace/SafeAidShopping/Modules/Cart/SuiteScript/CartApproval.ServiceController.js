@@ -87,7 +87,7 @@ define(
     //Go through all the rules and check them.
     //Buyer Budget!
     var hwarnings={};
-    if (testing || buyer.custentity_bb1_sca_currentspend + summary.total > buyer.custentity_bb1_sca_budget) {
+    if (testing || (this.isTrue(buyer.custentity_bb1_sca_usebudget)&&buyer.custentity_bb1_sca_currentspend + summary.total > buyer.custentity_bb1_sca_budget)) {
      if(this.checkDuplicateWarning(hwarnings,"WARNING_BUYER_BUDGET")){
      warnings.push({
       message: "WARNING_BUYER_BUDGET",
@@ -107,7 +107,7 @@ define(
     for (var i = 0; i < areaChecks.length; i++) {
      check = areaChecks[i];
      area = areaDetails[check.area.value];
-     if (testing || area.custrecord_bb1_sca_area_currentspend + summary.total > area.custrecord_bb1_sca_area_budget) {
+     if (testing || (this.isTrue(area.custrecord_bb1_sca_area_usebudget)&&area.custrecord_bb1_sca_area_currentspend + summary.total > area.custrecord_bb1_sca_area_budget)) {
       if(this.checkDuplicateWarning(hwarnings,"WARNING_AREA_BUDGET,"+check.area.value)){
       warnings.push({
        message: "WARNING_AREA_BUDGET",
@@ -125,7 +125,7 @@ define(
      check = wearerChecks[i];
      wearer = wearerDetails[check.wearer.value];
      if (wearer) {
-      if (testing || wearer.custrecord_bb1_sca_wearer_currentspend + summary.total > wearer.custrecord_bb1_sca_wearer_budget) {
+      if (testing || (this.isTrue(wearer.custrecord_bb1_sca_wearer_usebudget)&&wearer.custrecord_bb1_sca_wearer_currentspend + summary.total > wearer.custrecord_bb1_sca_wearer_budget)) {
        if(this.checkDuplicateWarning(hwarnings,"WARNING_WEARER_BUDGET,"+check.wearer.value)){
        warnings.push({
         message: "WARNING_WEARER_BUDGET",
@@ -226,7 +226,11 @@ define(
     var customer = context.getUser();
 
     return result;
-   },
+   }
+   ,isTrue:function(value){
+    return value =="T"||value===true;
+   }
+   ,
    checkDuplicateWarning:function(hwarnings,warningid){
     if(hwarnings[warningid]){
      return false;
@@ -247,7 +251,7 @@ define(
 
     ];
     var find = [];
-
+    find.push(new nlobjSearchColumn("custrecord_bb1_sca_wearer_usebudget"));
     find.push(new nlobjSearchColumn("custrecord_bb1_sca_wearer_budget"));
     find.push(new nlobjSearchColumn("custrecord_bb1_sca_wearer_duration"));
     find.push(new nlobjSearchColumn("custrecord_bb1_sca_wearer_currentspend"));
@@ -263,6 +267,7 @@ define(
      for (var i = 0; i < wearerSearch.length; i++) {
       result = wearerSearch[i];
       wearer = {
+        custrecord_bb1_sca_wearer_usebudget: result.getValue("custrecord_bb1_sca_wearer_usebudget"),
        custrecord_bb1_sca_wearer_budget: result.getValue("custrecord_bb1_sca_wearer_budget"),
        custrecord_bb1_sca_wearer_duration: result.getValue("custrecord_bb1_sca_wearer_duration"),
        custrecord_bb1_sca_wearer_currentspend: result.getValue("custrecord_bb1_sca_wearer_currentspend"),
@@ -306,7 +311,7 @@ define(
 
     ];
     var find = [];
-
+    find.push(new nlobjSearchColumn("custrecord_bb1_sca_area_usebudget"));
     find.push(new nlobjSearchColumn("custrecord_bb1_sca_area_budget"));
     find.push(new nlobjSearchColumn("custrecord_bb1_sca_area_duration"));
     find.push(new nlobjSearchColumn("custrecord_bb1_sca_area_currentspend"));
@@ -322,6 +327,7 @@ define(
      for (var i = 0; i < areaSearch.length; i++) {
       result = areaSearch[i];
       area = {
+        custrecord_bb1_sca_area_usebudget: result.getValue("custrecord_bb1_sca_area_usebudget"),
        custrecord_bb1_sca_area_budget: result.getValue("custrecord_bb1_sca_area_budget"),
        custrecord_bb1_sca_area_duration: result.getValue("custrecord_bb1_sca_area_duration"),
        custrecord_bb1_sca_area_currentspend: result.getValue("custrecord_bb1_sca_area_currentspend"),
@@ -379,7 +385,7 @@ define(
     if (!(contact > 0)) {
      return;
     }
-    var buyer = nlapiLookupField('contact', contact, ['custentity_bb1_sca_budget', 'custentity_bb1_sca_duration', 'custentity_bb1_sca_currentspend', 'custentity_bb1_sca_startdate']);
+    var buyer = nlapiLookupField('contact', contact, ['custentity_bb1_sca_usebudget', 'custentity_bb1_sca_budget', 'custentity_bb1_sca_duration', 'custentity_bb1_sca_currentspend', 'custentity_bb1_sca_startdate']);
     if (buyer) {
      //Update Buyer dates.
      var custentity_bb1_sca_startdate = buyer.custentity_bb1_sca_startdate;

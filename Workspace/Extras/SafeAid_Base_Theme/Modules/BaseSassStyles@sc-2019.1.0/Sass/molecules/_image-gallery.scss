@@ -61,7 +61,7 @@ html {
 		.bx-pager {
 
 			text-align: center;
-			margin-top: $sc-margin-lv4;
+			margin-top: $sc-margin-lv2;
 
 			.touch & {
 				overflow-x: scroll;
@@ -89,7 +89,7 @@ html {
 			}
 
 			@media (min-width: $screen-md-min) {
-				margin-bottom: $sc-margin-lv4;
+				margin-bottom: $sc-margin-lv2;
 				position: static;
 
 				img{

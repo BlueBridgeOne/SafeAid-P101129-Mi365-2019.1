@@ -101,6 +101,11 @@ define(
 				}
 
 				, {
+					id: "custentity_bb1_sca_usebudget",
+					label: "Use Budget",
+					type: "checkbox",
+					permission:"budget"
+				},{
 					id: "custentity_bb1_sca_budget",
 					label: "Budget",
 					type: "text",
@@ -301,10 +306,11 @@ define(
 
 
 				var rec = nlapiLoadRecord(this.recordtype, this.data.id);
-
+				nlapiLogExecution("debug", "data", JSON.stringify(this.data));
 				for (var j = 0; j < this.fields.length; j++) {
 					if (this.data[this.fields[j].id] && !this.fields[j].listonly) {
 						if (this.fields[j].type == "multichoice") {
+							nlapiLogExecution("debug", "multichoice", JSON.stringify(this.data[this.fields[j].id].split(',')));
 							rec.setFieldValue(this.fields[j].id, this.data[this.fields[j].id].split(','));
 						} else {
 							rec.setFieldValue(this.fields[j].id, this.data[this.fields[j].id]);

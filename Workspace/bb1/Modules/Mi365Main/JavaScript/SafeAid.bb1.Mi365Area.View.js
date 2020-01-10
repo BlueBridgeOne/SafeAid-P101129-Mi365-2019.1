@@ -38,6 +38,11 @@ define('SafeAid.bb1.Mi365Area.View', [
 			permission:"budget"
 		}
 		, {
+			id: "custrecord_bb1_sca_area_usebudget",
+			label: "Use Budget",
+			type: "checkbox",
+			permission:"budget"
+		},{
 			id: "custrecord_bb1_sca_area_budget",
 			label: "Budget",
 			type: "text",

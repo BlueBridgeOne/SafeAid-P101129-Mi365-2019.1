@@ -95,6 +95,10 @@ define(
 				label: "Allow Approve Orders",
 				type: "checkbox"
 			}, {
+				id: "custentity_bb1_sca_usebudget",
+				label: "USe Budget",
+				type: "text"
+			},{
 				id: "custentity_bb1_sca_budget",
 				label: "Budget",
 				type: "text",
