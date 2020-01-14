@@ -3,3 +3,4 @@ DeployDistribution
 LocalDistribution
 gulp
 .DS_Store
+tmp/

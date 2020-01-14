@@ -22,7 +22,8 @@ define(
   'Backbone.CollectionView',
   'Backbone',
   'underscore',
-  'Handlebars'
+  'Handlebars',
+  'Item.KeyMapping'
  ],
  function (
   ProductDetailsMultiBuyView,
@@ -45,7 +46,8 @@ define(
   BackboneCollectionView,
   Backbone,
   _,
-  Handlebars
+  Handlebars,
+  ItemKeyMapping
  )
  {
   'use strict';
@@ -175,6 +177,17 @@ define(
     });
    }
   };
+
+  //show in stock messages
+  ItemKeyMapping.getKeyMapping=_.wrap( ItemKeyMapping.getKeyMapping, function (getKeyMapping) {
+    var res=getKeyMapping.apply(this, _.rest(arguments));
+    res._showInStockMessage= function ()
+    {
+      return true;
+    };
+    return res;
+});
+
   
   return {
    

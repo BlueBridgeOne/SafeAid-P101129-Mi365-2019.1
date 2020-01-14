@@ -121,6 +121,7 @@
       {{/if}}
 
       <div data-view="StockDescription"></div>
+      
 
       <div data-view="SocialSharing.Flyout" class="product-details-full-social-sharing"></div>
 
