@@ -274,7 +274,7 @@ define(
         gloveOptions = item.getOption('custcol_bb1_matrix_gloves'),
         footwearOptions = item.getOption('custcol_bb1_matrix_footwear'),
         ladiesWearOptions = item.getOption('custcol_bb1_matrix_ladieswear'),
-        sizeOptions = matrixSizeOptions || gloveOptions || footwearOptions || ladiesWearOptions,
+        sizeOptions = matrixSizeOptions,
         multiBuyOptions = [];
         var sizeId="custitem_bb1_matrix_size";
         if(!matrixSizeOptions&&gloveOptions){
@@ -289,7 +289,7 @@ define(
           sizeOptions=ladiesWearOptions;
           sizeId="custitem_bb1_matrix_ladieswear";
         }
-console.log(sizeId,sizeOptions);
+
     
     if (colourOptions && colourOptions.values && sizeOptions && sizeOptions.values) {
      _.each(colourOptions.get('values'), function(colourOption) {
