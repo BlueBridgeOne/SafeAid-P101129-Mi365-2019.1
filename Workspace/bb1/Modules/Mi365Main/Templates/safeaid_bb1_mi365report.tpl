@@ -78,15 +78,15 @@
             class="recordviews-selectable-value">{{trandate}}</span> </td>
             {{#if ../showBuyers}}
             <td class="recordviews-selectable-td"> <span class="recordviews-selectable-label">Buyer:</span> <span
-            class="recordviews-selectable-value"><a href="Mi365/buyer/{{custbody_bb1_buyer.value}}"><i class="mi365-icon-buyer"></i> {{custbody_bb1_buyer.text}}</a></span> </td>
+            class="recordviews-selectable-value"><a href="Mi365/buyer/{{custbody_bb1_buyer.value}}"><i class="mi365-buttonicon-buyer"></i> {{custbody_bb1_buyer.text}}</a></span> </td>
             {{/if}}
             {{#if ../showAreas}}
             <td class="recordviews-selectable-td"> <span class="recordviews-selectable-label">Area:</span> <span
-            class="recordviews-selectable-value"><a href="Mi365/area/{{custcol_bb1_transline_area.value}}"><i class="mi365-icon-area"></i> {{custcol_bb1_transline_area.text}}</a></span> </td>
+            class="recordviews-selectable-value"><a href="Mi365/area/{{custcol_bb1_transline_area.value}}"><i class="mi365-buttonicon-area"></i> {{custcol_bb1_transline_area.text}}</a></span> </td>
             {{/if}}
             {{#if ../showWearers}}
             <td class="recordviews-selectable-td"> <span class="recordviews-selectable-label">Wearer:</span> <span
-            class="recordviews-selectable-value"><a href="Mi365/wearer/{{custcol_bb1_transline_wearer.value}}"><i class="mi365-icon-wearer"></i> {{custcol_bb1_transline_wearer.text}}</a></span> </td>
+            class="recordviews-selectable-value"><a href="Mi365/wearer/{{custcol_bb1_transline_wearer.value}}"><i class="mi365-buttonicon-wearer"></i> {{custcol_bb1_transline_wearer.text}}</a></span> </td>
             {{/if}}
             {{#if ../showItems}}
             <td class="recordviews-selectable-td"> <span class="recordviews-selectable-label">Item:</span> <span

@@ -23,7 +23,7 @@ define(
             events: {},
             childViews: {},
             getContext: function getContext() {
-                console.log(this.overview);
+                //console.log(this.overview);
                 var count=this.overview.get("alerts") || 0;
                 var show=this.overview.get("level")!="bronze";
                 return {

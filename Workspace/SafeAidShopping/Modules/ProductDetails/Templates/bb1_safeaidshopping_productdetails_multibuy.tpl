@@ -4,18 +4,20 @@
   <table class="product-details-multibuy-quantity-table-desktop">
   {{#each multiBuyOptions}}
    <tr data-multibuy-colour="{{colourId}}">
-    <td rowspan="3" class="product-details-multibuy-color swatch-{{makeSafe colourLabel}}">{{colourLabel}}</td>
+    <td {{#if showStock}}rowspan="3"{{else}}rowspan="2"{{/if}} class="product-details-multibuy-color swatch-{{makeSafe colourLabel}}">{{colourLabel}}</td>
     <th>Size</th>
     {{#each sizeOptions}}
      <th>{{sizeLabel}}</th>
     {{/each}}
    </tr>
+   {{#if showStock}}
    <tr>
    <td>Stock</td>
    {{#each sizeOptions}}
     <td>{{available}}</td>
    {{/each}}
    </tr>
+   {{/if}}
    <tr>
    <td class="product-details-multibuy-quantity-td">Quantity</td>
    {{#each sizeOptions}}
@@ -31,13 +33,17 @@
    <tr data-multibuy-colour="{{colourId}}">
     <td rowspan="{{mobileRowSpan}}" class="product-details-multibuy-color swatch-{{makeSafe colourLabel}}">{{colourLabel}}</td>
     <th>Size</th>
+    {{#if showStock}}
     <th>Stock</th>
+    {{/if}}
     <th>Quantity</th>
    </tr>
    {{#each sizeOptions}}
    <tr>
     <td>{{sizeLabel}}</td>
+    {{#if showStock}}
     <td>{{#with (lookup ../sizeOptions @index)~}}{{available}}{{/with}}</td>
+    {{/if}}
     <td class="product-details-multibuy-quantity-td"><input type="number" class="product-details-multibuy-quantity-input" data-action="multi-buy-update-quantity" data-item-id="{{itemId}}" min="0" placeholder="0"></td>
    </tr>
    {{/each}}

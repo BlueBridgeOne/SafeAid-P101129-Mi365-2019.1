@@ -9,7 +9,7 @@
 </ul>
   <div class="mi365-buttons">
     {{#if showNew}}
-    <button class="mi365-button" data-action="new">New <i class="mi365-icon-new"></i></button>
+    <button class="mi365-button" data-action="new">New <i class="mi365-buttonicon-new"></i></button>
     {{/if}}
   </div>
   <table class="mi365-records">
@@ -37,7 +37,7 @@
             class="recordviews-selectable-value">{{custrecord_bb1_sca_wearer_phone}}</span>
         </td>
         <td class="recordviews-selectable-td"> <span class="recordviews-selectable-label">Area:</span> <span
-            class="recordviews-selectable-value"><a href="Mi365/area/{{custrecord_bb1_sca_wearer_area.value}}"><i class="mi365-icon-area"></i> {{custrecord_bb1_sca_wearer_area.text}}</a></span>
+            class="recordviews-selectable-value"><a href="Mi365/area/{{custrecord_bb1_sca_wearer_area.value}}"><i class="mi365-buttonicon-area"></i> {{custrecord_bb1_sca_wearer_area.text}}</a></span>
         </td>
       </tr>
       {{/each}}

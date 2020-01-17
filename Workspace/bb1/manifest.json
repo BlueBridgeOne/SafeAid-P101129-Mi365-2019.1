@@ -10,7 +10,17 @@
     "skins": [],
     "assets": {
         "img": {
-            "files": []
+            "files": [
+                "img/alerts-icon.svg",
+                "img/area-icon.svg",
+                "img/buyer-icon.svg",
+                "img/reports-icon.svg",
+                "img/wearer-icon.svg",
+                "img/wearers-icon.svg",
+                "img/rule-icon.svg",
+                "img/stock-icon.svg",
+                "img/transfer-icon.svg"
+            ]
         },
         "fonts": {
             "files": []

@@ -230,14 +230,29 @@ define(
 									text: ""
 								}];
 								filter = [
+									["internalidnumber", "greaterthan", 0],
+									"AND",
 									["isinactive", "is", "F"],
 									"AND",
-									["type", "anyof", "Assembly", "InvtPart", "Kit"]
-
+									["type", "anyof", "Assembly", "InvtPart", "Kit"],
+									"AND",
+									["isonline", "is", "T"],
+									"AND",
+									["matrixchild", "is", "F"],
+									"AND",
+									[
+										["custitem_bb1_sca_standarditem", "is", "T"],
+										"OR",
+										["custitem_bb1_sca_customers", "anyof", customer],
+										"OR",
+										["custitem_bb1_sca_buyers", "anyof", contact]
+									]
 								];
 
 								find = [];
 								find.push(new nlobjSearchColumn("itemid"));
+								find[0].setSort();
+								
 
 								var itemSearch = nlapiSearchRecord("item", null,
 									filter,
@@ -246,13 +261,27 @@ define(
 								var iresult;
 								if (itemSearch) {
 
-									for (var j = 0; j < itemSearch.length; j++) {
-										iresult = itemSearch[j];
-										data.custrecord_bb1_sca_rule_item.choice.push({
-											value: iresult.getId(),
-											text: iresult.getValue("itemid")
-										});
-									}
+
+									do {
+										var lastid;
+										for (var j = 0; j < itemSearch.length; j++) {
+											iresult = itemSearch[j];
+											data.custrecord_bb1_sca_rule_item.choice.push({
+												value: iresult.getId(),
+												text: iresult.getValue("itemid")
+											});
+											lastid = iresult.getId();
+										}
+										if (itemSearch.length < 1000) {
+											break;
+										}
+										
+										filter[0] = ["internalidnumber", "greaterthan", lastid];
+										itemSearch = nlapiSearchRecord("item", null,
+											filter,
+											find
+										);
+									} while (true);
 								}
 
 
@@ -292,20 +321,20 @@ define(
 				var id = request.getParameter("id");
 
 				var rec = nlapiLoadRecord(this.recordtype, this.data.id);
-var value;
+				var value;
 				for (var j = 0; j < this.fields.length; j++) {
-					value=this.data[this.fields[j].id];
+					value = this.data[this.fields[j].id];
 					if (value && !this.fields[j].listonly) {
-						try{
-						if (value.value) {
-							rec.setFieldValue(this.fields[j].id, value.value);
-						} else {
-							rec.setFieldValue(this.fields[j].id, value);
+						try {
+							if (value.value) {
+								rec.setFieldValue(this.fields[j].id, value.value);
+							} else {
+								rec.setFieldValue(this.fields[j].id, value);
+							}
+						} catch (e) {
+							nlapiLogExecution("debug", "update rule", "unable to set " + this.fields[j].id + " to " + value + ". " + e);
 						}
-					}catch(e){
-					nlapiLogExecution("debug", "update rule", "unable to set "+this.fields[j].id+" to "+value+". "+e);
 					}
-				}
 				}
 				nlapiSubmitRecord(rec, true, true);
 

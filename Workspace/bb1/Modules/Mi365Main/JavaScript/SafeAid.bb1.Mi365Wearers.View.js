@@ -57,6 +57,7 @@ define('SafeAid.bb1.Mi365Wearers.View', [
 			var allowEdit=this.overview.get("custentity_bb1_sca_alloweditwearers")=="T";
 			
 			return {
+				showNew:allowEdit,
 				models: this.collection.models
 			};
 		}

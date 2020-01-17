@@ -9,7 +9,7 @@
 </ul>
   <div class="mi365-buttons">
     {{#if showNew}}
-    <button class="mi365-button" data-action="new">New <i class="mi365-icon-new"></i></button>
+    <button class="mi365-button" data-action="new">New <i class="mi365-buttonicon-new"></i></button>
     {{/if}}
   </div>
   <table class="mi365-records">

@@ -32,7 +32,7 @@
             class="recordviews-selectable-value">{{custrecord_bb1_sca_companystock_item.text}}</span> </td>
             <td class="recordviews-selectable-td"> <span class="recordviews-selectable-label">Location:</span> <span
             class="recordviews-selectable-value">{{custrecord_bb1_sca_companystock_location.text}}: </span> 
-            <span>{{#ifEquals custrecord_bb1_sca_companystock_location.text 'Area'}}<a href="#Mi365/area/{{custrecord_bb1_sca_companystock_area.value}}"><i class="mi365-icon-area"></i> {{custrecord_bb1_sca_companystock_area.text}}</a>{{else}}<a href="#Mi365/wearer/{{custrecord_bb1_sca_companystock_wearer.value}}"><i class="mi365-icon-wearer"></i> {{custrecord_bb1_sca_companystock_wearer.text}}</a>{{/ifEquals}}</span></td>
+            <span>{{#ifEquals custrecord_bb1_sca_companystock_location.text 'Area'}}<a href="#Mi365/area/{{custrecord_bb1_sca_companystock_area.value}}"><i class="mi365-buttonicon-area"></i> {{custrecord_bb1_sca_companystock_area.text}}</a>{{else}}<a href="#Mi365/wearer/{{custrecord_bb1_sca_companystock_wearer.value}}"><i class="mi365-buttonicon-wearer"></i> {{custrecord_bb1_sca_companystock_wearer.text}}</a>{{/ifEquals}}</span></td>
             <td class="recordviews-selectable-td"> <span class="recordviews-selectable-label">Quantity:</span> <span
             class="recordviews-selectable-value">{{custrecord_bb1_sca_companystock_quantity}}</span> </td>
       </tr>

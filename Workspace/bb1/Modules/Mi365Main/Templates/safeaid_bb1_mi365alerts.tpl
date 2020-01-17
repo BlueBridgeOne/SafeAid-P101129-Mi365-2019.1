@@ -8,7 +8,7 @@
 			<li class="global-views-breadcrumb-item-active"> Alerts </li>
 </ul>
   <div class="mi365-buttons">
-    <button class="mi365-button" data-action="clear">Clear <i class="mi365-icon-delete"></i></button>
+    <button class="mi365-button" data-action="clear">Clear <i class="mi365-buttonicon-delete"></i></button>
   </div>
   <table class="mi365-records">
     <thead class="mi365-records-head">

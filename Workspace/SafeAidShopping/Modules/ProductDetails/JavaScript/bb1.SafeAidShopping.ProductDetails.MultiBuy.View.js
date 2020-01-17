@@ -275,6 +275,20 @@ define(
         ladiesWearOptions = item.getOption('custitem_bb1_matrix_ladieswear'),
         sizeOptions = matrixSizeOptions || gloveOptions || footwearOptions || ladiesWearOptions,
         multiBuyOptions = [];
+        var sizeId="custitem_bb1_matrix_size";
+        if(!matrixSizeOptions&&gloveOptions){
+          sizeOptions=gloveOptions;
+          sizeId="custitem_bb1_matrix_gloves";
+        }
+        if(!matrixSizeOptions&&footwearOptions){
+          sizeOptions=footwearOptions;
+          sizeId="custitem_bb1_matrix_footwear";
+        }
+        if(!matrixSizeOptions&&ladiesWearOptions){
+          sizeOptions=ladiesWearOptions;
+          sizeId="custitem_bb1_matrix_ladieswear";
+        }
+
     
     if (colourOptions && colourOptions.values && sizeOptions && sizeOptions.values) {
      _.each(colourOptions.get('values'), function(colourOption) {
@@ -285,10 +299,11 @@ define(
         multiBuyOption.sizeOptions = [];
         _.each(sizeOptions.get('values'), function(sizeOption) {
          if (sizeOption.internalid) {
-          var matrixChilds = model.getSelectedMatrixChilds({
-           custitem_bb1_matrix_colour: colourOption.label,
-           custitem_bb1_matrix_size: sizeOption.label
-          });
+          var childOptions={
+            custitem_bb1_matrix_colour: colourOption.label
+           };
+           childOptions[sizeId]= sizeOption.label;
+          var matrixChilds = model.getSelectedMatrixChilds(childOptions);
           var matrixChild = matrixChilds.length ? matrixChilds[0] : null;
           
           multiBuyOption.sizeOptions.push({
@@ -300,9 +315,17 @@ define(
          }
         });
         multiBuyOption.mobileRowSpan = multiBuyOption.sizeOptions.length + 1;
+        multiBuyOption.showStock=false;
+        for(var i=0;i<multiBuyOption.sizeOptions.length;i++){
+          if(multiBuyOption.sizeOptions[i].available>0){
+            multiBuyOption.showStock=true;
+            break;
+          }
+        }
         multiBuyOptions.push(multiBuyOption);
        }
      });
+     
     }
     
     //@class bb1.SafeAidShopping.MultiBuy.View.Context

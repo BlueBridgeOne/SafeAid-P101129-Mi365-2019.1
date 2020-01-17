@@ -119,6 +119,7 @@ define(
 					custentity_bb1_sca_allowviewareas="0";
 				}
 				var allowAreas = custentity_bb1_sca_allowviewareas.split(",");	
+				allowAreas.push("@NONE@");
 
 
 
