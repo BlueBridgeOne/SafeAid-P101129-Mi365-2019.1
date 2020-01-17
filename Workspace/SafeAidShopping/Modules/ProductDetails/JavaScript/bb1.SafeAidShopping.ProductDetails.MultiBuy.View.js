@@ -218,6 +218,7 @@ define(
    
    setOption: function (lineModel, option_cart_id, value)
    {
+     
     var self = this,
         selected_option = lineModel.get('options').findWhere({cartOptionId: option_cart_id}),
         selected_value = selected_option && _.findWhere(selected_option.get('values'), {internalid: value});
@@ -270,9 +271,9 @@ define(
         itemOptions = this.model.getVisibleOptions(),
         colourOptions = item.getOption('custcol_bb1_matrix_colour'),
         matrixSizeOptions = item.getOption('custcol_bb1_matrix_size'),
-        gloveOptions = item.getOption('custitem_bb1_matrix_gloves'),
-        footwearOptions = item.getOption('custitem_bb1_matrix_footwear'),
-        ladiesWearOptions = item.getOption('custitem_bb1_matrix_ladieswear'),
+        gloveOptions = item.getOption('custcol_bb1_matrix_gloves'),
+        footwearOptions = item.getOption('custcol_bb1_matrix_footwear'),
+        ladiesWearOptions = item.getOption('custcol_bb1_matrix_ladieswear'),
         sizeOptions = matrixSizeOptions || gloveOptions || footwearOptions || ladiesWearOptions,
         multiBuyOptions = [];
         var sizeId="custitem_bb1_matrix_size";
@@ -288,7 +289,7 @@ define(
           sizeOptions=ladiesWearOptions;
           sizeId="custitem_bb1_matrix_ladieswear";
         }
-
+console.log(sizeId,sizeOptions);
     
     if (colourOptions && colourOptions.values && sizeOptions && sizeOptions.values) {
      _.each(colourOptions.get('values'), function(colourOption) {
