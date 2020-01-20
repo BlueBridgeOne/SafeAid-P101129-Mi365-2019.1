@@ -109,6 +109,10 @@ define('SafeAid.bb1.Mi365Buyer.View', [
 			label: "Allow Approve Orders",
 			type: "checkbox"
 		}, {
+			id: "custentity_bb1_sca_allowviewbalance",
+			label: "Allow View Balance",
+			type: "checkbox"
+		}, {
 			id: "custentity_bb1_sca_allowviewareas",
 			label: "Allow View Areas",
 			type: "multichoice"

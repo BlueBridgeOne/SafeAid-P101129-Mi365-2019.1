@@ -1,11 +1,12 @@
 /*BB1 G Truslove 2017*/
 
 define(
-	'SafeAid.bb1.Mi365Main', ['Tools','Handlebars',
-		'SafeAid.bb1.Mi365Router', 'OrderHistory.Details.View', 'OrderHistory.Summary.View', 'SafeAid.bb1.Mi365Order.Model'
+	'SafeAid.bb1.Mi365Main', ['Tools', 'Handlebars',
+		'SafeAid.bb1.Mi365Router', 'OrderHistory.Details.View', 'OrderHistory.Summary.View', 'SafeAid.bb1.Mi365Order.Model', 'Balance.View',
+		'Mi365Overview'
 	],
 	function (
-		Tools,Handlebars, Mi365Router, OrderHistoryDetails, OrderHistorySummary, Mi365OrderModel
+		Tools, Handlebars, Mi365Router, OrderHistoryDetails, OrderHistorySummary, Mi365OrderModel, BalanceView, Mi365Overview
 	) {
 		'use strict';
 
@@ -16,13 +17,34 @@ define(
 		return {
 			mountToApp: function mountToApp(container) {
 
+				//add permissions to balance
+
+				_.extend(BalanceView.prototype, {
+
+					initialize: _.wrap(BalanceView.prototype.initialize, function (initialize, options) {
+						initialize.apply(this, _.rest(arguments));
+						this.overview = Mi365Overview.get();
+						var self = this;
+						Mi365Overview.done(function (model) {
+							self.overview = model;
+							self.render();
+						});
+					}),
+					getContext: _.wrap(BalanceView.prototype.getContext, function (getContext, options) {
+						var res = getContext.apply(this, _.rest(arguments));
+						res.allowView = this.overview.get("custentity_bb1_sca_allowviewbalance") == "T";
+					})
+				});
+
+
+
 				//show approval info on order history.
 				_.extend(OrderHistoryDetails.prototype, {
 
 					getContext: _.wrap(OrderHistoryDetails.prototype.getContext, function (getContext, options) {
 						var res = getContext.apply(this, _.rest(arguments));
 
-						console.log(res);
+						//console.log(res);
 						var options = res.model.get("options");
 						//console.log(options);
 						if (options.custbody_bb1_sca_approvalstatus == "3") {
@@ -92,10 +114,10 @@ define(
 					})
 				});
 
-				OrderHistorySummary.prototype.showError= function (err,res) {
-					var message=res.responseJSON.errorMessage;
-						Tools.showErrorInModal(this.application, _('Approval Failed!').translate(), _(message).translate());
-					
+				OrderHistorySummary.prototype.showError = function (err, res) {
+					var message = res.responseJSON.errorMessage;
+					Tools.showErrorInModal(this.application, _('Approval Failed!').translate(), _(message).translate());
+
 				}
 
 				OrderHistorySummary.prototype.events['click [data-action="approve"]'] = 'approve';
@@ -103,7 +125,7 @@ define(
 					console.log("approve order");
 					var model = new Mi365OrderModel();
 					model.on('error', _.bind(this.showError, this));
-				
+
 					var orderId = this.model.id;
 					model.fetch({
 						data: {
@@ -113,7 +135,7 @@ define(
 						}
 					}).done(function () {
 						console.log("approved order");
-						Backbone.localCache={};
+						Backbone.localCache = {};
 						Backbone.history.loadUrl();
 					});
 				}
