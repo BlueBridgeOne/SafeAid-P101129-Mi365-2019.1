@@ -118,7 +118,7 @@ define(
     
    },
    
-   //@method addToCart add to cart an item, the quantity is written by the user on the input and the options are the same that the ordered item in the previous order
+   //@method addToCart add all items to the cart
    addToCart: function (e)
    {
     e.preventDefault();
@@ -144,18 +144,20 @@ define(
      var lines = [];
      
      _.each(multiBuyMatrixOptions, function (multiBuyMatrixOption) {
-      var lineModel = LiveOrderLineModel.createFromProduct(multiBuyMatrixOption.product);
+      
+      var product = multiBuyMatrixOption.product.clone();
       var lineModelOptions = _.extend({}, multiBuyMatrixOption.selectedOptions, {
        custcol_bb1_sca_area: selectedArea && selectedArea.value || '',
        custcol_bb1_sca_wearer: selectedWearer && selectedWearer.value || ''
       });
       
-      lineModel.set('quantity', multiBuyMatrixOption.quantity, {silent:true});
+      product.set('quantity', multiBuyMatrixOption.quantity, {silent:true});
       
       _.each(lineModelOptions, function (selectedOptionValue, selectedOptionId) {
-       self.setOption(lineModel, selectedOptionId, selectedOptionValue);
+       self.setOption(product, selectedOptionId, selectedOptionValue);
       });
-      
+      var lineModel = LiveOrderLineModel.createFromProduct(product);
+      console.log(lineModel);
       lines.push(lineModel);
      });
      
