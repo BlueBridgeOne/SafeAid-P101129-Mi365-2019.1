@@ -7,6 +7,7 @@
 
 <section class="balance">
 	<div class="balance-content">
+		{{#if allowView}}
 		<h2 class="balance-billing-header">
 			{{translate 'Account Balance'}}
 		</h2>
@@ -113,6 +114,15 @@
 				{{translate 'Print a Statement'}}
 			</a>
 		</div>
+		{{else}}
+		<h2 class="balance-billing-header">
+			{{translate 'Account Balance'}}
+		</h2>
+		<div id="forbidden-error-content" class="error-management-forbidden-error-content">
+    	<p>{{translate 'Sorry! You have no permission to view this page.'}}</p>
+    	<p>{{{translate 'Please contact the website administrator, click <a href="/">here</a> to continue.'}}}</p>
+    </div>
+		{{/if}}
 	</div>
 </section>
 

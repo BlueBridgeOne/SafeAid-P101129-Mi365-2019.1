@@ -26,7 +26,7 @@ define('bb1.SMTTypes.Grid3CCT.View'
 		template: bb1_smttypes_grid3cct_tpl
 	,	getContext: function getContext()
 		{
-			console.log(this.settings);
+			//console.log(this.settings);
 			this.settings.medium1 = " grow25";
 					this.settings.medium2 = " grow25";
 					this.settings.medium3 = " grow25";
