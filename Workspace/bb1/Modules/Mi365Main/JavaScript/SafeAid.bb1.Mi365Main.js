@@ -33,6 +33,7 @@ define(
 					getContext: _.wrap(BalanceView.prototype.getContext, function (getContext, options) {
 						var res = getContext.apply(this, _.rest(arguments));
 						res.allowView = this.overview.get("custentity_bb1_sca_allowviewbalance") == "T";
+						return res;
 					})
 				});
 

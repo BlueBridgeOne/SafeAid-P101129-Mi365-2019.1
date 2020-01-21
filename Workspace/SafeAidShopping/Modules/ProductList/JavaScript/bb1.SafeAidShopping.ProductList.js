@@ -41,8 +41,7 @@ define(
    var results = originalGetContext.apply(this, _.rest(arguments));
 
     var matrixchilditems_detail=this.model.get("matrixchilditems_detail");
-    results.isMatrix=matrixchilditems_detail&&matrixchilditems_detail.length>1;
-      
+    results.isMatrix=(matrixchilditems_detail&&matrixchilditems_detail.length>1)||false;
    return results;
   });
   

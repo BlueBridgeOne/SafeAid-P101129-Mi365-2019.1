@@ -13,6 +13,19 @@ define(
 			return JSON.stringify(obj, null, 3);
 		});
 
+		Object.defineProperty&&Object.defineProperty(document, 'title', {
+			get: function() {
+				
+				return this._title;
+			},
+			set: function(val) {
+				this._title = val+" | Safeaid Supplies";
+				document.getElementsByTagName("title")[0].innerText=this._title;
+			}
+		});
+		
+
+
 		$("body",".contact-us-form-primary-submit-button").click(function(){
 			var $input=$(".contact-us-form-subject").find("input");
 			$input.val($input.props("placeholder"));

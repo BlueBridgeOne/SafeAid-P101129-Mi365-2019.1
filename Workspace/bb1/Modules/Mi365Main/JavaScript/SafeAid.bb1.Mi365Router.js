@@ -85,7 +85,7 @@ define('SafeAid.bb1.Mi365Router', [
         initialize: function (application) {
             var self = this;
             this.application = application;
-console.log("Mi365Overview",Mi365Overview);
+//console.log("Mi365Overview",Mi365Overview);
             ProfileModel.getPromise().done(function () {
                 Mi365Overview.done(function (overview) { //show Mi365 if silver or better.
                     console.log(overview);

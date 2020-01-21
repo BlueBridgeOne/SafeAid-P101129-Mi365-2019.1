@@ -78,7 +78,7 @@
   {{translate 'Quantity'}}
  </label>
  <div data-validation="control">
-  <input type="number" class="product-details-multibuy-single-quantity-input" data-action="multi-buy-update-quantity" data-item-id="{{itemId}}" min="0" placeholder="0">
+  <input type="number" class="product-details-multibuy-single-quantity-input" data-action="multi-buy-update-quantity" data-item-id="{{model.item.internalid}}" min="0" placeholder="0">
  </div>
 </div>
 {{/if}}

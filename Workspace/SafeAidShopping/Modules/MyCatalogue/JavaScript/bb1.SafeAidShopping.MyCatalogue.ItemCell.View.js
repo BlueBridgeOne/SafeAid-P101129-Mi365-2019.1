@@ -48,7 +48,8 @@ define(
     var product = new ProductModel({
      item: this.model
     });
-   
+   console.log(product);
+   console.log(product);
     return new ProductDetailsMultiBuyView({
      application: this.application,
      model: product,

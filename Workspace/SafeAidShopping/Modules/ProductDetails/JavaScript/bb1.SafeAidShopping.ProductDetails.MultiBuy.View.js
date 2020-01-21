@@ -157,7 +157,7 @@ define(
        self.setOption(product, selectedOptionId, selectedOptionValue);
       });
       var lineModel = LiveOrderLineModel.createFromProduct(product);
-      console.log(lineModel);
+      //console.log(lineModel);
       lines.push(lineModel);
      });
      
