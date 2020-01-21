@@ -112,20 +112,39 @@
  @extend .col-xs-4;
  @extend .col-sm-2;
 }
-
+.mycatalogue-list-item-left-2 {
+  @extend .col-xs-4;
+  @extend .col-sm-4;
+  @extend .col-md-4;
+ }
+ 
 .mycatalogue-list-item-middle {
  @extend .col-xs-8;
- @extend .col-sm-3;
+ @extend .col-sm-5;
+ @extend .col-md-3;
 
  .item-views-price {
   text-align:left;
  }
 }
 
+.mycatalogue-list-item-middle-2 {
+  @extend .col-xs-8;
+  @extend .col-sm-5;
+ 
+  .item-views-price {
+   text-align:left;
+  }
+ }
+
 .mycatalogue-list-item-right {
  @extend .col-xs-12;
  @extend .col-md-7;
 }
+.mycatalogue-list-item-right-2 {
+  @extend .col-xs-12;
+  @extend .col-md-3;
+ }
 
 .mycatalogue-list-item-image-wrapper {
  position:relative;

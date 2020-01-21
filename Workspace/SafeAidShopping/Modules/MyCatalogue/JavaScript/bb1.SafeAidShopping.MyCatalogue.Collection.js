@@ -87,6 +87,9 @@ define(
     case 'name':
      sortOrder = 'storedisplayname';
      break;
+     default:
+     sortOrder = 'commercecategory';
+     break;
    }
    
    var dataFilters = {

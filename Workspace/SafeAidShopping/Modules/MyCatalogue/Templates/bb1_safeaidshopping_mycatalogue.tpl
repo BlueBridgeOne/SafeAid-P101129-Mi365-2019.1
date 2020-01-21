@@ -11,10 +11,10 @@
   {{#if showItems}}
    <div class="mycatalogue-list-items-container">
     <div class="mycatalogue-list-items">
-     <table class="mycatalogue-list-items-table md2sm">
-      <tbody data-view="Catalogue.Items">
-      </tbody>
-     </table>
+     
+      <div class="row" data-view="Catalogue.Items">
+      </div>
+     
     </div>
     <div class="mycatalogue-list-item-actions">
      <div class="product-details-multibuy-button-container">

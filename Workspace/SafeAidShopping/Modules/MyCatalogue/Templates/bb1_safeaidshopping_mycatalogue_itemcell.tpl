@@ -1,5 +1,5 @@
-<div class="mycatalogue-list-item" itemprop="itemListElement"  data-item-id="{{itemId}}" itemscope itemtype="https://schema.org/Product" data-track-productlist-list="{{track_productlist_list}}" data-track-productlist-category="{{track_productlist_category}}" data-track-productlist-position="{{track_productlist_position}}" data-sku="{{sku}}">
- <div class="mycatalogue-list-item-left">
+<div class="mycatalogue-list-item {{#if isMatrix}}col-xs-12{{else}}col-xs-12 col-sm-6{{/if}}" itemprop="itemListElement"  data-item-id="{{itemId}}" itemscope itemtype="https://schema.org/Product" data-track-productlist-list="{{track_productlist_list}}" data-track-productlist-category="{{track_productlist_category}}" data-track-productlist-position="{{track_productlist_position}}" data-sku="{{sku}}">
+ <div class="mycatalogue-list-item-left{{#unless isMatrix}}-2{{/unless}}">
   <div class="mycatalogue-list-item-image-wrapper">
    {{#if itemIsNavigable}}
     <a class="mycatalogue-list-item-anchor" href='{{url}}'>
@@ -18,7 +18,7 @@
    {{/if}}
   </div>
  </div>
- <div class="mycatalogue-list-item-middle">
+ <div class="mycatalogue-list-item-middle{{#unless isMatrix}}-2{{/unless}}">
   <meta itemprop="url" content="{{url}}">
   <h2 class="mycatalogue-list-item-title">
    {{#if itemIsNavigable}}
@@ -53,7 +53,7 @@
 
   <div data-view="StockDescription"></div>
  </div>
- <div class="mycatalogue-list-item-right">
+ <div class="mycatalogue-list-item-right{{#unless isMatrix}}-2{{/unless}}">
   <div data-view="MultiBuy.MatrixOptions"></div>
  </div>
 </div>
