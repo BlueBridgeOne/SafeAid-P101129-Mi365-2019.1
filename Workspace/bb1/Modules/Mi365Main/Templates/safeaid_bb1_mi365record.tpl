@@ -120,7 +120,7 @@
           {{/if}}{{/if}}</h4>
         <div class="mi365-information-group-form-controls" data-validation="control" data-multichoice="{{id}}">
           {{#if ../editable}}
-          <input id="{{id}}" name="{{id}}" type="ahidden" value="{{value.value}}">
+          <input id="{{id}}" name="{{id}}" type="hidden" value="{{value.value}}">
 
           {{#each value.choice}}
           <p><input type="checkbox" {{#if selected}}checked{{/if}} value="T" data-unchecked-value="F"
