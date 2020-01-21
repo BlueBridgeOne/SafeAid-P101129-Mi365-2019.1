@@ -85,9 +85,15 @@ define(
  Application.on('after:Profile.get', function (model, profile)
  {
   var contactId = ModelsInit.context.getContact();
-  var customerCustomFields = ModelsInit.customer.getCustomFieldValues() || {};
-  nlapiLogExecution("DEBUG","customerCustomFields",JSON.stringify(customerCustomFields));
-  var customerShowStandardItems = (_.findWhere(customerCustomFields, {name: 'custentity_bb1_sca_showstandarditems'}) || {}).value || '';
+  
+  var customer = context.getUser();
+  var custentity_bb1_sca_showstandarditems = true;
+  try{
+  custentity_bb1_sca_showstandarditems=nlapiLookupField('customer', customer, 'custentity_bb1_sca_showstandarditems');
+  }catch(err){}
+
+  nlapiLogExecution("DEBUG","custentity_bb1_sca_showstandarditems",JSON.stringify(custentity_bb1_sca_showstandarditems));
+  var customerShowStandardItems = custentity_bb1_sca_showstandarditems;
   var customerName = profile.companyname;
   var customerFacetValueUrl = getFacetValueUrl('custitem_bb1_sca_customers', customerName);
   

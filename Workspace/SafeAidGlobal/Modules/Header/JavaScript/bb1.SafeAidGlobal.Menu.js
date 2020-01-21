@@ -29,7 +29,8 @@ define(
     var customerShowStandardItems = profile.get('customerShowStandardItems'),
         contactOverrideCustomerItems = profile.get('contactOverrideCustomerItems'),
         contactShowStandardItems = profile.get('contactShowStandardItems');
-    
+    //     console.log(profile);
+    // console.log(customerShowStandardItems+" "+contactOverrideCustomerItems+" "+contactShowStandardItems);
     if (!customerShowStandardItems || (contactOverrideCustomerItems && !contactShowStandardItems)) {
      var allowedMenuItems = ['Home', 'Information'];
      
