@@ -347,7 +347,6 @@ define(
   //@method getContext: function()
   getContext: function()
   {
-    console.log(this.collection);
    //@class bb1.SafeAidShopping.MyCatalogue.List.View.Context
    return {
      //@propery {Boolean} isLoading
