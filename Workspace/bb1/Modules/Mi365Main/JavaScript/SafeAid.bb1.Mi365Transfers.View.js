@@ -11,6 +11,7 @@ define('SafeAid.bb1.Mi365Transfers.View', [
 		template: safeaid_bb1_mi365transfers_tpl
 
 			,
+			title:"Mi365 Transfers",
 		initialize: function (options) {
 			this.application = options.application;
 			this.wearer = options.wearer;

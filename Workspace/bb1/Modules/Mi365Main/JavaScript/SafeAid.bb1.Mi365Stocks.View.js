@@ -11,6 +11,7 @@ define('SafeAid.bb1.Mi365Stocks.View', [
 		template: safeaid_bb1_mi365stocks_tpl
 
 			,
+			title:"Mi365 Stock",
 		initialize: function (options) {
 			this.application = options.application;
 			this.wearer = options.wearer;

@@ -9,7 +9,7 @@ define('SafeAid.bb1.Mi365Alerts.View', [
 	return Backbone.View.extend({
 
 		template: safeaid_bb1_mi365alerts_tpl
-
+		,title:"Mi365 Alerts"
 			,
 		initialize: function (options) {
 

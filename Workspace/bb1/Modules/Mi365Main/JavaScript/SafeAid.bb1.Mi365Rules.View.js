@@ -11,6 +11,7 @@ define('SafeAid.bb1.Mi365Rules.View', [
 		template: safeaid_bb1_mi365rules_tpl
 
 			,
+			title:"Mi365 Rules",
 		initialize: function (options) {
 			this.application = options.application;
 			this.wearer = options.wearer;

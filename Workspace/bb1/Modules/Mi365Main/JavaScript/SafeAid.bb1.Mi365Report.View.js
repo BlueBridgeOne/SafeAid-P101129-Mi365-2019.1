@@ -25,7 +25,7 @@ define('SafeAid.bb1.Mi365Report.View', [
 	return Backbone.View.extend({
 
 		template: safeaid_bb1_mi365report_tpl,
-
+		title:"Mi365 Report",
 		initialize: function (options) {
 			this.overview=Mi365Overview.get();
 			var self=this;Mi365Overview.done(function(model){self.overview=model;self.render();});

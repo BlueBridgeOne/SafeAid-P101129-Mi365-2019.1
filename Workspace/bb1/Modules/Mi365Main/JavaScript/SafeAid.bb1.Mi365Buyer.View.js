@@ -25,6 +25,7 @@ define('SafeAid.bb1.Mi365Buyer.View', [
 	return Backbone.View.extend({
 
 		template: safeaid_bb1_mi365record_tpl,
+		title:"Mi365 Buyer",
 		fields: [{
 			id: "entityid",
 			label: "Name",

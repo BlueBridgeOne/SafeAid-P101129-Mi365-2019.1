@@ -23,6 +23,7 @@ define('SafeAid.bb1.Mi365Dashboard.View'
 	return Backbone.View.extend({
 
 		template: safeaid_bb1_mi365dashboard_tpl
+		,title:"Mi365 Dashboard"
 
 	,	initialize: function (options) {
 		this.overview=Mi365Overview.get();

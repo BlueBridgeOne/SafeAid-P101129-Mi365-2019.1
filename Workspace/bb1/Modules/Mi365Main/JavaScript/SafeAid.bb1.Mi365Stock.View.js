@@ -25,6 +25,7 @@ define('SafeAid.bb1.Mi365Stock.View', [
 	return Backbone.View.extend({
 
 		template: safeaid_bb1_mi365record_tpl,
+		title:"Mi365 Stock",
 		fields: [{
 			id: "custrecord_bb1_sca_companystock_item",
 			label: "Item",

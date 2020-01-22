@@ -25,6 +25,7 @@ define('SafeAid.bb1.Mi365Transfer.View', [
 	return Backbone.View.extend({
 
 		template: safeaid_bb1_mi365record_tpl,
+		title:"Mi365 Transfer",
 		fields: [{
 			id: "created",
 			label: "Date",

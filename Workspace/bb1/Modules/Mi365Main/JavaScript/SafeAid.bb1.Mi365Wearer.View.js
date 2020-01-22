@@ -25,6 +25,7 @@ define('SafeAid.bb1.Mi365Wearer.View', [
 	return Backbone.View.extend({
 
 		template: safeaid_bb1_mi365record_tpl,
+		title:"Mi365 Wearer",
 		fields: [{
 			id: "name",
 			label: "Name",

@@ -22,8 +22,9 @@ define('SafeAid.bb1.Mi365Alert.View', [
 
 	return Backbone.View.extend({
 
-		template: safeaid_bb1_mi365record_tpl,
-		fields: [{
+		template: safeaid_bb1_mi365record_tpl
+		,title:"Mi365 Alert"
+		,fields: [{
 			id: "created",
 			label: "Date",
 			type: "text",

@@ -26,6 +26,7 @@ define('SafeAid.bb1.Mi365ConfirmTransfer.View', [
 	return Backbone.View.extend({
 
 		template: safeaid_bb1_mi365record_tpl,
+		title:"Mi365 Confirm Transfer",
 		fields: [{
 			id: "custrecord_bb1_sca_costocktrans_area",
 			label: "From Area",

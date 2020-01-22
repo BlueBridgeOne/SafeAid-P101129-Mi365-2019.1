@@ -11,6 +11,7 @@ define('SafeAid.bb1.Mi365Reports.View', [
 		template: safeaid_bb1_mi365reports_tpl
 
 			,
+			title:"Mi365 Reports",
 		initialize: function (options) {
 			this.overview=Mi365Overview.get();
 			var self=this;Mi365Overview.done(function(model){self.overview=model;self.render();});
