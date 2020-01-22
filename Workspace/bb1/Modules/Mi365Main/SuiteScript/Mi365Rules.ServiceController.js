@@ -91,8 +91,10 @@ define(
 						if (wearer) {
 							rec.setFieldValue("custrecord_bb1_sca_rule_wearer", wearer);
 
-							var wearer_area = nlapiLookupField('customrecord_bb1_sca_rule', wearer, 'custrecord_bb1_sca_wearer_area');
-							rec.setFieldValue("custrecord_bb1_sca_rule_area", wearer_area.value);
+							var wearer_area = nlapiLookupField('customrecord_bb1_sca_wearer', wearer, 'custrecord_bb1_sca_wearer_area');
+							if(wearer_area){
+								rec.setFieldValue("custrecord_bb1_sca_rule_area", wearer_area);
+								}
 						} else if (area) {
 							rec.setFieldValue("custrecord_bb1_sca_rule_area", area);
 						}
