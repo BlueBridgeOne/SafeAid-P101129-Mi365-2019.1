@@ -1,7 +1,6 @@
 {
     "credentials": {
-        "is_scis": false,
-        "user_agent": "sc-extension-devtools/2019.1.0",
+        "user_agent": "sc-extension-devtools/2019.1.1",
         "email": "gordon@code25.com",
         "account": "5474721",
         "role": 1000,

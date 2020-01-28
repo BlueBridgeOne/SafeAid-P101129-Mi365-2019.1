@@ -17,7 +17,9 @@ define(
     var session = nlapiGetWebContainer().getShoppingSession();
     var context = nlapiGetContext();
     var contact = context.getContact();
-
+    if (!(contact > 0)) {
+      throw (new Error("Please sign-in to checkout."));
+    }
     var buyer = this.getBuyer(contact);
     var warnings = [];
     var items = order.getItems(["internalid", "quantity", "options", "displayname", "amount", "amount_formatted", "parent"])||[];
@@ -75,9 +77,7 @@ define(
     if (!buyer && (areaChecks.length > 0 || wearerChecks.length > 0)) {
      throw (new Error("Please sign-in to checkout using Mi365."));
     }
-    if (!(contact > 0)) {
-     return result;
-    }
+    
 
     var summary = order.getOrderSummary(["total"]);
     //Note: somewhere down the line there will need to be a currency conversion done on all the values, to get back to GBP.

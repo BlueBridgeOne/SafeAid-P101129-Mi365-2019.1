@@ -26,14 +26,14 @@
         "deploy": "DeployDistribution",
         "extensions_dest_name": "Deploy_Extensions",
         "extmech_parent": "-15",
+        "theme_path": "Workspace/Extras/SafeAid_Base_Theme",
+        "overrides_path": "Workspace/Extras/SafeAid_Base_Theme/Overrides",
         "extensions_path": [
             "Workspace/SMTTypes",
             "Workspace/SafeAidGlobal",
             "Workspace/SafeAidShopping",
             "Workspace/bb1"
         ],
-        "theme_path": "Workspace/Extras/SafeAid_Base_Theme",
-        "overrides_path": "Workspace/Extras/SafeAid_Base_Theme/Overrides",
         "extensions_dest": "1791"
     },
     "application": {},
@@ -53,8 +53,5 @@
     },
     "deploy_config": {
         "update": true
-    },
-    "credentials": {
-        "is_scis": false
     }
 }

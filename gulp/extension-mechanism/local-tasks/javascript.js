@@ -119,7 +119,7 @@ function generateSourceMaps(files_extension, dest_file)
 	var dest_dir = path.dirname(dest_file)
 	,	file_name = path.basename(dest_file, '.js');
 
-	gulp.src(files_extension)
+	gulp.src(files_extension, {allowEmpty: true})
 	.pipe(sourcemaps.init({largeFile: true}))
 	.pipe(concat(file_name))
 	.pipe(sourcemaps.write('.'))

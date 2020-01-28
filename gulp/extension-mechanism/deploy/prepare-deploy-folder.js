@@ -129,7 +129,7 @@ var prepare_deploy_folder = {
 
 			shell.rm('-rf', nconf.get('folders:deploy') + '/*');
 
-			gulp.src(src_paths, {cwd: src_folder + '/**'})
+			gulp.src(src_paths, {cwd: src_folder + '/**', allowEmpty: true})
 			.pipe(map(function(file, done)
 			{
 				if(path.basename(file.path) === 'manifest.json')

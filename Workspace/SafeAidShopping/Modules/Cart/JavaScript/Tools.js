@@ -4,9 +4,10 @@ define('Tools',
     'underscore',
     'Utils',
     'bb1.Cart.Approval.View',
-    'SafeAid.bb1.CartApproval.Model'
+    'SafeAid.bb1.CartApproval.Model',
+    'ErrorManagement.InternalError.View'
   ],
-  function (Backbone, _, Utils, CartApprovalView, CartApprovalModel) {
+  function (Backbone, _, Utils, CartApprovalView, CartApprovalModel,InternalError) {
 
     var approveCart = function (application) {
 
@@ -30,15 +31,63 @@ define('Tools',
           }
       },
         error: function (mod,res) {
-          var errView=new InternalError({application: self.application,pageHeader:"Unable to View",title:"Unable to View",message:res&&res.responseJSON&&res.responseJSON.errorMessage});
-          errView.showInModal();
+          
+          showConfirmInModal(application, _('Checkout').translate(), _(res&&res.responseJSON&&res.responseJSON.errorMessage).translate(),function(){
+            document.location=SC.SESSION.touchpoints.login+"&origin=home";
+          });
       }
       });
 
     }
     
 
-    var Tools = SC.Tools = {
+    function showErrorInModal(application, title, message) {
+
+      var view = new Backbone.View({
+          application: application
+      });
+
+      view.title = title;
+      view.render = function () {
+          this.$el.append('<p class="error-message">' + message + '</p><br /><div class="text-center"><button class="button-primary button-large" data-dismiss="modal">' + _('OK').translate() + '</button></div>');
+      };
+      view.showInModal();
+  }
+
+  function showSuccessInModal(application, title, message) {
+
+      var view = new Backbone.View({
+          application: application
+      });
+
+      view.title = title;
+      view.render = function () {
+          this.$el.append('<p class="success-message">' + message + '</p><br /><div class="text-center"><button class="button-primary button-large" data-dismiss="modal">' + _('OK').translate() + '</button></div>');
+      };
+      view.showInModal();
+  }
+
+  function showConfirmInModal(application, title, message,success) {
+
+      var view = new Backbone.View({
+          application: application
+      });
+
+      view.title = title;
+      view.render = function () {
+          this.$el.append('<p class="success-message">' + message + '</p><br /><div class="text-center"><button class="button-primary button-large confirm" data-dismiss="modal" >' + _('Confirm').translate() + '</button></div>');
+
+          this.$el.find(".confirm").click(success);
+      };
+      view.showInModal();
+  }
+
+  
+  // Make Tools module available globally
+  var Tools = SC.Tools = {
+      showErrorInModal: showErrorInModal,
+      showSuccessInModal: showSuccessInModal,
+      showConfirmInModal:showConfirmInModal,
       approveCart: approveCart
     }
     return Tools;

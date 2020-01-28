@@ -1,7 +1,7 @@
 <div id="layout" class="shopping-layout">
 	<header id="site-header" class="shopping-layout-header" data-view="Header"></header>
 	<div id="main-container">
-		<div class="shopping-layout-breadcrumb" itemscope itemtype="https://schema.org/WebPage">
+		<div class="shopping-layout-breadcrumb" itemscope itemtype="https://schema.org/WebPage" >
 			<div data-view="Global.Breadcrumb" data-type="breadcrumb"></div>
 		</div>
 		<div class="shopping-layout-notifications">

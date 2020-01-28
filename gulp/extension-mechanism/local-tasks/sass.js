@@ -37,7 +37,7 @@ function generateEntryPoints(cb)
 			, theme_manifest.version
 			, ''].join('/');
 
-		gulp.src(local_folders, {follow: true, base: process.cwd()})
+		gulp.src(local_folders, {follow: true, base: process.cwd(), allowEmpty: true})
 			.pipe(manifest_manager.handleOverrides())
 			.pipe(map(function (file, cb) {
 				var entry_point = isEntryPoint(file.path);

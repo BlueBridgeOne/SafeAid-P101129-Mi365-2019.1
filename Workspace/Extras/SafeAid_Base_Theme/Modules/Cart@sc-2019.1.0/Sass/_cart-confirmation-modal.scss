@@ -60,7 +60,7 @@
 }
 .cart-confirmation-modal-view-cart-button {
 	@extend .button-primary;
-	@extend .button-large;
+	@extend .button-medium;
 	width: 100%;
  	font-weight: $sc-font-weight-semibold;
  	margin-top: $sc-margin-lv3;
@@ -72,7 +72,7 @@
 }
 .cart-confirmation-modal-continue-shopping-button {
 	@extend .button-tertiary;
-	@extend .button-large;
+	@extend .button-medium;
 	width: 100%;
 	margin-top: $sc-margin-lv3;
 	font-weight: $sc-font-weight-semibold;

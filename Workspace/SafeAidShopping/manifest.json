@@ -38,7 +38,6 @@
     },
     "configuration": {
         "files": [
-            "Modules/Footer/Configuration/Footer.json",
             "Modules/ProductDetails/Configuration/PpeSymbols.json"
         ]
     },
@@ -50,7 +49,6 @@
             "Modules/Cart/Sass/_safeaidshopping-cart.scss",
             "Modules/Main/Sass/_bb1-safeaidshopping-main.scss",
             "Modules/MyCatalogue/Sass/_bb1-safeaidshopping-mycatalogue.scss",
-            "Modules/Footer/Sass/_bb1-safeaidshopping-footer.scss",
             "Modules/ProductList/Sass/_bb1-safeaidshopping-productlist.scss",
             "Modules/ProductDetails/Sass/_bb1-safeaidshopping-productdetails.scss",
             "Modules/ProductDetails/Sass/_bb1-safeaidshopping-productdetails-multibuy.scss"
@@ -68,7 +66,6 @@
                     "Modules/MyCatalogue/Templates/bb1_safeaidshopping_mycatalogue_itemcell.tpl",
                     "Modules/ProductDetails/Templates/bb1_safeaidshopping_productdetails_multibuy.tpl",
                     "Modules/ProductDetails/Templates/bb1_safeaidshopping_productdetails_multibuy_colourselector.tpl",
-                    "Modules/Footer/Templates/bb1_safeaidshopping_footer.tpl",
                     "Modules/ProductList/Templates/bb1_safeaidshopping_productlist_category_heading.tpl",
                     "Modules/ProductDetails/Templates/bb1_safeaidshopping_productdetails.tpl"
                 ]
@@ -100,7 +97,6 @@
                     "Modules/ProductDetails/JavaScript/bb1.SafeAidShopping.ProductDetails.js",
                     "Modules/ProductDetails/JavaScript/bb1.SafeAidShopping.ProductDetails.MultiBuy.View.js",
                     "Modules/ProductDetails/JavaScript/bb1.SafeAidShopping.ProductDetails.MultiBuy.ColourSelector.View.js",
-                    "Modules/Footer/JavaScript/bb1.SafeAidShopping.Footer.js",
                     "Modules/Profile/JavaScript/bb1.SafeAidShopping.Profile.js",
                     "Modules/ProductList/JavaScript/bb1.SafeAidShopping.ProductList.js"
                 ]

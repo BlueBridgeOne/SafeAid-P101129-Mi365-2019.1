@@ -13,7 +13,7 @@
      {{/if}}
      <li{{#if classes}} class="{{classes}}"{{/if}}>
       {{#if href}}
-      <a {{objectToAtrributes item}}>
+      <a {{objectToAtrributes item}} data-touchpoint="home" data-hashtag="#{{href}}">
        {{text}}
       </a>
       {{else}}
@@ -36,12 +36,14 @@
     <img src="{{getExtensionAssetsPath 'img/safeaid-footer-bsif.png'}}" alt="" />
     <img src="{{getExtensionAssetsPath 'img/safeaid-footer-risqs.gif'}}" class="footer-content-risqs-logo" alt="" />
    </p>
-   <p>&copy; 2020 Safeaid LLP. All Rights Reserved.<br></p>
+   <p>&copy; 2020 Safeaid LLP. All Rights Reserved.<br>
+   Phone: <a href="tel: 004423 9225 4442">+44 (0)23 9225 4442</a> Email: <a href="mailto:sales@safeaidsupplies.com">sales@safeaidsupplies.com</a>
+   </p>
   </div>
   <div class="footer-content-bottom-right">
    <p>Accepted payment methods</p>
    <p><img src="{{getExtensionAssetsPath 'img/safeaid-footer-payment.png'}}" alt="" /></p>
-   <p>Safeaid LLP Signal House, 16 Arnside Road, Waterlooville, Hampshire, PO7 7UP <br>Company Registration Number OC382751 VAT no. 161 5765 02</p>
+   <p>Safeaid LLP Signal House, 16 Arnside Road, Waterlooville, PO7 7UP, United Kingdom <br>Company Registration Number OC382751 VAT no. 161 5765 02</p>
   </div>
  </div>
  

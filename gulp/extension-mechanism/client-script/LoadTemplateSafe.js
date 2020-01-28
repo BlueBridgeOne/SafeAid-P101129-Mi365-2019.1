@@ -13,9 +13,16 @@
 			{
 				try
 				{
-					req([name], function (value) {
-						onload(value);
-					});
+					req(
+						[name]
+					,	function (value)
+						{
+							onload(value);
+						}
+					,	function ()
+						{
+							onload(null);	
+						});
 				}
 				catch (e)
 				{

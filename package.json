@@ -1,6 +1,6 @@
 {
     "name": "sc-extension-devtools",
-    "version": "2019.1.0",
+    "version": "2019.1.1",
     "description": "SuiteCommerce Development Tools to develop new themes or extensions",
     "main": "index.js",
     "scripts": {
@@ -39,8 +39,8 @@
         "map-stream": "0.0.7",
         "mime": "2.4.0",
         "nconf": "0.10.0",
+        "node-sass": "4.13.1",
         "ns-uploader": "file:./ns_npm_repository/ns-uploader",
-        "nvm": "0.0.4",
         "opn": "5.4.0",
         "plugin-error": "1.0.1",
         "progress": "2.0.3",

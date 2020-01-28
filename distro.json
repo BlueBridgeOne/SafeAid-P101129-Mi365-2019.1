@@ -1,7 +1,7 @@
 {
-    "name": "ExtensionDevelopmentTools-19.1.0",
+    "name": "ExtensionDevelopmentTools-19.1.1",
     "version": "2.0",
-    "buildToolsVersion": "sc-2019.1.0",
+    "buildToolsVersion": "scemb-2019.1.1",
     "folders": {
         "modules": "Modules",
         "suitecommerceModules": "Modules/suitecommerce",

@@ -3,61 +3,53 @@
 var log = require('fancy-log')
 ,	c = require('ansi-colors')
 ,	nconf = require('nconf')
-,	_ = require('underscore')
-;
+,	_ = require('underscore');
 
 var ConversionTool = require('../conversion-tool')
 ,	RecordHelper = require('../extension-record-helper')
-,	ResourcePromisesHelper = require('./resource-promises-helper');
+,	ResourcePromisesHelper = require('./resource-promises-helper')
+,   FileServiceClient = require('../client-script/FileServiceClient');
 
 var DownloadResourcesHelper = {
 
-	getManifestFilePromises: function getManifestFilePromises(manifest, cb)
+	getManifestFilePromises: async function getManifestFilePromises(manifest, cb)
 	{
-		var isFetchExtension = manifest.type === 'extension' && nconf.get('fetchConfig:extension') && _.contains(nconf.get('fetchConfig:extension').split(','), manifest.name)
-		,	self = this
-		,	promise_result
-		;
+		var isFetchExtension = manifest.type === 'extension' && nconf.get('fetchConfig:extension') && _.contains(nconf.get('fetchConfig:extension').split(','), manifest.name);
 
-		if(manifest.type === 'theme' || isFetchExtension)
-		{
-			if(isFetchExtension)
-			{
-				promise_result = RecordHelper.searchExtensions({manifest: manifest})
-                .then(function handleBundleCheckResult(result)
-                {
-                    if(result.extension_record && result.has_bundle)
-                    {
-                        log(c.yellow('Cannot fetch packaged extension ' + manifest.name +'.\n'  +
-                            '\tYou can only fetch custom extensions located in your file cabinet.\n'));
+		try
+        {
+            if (manifest.type !== 'theme' && !isFetchExtension)
+            {
+                return [];
+            }
 
-                        return [];
-                    }
-                    else
-                    {
-                        ConversionTool.updateConfigPaths(manifest);
-                        return self.downloadFiles(manifest);
-                    }
+            let result = await RecordHelper.searchExtensions({manifest: manifest});
 
-                })
-                .catch(function(error)
-                {
-                    cb(error);
-                });
-			}
-			else
-			{
-				var file_promises = this.downloadFiles(manifest);
-				promise_result = Promise.resolve(file_promises);
-			}
+            //Get the manifest in order to use its path updated since the one that comes in the activationManifest may be old (generated before a SCEM push)
+            const file_service_client = FileServiceClient.getInstance();
+            const manifest_file = await file_service_client.getFiles([result.extension_record.manifest_id]);
+            manifest.path = manifest_file[0].path;
 
-		}
-		else
-		{
-			promise_result = Promise.resolve([]);
-		}
+            if (!isFetchExtension)
+            {
+                return this.downloadFiles(manifest);
+            }
 
-		return promise_result;
+            if (result.extension_record && result.has_bundle)
+            {
+                log(c.yellow('Cannot fetch packaged extension ' + manifest.name + '.\n' +
+                    '\tYou can only fetch custom extensions located in your file cabinet.\n'));
+
+                return [];
+            }
+
+            ConversionTool.updateConfigPaths(manifest);
+            return this.downloadFiles(manifest);
+        }
+        catch(error)
+        {
+            cb(error);
+        }
 	}
 
 ,	downloadFiles: function downloadFiles(manifest)

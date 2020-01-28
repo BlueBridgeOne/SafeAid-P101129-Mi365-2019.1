@@ -90,7 +90,17 @@ define(
                 }
                 HeaderMiniCart.prototype.events['click [data-action="approve"]'] = 'approveCheckout'
                 HeaderMiniCart.prototype.approveCheckout = function (e) {
+
+                    if($(".shopping-layout-header").css("margin-bottom")=="20px"){
                     Tools.approveCart(this.options.application || latestApplication);
+                    }
+                }
+                HeaderMiniCart.prototype.events['click [data-action="approve-dropdown"]'] = 'approveDropdownCheckout'
+                HeaderMiniCart.prototype.approveDropdownCheckout = function (e) {
+
+                    
+                    Tools.approveCart(this.options.application || latestApplication);
+                    
                 }
 
 //fix the slider decimal places:

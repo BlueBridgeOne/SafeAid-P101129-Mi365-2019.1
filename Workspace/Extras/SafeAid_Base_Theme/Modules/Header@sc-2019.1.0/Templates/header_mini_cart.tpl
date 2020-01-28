@@ -34,7 +34,7 @@
 				</a>
 			</div>
 			<div class="header-mini-cart-buttons-right">
-				<a href="#" class="header-mini-cart-button-checkout" data-action="approve" >
+				<a href="#" class="header-mini-cart-button-checkout" data-action="approve-dropdown" >
 					{{translate 'Checkout'}}
 				</a>
 			</div>

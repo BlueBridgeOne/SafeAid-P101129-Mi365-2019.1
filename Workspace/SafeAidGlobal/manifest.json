@@ -9,7 +9,12 @@
     "skins": [],
     "assets": {
         "img": {
-            "files": []
+            "files": [
+                "img/safeaid-footer-bsif.png",
+                "img/safeaid-footer-copyright.png",
+                "img/safeaid-footer-payment.png",
+                "img/safeaid-footer-risqs.gif"
+            ]
         },
         "fonts": {
             "files": []
@@ -21,7 +26,9 @@
         }
     },
     "configuration": {
-        "files": []
+        "files": [
+            "Modules/Footer/Configuration/Footer.json"
+        ]
     },
     "sass": {
         "entry_points": {
@@ -37,17 +44,20 @@
         "application": {
             "shopping": {
                 "files": [
-                    "Modules/Header/Templates/bb1_headeralerts.tpl"
+                    "Modules/Header/Templates/bb1_headeralerts.tpl",
+                    "Modules/Footer/Templates/bb1_safeaidshopping_footer.tpl"
                 ]
             },
             "checkout": {
                 "files": [
-                    "Modules/Header/Templates/bb1_headeralerts.tpl"
+                    "Modules/Header/Templates/bb1_headeralerts.tpl",
+                    "Modules/Footer/Templates/bb1_safeaidshopping_footer.tpl"
                 ]
             },
             "myaccount": {
                 "files": [
-                    "Modules/Header/Templates/bb1_headeralerts.tpl"
+                    "Modules/Header/Templates/bb1_headeralerts.tpl",
+                    "Modules/Footer/Templates/bb1_safeaidshopping_footer.tpl"
                 ]
             }
         }
@@ -65,7 +75,8 @@
                     "Modules/Header/JavaScript/SafeAid.bb1.Mi365Overview.Model.js",
                     "Modules/Header/JavaScript/SafeAid.bb1.Global.js",
                     "Modules/Header/JavaScript/SafeAid.bb1.HeaderAlerts.View.js",
-                    "Modules/Header/JavaScript/bb1.SafeAidGlobal.Menu.js"
+                    "Modules/Header/JavaScript/bb1.SafeAidGlobal.Menu.js",
+                    "Modules/Footer/JavaScript/bb1.SafeAidShopping.Footer.js"
                 ]
             },
             "checkout": {
@@ -74,7 +85,8 @@
                     "Modules/Header/JavaScript/SafeAid.bb1.Mi365Overview.Model.js",
                     "Modules/Header/JavaScript/SafeAid.bb1.Global.js",
                     "Modules/Header/JavaScript/SafeAid.bb1.HeaderAlerts.View.js",
-                    "Modules/Header/JavaScript/bb1.SafeAidGlobal.Menu.js"
+                    "Modules/Header/JavaScript/bb1.SafeAidGlobal.Menu.js",
+                    "Modules/Footer/JavaScript/bb1.SafeAidShopping.Footer.js"
                 ]
             },
             "myaccount": {
@@ -83,7 +95,8 @@
                     "Modules/Header/JavaScript/SafeAid.bb1.Mi365Overview.Model.js",
                     "Modules/Header/JavaScript/SafeAid.bb1.Global.js",
                     "Modules/Header/JavaScript/SafeAid.bb1.HeaderAlerts.View.js",
-                    "Modules/Header/JavaScript/bb1.SafeAidGlobal.Menu.js"
+                    "Modules/Header/JavaScript/bb1.SafeAidGlobal.Menu.js",
+                    "Modules/Footer/JavaScript/bb1.SafeAidShopping.Footer.js"
                 ]
             }
         }

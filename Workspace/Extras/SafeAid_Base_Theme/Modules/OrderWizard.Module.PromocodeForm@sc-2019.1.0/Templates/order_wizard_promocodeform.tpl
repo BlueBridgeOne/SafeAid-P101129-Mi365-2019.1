@@ -1,20 +1,4 @@
-{{#if showPromocodeForm}}
-	<div class="order-wizard-promocodeform">
-		<div class="order-wizard-promocodeform-expander-head">
-			<a class="order-wizard-promocodeform-expander-head-toggle collapsed" data-toggle="collapse" data-target="#order-wizard-promocode" aria-expanded="false" aria-controls="order-wizard-promocode">
-				{{translate 'Have a Promo Code?'}}
-				<i class="order-wizard-promocodeform-tooltip" data-toggle="tooltip" title="{{translate '<b>Promo Code</b><br>To redeem a promo code, simply enter your information and we will apply the offer to your purchase during checkout.'}}"></i>
-				<i class="order-wizard-promocodeform-expander-toggle-icon"></i>
-			</a>
-		</div>
-		<div class="order-wizard-promocodeform-expander-body collapse" id="order-wizard-promocode"  data-type="promo-code-container" data-action="show-promo-code-container" aria-expanded="false" data-target="#order-wizard-promocode">
-			<div class="order-wizard-promocodeform-expander-container">
-				<div data-view="Cart.PromocodeForm"></div>
-			</div>
-		</div>
-		<div data-cms-area="order_wizard_promocodeform_cms_area_1" data-cms-area-filters="page_type"></div>
-	</div>
-{{/if}}
+
 
 
 

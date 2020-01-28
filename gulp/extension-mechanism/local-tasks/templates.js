@@ -170,7 +170,7 @@ function runTemplates(gulpDone)
 		var templates = manifest_manager.getApplicationTemplates(application, true);
 		var stream = wrapTemplates();
 
-		gulp.src(_.union([path.join(nconf.get('folders:output'), 'javascript-libs.js')], templates))
+		gulp.src(_.union([path.join(nconf.get('folders:output'), 'javascript-libs.js')], templates), {allowEmpty: true})
 			.pipe(gif(condition, stream())).on('error', gulpDone)
 			.pipe(concat(application + '-templates.js'))
 			.pipe(gulp.dest(nconf.get('folders:output')))
@@ -195,7 +195,7 @@ function runTemplatesLocal(gulpDone)
 
 		var stream = wrapTemplates();
 
-		gulp.src(templates)
+		gulp.src(templates, {allowEmpty: true})
 			.pipe(stream())
 			.pipe(map(function(file, cb)
 			{

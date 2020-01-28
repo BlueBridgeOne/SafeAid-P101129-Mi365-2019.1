@@ -169,22 +169,7 @@
 		{{/if}}
 	</div>
 
-	<div data-cms-area="cart_summary_cms_area_2" data-cms-area-filters="path"></div>
-
-	{{#if showPromocodeForm}}
-		<div class="cart-summary-grid cart-summary-promocode-container">
-			<div class="cart-summary-expander-head">
-				<a class="cart-summary-expander-head-toggle collapsed" data-toggle="collapse" data-target="#promo-code-container" aria-expanded="false" aria-controls="promo-code-container">
-							{{translate 'Have a Promo Code?'}}
-							<i data-toggle="tooltip" class="cart-summary-expander-tooltip" title="{{translate '<b>Promo Code</b><br>To redeem a promo code, simply enter your information and we will apply the offer to your purchase during checkout.'}}"></i>
-							<i class="cart-summary-expander-toggle-icon-promocode"></i>
-				</a>
-			</div>
-			<div class="cart-summary-expander-body collapse" role="form" id="promo-code-container" aria-expanded="false">
-				<div data-view="Cart.PromocodeFrom"></div>
-			</div>
-		</div>
-	{{/if}}
+	
 
 	{{#if showActions}}
 			<a id="btn-proceed-checkout" class="cart-summary-button-proceed-checkout {{#if showProceedButton}} cart-summary-button-proceed-checkout-sb {{/if}}" data-action="approve">
