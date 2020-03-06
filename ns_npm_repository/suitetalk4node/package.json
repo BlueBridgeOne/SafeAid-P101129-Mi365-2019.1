@@ -8,7 +8,7 @@
   },
   "author": "PSG Ecommerce",
   "dependencies": {
-    "handlebars": "4.0.11",
+    "handlebars": "4.7.3",
     "q": "1.5.1",
     "request": "2.83.0",
     "underscore": "1.8.3",
