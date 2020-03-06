@@ -42,6 +42,7 @@ define(
 
     var matrixchilditems_detail=this.model.get("matrixchilditems_detail");
     results.isMatrix=(matrixchilditems_detail&&matrixchilditems_detail.length>1)||false;
+    results.itemid=this.model.get("itemid");
    return results;
   });
   

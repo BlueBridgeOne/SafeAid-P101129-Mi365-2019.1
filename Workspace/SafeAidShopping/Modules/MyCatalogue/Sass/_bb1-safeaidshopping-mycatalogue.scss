@@ -167,6 +167,7 @@
 .mycatalogue-list-item-title {
  @extend .item-cell-title;
  text-align:left;
+ padding-bottom:0;
 }
 
 .mycatalogue-list-item-price {

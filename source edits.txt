@@ -1,0 +1,30 @@
+ProductLine.Common - source:
+
+getVisibleOptions: function getVisibleOptions()
+		{
+			var collection = this.get('options')
+					.filter(function(option)
+					{
+														
+								return option.get('cartOptionId')!="custcol_bb1_sca_area"&&option.get('cartOptionId')!="custcol_bb1_sca_wearer";
+
+					});
+			return _.sortBy(collection, function(option){return option.get('index');});
+
+		}
+
+OrderHistory.Model:
+
+setExtraListFilters:
+
+var is_contact= ModelsInit.session.getCustomer().getFieldValues().contactloginid !== '0';
+			if(!_.isEmpty(ModelsInit.session.getSiteSettings().cartsharingmode) && ModelsInit.session.getSiteSettings().cartsharingmode === 'PER_CONTACT' && is_contact) {
+				var contactId = parseInt(ModelsInit.session.getCustomer().getFieldValues().contactloginid),
+					contactLookup =  nlapiLookupField('contact', contactId , ['email','custentity_bb1_sca_buyer','custentity_bb1_sca_allowapproveorders']);
+if(contactLookup.custentity_bb1_sca_buyer=="T"&&contactLookup.custentity_bb1_sca_allowapproveorders=="T"){
+//find all
+}else{
+				this.filters.email_opeartor = 'and';
+				this.filters.email = ['email', 'is', contactLookup.email];
+}
+			}

@@ -24,6 +24,7 @@ define(
 
   mountToApp: function (container)
   {
+    
    var layout = container.getComponent('Layout'),
        profile = ProfileModel.getInstance(),
        contactIsBuyer = profile.get('contactIsBuyer');

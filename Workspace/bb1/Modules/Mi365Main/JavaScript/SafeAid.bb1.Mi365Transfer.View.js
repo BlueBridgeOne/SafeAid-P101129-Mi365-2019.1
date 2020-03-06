@@ -165,7 +165,8 @@ try{
 		}
 		},
 		getContext: function getContext() {
-			var allowEdit=this.overview.get("custentity_bb1_sca_allowtransferstock")=="T";
+			var allowPlatinum=this.overview.get("level")=="platinum";
+			var allowEdit=this.overview.get("custentity_bb1_sca_allowtransferstock")=="T"&&allowPlatinum;
 			
 			var confirmed = false,
 				newFields = [];

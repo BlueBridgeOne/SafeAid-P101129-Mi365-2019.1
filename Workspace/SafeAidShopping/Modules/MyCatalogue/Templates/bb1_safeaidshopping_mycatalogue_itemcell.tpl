@@ -33,8 +33,8 @@
     </span>
    {{/if}}
   </h2>
-
-  <div class="mycatalogue-list-item-price">
+<div class="product-line-sku-label">{{itemid}}</div>
+  <div class="mycatalogue-list-item-pricea">
    <div data-view="ItemViews.Price"></div>
   </div>
 

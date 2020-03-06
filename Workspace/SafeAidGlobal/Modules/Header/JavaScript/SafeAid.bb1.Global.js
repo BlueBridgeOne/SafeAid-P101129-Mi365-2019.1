@@ -3,16 +3,34 @@
 define(
 	'SafeAid.bb1.Global', [
 		'Handlebars', 'SafeAid.bb1.HeaderAlerts.View', 'Header.View', 'bb1.SafeAidGlobal.Menu',
-		'bb1.SafeAidShopping.Footer'
+		'bb1.SafeAidShopping.Footer','Utils'
 	],
 	function (
-		Handlebars, HeaderAlertsView, Header, Menu, Footer
+		Handlebars, HeaderAlertsView, Header, Menu, Footer,Utils
 	) {
 		'use strict';
 
 		Handlebars.registerHelper('toJSON', function (obj) {
 			return JSON.stringify(obj, null, 3);
 		});
+
+		Utils.getDeviceType=function (widthToCheck)
+	{
+		var width = widthToCheck ? widthToCheck : Utils.getViewportWidth();
+
+		if (width < 768)
+		{
+			return 'phone';
+		}
+		else if (width < 992) //1142
+		{
+			return 'tablet';
+		}
+		else
+		{
+			return 'desktop';
+		}
+	}
 
 		Object.defineProperty && Object.defineProperty(document, 'title', {
 			get: function () {
@@ -26,7 +44,6 @@ define(
 		});
 
 
-
 		$("body", ".contact-us-form-primary-submit-button").click(function () {
 			var $input = $(".contact-us-form-subject").find("input");
 			$input.val($input.props("placeholder"));
@@ -34,7 +51,7 @@ define(
 
 		return {
 			mountToApp: function mountToApp(container) {
-
+				
 				Header.prototype.childViews.alerts = function () {
 					return new HeaderAlertsView({
 						application: container

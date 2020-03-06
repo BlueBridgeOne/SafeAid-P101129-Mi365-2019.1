@@ -19,7 +19,7 @@
 		<a class="facets-item-cell-grid-title" href="{{url}}">
 			<span itemprop="name">{{name}}</span>
 		</a>
-
+<div class="product-line-sku-label">{{sku}}</div>
 		<div class="facets-item-cell-grid-price" data-view="ItemViews.Price">
 		</div>
 

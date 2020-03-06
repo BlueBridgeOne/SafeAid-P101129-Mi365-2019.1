@@ -41,7 +41,7 @@
    {{#each sizeOptions}}
    <tr>
     <td>{{sizeLabel}}</td>
-    {{#if showStock}}
+    {{#if ../showStock}}
     <td>{{#with (lookup ../sizeOptions @index)~}}{{available}}{{/with}}</td>
     {{/if}}
     <td class="product-details-multibuy-quantity-td"><input type="number" class="product-details-multibuy-quantity-input" data-action="multi-buy-update-quantity" data-item-id="{{itemId}}" min="0" placeholder="0"></td>

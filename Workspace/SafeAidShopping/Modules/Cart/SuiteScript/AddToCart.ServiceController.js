@@ -23,13 +23,13 @@ define(
      return results;
     }
     var customer = context.getUser();
-    //nlapiLogExecution("debug", "context", context.getUser() + " " + context.getCompany() + " " + context.getEmail() + " " + context.getName() + " " + context.getContact());
+    nlapiLogExecution("debug", "context", context.getUser() + " " + context.getCompany() + " " + context.getEmail() + " " + context.getName() + " " + context.getContact());
 
     var custentity_bb1_sca_allowviewareas = nlapiLookupField('contact', contact, 'custentity_bb1_sca_allowviewareas');
     if(custentity_bb1_sca_allowviewareas==null){
      custentity_bb1_sca_allowviewareas="0";
     }
-    var allowAreas = custentity_bb1_sca_allowviewareas.split(",");
+    var allowAreas = custentity_bb1_sca_allowviewareas.split(",")||[];
 
     var filter = [
      ["custrecord_bb1_sca_area_company", "anyof", customer],

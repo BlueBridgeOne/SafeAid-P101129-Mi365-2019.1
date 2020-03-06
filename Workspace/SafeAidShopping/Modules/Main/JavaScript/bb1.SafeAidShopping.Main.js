@@ -14,7 +14,8 @@ define(
   Cart,
   ProductList,
   ProductDetails,
-  MyCatalogue
+  MyCatalogue,
+  ProductLineCommon
  )
  {
   'use strict';
@@ -24,7 +25,8 @@ define(
   return {
    
    mountToApp: function(container) {
-    
+
+
     for (i in Modules) {
      var module = Modules[i];
      if (module && module.mountToApp)

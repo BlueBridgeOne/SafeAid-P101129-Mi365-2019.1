@@ -27,6 +27,7 @@ define(
 	return  {
 		mountToApp: function mountToApp (container)
 		{
+			
 			var CMS=container.getComponent('CMS');
 			CMS.registerCustomContentType({
 				

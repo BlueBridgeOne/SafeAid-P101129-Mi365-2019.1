@@ -168,8 +168,9 @@ var deleteId=this.model.get("id");
 		//@method getContext @return SafeAid.bb1.Mi365Main.View.Context
 		,
 		getContext: function getContext() {
+			var allowPlatinum=this.overview.get("level")=="platinum";
 			var allowEdit=this.overview.get("custentity_bb1_sca_alloweditwearers")=="T";
-			var allowEditBudgets = this.overview.get("custentity_bb1_sca_alloweditbudgets") == "T";
+			var allowEditBudgets = this.overview.get("custentity_bb1_sca_alloweditbudgets") == "T"&&allowPlatinum;
 			var allowEditRules = this.overview.get("custentity_bb1_sca_alloweditrules") == "T";
 			var newFields = [];
 
@@ -202,9 +203,9 @@ var deleteId=this.model.get("id");
 				fields: newFields,
 				editable:allowEdit,
 				showDelete:allowEdit,
-				showStock:true,
-				showRules:allowEditRules,
-				showTransfers:true,
+				showStock:allowPlatinum,
+				showRules:allowEditRules&&allowPlatinum,
+				showTransfers:allowPlatinum,
 				breadcrumbs:[{href:"Mi365/wearers",label:"Wearers"}],
 				active:this.model.get("name")
 			};

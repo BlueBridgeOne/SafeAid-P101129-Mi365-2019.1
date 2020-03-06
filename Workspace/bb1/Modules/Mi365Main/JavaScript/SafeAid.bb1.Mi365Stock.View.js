@@ -115,9 +115,9 @@ define('SafeAid.bb1.Mi365Stock.View', [
 		//@method getContext @return SafeAid.bb1.Mi365Main.View.Context
 		,
 		getContext: function getContext() {
-			
-			var allowEdit=this.overview.get("custentity_bb1_sca_alloweditstock")=="T";
-			var allowTransferStock=this.overview.get("custentity_bb1_sca_allowtransferstock")=="T";
+			var allowPlatinum=this.overview.get("level")=="platinum";
+			var allowEdit=this.overview.get("custentity_bb1_sca_alloweditstock")=="T"&&allowPlatinum;
+			var allowTransferStock=this.overview.get("custentity_bb1_sca_allowtransferstock")=="T"&&allowPlatinum;
 			
 			//{id:"custentity_bb1_sca_allowviewreports",label:"Allow View Reports",type:"checkbox"};
 			var newFields = [],

@@ -50,12 +50,13 @@
 	text-align: center;
 	top: 45%;
 }
-
+/*
 .item-cell:hover .item-cell-quick-view-wrapper {
 	@media (min-width: $screen-md-min) {
 		display: block;
 	}
 }
+*/
 
 .item-cell-quick-view-link {
 	@extend .button-primary;

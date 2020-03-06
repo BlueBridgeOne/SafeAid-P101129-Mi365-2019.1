@@ -1,9 +1,9 @@
 define(
     'bb1.SafeAidShopping.Cart', [
-        'bb1.Cart.AddToCart.Button.View', 'ProductDetails.Base.View', 'Handlebars', 'Cart.Detailed.View', 'Backbone', 'bb1.Cart.List.View', 'Cart.Summary.View', 'Tools', 'Header.MiniCart.View', 'Header.View', 'Facets.FacetedNavigationItem.View'
+        'bb1.Cart.AddToCart.Button.View', 'ProductDetails.Base.View', 'Handlebars', 'Cart.Detailed.View', 'Backbone', 'bb1.Cart.List.View', 'Cart.Summary.View', 'Tools', 'Header.MiniCart.View', 'Header.View', 'Facets.FacetedNavigationItem.View','Item.Model'
     ],
     function (
-        AddToCartButtonView, ProductDetailsBase, Handlebars, CartDetailedView, Backbone, bb1CartListView, CartSummaryView, Tools, HeaderMiniCart, Header, FacetsFacetedNavigationItemView
+        AddToCartButtonView, ProductDetailsBase, Handlebars, CartDetailedView, Backbone, bb1CartListView, CartSummaryView, Tools, HeaderMiniCart, Header, FacetsFacetedNavigationItemView,ItemModel
     ) {
         'use strict';
 
@@ -14,7 +14,7 @@ define(
         return {
 
             mountToApp: function mountToApp(container) {
-
+                
                 //console.log("Mount SafeAid Shopping Extension");
 
                 //Various ways to link into existing views and templates...
@@ -83,7 +83,23 @@ define(
                     })
                 });
 
+                //fix item model:
 
+                ItemModel.prototype.parse= function parse (response)
+                {
+                    //SC.Tools.fixResponse(response);
+                    // if we are performing a direct API call the item is response.items[0]
+                    // but if you are using the Item.Collection to fetch this guys
+                    // The item is the response
+                    var single_item = response.items && response.items[0];
+    
+                    if (single_item)
+                    {
+                        single_item.facets = response.facets;
+                    }
+                    return single_item ? this.sanitize(single_item) : this.sanitize(response);
+                }
+                    
                 //Same again, approval for mini cart.
                 if (!HeaderMiniCart.prototype.events) {
                     HeaderMiniCart.prototype.events = {};

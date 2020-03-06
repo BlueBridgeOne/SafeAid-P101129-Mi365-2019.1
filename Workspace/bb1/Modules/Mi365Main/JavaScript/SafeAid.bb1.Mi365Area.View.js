@@ -159,7 +159,8 @@ define('SafeAid.bb1.Mi365Area.View', [
 		,
 		getContext: function getContext() {
 			var allowEdit=this.overview.get("custentity_bb1_sca_alloweditareas")=="T";
-			var allowEditBudgets=this.overview.get("custentity_bb1_sca_alloweditbudgets")=="T";
+			var allowPlatinum=this.overview.get("level")=="platinum";
+			var allowEditBudgets=this.overview.get("custentity_bb1_sca_alloweditbudgets")=="T"&&allowPlatinum;
 			var allowEditRules=this.overview.get("custentity_bb1_sca_alloweditrules")=="T";
 			
 			
@@ -182,9 +183,9 @@ define('SafeAid.bb1.Mi365Area.View', [
 				fields: newFields,
 				editable: allowEdit,
 				showDelete: allowEdit,
-				showStock: true,
-				showRules: allowEditRules,
-				showTransfers: true,
+				showStock: allowPlatinum,
+				showRules: allowEditRules&&allowPlatinum,
+				showTransfers: allowPlatinum,
 				showWearers: true,
 				breadcrumbs: [{
 					href: "Mi365/areas",

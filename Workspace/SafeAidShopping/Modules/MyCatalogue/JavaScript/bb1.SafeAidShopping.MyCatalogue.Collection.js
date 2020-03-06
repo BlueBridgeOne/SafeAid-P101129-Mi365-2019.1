@@ -37,12 +37,12 @@ define(
   url: function()
   {
    var profile = ProfileModel.getInstance(),
-       sessionSearchApiParams = Session.getSearchApiParams();
+       sessionSearchApiParams = Session.getSearchApiParams(false);
    
    delete sessionSearchApiParams[this.customersFacetId];
    delete sessionSearchApiParams[this.buyersFacetId];
    delete sessionSearchApiParams.custitem_bb1_sca_standarditem;
-   
+   sessionSearchApiParams.fieldset="mycatalogue";
    var url = _.addParamsToUrl(
     profile.getSearchApiUrl(),
     _.extend(
@@ -64,7 +64,7 @@ define(
   {
    this.totalRecordsFound = response.total;
    this.recordsPerPage = this.pageSize;
-   
+
    return response.items;
   },
 
@@ -74,8 +74,8 @@ define(
        sortOrder,
        profile = ProfileModel.getInstance(),
        contactIsBuyer = profile.get('contactIsBuyer');
-   
-   if (!contactIsBuyer) {
+       var level=profile.get('level');
+   if (!contactIsBuyer||level=="bronze") {
     this.trigger('reset');
     return;
    }

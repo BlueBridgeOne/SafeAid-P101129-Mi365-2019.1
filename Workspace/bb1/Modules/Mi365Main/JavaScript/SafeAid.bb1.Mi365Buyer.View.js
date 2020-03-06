@@ -229,8 +229,9 @@ define('SafeAid.bb1.Mi365Buyer.View', [
 		//@method getContext @return SafeAid.bb1.Mi365Main.View.Context
 		,
 		getContext: function getContext() {
+			var allowPlatinum=this.overview.get("level")=="platinum";
 			var allowEdit = this.overview.get("custentity_bb1_sca_alloweditbuyers") == "T";
-			var allowEditBudgets = this.overview.get("custentity_bb1_sca_alloweditbudgets") == "T";
+			var allowEditBudgets = this.overview.get("custentity_bb1_sca_alloweditbudgets") == "T"&&allowPlatinum;
 			var newFields = [];
 			//console.log(this.fields);
 			

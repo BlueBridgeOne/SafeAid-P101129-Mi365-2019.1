@@ -95,7 +95,8 @@ define('SafeAid.bb1.Mi365StartTransfer.View', [
 		//@method getContext @return SafeAid.bb1.Mi365Main.View.Context
 		,
 		getContext: function getContext() {
-			var allowTransferStock=this.overview.get("custentity_bb1_sca_allowtransferstock")=="T";
+			var allowPlatinum=this.overview.get("level")=="platinum";
+			var allowTransferStock=this.overview.get("custentity_bb1_sca_allowtransferstock")=="T"&&allowPlatinum;
 
 			//{id:"custentity_bb1_sca_allowviewreports",label:"Allow View Reports",type:"checkbox"};
 			var newFields = [],

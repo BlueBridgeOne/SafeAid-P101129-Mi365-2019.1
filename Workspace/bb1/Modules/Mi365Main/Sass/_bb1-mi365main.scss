@@ -138,6 +138,12 @@
 a[data-id="mi365"] {
 	display: none;
 }
+a[data-id="billing"] {
+	display: none;
+}
+a[data-id="quotes"] {
+	display: none;
+}
 
 .mi365-status-success {
 	color: $sc-color-success;
