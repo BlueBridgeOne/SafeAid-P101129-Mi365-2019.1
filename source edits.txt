@@ -6,7 +6,7 @@ getVisibleOptions: function getVisibleOptions()
 					.filter(function(option)
 					{
 														
-								return option.get('cartOptionId')!="custcol_bb1_sca_area"&&option.get('cartOptionId')!="custcol_bb1_sca_wearer";
+								return option.get('cartOptionId')!="custcol_bb1_sca_area"&&option.get('cartOptionId')!="custcol_bb1_sca_wearer"&&option.get('cartOptionId')!="cseg_bb1_brand";
 
 					});
 			return _.sortBy(collection, function(option){return option.get('index');});

@@ -22,7 +22,8 @@ define(
     'Backbone',
     'underscore',
     'Handlebars',
-    'Item.KeyMapping'
+    'Item.KeyMapping',
+    'Item.Model'
   ],
   function (
     ProductDetailsMultiBuyView,
@@ -45,11 +46,31 @@ define(
     Backbone,
     _,
     Handlebars,
-    ItemKeyMapping
+    ItemKeyMapping,
+    ItemModel
   ) {
     'use strict';
 
+
+    _.extend(ItemModel.prototype, {
+
+      getStockInfo: _.wrap(ItemModel.prototype.getStockInfo, function (getStockInfo, options) {
+        var res = getStockInfo.apply(this, _.rest(arguments));
+        //res.allowView = this.overview.get("custentity_bb1_sca_allowviewbalance") == "T";
+        if (this.get("itemtype") == "Assembly") {
+          res.stockMessageClass = "stock-message-assembly";
+        } else {
+          res.stockMessageClass = "";
+        }
+        return res;
+      })
+    });
+
+
+
+
     function itemIsMultiBuyMatrix(itemModel) {
+      
 
       if (itemModel instanceof ProductModel) {
 
@@ -58,7 +79,7 @@ define(
         var availableMatrixOptions = _.map(itemModel.get('options').where({
           isMatrixDimension: true
         }), function (matrixOption) {
-          
+
           return matrixOption.get('cartOptionId');
         });
 
@@ -189,13 +210,22 @@ define(
       res._showInStockMessage = function () {
         return true;
       };
+
+      res._inStockMessage = function (item) {
+        if (item && item.get("itemtype") == "Assembly") {
+          return _('Logoed to Order – Usual lead times apply').translate();
+        } else {
+          return _('In Stock').translate();
+        }
+      }
+
       return res;
     });
 
     return {
 
       mountToApp: function (container) {
-        
+
         var productDetailComponent = container.getComponent('PDP');
 
         productDetailComponent.addChildViews(productDetailComponent.PDP_FULL_VIEW, {

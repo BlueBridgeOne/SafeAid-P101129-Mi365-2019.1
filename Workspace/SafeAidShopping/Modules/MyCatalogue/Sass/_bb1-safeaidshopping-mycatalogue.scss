@@ -52,6 +52,7 @@
 
 .mycatalogue-list-item-actions {
  @extend .col-sm-2;
+ align-self: flex-start;
 }
 
 .mycatalogue-list-items-table{
@@ -184,4 +185,17 @@
  .global-views-star-rating-area {
   margin-bottom:$sc-margin-lv2;
  }
+}
+
+.stock-message-assembly{
+  color: $sc-color-warning;
+	background-color: $sc-color-warning-background;
+  border: 1px solid $sc-color-warning-border;
+  
+  .product-line-stock-icon-in{
+    background-color:$sc-color-warning;
+  }
+  i{
+    @extend %fa-wrench;
+  }
 }

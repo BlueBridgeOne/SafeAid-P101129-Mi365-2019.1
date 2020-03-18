@@ -27,7 +27,8 @@ define(
     'Backbone',
     'underscore',
     'jQuery',
-    'Utils'
+    'Utils',
+    'Profile.Model'
   ],
   function (
     MyCatalogueItemCellView,
@@ -55,7 +56,8 @@ define(
     Backbone,
     _,
     jQuery,
-    Utils
+    Utils,
+    ProfileModel
   ) {
     'use strict';
 
@@ -271,6 +273,14 @@ define(
 
       showAreasWearersSelectModal: function () {
         var promise = jQuery.Deferred();
+
+        var profile = ProfileModel.getInstance()
+        var level=profile.get("level");
+        if(level=="silver"){
+        setTimeout(function(){ promise.resolve(); }, 100);
+        return promise;
+        }
+
         var model = new CartAddToCartAreaWearerModel();
         var view = new CartAddToCartAreaWearerSelectView({
           application: this.application,

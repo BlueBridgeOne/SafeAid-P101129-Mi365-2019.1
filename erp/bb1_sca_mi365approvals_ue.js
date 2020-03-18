@@ -26,9 +26,9 @@
  * @NScriptType UserEventScript
  * @NModuleScope SameAccount
  */
-define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format'],
+define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N/config','N/url','N/email'],
 
-    function (record, search, runtime, serverWidget, format) {
+    function (record, search, runtime, serverWidget, format, config,url,email) {
 
         /**
          * Function definition to be triggered before record is loaded.
@@ -269,7 +269,14 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format'],
                         value: true,
                         ignoreFieldChange: true
                     });
-                    
+
+
+                    var contact = runtime.getCurrentUser().contact;
+                    currentRecord.setValue({
+                        fieldId: 'custbody_bb1_buyer',
+                        value: contact,
+                        ignoreFieldChange: true
+                    });
                 }
             }
         }
@@ -373,7 +380,7 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format'],
                 var hwarnings = {};
                 if (buyer) {
 
-                    if (testing || (isTrue(buyer.custentity_bb1_sca_usebudget)&&buyer.custentity_bb1_sca_currentspend + summary.total > buyer.custentity_bb1_sca_budget)) {
+                    if (testing || (isTrue(buyer.custentity_bb1_sca_usebudget) && buyer.custentity_bb1_sca_currentspend + summary.total > buyer.custentity_bb1_sca_budget)) {
                         warnings.push({
                             message: "WARNING_BUYER_BUDGET",
                             values: {
@@ -393,7 +400,7 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format'],
                     check = areaChecks[i];
                     area = areaDetails[check.area.value];
                     check.area.text = area.name; //Fix missing value
-                    if (testing || (isTrue(area.custrecord_bb1_sca_area_usebudget)&&area.custrecord_bb1_sca_area_currentspend + summary.total > area.custrecord_bb1_sca_area_budget)) {
+                    if (testing || (isTrue(area.custrecord_bb1_sca_area_usebudget) && area.custrecord_bb1_sca_area_currentspend + summary.total > area.custrecord_bb1_sca_area_budget)) {
                         if (checkDuplicateWarning(hwarnings, "WARNING_AREA_BUDGET," + check.area.value)) {
                             warnings.push({
                                 message: "WARNING_AREA_BUDGET",
@@ -410,7 +417,7 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format'],
                     check = wearerChecks[i];
                     wearer = wearerDetails[check.wearer.value];
                     check.wearer.text = wearer.name; //Fix missing value
-                    if (testing || (isTrue(wearer.custrecord_bb1_sca_wearer_usebudget)&&wearer.custrecord_bb1_sca_wearer_currentspend + summary.total > wearer.custrecord_bb1_sca_wearer_budget)) {
+                    if (testing || (isTrue(wearer.custrecord_bb1_sca_wearer_usebudget) && wearer.custrecord_bb1_sca_wearer_currentspend + summary.total > wearer.custrecord_bb1_sca_wearer_budget)) {
                         if (checkDuplicateWarning(hwarnings, "WARNING_WEARER_BUDGET," + check.wearer.value)) {
                             warnings.push({
                                 message: "WARNING_WEARER_BUDGET",
@@ -506,7 +513,7 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format'],
 
                 updateMi365(scriptContext, contact, buyer, summary, items, areaDetails, wearerDetails, ruleDetails);
 
-                sendAlerts(scriptContext, areas);
+                sendAlerts(scriptContext, areas,currentRecord.type, currentRecord.id);
 
             } catch (err) {
                 var result = {
@@ -519,28 +526,33 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format'],
 
         }
         //send alerts to applicable buyers that this order needs to be approved.
-        function sendAlerts(scriptContext, areas) {
-
+        function sendAlerts(scriptContext, areas,transactiontype,transactionid) {
             if (scriptContext.type == scriptContext.UserEventType.CREATE) {
+
+                var customer = runtime.getCurrentUser().id;
+
+                var filter = [
+                    ["custentity_bb1_sca_buyer", "is", "T"],
+                    "AND",
+                    ["custentity_bb1_sca_allowapproveorders", "is", "T"],
+                    "AND",
+                    ["company", "is", customer]
+                ];
+                if (areas && areas.length > 0) {
+                    filter.push("AND");
+                    filter.push(["custentity_bb1_sca_allowviewareas", "anyof", areas]);
+                }
                 var contactSearchObj = search.create({
                     type: "contact",
-                    filters: [
-                        ["custentity_bb1_sca_buyer", "is", "T"],
-                        "AND",
-                        ["custentity_bb1_sca_allowapproveorders", "is", "T"],
-                        "AND",
-                        ["custentity_bb1_sca_allowviewareas", "anyof", areas]
-                    ],
+                    filters: filter,
                     columns: [
                         search.createColumn({
                             name: "entityid"
                         })
                     ]
                 });
-
+var subject="An order requires approval.";
                 contactSearchObj.run().each(function (result) {
-
-
 
                     var newAlert = record.create({
                         type: "customrecord_bb1_sca_alert",
@@ -548,7 +560,7 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format'],
                     });
                     newAlert.setValue({
                         fieldId: 'custrecord_bb1_sca_alert_message',
-                        value: "An order requires approval.",
+                        value: subject,
                         ignoreFieldChange: true
                     });
                     newAlert.setValue({
@@ -562,6 +574,24 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format'],
                         ignoreFieldChange: true
                     });
                     newAlert.save();
+
+                    var params = [];
+
+                    var sourl ="https://checkout.eu2.netsuite.com/c.5474721/s/my_account.ssp?n=2&fragment=purchases#purchases/view/"+transactiontype+"/"+transactionid
+                    //  url.resolveRecord({
+                    //     recordType: transactiontype,
+                    //     recordId: transactionid,
+                    //     isEditMode: false
+                    // });
+
+                      params.push({
+                        name: transactiontype,
+                        value: "View in My Account",
+                        href: sourl
+                      });
+
+var from=8661;//sales
+                    emailAlert(from,result.id,"title",subject,null,params);
 
                     return true;
                 });
@@ -757,9 +787,10 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format'],
                 return true;
             }
         }
-        function isTrue(value){
-            return value =="T"||value===true;
-           }
+
+        function isTrue(value) {
+            return value == "T" || value === true;
+        }
 
         function getWearers(wearers) {
             if (wearers.length == 0) {
@@ -922,7 +953,7 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format'],
             var buyer = search.lookupFields({
                 type: search.Type.CONTACT,
                 id: contact,
-                columns: ['custentity_bb1_sca_usebudget','custentity_bb1_sca_budget', 'custentity_bb1_sca_duration', 'custentity_bb1_sca_currentspend', 'custentity_bb1_sca_startdate']
+                columns: ['custentity_bb1_sca_usebudget', 'custentity_bb1_sca_budget', 'custentity_bb1_sca_duration', 'custentity_bb1_sca_currentspend', 'custentity_bb1_sca_startdate']
             });
             if (buyer) {
                 //log.debug("Buyer Search res", JSON.stringify(buyer));
@@ -1066,15 +1097,15 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format'],
                     fieldId: 'item',
                     line: i
                 });
-                try{
-                item.displayname = currentRecord.getSublistText({
-                    sublistId: 'item',
-                    fieldId: 'item',
-                    line: i
-                });
-            }catch(err){
-                item.displayname = "Product #"+item.internalid;
-            }
+                try {
+                    item.displayname = currentRecord.getSublistText({
+                        sublistId: 'item',
+                        fieldId: 'item',
+                        line: i
+                    });
+                } catch (err) {
+                    item.displayname = "Product #" + item.internalid;
+                }
                 item.quantity = currentRecord.getSublistValue({
                     sublistId: 'item',
                     fieldId: 'quantity',
@@ -1167,6 +1198,72 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format'],
                 type: format.Type.DATE
             });
         }
+
+
+        /* BB1 G Truslove Oct 2017 - reusable functions */
+
+        function emailAlert(from, to, title, subject, message, params, reply, attachments) { //BB1 G truslove - email an internal alert
+            var body = "";
+            var companyinformation = config.load({
+                type: config.Type.COMPANY_INFORMATION
+            });
+            var fromemail = companyinformation.getValue({
+                fieldId: 'email'
+            });
+            if (fromemail && fromemail.length > 0) {
+                var companyname = companyinformation.getValue({
+                    fieldId: 'companyname'
+                });
+
+                body = "<html><body>";
+                body += "<div style=\"margin:0 15px\" >";
+                body += "<img src=\"http://safeaid.bb1.website/s/extensions/SuiteCommerce/SafeAid_Base_Theme/19.1.0/img/Logo.png\" alt=\"Safeaid\" />";
+                
+
+                if (subject) {
+                    body += "<h3 style=\"color:#333;\">" + subject + "</h3>";
+                }
+                if (message) {
+                    body += "<p style=\"color:#333;\">" + message.split("\n").join("<br />") + "</p>";
+                }
+                if (reply) {
+                    body += "<p><a href=\"" + reply + "\" style=\"text-decoration:none;color:#028ccf;\">Reply in NetSuite</a></p>";
+                }
+                body += "</div>";
+                if (params && params.length > 0) {
+                    body += "<hr style=\"margin:30x 0px;background-color:#EEE;height:1px;border:0;\" />";
+                    body += "<div style=\"margin:0 15px\" ><table><tr>";
+                    for (var i = 0; i < params.length; i++) {
+                        if (i > 0 && i % 2 == 0) {
+                            body += "</tr><tr>";
+                        }
+                        if (params[i].value) {
+                            if (params[i].href) {
+                                body += "<td style=\"color:#333;padding-right:30px;\"><span style=\"color:#888;\">" + params[i].name + ":</span> <a href=\"" + params[i].href + "\" style=\"text-decoration:none;color:#028ccf;\">" + params[i].value + "</a></td>";
+                            } else {
+                                body += "<td style=\"color:#333;padding-right:30px;\"><span style=\"color:#888;\">" + params[i].name + ":</span> " + params[i].value + "</td>";
+                            }
+                        }
+                    }
+                    body += "</tr></table></div>";
+                }
+                body += "<hr style=\"margin:30x 0px;background-color:#EEE;height:1px;border:0;\" />";
+                body += "<div style=\"margin:0 15px\" >";
+                //body += "<p style=\"color:#888;\">© " + companyname + " " + (new Date()).getFullYear() + "</p>";
+                body += "<p style=\"color:#CCC;\">Do not reply directly to this message.</p>";
+                body += "</div>";
+                body += "</body></html>";
+
+                email.send({
+                    author: from,
+                    recipients: to,
+                    subject: 'Website Notification | ' + title,
+                    body: body,
+                    attachments: attachments
+                });
+            }
+        }
+
 
 
         return {

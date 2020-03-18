@@ -1,15 +1,46 @@
 {{#if isMultiBuy}}
 <div class="product-details-multibuy-container">
  <div class="product-details-multibuy-quantities">
+<!--new version -->
+
+{{#each multiBuyOptions}}
+<div class="product-details-multibuy-flex">
+<span class="product-details-multibuy-color2 swatch-{{makeSafe colourLabel}}">
+  {{colourLabel}}
+</span>
+<span class="product-details-multibuy-cell">
+  <span class="product-details-multibuy-cell-size">Size</span>
+  
+    {{#if showLength}}
+    <span class="product-details-multibuy-cell-length">Length</span>
+    {{/if}}
+</span>
+{{#each sizeOptions}}
+<span class="product-details-multibuy-cell">
+  <span class="product-details-multibuy-cell-size">{{sizeLabel}}</span>
+</span>
+ {{/each}}
+</div>
+{{/each}}
+
+   <!--old version -->
   <table class="product-details-multibuy-quantity-table-desktop">
   {{#each multiBuyOptions}}
    <tr data-multibuy-colour="{{colourId}}">
-    <td {{#if showStock}}rowspan="3"{{else}}rowspan="2"{{/if}} class="product-details-multibuy-color swatch-{{makeSafe colourLabel}}">{{colourLabel}}</td>
+    <td rowspan="{{height}}" class="product-details-multibuy-color swatch-{{makeSafe colourLabel}}">{{colourLabel}}</td>
     <th>Size</th>
     {{#each sizeOptions}}
      <th>{{sizeLabel}}</th>
     {{/each}}
    </tr>
+   {{#if showLength}}
+   <tr>
+   <th>Length</th>
+   {{#each sizeOptions}}
+    <th>{{lengthLabel}}</th>
+   {{/each}}
+   </tr>
+   {{/if}}
    {{#if showStock}}
    <tr>
    <td>Stock</td>

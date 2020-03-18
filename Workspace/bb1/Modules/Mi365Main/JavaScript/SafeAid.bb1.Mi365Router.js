@@ -88,12 +88,13 @@ define('SafeAid.bb1.Mi365Router', [
 //console.log("Mi365Overview",Mi365Overview);
             ProfileModel.getPromise().done(function () {
                 Mi365Overview.done(function (overview) { //show Mi365 if silver or better.
-                    console.log(overview);
+                    console.log("Mi365Overview",overview);
                     var level = overview.get("level");
                     
                     if (level && (level == "gold"|| level == "platinum")) {
                         $("<style>").text("a[data-id='mi365']{ display:block!important; }").appendTo("head");
-                    }else if (level && (level == "silver"||level == "gold"|| level == "platinum")) {
+                    }
+                    if (level && (level == "silver"||level == "gold"|| level == "platinum")) {
                         $("<style>").text("a[data-id='billing'],a[data-id='quotes']{ display:block!important; }").appendTo("head");
 
                     }

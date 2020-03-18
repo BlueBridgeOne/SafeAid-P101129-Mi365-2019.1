@@ -11,7 +11,7 @@
 			</p>
 		{{/if}}
 		{{#if showInStockMessage}}
-			<p class="product-line-stock-msg-in">
+			<p class="product-line-stock-msg-in {{stockInfo.stockMessageClass}}">
 				<span class="product-line-stock-icon-in">
 					<i></i>
 				</span>

@@ -62,7 +62,7 @@
 		</div>
 		<div class="address-edit-fields-group-form-controls" data-validation="control">
 			<input type="checkbox" class="address-edit-fields-group-input" id="custbody_bb1_sca_splitwearers"
-				name="custbody_bb1_sca_splitwearers" {{#if model.options.custbody_bb1_sca_splitwearers}}checked{{/if}} value="T" />
+				name="custbody_bb1_sca_splitwearers" {{#ifEquals model.options.custbody_bb1_sca_splitwearers 'T'}}checked{{/ifEquals}} value="T" />
 				{{translate 'Split deliveries to wearers into separate packages.'}}
 		</div>
 	</div>

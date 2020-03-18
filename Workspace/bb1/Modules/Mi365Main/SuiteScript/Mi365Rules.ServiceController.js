@@ -198,7 +198,7 @@ define(
 								data.custrecord_bb1_sca_rule_wearer.choice = [{
 									text: ""
 								}];
-								if (data.custrecord_bb1_sca_rule_area.value) {
+								if (data.custrecord_bb1_sca_rule_area&&data.custrecord_bb1_sca_rule_area.value) {
 									filter = [
 										["isinactive", "is", "F"],
 										"AND",

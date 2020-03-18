@@ -59,6 +59,45 @@
 
 }
 
+.product-details-multibuy-color2 {
+    border-right: 1px solid $sc-color-theme-border;
+    background-color: $sc-color-theme-border-light;
+    border-bottom-style: none !important;
+    min-width: 100px;
+    width: auto;
+    text-align: center !important;
+    font-size: $sc-font-size-s;
+    padding: $sc-padding-lv5 $sc-padding-lv2;
+    display:block;
+    margin-bottom: $sc-margin-lv3;
+    min-width: 100px;
+    width: auto;
+    float: left;
+}
+
+.product-details-multibuy-cell{
+    background-color: $sc-color-theme-border-light;
+    display: block;
+    text-align: center !important;
+    font-size: $sc-font-size-s;
+float: left;
+margin-bottom: $sc-margin-lv3;
+color:$sc-color-copy-light;
+}
+.product-details-multibuy-cell-size{
+    padding:$sc-padding-lv2;
+    display: block;
+    width:auto;
+}
+.product-details-multibuy-cell-length{
+    padding:$sc-padding-lv2;
+    display: block;
+    width:auto;
+}
+.product-details-multibuy-flex{
+    display:flex;
+}
+
 .product-details-multibuy-spacer {
     background-color: transparent !important;
 
@@ -66,7 +105,7 @@
         height: 15px !important;
         padding: 0 !important;
         font-size: 1px;
-        border-bottom-style: none!important;
+        border-bottom-style: none !important;
     }
 }
 
@@ -187,30 +226,37 @@
     background-color: navy;
     color: #EEE;
 }
+
 .swatch-BLUE {
     background-color: blue;
     color: #EEE;
 }
+
 .swatch-GREEN {
     background-color: green;
     color: #EEE;
 }
+
 .swatch-TAN {
     background-color: tan;
     color: #EEE;
 }
+
 .swatch-HONEY {
     background-color: #E6A54B;
     color: #EEE;
 }
+
 .swatch-ASH-GREY {
     background-color: #E5E5E5;
     color: #333;
 }
+
 .swatch-GREY {
     background-color: #888888;
     color: #333;
 }
+
 .swatch-HEATHER-GREY {
     background-color: #CFD2D7;
     color: #333;
@@ -230,6 +276,7 @@
     background-color: #093624;
     color: #EEE;
 }
+
 .swatch-EMERALD {
     background-color: #00736C;
     color: #EEE;
@@ -284,38 +331,47 @@
     background-color: orange;
     color: #EEE;
 }
+
 .swatch-LIME {
     background-color: limegreen;
     color: #EEE;
 }
+
 .swatch-SPRUCE-GREEN {
     background-color: #81A5A5;
     color: #EEE;
 }
+
 .swatch-AZTEC-BLUE {
     background-color: #2668A7;
     color: #EEE;
 }
+
 .swatch-OXFORD-BLUE {
     background-color: #BBD6EC;
     color: #EEE;
 }
+
 .swatch-OXFORD-SILVER {
     background-color: silver;
     color: #EEE;
 }
+
 .swatch-GOLD {
     background-color: gold;
     color: #333;
 }
+
 .swatch-MAROON {
     background-color: maroon;
     color: #EEE;
 }
+
 .swatch-OCEAN-BLUE {
     background-color: #0077BE;
     color: #EEE;
 }
+
 .swatch-OCEAN-TURQUOISE {
     background-color: turquoise;
     color: #EEE;
@@ -326,56 +382,67 @@
     background: linear-gradient(160deg, #333333 66%, #999999 68%) !important;
     color: #EEE;
 }
+
 .swatch-BLACK-LIME {
     background: #333333;
     background: linear-gradient(160deg, #333333 66%, limegreen 68%) !important;
     color: #EEE;
 }
+
 .swatch-BLACK-ORANGE {
     background: #333333;
     background: linear-gradient(160deg, #333333 66%, orange 68%) !important;
     color: #EEE;
 }
+
 .swatch-NAVY-RED {
     background: #333333;
     background: linear-gradient(160deg, navy 66%, red 68%) !important;
     color: #EEE;
 }
+
 .swatch-NAVY-ROYAL-BLUE {
     background: #333333;
     background: linear-gradient(160deg, navy 66%, royalblue 68%) !important;
     color: #EEE;
 }
+
 .swatch-NAVY-SKY-BLUE {
     background: #333333;
     background: linear-gradient(160deg, navy 66%, skyblue 68%) !important;
     color: #EEE;
 }
+
 .swatch-NAVY-WHITE {
     background: #333333;
     background: linear-gradient(160deg, navy 66%, #FEFEFE 68%) !important;
     color: #EEE;
 }
+
 .swatch-RED-WHITE {
     background: #333333;
     background: linear-gradient(160deg, red 66%, #FEFEFE 68%) !important;
     color: #EEE;
 }
+
 .swatch-GREEN-ORANGE {
     background: #333333;
     background: linear-gradient(160deg, green 66%, orange 68%) !important;
     color: #EEE;
 }
+
 .swatch-YELLOW-NAVY {
     background: #333333;
     background: linear-gradient(160deg, yellow 66%, navy 68%) !important;
     color: #333;
 }
+
 .swatch-YELLOW-BLACK {
     background: #333333;
     background: linear-gradient(160deg, yellow 66%, #333 68%) !important;
     color: #333;
 }
+
 .swatch-BLUE-BLACK {
     background: #333333;
     background: linear-gradient(160deg, blue 66%, #333 68%) !important;

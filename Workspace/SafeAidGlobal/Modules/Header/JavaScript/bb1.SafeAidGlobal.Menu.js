@@ -20,11 +20,10 @@ define(
             mountToApp: function (container) {
 
                 var layout = container.getComponent('Layout'),
-                    profile = ProfileModel.getInstance(),
-                    contactIsBuyer = profile.get('contactIsBuyer');
+                    profile = ProfileModel.getInstance();
                     
 var level=profile.get('level');
-                if (contactIsBuyer&&(level=="silver"||level=="gold"||level=="platinum")) {
+                if ((level=="silver"||level=="gold"||level=="platinum")) {
 
                     var customerShowStandardItems = profile.get('customerShowStandardItems'),
                         contactOverrideCustomerItems = profile.get('contactOverrideCustomerItems'),

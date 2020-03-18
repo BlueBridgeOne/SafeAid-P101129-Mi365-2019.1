@@ -34,7 +34,7 @@
 							<tr>
 								<th class="return-authorization-confirmation-headers-image"></th>
 								<th class="return-authorization-confirmation-headers-product">{{translate 'Item'}}</th>
-								<th class="return-authorization-confirmation-headers-amount">{{translate 'Amount'}}</th>
+								<!--<th class="return-authorization-confirmation-headers-amount">{{translate 'Amount'}}</th>-->
 								<th class="return-authorization-confirmation-headers-quantity">{{translate 'Qty to return'}}</th>
 								<th class="return-authorization-confirmation-headers-reason">{{translate 'Reason for Return'}}</th>
 							</tr>
