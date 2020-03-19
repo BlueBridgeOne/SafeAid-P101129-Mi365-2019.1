@@ -51,7 +51,7 @@ define(
     
     this.application.getLayout().closeModal().done(function() {
      jQuery('html,body').animate({
-      scrollTop: jQuery('[data-multibuy-colour="' + colourId + '"]').offset().top
+      scrollTop: jQuery('[data-multibuy-colour="' + colourId + '"]').offset().top-10
      }, 'fast');
     });
    },

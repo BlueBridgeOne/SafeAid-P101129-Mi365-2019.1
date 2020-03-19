@@ -39,6 +39,7 @@ define('SafeAid.bb1.Mi365Alert.View', [
 			id: "custrecord_bb1_sca_alert_transaction",
 			label: "Transaction",
 			type: "record",
+			url:"#purchases/view/salesorder/",
 			list: false
 		}],
 		initialize: function (options) {

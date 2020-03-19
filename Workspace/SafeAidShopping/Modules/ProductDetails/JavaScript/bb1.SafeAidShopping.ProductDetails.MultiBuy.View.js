@@ -57,6 +57,33 @@ define(
         this.application = options.application;
         this.modelToUpdate = options.modelToUpdate || options.model;
         this.cart = LiveOrderModel.getInstance();
+
+        $(document).on('scroll', function () {
+
+          var viewportHeight = $(window).height();
+          var scrollTop = $(document).scrollTop();
+          var actions = jQuery(".mycatalogue-list-item-actions,.product-details-multibuy-actions");
+
+
+          var actionsBottom = jQuery("footer");
+          
+          if (actionsBottom.offset() && actions.offset()) {
+            var actionsBottomTop = actionsBottom.offset().top+40;
+            var actionsBottom = actions.offset().top + actions.height();
+
+            //console.log("scroll "+(scrollTop+viewportHeight)+" "+actionsBottomTop);
+            if ((scrollTop + viewportHeight) > actionsBottomTop) {
+              actions.css("bottom", (scrollTop + viewportHeight) - actionsBottomTop);
+            } else {
+              actions.css("bottom", 0);
+            }
+          }
+        });
+
+      },
+      destroy: function () {
+        console.log("destroy");
+        $(document).off('scroll');
       },
 
       childViews: {
@@ -71,7 +98,7 @@ define(
       },
 
       getOptionsForMatrixChild: function (matrixChildId) {
-        console.log("getOptionsForMatrixChild","?"+matrixChildId);
+
         var matrixChildOptions = {};
         var matrixChildren = this.model.get('item').get('_matrixChilds') || [];
 
@@ -230,7 +257,7 @@ define(
       },
 
       setOption: function (lineModel, option_cart_id, value) {
-console.log("setOption "+option_cart_id+" "+value);
+        console.log("setOption " + option_cart_id + " " + value);
         var self = this,
           selected_option = lineModel.get('options').findWhere({
             cartOptionId: option_cart_id
@@ -311,7 +338,7 @@ console.log("setOption "+option_cart_id+" "+value);
           sizeOptions = ladiesWearOptions;
           sizeId = "custitem_bb1_matrix_ladieswear";
         }
-        console.log("item", item.get("storedisplayname2"));
+        //console.log("item", item.get("storedisplayname2"));
         // console.log("itemOptions", itemOptions);
         // console.log("sizeOptions", sizeOptions);
         if (!sizeOptions) {
@@ -325,7 +352,9 @@ console.log("setOption "+option_cart_id+" "+value);
         if (colourOptions && colourOptions.values && sizeOptions && sizeOptions.values) {
           _.each(colourOptions.get('values'), function (colourOption) {
             if (colourOption.internalid) {
-              var multiBuyOption = {height:2};
+              var multiBuyOption = {
+                height: 2
+              };
               multiBuyOption.colourId = colourOption.internalid;
               multiBuyOption.colourLabel = colourOption.label;
               multiBuyOption.sizeOptions = [];
@@ -339,30 +368,30 @@ console.log("setOption "+option_cart_id+" "+value);
 
                   //If lengths are required, add a second loop
                   if (lengthOptions && lengthOptions.values) {
-                    multiBuyOption.showLength=true;
-                    
+                    multiBuyOption.showLength = true;
+
                     _.each(lengthOptions.get("values"), function (lengthOption) {
                       if (lengthOption.internalid) {
                         var childOptions = {
                           custitem_bb1_matrix_colour: colourOption.label
                         };
                         childOptions["custitem_bb1_matrix_length"] = lengthOption.label;
-                          childOptions[sizeId] = sizeOption.label;
-                          
-                          //console.log("childOptions",childOptions);
+                        childOptions[sizeId] = sizeOption.label;
+
+                        //console.log("childOptions",childOptions);
                         var matrixChilds = model.getSelectedMatrixChilds(childOptions);
                         var matrixChild = matrixChilds.length ? matrixChilds[0] : null;
-    
-    if(matrixChild){
-                        multiBuyOption.sizeOptions.push({
-                          sizeId: sizeOption.internalid,
-                          sizeLabel: sizeOption.label,
-                          lengthId: lengthOption.internalid,
-                          lengthLabel: lengthOption.label,
-                          itemId: matrixChild && matrixChild.get('internalid') || '',
-                          available: matrixChild && matrixChild.getStockInfo().stock || 0
-                        });
-                      }
+
+                        if (matrixChild) {
+                          multiBuyOption.sizeOptions.push({
+                            sizeId: sizeOption.internalid,
+                            sizeLabel: sizeOption.label,
+                            lengthId: lengthOption.internalid,
+                            lengthLabel: lengthOption.label,
+                            itemId: matrixChild && matrixChild.get('internalid') || '',
+                            available: matrixChild && matrixChild.getStockInfo().stock || 0
+                          });
+                        }
                       }
                     });
 
@@ -386,8 +415,8 @@ console.log("setOption "+option_cart_id+" "+value);
                 }
               });
               multiBuyOption.mobileRowSpan = multiBuyOption.sizeOptions.length + 1;
-              
-              
+
+
               //Temp Hide all stock for now.
               multiBuyOption.showStock = false;
               // for(var i=0;i<multiBuyOption.sizeOptions.length;i++){

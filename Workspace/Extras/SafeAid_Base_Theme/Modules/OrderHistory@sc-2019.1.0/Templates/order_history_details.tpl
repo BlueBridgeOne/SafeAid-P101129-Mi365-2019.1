@@ -35,6 +35,11 @@
 						{{translate '<span class="order-history-details-header-purchase-order-info-purchase-order-number-label">Purchase Order Number: </span> <span class="order-history-details-header-purchase-order-number">$(0)</span>' model.purchasenumber}}
 					</p>
 				{{/if}}
+				{{#if model.options.custbody_bb1_buyer}}
+					<p class="order-history-details-header-purchase-order-number-info">
+						<span class="order-history-details-header-purchase-order-info-purchase-order-number-label">{{translate 'Buyer:'}} </span> <span class="order-history-details-header-purchase-order-number"><a href="#Mi365/buyer/{{model.options.custbody_bb1_buyer}}">View <i class="mi365-buttonicon-buyer"></i> #{{model.options.custbody_bb1_buyer}}</a></span>
+					</p>
+				{{/if}}
 				{{#if showQuoteDetail}}
 				<p class="order-history-details-header-quote-info">
 					{{translate '<span class="order-history-details-header-quote-info-quote-label">Created from: </span> <a href="$(0)" class="order-history-details-header-date">$(1)</a>'quoteURL quoteName}}

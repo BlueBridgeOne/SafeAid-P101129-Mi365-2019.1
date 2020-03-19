@@ -51,6 +51,16 @@ define(
   ) {
     'use strict';
 
+    if (!String.prototype.trim) {
+      (function () {
+        // Make sure we trim BOM and NBSP
+        var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+        String.prototype.trim = function () {
+          return this.replace(rtrim, '');
+        };
+      })();
+    }
+
 
     _.extend(ItemModel.prototype, {
 
@@ -70,7 +80,6 @@ define(
 
 
     function itemIsMultiBuyMatrix(itemModel) {
-      
 
       if (itemModel instanceof ProductModel) {
 
@@ -98,7 +107,7 @@ define(
           }
         }
 
-        if (found != 2 || !foundColour) {
+        if (found < 2 || !foundColour) {
           return false;
         }
 
@@ -150,13 +159,27 @@ define(
           var contactFacetUrlValue = profile.get('contactName');
           var itemFacetUrlValue = (item.get('custitem_bb1_sca_buyers') || '').split(',');
 
-          hasBuyer = itemFacetUrlValue.indexOf(contactFacetUrlValue) > -1;
+          if (customerFacetUrlValue) {
+            for (var i = 0; i < itemFacetUrlValue.length; i++) {
+              if (itemFacetUrlValue[i].trim() == contactFacetUrlValue.trim()) {
+                hasBuyer = true;
+                break;
+              }
+            }
+          }
+
 
           var customerFacetUrlValue = profile.get('companyname');
           var itemFacetUrlValue = (item.get('custitem_bb1_sca_customers') || '').split(',');
 
-          hasCustomer = itemFacetUrlValue.indexOf(customerFacetUrlValue) > -1;
-
+          if (customerFacetUrlValue) {
+            for (var i = 0; i < itemFacetUrlValue.length; i++) {
+              if (itemFacetUrlValue[i].trim() == customerFacetUrlValue.trim()) {
+                hasCustomer = true;
+                break;
+              }
+            }
+          }
 
           if ((contactOverrideCustomerItems && hasBuyer) || (!contactOverrideCustomerItems && hasCustomer)) {
             //always show for designated items.

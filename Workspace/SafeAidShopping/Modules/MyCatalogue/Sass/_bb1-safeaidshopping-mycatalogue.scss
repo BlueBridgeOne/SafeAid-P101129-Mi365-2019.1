@@ -42,17 +42,14 @@
  }
 }
 
-.mycatalogue-list-items {
- @extend .col-sm-10;
- 
- .product-details-multibuy-quantities {
-  width: 100%;
- }
-}
 
 .mycatalogue-list-item-actions {
- @extend .col-sm-2;
- align-self: flex-start;
+ position:fixed;
+ width:auto;
+ right:$sc-margin-lv5;
+ padding-bottom:$sc-margin-lv5;
+ bottom:0;
+ z-index: 1;
 }
 
 .mycatalogue-list-items-table{

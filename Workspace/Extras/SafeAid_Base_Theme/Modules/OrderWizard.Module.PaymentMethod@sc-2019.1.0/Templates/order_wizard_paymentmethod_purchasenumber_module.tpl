@@ -4,7 +4,7 @@
 	 </h3>
 	<div class="order-wizard-paymentmethod-purchasenumber-module-row">
 		<label for="purchase-order-number" class="order-wizard-paymentmethod-purchasenumber-module-purchase-order-label">
-			{{translate 'Enter Purchase Order Number'}} <small class="mi365-information-input-required">*</small>
+			{{translate 'Enter Purchase Order Number'}} <small class="input-required">* Mandatory</small>
 		</label>
 		<input
 			type="text"

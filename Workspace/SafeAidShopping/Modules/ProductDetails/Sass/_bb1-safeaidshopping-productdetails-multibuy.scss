@@ -7,130 +7,87 @@
     }
 }
 
-.product-details-multibuy-quantities {
-    @extend .col-xs-9;
-    @extend .col-sm-10;
+.product-details-multibuy-quantities
+{
+    padding:0 $sc-padding-lv3;
 }
-
 .product-details-multibuy-actions {
-    @extend .col-xs-3;
-    @extend .col-sm-2;
+    position:fixed;
+    width:auto;
+    right:$sc-margin-lv5;
+    padding-bottom:$sc-margin-lv5;
+ bottom:0;
+    z-index: 1;
 }
 
-.product-details-multibuy-quantity-table-desktop,
-.product-details-multibuy-quantity-table-mobile {
-    >tbody>tr:nth-of-type(even) {
-        background-color: $table-bg-accent;
-    }
-
-    display: none;
-    border-collapse: collapse;
-    border-spacing: 0px;
-
-    td {
-        display: table-cell;
-        text-align: right;
-        vertical-align: middle;
-        border-bottom: 1px solid $sc-color-theme-border-light;
-
-        @media (min-width: $screen-md-min) {
-            height: 60px;
-        }
-    }
-
-    th {
-        text-align: right;
-        padding-bottom: $sc-padding-lv2;
-        padding-top: $sc-padding-lv2;
-        font-weight: normal;
-        border-bottom: 1px solid $sc-color-theme-border-light;
-        display: table-cell;
-    }
-
-}
-
-.product-details-multibuy-color {
-    border-right: 1px solid $sc-color-theme-border;
-    background-color: $sc-color-theme-border-light;
-    border-bottom-style: none !important;
-    min-width: 100px;
-    text-align: center !important;
-    font-size: $sc-font-size-s;
-
-}
 
 .product-details-multibuy-color2 {
     border-right: 1px solid $sc-color-theme-border;
     background-color: $sc-color-theme-border-light;
     border-bottom-style: none !important;
-    min-width: 100px;
+    min-width: 85px;
     width: auto;
     text-align: center !important;
     font-size: $sc-font-size-s;
     padding: $sc-padding-lv5 $sc-padding-lv2;
-    display:block;
+    display: block;
     margin-bottom: $sc-margin-lv3;
-    min-width: 100px;
     width: auto;
     float: left;
 }
 
-.product-details-multibuy-cell{
-    background-color: $sc-color-theme-border-light;
+.product-details-multibuy-cell {
+    
     display: block;
     text-align: center !important;
     font-size: $sc-font-size-s;
-float: left;
-margin-bottom: $sc-margin-lv3;
-color:$sc-color-copy-light;
+    float: left;
+    margin-bottom: $sc-margin-lv3;
+    color: $sc-color-copy-light;
+    font-size: $sc-font-size-s;
+
+    span {
+        &:nth-child(even) {
+            background: lighten($sc-color-theme-border-light, 5);
+        }
+        &:nth-child(odd) {
+            background: $sc-color-theme-border-light;
+        }
+    }
 }
-.product-details-multibuy-cell-size{
-    padding:$sc-padding-lv2;
+
+.product-details-multibuy-cell-size {
+    padding: $sc-padding-lv2;
     display: block;
-    width:auto;
+    width: auto;
+    min-width:85px;
 }
-.product-details-multibuy-cell-length{
-    padding:$sc-padding-lv2;
+
+.product-details-multibuy-cell-length {
+    padding: $sc-padding-lv2;
     display: block;
-    width:auto;
-}
-.product-details-multibuy-flex{
-    display:flex;
+    width: auto;
+    min-width:85px;
 }
 
-.product-details-multibuy-spacer {
-    background-color: transparent !important;
-
-    td {
-        height: 15px !important;
-        padding: 0 !important;
-        font-size: 1px;
-        border-bottom-style: none !important;
-    }
+.product-details-multibuy-cell-quantity {
+    padding: 2px 0;
+    display: block;
+    width: auto;
+    min-width:85px;
+}
+.product-details-multibuy-cell-quantity-title {
+    padding: $sc-padding-lv2;
+    display: block;
+    width: auto;
+    min-width:85px;
 }
 
-.product-details-multibuy-quantity-td {
-    padding-right: 2px !important;
+.product-details-multibuy-flex {
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.product-details-multibuy-quantity-table-mobile {
-    display: table;
-
-    @media (max-width: $screen-xs-max) {
-        width: 100%;
-    }
-}
-
-@media (min-width: $screen-md-min) {
-
-    .product-details-multibuy-quantity-table-desktop {
-        display: table;
-    }
-
-    .product-details-multibuy-quantity-table-mobile {
-        display: none;
-    }
-}
 
 .mycatalogue-list-item-name {
     color: $sc-color-copy;
@@ -151,11 +108,10 @@ color:$sc-color-copy-light;
 
 
 .product-details-multibuy-button-container {
-    position: sticky;
-    position: -webkit-sticky;
-    top: 70px;
-    width: 100%;
-    padding: 0;
+    
+    div{
+max-width:320px;
+    }
 }
 
 .product-details-multibuy-addtocart-button,

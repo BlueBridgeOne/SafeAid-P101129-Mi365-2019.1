@@ -602,13 +602,12 @@ var from=8661;//sales
         //We could add on approval or invoice, but just do it here, it's easier and it doesn't stop anything going through, it's just for information.
         function updateMi365(scriptContext, contact, buyer, summary, items, areaDetails, wearerDetails, ruleDetails) {
 
-            if (scriptContext.type == scriptContext.UserEventType.CREATE) {
                 //summary.total   
                 //buyer=buyer
                 //log.debug("Add to Mi365", "summary.total " + summary.total);
                 //log.debug("Add to Mi365", "buyer " + JSON.stringify(buyer));
                 //log.debug("Add to Mi365", "items " + JSON.stringify(items));
-                if (contact > 0) {
+                if (contact > 0&&scriptContext.type == scriptContext.UserEventType.CREATE) {
                     submitField("contact", contact, "custentity_bb1_sca_currentspend", buyer.custentity_bb1_sca_currentspend + summary.total, false);
                 }
                 if (items) {
@@ -622,7 +621,7 @@ var from=8661;//sales
                             if (options[j].id == "CUSTCOL_BB1_SCA_AREA") {
                                 area = areaDetails[parseInt(options[j].value)];
                                 //log.debug("Mi365 Area", options[j].value+"- items " + JSON.stringify(items[i])+" ..... "+JSON.stringify(area));
-                                if (area) {
+                                if (area&&scriptContext.type == scriptContext.UserEventType.CREATE) {
                                     submitField("customrecord_bb1_sca_area", options[j].value, "custrecord_bb1_sca_area_currentspend", area.custrecord_bb1_sca_area_currentspend + (items[i].quantity * items[i].amount), false);
 
                                     //log.debug("Mi365 Area", "area " + (area.custrecord_bb1_sca_area_currentspend + (items[i].quantity*items[i].amount)));
@@ -643,7 +642,7 @@ var from=8661;//sales
                             } else if (options[j].id == "CUSTCOL_BB1_SCA_WEARER") {
                                 wearer = wearerDetails[parseInt(options[j].value)];
                                 //log.debug("Mi365 Wearer", options[j].value+"- items " + JSON.stringify(items[i])+" ..... "+JSON.stringify(wearer));
-                                if (wearer) {
+                                if (wearer&&scriptContext.type == scriptContext.UserEventType.CREATE) {
                                     submitField("customrecord_bb1_sca_wearer", options[j].value, "custrecord_bb1_sca_wearer_currentspend", wearer.custrecord_bb1_sca_wearer_currentspend + (items[i].quantity * items[i].amount), false);
 
                                     //log.debug("Mi365 Wearer", "wearer " + (wearer.custrecord_bb1_sca_wearer_currentspend + (items[i].quantity*items[i].amount)));
@@ -665,6 +664,7 @@ var from=8661;//sales
                         if (items[i].quantityfulfilled > items[i].oldquantityfulfilled) {
 
                             var difference = items[i].quantityfulfilled - items[i].oldquantityfulfilled;
+
                             //Move some stock!
                             if (wearer) {
                                 //check if stock exists.
@@ -776,7 +776,6 @@ var from=8661;//sales
 
                 }
 
-            }
         }
 
         function checkDuplicateWarning(hwarnings, warningid) {

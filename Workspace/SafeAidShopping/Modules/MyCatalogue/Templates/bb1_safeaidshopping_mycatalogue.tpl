@@ -9,13 +9,14 @@
   <div data-view="ListHeader"></div>
 
   {{#if showItems}}
-   <div class="mycatalogue-list-items-container">
-    <div class="mycatalogue-list-items">
+  
+   <div>
+    
      
       <div class="row" data-view="Catalogue.Items">
       </div>
      
-    </div>
+    
     <div class="mycatalogue-list-item-actions">
      <div class="product-details-multibuy-button-container">
       <button type="submit" data-type="multi-buy-add-to-cart" class="product-details-multibuy-addtocart-button">
@@ -47,6 +48,7 @@
      <div data-view="GlobalViews.ShowCurrentPage"></div>
     {{/if}}
    </div>
+   
   {{/if}}
  </div>
 

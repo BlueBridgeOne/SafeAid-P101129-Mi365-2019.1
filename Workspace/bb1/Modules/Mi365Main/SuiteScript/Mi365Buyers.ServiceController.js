@@ -95,6 +95,10 @@ define(
 					label: "Allow Approve Orders",
 					type: "checkbox"
 				}, {
+					id: "custentity_bb1_sca_requiresapproval",
+					label: "Requires Approval",
+					type: "choice"
+				}, {
 					id: "custentity_bb1_sca_allowviewbalance",
 					label: "Allow View Balance",
 					type: "checkbox"
@@ -243,6 +247,17 @@ define(
 								}, {
 									value: "3",
 									text: "Per Year"
+								}];
+
+								data.custentity_bb1_sca_requiresapproval.choice = [{
+									value: "1",
+									text: "Never"
+								}, {
+									value: "2",
+									text: "For Warnings"
+								}, {
+									value: "3",
+									text: "Always"
 								}];
 
 								data.custentity_bb1_sca_allowviewareas.choice = [];

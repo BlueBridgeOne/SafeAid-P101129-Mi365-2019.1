@@ -91,10 +91,11 @@
 }
 
 .pagination-active {
-	color: $sc-color-primary;
+	background-color: $sc-color-theme-border;
+	color:white;
 	cursor: default;
 
-	&:hover{
-		color: $sc-color-primary;
+	&:hover,&:focus{
+		color:white;
 	}
 }
