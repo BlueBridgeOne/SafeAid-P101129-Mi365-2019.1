@@ -34,7 +34,6 @@
 	@include translate($sc-sidebar-size, 0);
 	height: 100%;
 	width: 100%;
-	position: fixed;
 
 	@media (min-width: $screen-md-min) {
 		@include translate(0, 0);

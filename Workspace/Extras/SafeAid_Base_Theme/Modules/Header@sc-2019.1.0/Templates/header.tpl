@@ -12,7 +12,8 @@
 
 		<div class="header-content">
 			<div class="header-logo-wrapper">
-				<div data-view="Header.Logo"></div>
+				<div data-view="Header.Logo" class="logo-block"></div>
+				<div data-view="logo" class="logo-block"></div>
 			</div>
 
 

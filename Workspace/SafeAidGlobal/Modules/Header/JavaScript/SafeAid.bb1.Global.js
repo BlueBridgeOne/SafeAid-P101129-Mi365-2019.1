@@ -2,11 +2,11 @@
 
 define(
 	'SafeAid.bb1.Global', [
-		'Handlebars', 'SafeAid.bb1.HeaderAlerts.View', 'Header.View', 'bb1.SafeAidGlobal.Menu',
+		'Handlebars', 'SafeAid.bb1.HeaderAlerts.View','SafeAid.bb1.HeaderLogo.View', 'Header.View', 'bb1.SafeAidGlobal.Menu',
 		'bb1.SafeAidShopping.Footer','Utils'
 	],
 	function (
-		Handlebars, HeaderAlertsView, Header, Menu, Footer,Utils
+		Handlebars, HeaderAlertsView,HeaderLogoView, Header, Menu, Footer,Utils
 	) {
 		'use strict';
 
@@ -54,6 +54,12 @@ define(
 				
 				Header.prototype.childViews.alerts = function () {
 					return new HeaderAlertsView({
+						application: container
+					});
+				}
+
+				Header.prototype.childViews.logo = function () {
+					return new HeaderLogoView({
 						application: container
 					});
 				}

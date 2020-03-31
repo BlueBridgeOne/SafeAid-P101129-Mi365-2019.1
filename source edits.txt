@@ -38,4 +38,9 @@ TrackingServices:
 OrderHistory.Details.View:
 
 //pending_line.set('quantity', line.get('quantitybackordered'));
+
+SC.Checkout.Starter
+
+
+if (SC.ENVIRONMENT.contextError&&(Utils.parseUrlOptions(location.search).fragment!="login-register"||SC.ENVIRONMENT.contextError.errorCode!="ERR_WS_REQUIRE_CUSTOMER_LOGIN"))
 							

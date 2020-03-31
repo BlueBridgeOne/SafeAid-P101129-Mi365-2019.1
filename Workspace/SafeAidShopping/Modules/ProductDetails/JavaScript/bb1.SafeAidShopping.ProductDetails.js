@@ -243,7 +243,6 @@ define(
       };
 
       res._showInStockMessage = function (item) {
-        console.log(item);
         var itemType = item && item.get("itemtype");
         if (itemType == "Assembly") {
           return true;

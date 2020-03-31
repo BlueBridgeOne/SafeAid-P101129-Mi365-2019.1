@@ -20,11 +20,7 @@
 									</a>
 								</li>
 
-								<li>
-									<a {{objectToAtrributes this}}>
-										{{translate 'Browse $(0)' text}}
-									</a>
-								</li>
+								
 
 								{{#each categories}}
 								<li>
@@ -42,11 +38,6 @@
 											</a>
 										</li>
 
-										<li>
-											<a {{objectToAtrributes this}}>
-												{{translate 'Browse $(0)' text}}
-											</a>
-										</li>
 
 										{{#each categories}}
 										<li>

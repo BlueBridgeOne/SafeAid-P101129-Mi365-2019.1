@@ -2,11 +2,10 @@
     "name": "SafeAidGlobal",
     "fantasyName": "SafeAid Global",
     "vendor": "bb1",
-    "version": "1.0.0",
     "type": "extension",
     "target": "SCA,SCS",
+    "version": "1.0.0",
     "description": "The global features for safeaid.",
-    "skins": [],
     "assets": {
         "img": {
             "files": [
@@ -30,6 +29,31 @@
             "Modules/Footer/Configuration/Footer.json"
         ]
     },
+    "templates": {
+        "application": {
+            "shopping": {
+                "files": [
+                    "Modules/Header/Templates/bb1_headeralerts.tpl",
+                    "Modules/Footer/Templates/bb1_safeaidshopping_footer.tpl",
+                    "Modules/Header/Templates/bb1_headerlogo.tpl"
+                ]
+            },
+            "checkout": {
+                "files": [
+                    "Modules/Header/Templates/bb1_headeralerts.tpl",
+                    "Modules/Footer/Templates/bb1_safeaidshopping_footer.tpl",
+                    "Modules/Header/Templates/bb1_headerlogo.tpl"
+                ]
+            },
+            "myaccount": {
+                "files": [
+                    "Modules/Header/Templates/bb1_headeralerts.tpl",
+                    "Modules/Footer/Templates/bb1_safeaidshopping_footer.tpl",
+                    "Modules/Header/Templates/bb1_headerlogo.tpl"
+                ]
+            }
+        }
+    },
     "sass": {
         "entry_points": {
             "shopping": "Modules/Header/Sass/_safeaidglobal.scss",
@@ -39,28 +63,6 @@
         "files": [
             "Modules/Header/Sass/_safeaidglobal.scss"
         ]
-    },
-    "templates": {
-        "application": {
-            "shopping": {
-                "files": [
-                    "Modules/Header/Templates/bb1_headeralerts.tpl",
-                    "Modules/Footer/Templates/bb1_safeaidshopping_footer.tpl"
-                ]
-            },
-            "checkout": {
-                "files": [
-                    "Modules/Header/Templates/bb1_headeralerts.tpl",
-                    "Modules/Footer/Templates/bb1_safeaidshopping_footer.tpl"
-                ]
-            },
-            "myaccount": {
-                "files": [
-                    "Modules/Header/Templates/bb1_headeralerts.tpl",
-                    "Modules/Footer/Templates/bb1_safeaidshopping_footer.tpl"
-                ]
-            }
-        }
     },
     "javascript": {
         "entry_points": {
@@ -76,7 +78,8 @@
                     "Modules/Header/JavaScript/SafeAid.bb1.Global.js",
                     "Modules/Header/JavaScript/SafeAid.bb1.HeaderAlerts.View.js",
                     "Modules/Header/JavaScript/bb1.SafeAidGlobal.Menu.js",
-                    "Modules/Footer/JavaScript/bb1.SafeAidShopping.Footer.js"
+                    "Modules/Footer/JavaScript/bb1.SafeAidShopping.Footer.js",
+                    "Modules/Header/JavaScript/SafeAid.bb1.HeaderLogo.View.js"
                 ]
             },
             "checkout": {
@@ -86,7 +89,8 @@
                     "Modules/Header/JavaScript/SafeAid.bb1.Global.js",
                     "Modules/Header/JavaScript/SafeAid.bb1.HeaderAlerts.View.js",
                     "Modules/Header/JavaScript/bb1.SafeAidGlobal.Menu.js",
-                    "Modules/Footer/JavaScript/bb1.SafeAidShopping.Footer.js"
+                    "Modules/Footer/JavaScript/bb1.SafeAidShopping.Footer.js",
+                    "Modules/Header/JavaScript/SafeAid.bb1.HeaderLogo.View.js"
                 ]
             },
             "myaccount": {
@@ -96,7 +100,8 @@
                     "Modules/Header/JavaScript/SafeAid.bb1.Global.js",
                     "Modules/Header/JavaScript/SafeAid.bb1.HeaderAlerts.View.js",
                     "Modules/Header/JavaScript/bb1.SafeAidGlobal.Menu.js",
-                    "Modules/Footer/JavaScript/bb1.SafeAidShopping.Footer.js"
+                    "Modules/Footer/JavaScript/bb1.SafeAidShopping.Footer.js",
+                    "Modules/Header/JavaScript/SafeAid.bb1.HeaderLogo.View.js"
                 ]
             }
         }
@@ -107,6 +112,5 @@
             "Modules/Header/SuiteScript/Mi365Overview.ServiceController.js",
             "Modules/Header/SuiteScript/SafeAid.bb1.Mi365Overview.js"
         ]
-    },
-    "local_folder": "Workspace/SafeAidGlobal"
+    }
 }

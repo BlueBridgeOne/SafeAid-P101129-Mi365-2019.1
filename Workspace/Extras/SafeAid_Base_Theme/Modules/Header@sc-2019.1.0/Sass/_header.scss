@@ -443,3 +443,20 @@ $sc-sidebar-size: 246px;
 		display: none;
 	}
 }
+.logo-block{
+	
+	@media(min-width: 450px) {
+	display:inline-block;
+	}
+}
+.customer-logo{
+	@media(max-width: 449px) {
+	display:none!important;
+	}
+	@media(min-width: 450px) {
+		img{
+			margin-left:10px;
+		display: inline;
+		}
+	}
+}

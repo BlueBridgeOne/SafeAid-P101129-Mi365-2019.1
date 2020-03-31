@@ -83,7 +83,7 @@ define(
       
       var lookupFields={}
       try {
-        lookupFields = nlapiLookupField('customer', customer, ['custentity_bb1_sca_showstandarditems','custentity_bb1_sca_membership']);
+        lookupFields = nlapiLookupField('customer', customer, ['custentity_bb1_sca_showstandarditems','custentity_bb1_sca_membership','custentity_bb1_sca_websitecolour','custentity_bb1_sca_websitelogo']);
       } catch (err) {
         //nlapiLogExecution("Unable to get contact fields.",customer+" "+err);
       }
@@ -91,6 +91,17 @@ define(
       //nlapiLogExecution("DEBUG","custentity_bb1_sca_showstandarditems",JSON.stringify(custentity_bb1_sca_showstandarditems));
       var customerShowStandardItems = (lookupFields&&lookupFields.custentity_bb1_sca_showstandarditems)||false;
       var custentity_bb1_sca_membership=(lookupFields&&lookupFields.custentity_bb1_sca_membership)||1;
+      var custentity_bb1_sca_websitecolour=(lookupFields&&lookupFields.custentity_bb1_sca_websitecolour)||"#F18830";
+      var custentity_bb1_sca_websitelogo=lookupFields&&lookupFields.custentity_bb1_sca_websitelogo;
+      var custentity_bb1_sca_websitelogo_url;
+if(custentity_bb1_sca_websitelogo){
+      var logo=nlapiLoadFile(custentity_bb1_sca_websitelogo);
+      if(logo){
+        custentity_bb1_sca_websitelogo_url=logo.getURL();
+      }
+
+}
+
       var customerName = profile.companyname;
       var customerFacetValueUrl = getFacetValueUrl('custitem_bb1_sca_customers', customerName);
 
@@ -126,7 +137,10 @@ define(
             contactOverrideCustomerItems: contactFields.custentity_bb1_sca_overridecustomeritems == 'T',
             contactShowStandardItems: contactFields.custentity_bb1_sca_showstandarditems == 'T',
             level:membership_level,
-            custentity_bb1_sca_membership:custentity_bb1_sca_membership
+            custentity_bb1_sca_membership:custentity_bb1_sca_membership,
+            custentity_bb1_sca_websitecolour:custentity_bb1_sca_websitecolour,
+            custentity_bb1_sca_websitelogo:custentity_bb1_sca_websitelogo,
+            custentity_bb1_sca_websitelogo_url:custentity_bb1_sca_websitelogo_url
           });
         } catch (err) {
           //unable to lookup contact record.
