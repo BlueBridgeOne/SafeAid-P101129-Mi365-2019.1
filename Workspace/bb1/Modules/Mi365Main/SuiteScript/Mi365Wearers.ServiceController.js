@@ -44,31 +44,31 @@ define(
 				id: "custrecord_bb1_sca_wearer_usebudget",
 				label: "Use Budget",
 				type: "checkbox",
-				permission:"budget"
-			},{
+				permission: "budget"
+			}, {
 				id: "custrecord_bb1_sca_wearer_budget",
 				label: "Budget",
 				type: "text",
-				mandatory:true,
-				permission:"budget"
+				mandatory: true,
+				permission: "budget"
 			}, {
 				id: "custrecord_bb1_sca_wearer_duration",
 				label: "Duration",
 				type: "choice",
-				mandatory:true,
-				permission:"budget"
+				mandatory: true,
+				permission: "budget"
 			}, {
 				id: "custrecord_bb1_sca_wearer_currentspend",
 				label: "Current Spend",
 				type: "inlinetext",
-				mandatory:true,
-				permission:"budget"
+				mandatory: true,
+				permission: "budget"
 			}, {
 				id: "custrecord_bb1_sca_wearer_startdate",
 				label: "Current Start Date",
 				type: "inlinetext",
-				mandatory:true,
-				permission:"budget"
+				mandatory: true,
+				permission: "budget"
 			}],
 
 			// The values in this object are the validation needed for the current service.
@@ -99,6 +99,8 @@ define(
 
 						rec.setFieldValue("custrecord_bb1_sca_wearer_customer", customer);
 						rec.setFieldValue("name", "Wearer #" + Math.floor(Math.random() * 1000000));
+						rec.setFieldValue("custrecord_bb1_sca_wearer_duration", 1);
+
 						id = nlapiSubmitRecord(rec, true, true);
 
 						rec = nlapiLoadRecord(this.recordtype, id);
@@ -115,11 +117,11 @@ define(
 
 					}
 					var custentity_bb1_sca_allowviewareas = nlapiLookupField('contact', contact, 'custentity_bb1_sca_allowviewareas');
-				if(custentity_bb1_sca_allowviewareas==null){
-					custentity_bb1_sca_allowviewareas="0";
-				}
-				var allowAreas = custentity_bb1_sca_allowviewareas.split(",")||[];	
-				allowAreas.push("@NONE@");
+					if (custentity_bb1_sca_allowviewareas == null) {
+						custentity_bb1_sca_allowviewareas = "0";
+					}
+					var allowAreas = custentity_bb1_sca_allowviewareas.split(",") || [];
+					allowAreas.push("@NONE@");
 
 
 
@@ -149,10 +151,10 @@ define(
 
 							filter.unshift("AND");
 							filter.unshift(["custrecord_bb1_sca_wearer_area", "anyof", area]);
-						}else{
+						} else {
 							filter.unshift("AND");
 							filter.unshift(["custrecord_bb1_sca_wearer_area", "anyof", allowAreas]);
-							
+
 						}
 
 						var find = [];
@@ -186,7 +188,7 @@ define(
 								for (var j = 0; j < this.fields.length; j++) {
 									if (this.fields[j].list || this.fields[j].listonly || id) {
 										find.push(new nlobjSearchColumn(this.fields[j].id));
-										if (this.fields[j].type == "record"||this.fields[j].type == "choice") {
+										if (this.fields[j].type == "record" || this.fields[j].type == "choice") {
 											data[this.fields[j].id] = {
 												value: result.getValue(this.fields[j].id),
 												text: result.getText(this.fields[j].id)
@@ -278,10 +280,19 @@ define(
 
 				if (customer > 0) {
 					var rec = nlapiLoadRecord(this.recordtype, this.data.id);
-
+					var value;
 					for (var j = 0; j < this.fields.length; j++) {
-						if (this.data[this.fields[j].id] && !this.fields[j].listonly) {
-							rec.setFieldValue(this.fields[j].id, this.data[this.fields[j].id]);
+						value = this.data[this.fields[j].id];
+						if (value && !this.fields[j].listonly) {
+							try {
+								if (value.value) {
+									rec.setFieldValue(this.fields[j].id, value.value);
+								} else {
+									rec.setFieldValue(this.fields[j].id, value);
+								}
+							} catch (e) {
+								nlapiLogExecution("debug", "update wearer", "unable to set " + this.fields[j].id + " to " + value + ". " + e);
+							}
 						}
 					}
 					nlapiSubmitRecord(rec, true, true);

@@ -82,7 +82,6 @@ define(
 
       },
       destroy: function () {
-        console.log("destroy");
         $(document).off('scroll');
       },
 

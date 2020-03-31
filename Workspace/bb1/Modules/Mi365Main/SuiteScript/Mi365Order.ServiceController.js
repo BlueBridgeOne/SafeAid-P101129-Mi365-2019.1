@@ -70,6 +70,14 @@ define(
 					nlapiSubmitField(this.recordtype, id, "custbody_bb1_sca_approvalstatus", 3,false); 
 					
 
+				}else if(task == "reject"){
+					
+					var custentity_bb1_sca_allowapproveorders = nlapiLookupField('contact', contact, 'custentity_bb1_sca_allowapproveorders');
+					if(custentity_bb1_sca_allowapproveorders!="T"){
+						throw (new Error("You do not have permission to reject orders."));
+					}
+					nlapiDeleteRecord(this.recordtype, id);
+
 				}
 
 
@@ -116,6 +124,7 @@ define(
 
 							}
 						}
+						//TODO! add standard item warning.
 
 						items.push(item);
 

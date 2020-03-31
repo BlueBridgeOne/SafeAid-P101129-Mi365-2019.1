@@ -1,5 +1,8 @@
 {{#if showQuantity}}
 	<p>{{translate '<span class="transaction-line-views-quantity-amount-label">Quantity: </span> <span class="transaction-line-views-quantity-amount-value">$(0)</span>' line.quantity }}</p>
+	{{#if line.quantitybackordered}}
+<p>{{translate '<span class="transaction-line-views-quantity-amount-label">Backordered: </span> <span class="transaction-line-views-quantity-amount-value">$(0)</span>' line.quantitybackordered }}</p>
+	{{/if}}
 {{/if}}
 
 {{#if showAmount}}

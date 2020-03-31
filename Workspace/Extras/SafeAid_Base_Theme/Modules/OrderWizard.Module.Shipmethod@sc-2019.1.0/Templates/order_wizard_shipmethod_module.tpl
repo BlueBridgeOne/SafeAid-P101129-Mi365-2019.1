@@ -61,8 +61,8 @@
 				name="custbody_bb1_sca_deliverynote">{{model.options.custbody_bb1_sca_deliverynote}}</textarea>
 		</div>
 		<div class="address-edit-fields-group-form-controls" data-validation="control">
-			<input type="checkbox" class="address-edit-fields-group-input" id="custbody_bb1_sca_splitwearers"
-				name="custbody_bb1_sca_splitwearers" {{#ifEquals model.options.custbody_bb1_sca_splitwearers 'T'}}checked{{/ifEquals}} value="T" />
+			<input type="checkbox" class="address-edit-fields-group-input" id="custbody_bb1_wearpackorder"
+				name="custbody_bb1_wearpackorder" {{#ifEquals model.options.custbody_bb1_wearpackorder 'T'}}checked{{/ifEquals}} value="T" />
 				{{translate 'Split deliveries to wearers into separate packages.'}}
 		</div>
 	</div>

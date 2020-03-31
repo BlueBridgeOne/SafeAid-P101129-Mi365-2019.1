@@ -37,47 +37,42 @@ define(
       }
     }
 
-    function getFacetValueUrl(facetId, facetValueLabel) {
-      var facetValueUrl = '';
-
-      try {
-
-        if (!itemFacets) {
-          var itemApiUrl = 'http://' + ModelsInit.session.getEffectiveShoppingDomain() + '/api/items';
-          var itemApiParms = {
-            'include': 'facets',
-            'limit': 1
-          };
-          var itemApiHeaders = {
-            'Accept': 'application/json'
-          };
-          var itemApiUrlWithParms = addParamsToUrl(itemApiUrl, itemApiParms);
-          var itemApiResponse = nlapiRequestURL(itemApiUrlWithParms, null, itemApiHeaders);
-          var itemApiResults = JSON.parse(itemApiResponse.getBody() || '{}');
-
-          itemFacets = itemApiResults && itemApiResults.facets || [];
-        }
-
-        for (var i = 0; i < itemFacets.length; i++) {
-          var facet = itemFacets[i];
-
-          if (facet.id === facetId) {
-            for (var j = 0; j < facet.values.length; j++) {
-              var facetValue = facet.values[j] || {};
-
-              if (facetValue.label && facetValue.url) {
-                if (facetValue.label === facetValueLabel)
-                  facetValueUrl = facetValue.url;
-              }
-            }
+    function fixedEncodeURIComponent(str){
+      return encodeURIComponent(str).replace(/[!'()*]/g, function(c){
+        return '%' + c.charCodeAt(0).toString(16);
+      });
+    }
+  
+      function getFacetValueUrl(facetId, facetValueLabel) {
+  
+        try {
+          var body = "",
+          char, charCode;
+      if(facetValueLabel){
+          
+              for (var i = 0; i < facetValueLabel.length; i++) {
+                  char = facetValueLabel.charAt(i);
+                  charCode = facetValueLabel.charCodeAt(i);
+                  if (char == " ") {
+                      body += "-";
+                  } else if (char == "&") {
+                      body += "-AND-";
+                  } else if (char == "/") {
+                      body += "-SLASH-";
+                  } else if (char == "-") {
+                      body += "~";
+                  } else {
+                      body += fixedEncodeURIComponent(char);
+                  }
           }
         }
+          return body;
 
       } catch (error) {
         console.log('Error occurred getting Customer/Buyer facet values', error && error.getCode ? error.getCode() + ': ' + error.getDetails() : error);
       }
 
-      return facetValueUrl;
+      return "";
     }
 
     Application.on('after:Profile.get', function (model, profile) {
@@ -89,7 +84,9 @@ define(
       var lookupFields={}
       try {
         lookupFields = nlapiLookupField('customer', customer, ['custentity_bb1_sca_showstandarditems','custentity_bb1_sca_membership']);
-      } catch (err) {}
+      } catch (err) {
+        //nlapiLogExecution("Unable to get contact fields.",customer+" "+err);
+      }
 
       //nlapiLogExecution("DEBUG","custentity_bb1_sca_showstandarditems",JSON.stringify(custentity_bb1_sca_showstandarditems));
       var customerShowStandardItems = (lookupFields&&lookupFields.custentity_bb1_sca_showstandarditems)||false;

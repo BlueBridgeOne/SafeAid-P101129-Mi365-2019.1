@@ -108,6 +108,9 @@
 			<a data-action="approve" class="order-history-summary-button-download-pdf">
 				{{translate 'Approve'}}
 			</a>
+			<a data-action="reject" class="order-history-summary-button-download-pdf">
+				{{translate 'Reject'}}
+			</a>
 		{{/if}}
 		<!-- DOWNLOAD AS PDF -->
 		<a href="{{pdfUrl}}" target="_blank" class="order-history-summary-button-download-pdf">

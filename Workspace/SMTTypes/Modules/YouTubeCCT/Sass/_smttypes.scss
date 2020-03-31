@@ -35,7 +35,11 @@
 	width: 100vw;
 	background-size: cover;
 	background-repeat: no-repeat;
-	background-position: center center;
+	background-position: 0 center;
+
+	@media (min-width: $screen-sm-min) {
+		background-position: center center;
+	}
 }
 
 .cct-banner-inner-container {

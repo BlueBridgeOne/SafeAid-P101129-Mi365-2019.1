@@ -83,7 +83,7 @@ define(
             sortOrder = 'storedisplayname';
             break;
           default:
-            sortOrder = 'commercecategory';
+            sortOrder = 'custitem_bb1_sca_webcategory';
             break;
         }
 

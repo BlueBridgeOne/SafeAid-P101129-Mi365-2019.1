@@ -86,6 +86,9 @@ define(
 										case "WARNING_RULE_WEARER_MAX":
 											warning.text = "Only " + values.max + " " + values.item.text + "'s can be purchased for " + values.wearer.text + " during this " + durations[values.duration] + ".";
 											break;
+											case "WARNING_STANDARD_ITEM":
+                                warning.text = "Standard item " + values.item.text + " requires approval. ";
+                                break;
 
 									}
 								}
@@ -122,6 +125,7 @@ define(
 				}
 
 				OrderHistorySummary.prototype.events['click [data-action="approve"]'] = 'approve';
+				OrderHistorySummary.prototype.events['click [data-action="reject"]'] = 'reject';
 				OrderHistorySummary.prototype.approve = function (e) {
 					console.log("approve order");
 					var model = new Mi365OrderModel();
@@ -138,6 +142,29 @@ define(
 						console.log("approved order");
 						Backbone.localCache = {};
 						Backbone.history.loadUrl();
+					});
+				}
+				OrderHistorySummary.prototype.reject = function (e) {
+					console.log("reject order");
+					var model = new Mi365OrderModel();
+					model.on('error', _.bind(this.showError, this));
+
+					var orderId = this.model.id;
+					model.fetch({
+						data: {
+							id: orderId,
+							task: "reject",
+							t: new Date().getTime()
+						}
+					}).done(function () {
+						console.log("rejected order");
+						Backbone.localCache = {};
+
+						Backbone.history.navigate('purchases', {
+							trigger: true
+						});
+
+						///purchases
 					});
 				}
 

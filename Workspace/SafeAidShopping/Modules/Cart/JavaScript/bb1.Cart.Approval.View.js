@@ -51,6 +51,9 @@ define(
       case "WARNING_RULE_WEARER_MAX":
         warning.text="Only "+values.max+" "+values.item.text+"'s can be purchased for "+values.wearer.text+" during this "+durations[values.duration]+".";
        break;
+       case "WARNING_STANDARD_ITEM":
+                                warning.text = "Standard item " + values.item.text + " requires approval. ";
+                                break;
      }
     }
     

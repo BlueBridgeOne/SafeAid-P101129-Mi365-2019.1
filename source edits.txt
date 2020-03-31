@@ -28,3 +28,14 @@ if(contactLookup.custentity_bb1_sca_buyer=="T"&&contactLookup.custentity_bb1_sca
 				this.filters.email = ['email', 'is', contactLookup.email];
 }
 			}
+
+
+TrackingServices:
+
+,	defaultUrl: 'https://www.dpd.co.uk/content/how-can-we-help/index.jsp?track='
+
+
+OrderHistory.Details.View:
+
+//pending_line.set('quantity', line.get('quantitybackordered'));
+							

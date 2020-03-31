@@ -196,3 +196,9 @@
     @extend %fa-wrench;
   }
 }
+
+.mycatalogue-row{
+  @extend .row;
+  display:flex;
+  flex-wrap: wrap;
+}

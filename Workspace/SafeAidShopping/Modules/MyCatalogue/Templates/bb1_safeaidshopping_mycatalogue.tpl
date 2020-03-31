@@ -13,7 +13,7 @@
    <div>
     
      
-      <div class="row" data-view="Catalogue.Items">
+      <div class="mycatalogue-row" data-view="Catalogue.Items">
       </div>
      
     

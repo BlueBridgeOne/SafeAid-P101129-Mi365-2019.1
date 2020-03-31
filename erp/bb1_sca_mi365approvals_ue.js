@@ -16,6 +16,8 @@
  * 
  * Also, update area and wearer stock on fulfillment.
  * 
+ * Also, checks for standard item permissions.
+ * 
  * @Author : Gordon Truslove
  * @Date   : 10/3/2019, 10:43:44 AM
  * 
@@ -26,9 +28,9 @@
  * @NScriptType UserEventScript
  * @NModuleScope SameAccount
  */
-define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N/config','N/url','N/email'],
+define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N/config', 'N/url', 'N/email'],
 
-    function (record, search, runtime, serverWidget, format, config,url,email) {
+    function (record, search, runtime, serverWidget, format, config, url, email) {
 
         /**
          * Function definition to be triggered before record is loaded.
@@ -104,6 +106,9 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                                 break;
                             case "WARNING_RULE_WEARER_MAX":
                                 message += "Only " + values.max + " " + values.item.text + "'s can be purchased for " + values.wearer.text + " during this " + durations[values.duration] + ". ";
+                                break;
+                            case "WARNING_STANDARD_ITEM":
+                                message += "Standard item " + values.item.text + " requires approval. ";
                                 break;
                             default:
                                 message += warning.message + " ";
@@ -250,15 +255,24 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                 }
             }
 
+            var contact;
+            if (runtime.executionContext == "WEBSTORE") {
+                contact = runtime.getCurrentUser().contact;
+            } else {
+                contact = currentRecord.getValue({
+                    fieldId: 'custbody_bb1_buyer'
+                });
+            }
+
+            log.debug("contact " + runtime.executionContext, JSON.stringify(contact));
+
+            var buyer = getBuyer(contact);
+
             //force approval for web orders
 
             if (runtime.executionContext == "WEBSTORE") {
                 if (scriptContext.type == scriptContext.UserEventType.CREATE) {
-                    currentRecord.setValue({
-                        fieldId: 'custbody_bb1_sca_approvalstatus',
-                        value: 2,
-                        ignoreFieldChange: true
-                    });
+
                     currentRecord.setValue({
                         fieldId: 'custbody_bb1_weborderflag',
                         value: true,
@@ -271,7 +285,15 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                     });
 
 
-                    var contact = runtime.getCurrentUser().contact;
+                    log.debug("Approval Required", (buyer.custentity_bb1_sca_buyer && buyer.custentity_bb1_sca_requiresapproval.value));
+                    if (buyer.custentity_bb1_sca_buyer && buyer.custentity_bb1_sca_requiresapproval.value == "3") {
+                        currentRecord.setValue({
+                            fieldId: 'custbody_bb1_sca_approvalstatus',
+                            value: 2,
+                            ignoreFieldChange: true
+                        });
+                    }
+
                     currentRecord.setValue({
                         fieldId: 'custbody_bb1_buyer',
                         value: contact,
@@ -279,10 +301,48 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                     });
                 }
             }
+
+            //get all the data needed formi365 update, have to move this here in order to get the fulfillment change.
+            var items = getItems(currentRecord, scriptContext.oldRecord || currentRecord);
+            var options;
+            var areas = [],
+                wearers = [],
+                hareas = {},
+                hwearers = {}; //record a list of distict areas and wearers.
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].options) {
+                    options = items[i].options;
+                    for (var j = 0; j < options.length; j++) {
+                        if (options[j].id == "CUSTCOL_BB1_SCA_AREA") {
+                            if (!hareas[options[j].value]) {
+                                hareas[options[j].value] = true;
+                                areas.push(options[j].value);
+                            }
+                        } else if (options[j].id == "CUSTCOL_BB1_SCA_WEARER") {
+                            if (!hwearers[options[j].value]) {
+                                hwearers[options[j].value] = true;
+                                wearers.push(options[j].value);
+                            }
+                        }
+                    }
+                }
+            }
+
+            var summary = {};
+            summary.total = currentRecord.getValue({
+                fieldId: 'total'
+            });
+            var areaDetails = getAreas(areas);
+            var wearerDetails = getWearers(wearers);
+            var ruleDetails = getRules(areas);
+
+
+            updateMi365(scriptContext, contact, buyer, summary, items, areaDetails, wearerDetails, ruleDetails);
+
         }
 
         /**
-         * Function definition to be triggered before record is loaded.
+         * Function definition to be triggered after record is saved.
          *
          * @param {Object} scriptContext
          * @param {Record} scriptContext.newRecord - New record
@@ -293,7 +353,7 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
         function afterSubmit(scriptContext) {
 
             if (scriptContext.type == scriptContext.UserEventType.DELETE) return;
-
+            log.debug("afterSubmit " + runtime.executionContext, scriptContext.newRecord.id);
             try {
 
                 //Approval Rules
@@ -301,11 +361,14 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                 var contact = currentRecord.getValue({
                     fieldId: 'custbody_bb1_buyer'
                 });
+                log.debug("contact " + runtime.executionContext, JSON.stringify(contact));
 
                 //Do all these calculations after submit, becuase they take a while.
 
                 var buyer = getBuyer(contact);
-                var warnings = [];
+                var requiresapproval = buyer && buyer.custentity_bb1_sca_buyer && buyer.custentity_bb1_sca_requiresapproval.value;
+                var warnings = [],
+                    hwarnings = {};
                 var items = getItems(currentRecord, scriptContext.oldRecord || currentRecord);
 
                 var options, wearerChecks = [],
@@ -315,6 +378,9 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                     hareas = {},
                     hwearers = {}; //record a list of distict areas and wearers.
                 for (var i = 0; i < items.length; i++) {
+
+
+
                     if (items[i].options) {
                         options = items[i].options;
                         for (var j = 0; j < options.length; j++) {
@@ -357,13 +423,7 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                         }
                     }
                 }
-                //log.debug("SO","SO #"+currentRecord.id);
-                //log.debug("buyer",JSON.stringify(buyer));
-                //log.debug("wearers",JSON.stringify(wearers));
-                //log.debug("areas",JSON.stringify(areas));
-                //log.debug("wearerChecks",JSON.stringify(wearerChecks));
-                //log.debug("areaChecks",JSON.stringify(areaChecks));
-                //log.debug("items",JSON.stringify(items));
+
                 var summary = {};
                 summary.total = currentRecord.getValue({
                     fieldId: 'total'
@@ -377,7 +437,7 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                 var testing = false; //Force lots of warnings
                 //Go through all the rules and check them.
                 //Buyer Budget!
-                var hwarnings = {};
+
                 if (buyer) {
 
                     if (testing || (isTrue(buyer.custentity_bb1_sca_usebudget) && buyer.custentity_bb1_sca_currentspend + summary.total > buyer.custentity_bb1_sca_budget)) {
@@ -435,6 +495,45 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                     item = items[i];
                     area = null;
                     wearer = null;
+                    //log.debug("item",JSON.stringify(buyer.custentity_bb1_sca_requiresapproval)+" "+isTrue(item.custitem_bb1_sca_standarditem));
+                    if (requiresapproval == "4") {
+                        if (isTrue(item.custitem_bb1_sca_standarditem)) {
+                            //Check not in library
+                            var myLibrary, entity = contact,inLibrary=false;
+                            if (isTrue(buyer.custentity_bb1_sca_overridecustomeritems)) {
+                                myLibrary = item.custitem_bb1_sca_buyers;
+                            } else {
+                                myLibrary = item.custitem_bb1_sca_customers;
+                                entity = buyer.company[0].value;
+                            }
+                            // log.debug("Check standard item","checking..... "+JSON.stringify(entity));
+                            // log.debug("My library",JSON.stringify(myLibrary));
+                            if (myLibrary) {
+                                for (var i = 0; i < myLibrary.length; i++) {
+                                    if (myLibrary[i].value == entity.toString()) {
+                                        //Item exists in my library, no warning needed
+                                        //log.debug("My library", JSON.stringify(myLibrary[i].value) + " " + JSON.stringify(entity));
+                                        inLibrary=true;
+                                    }
+
+                                }
+                            }
+
+                            if (!inLibrary&&checkDuplicateWarning(hwarnings, "WARNING_STANDARD_ITEM," + item.intenalid)) {
+                                warnings.push({
+                                    message: "WARNING_STANDARD_ITEM",
+                                    values: {
+                                        item: {
+                                            value: item.intenalid,
+                                            text: item.displayname
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+
                     if (item.options) {
                         for (var k = 0; k < item.options.length; k++) {
                             if (item.options[k].id == "CUSTCOL_BB1_SCA_AREA") {
@@ -507,15 +606,33 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                 //     wearerChecks:wearerChecks,
                 //     areaDetails:areaDetails
 
+                log.debug("Warnings! " + runtime.executionContext, JSON.stringify(warnings));
 
                 //throw (new Error(JSON.stringify(result, null, 4)));
                 submitField(currentRecord.type, currentRecord.id, "custbody_bb1_sca_approvaldata", JSON.stringify(result), false);
 
-                updateMi365(scriptContext, contact, buyer, summary, items, areaDetails, wearerDetails, ruleDetails);
+                
 
-                sendAlerts(scriptContext, areas,currentRecord.type, currentRecord.id);
+                if ((warnings.length > 0&&requiresapproval != "1") || requiresapproval == "3") {
+
+
+                    //set warnings flag!
+                    if (requiresapproval == "2" || requiresapproval == "3" || requiresapproval == "4") {
+
+                        var custbody_bb1_sca_approvalstatus = currentRecord.getValue({
+                            fieldId: 'custbody_bb1_sca_approvalstatus'
+                        }).toString();
+                        log.debug("Alerts Required?", "custbody_bb1_sca_approvalstatus=" + custbody_bb1_sca_approvalstatus);
+                        if (!custbody_bb1_sca_approvalstatus != "2" && custbody_bb1_sca_approvalstatus != "3") {
+                            submitField(currentRecord.type, currentRecord.id, "custbody_bb1_sca_approvalstatus", 2, false);
+                        }
+                    }
+
+                    sendAlerts(scriptContext, areas, currentRecord.type, currentRecord.id);
+                }
 
             } catch (err) {
+                log.error("afterSubmit", err);
                 var result = {
                     success: false,
                     error: err
@@ -526,7 +643,7 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
 
         }
         //send alerts to applicable buyers that this order needs to be approved.
-        function sendAlerts(scriptContext, areas,transactiontype,transactionid) {
+        function sendAlerts(scriptContext, areas, transactiontype, transactionid) {
             if (scriptContext.type == scriptContext.UserEventType.CREATE) {
 
                 var customer = runtime.getCurrentUser().id;
@@ -551,7 +668,7 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                         })
                     ]
                 });
-var subject="An order requires approval.";
+                var subject = "An order requires approval.";
                 contactSearchObj.run().each(function (result) {
 
                     var newAlert = record.create({
@@ -577,21 +694,21 @@ var subject="An order requires approval.";
 
                     var params = [];
 
-                    var sourl ="https://checkout.eu2.netsuite.com/c.5474721/s/my_account.ssp?n=2&fragment=purchases#purchases/view/"+transactiontype+"/"+transactionid
+                    var sourl = "https://checkout.eu2.netsuite.com/c.5474721/s/my_account.ssp?n=2&fragment=purchases#purchases/view/" + transactiontype + "/" + transactionid
                     //  url.resolveRecord({
                     //     recordType: transactiontype,
                     //     recordId: transactionid,
                     //     isEditMode: false
                     // });
 
-                      params.push({
+                    params.push({
                         name: transactiontype,
                         value: "View in My Account",
                         href: sourl
-                      });
+                    });
 
-var from=8661;//sales
-                    emailAlert(from,result.id,"title",subject,null,params);
+                    var from = 8661; //sales
+                    emailAlert(from, result.id, "title", subject, null, params);
 
                     return true;
                 });
@@ -602,179 +719,185 @@ var from=8661;//sales
         //We could add on approval or invoice, but just do it here, it's easier and it doesn't stop anything going through, it's just for information.
         function updateMi365(scriptContext, contact, buyer, summary, items, areaDetails, wearerDetails, ruleDetails) {
 
-                //summary.total   
-                //buyer=buyer
-                //log.debug("Add to Mi365", "summary.total " + summary.total);
-                //log.debug("Add to Mi365", "buyer " + JSON.stringify(buyer));
-                //log.debug("Add to Mi365", "items " + JSON.stringify(items));
-                if (contact > 0&&scriptContext.type == scriptContext.UserEventType.CREATE) {
-                    submitField("contact", contact, "custentity_bb1_sca_currentspend", buyer.custentity_bb1_sca_currentspend + summary.total, false);
-                }
-                if (items) {
-                    var options, area, wearer;
-                    for (var i = 0; i < items.length; i++) {
-                        options = items[i].options;
-                        area = null;
-                        wearer = null;
-                        for (var j = 0; j < options.length; j++) {
-                            //update area budgets and rules
-                            if (options[j].id == "CUSTCOL_BB1_SCA_AREA") {
-                                area = areaDetails[parseInt(options[j].value)];
-                                //log.debug("Mi365 Area", options[j].value+"- items " + JSON.stringify(items[i])+" ..... "+JSON.stringify(area));
-                                if (area&&scriptContext.type == scriptContext.UserEventType.CREATE) {
-                                    submitField("customrecord_bb1_sca_area", options[j].value, "custrecord_bb1_sca_area_currentspend", area.custrecord_bb1_sca_area_currentspend + (items[i].quantity * items[i].amount), false);
+            //summary.total   
+            //buyer=buyer
+            //log.debug("Add to Mi365", "summary.total " + summary.total);
+            //log.debug("Add to Mi365", "buyer " + JSON.stringify(buyer));
+            //log.debug("Add to Mi365", "items " + JSON.stringify(items));
+            if (contact > 0 && scriptContext.type == scriptContext.UserEventType.CREATE) {
+                submitField("contact", contact, "custentity_bb1_sca_currentspend", buyer.custentity_bb1_sca_currentspend + summary.total, false);
+            }
 
-                                    //log.debug("Mi365 Area", "area " + (area.custrecord_bb1_sca_area_currentspend + (items[i].quantity*items[i].amount)));
-                                    for (var k = 0; k < ruleDetails.length; k++) {
-                                        if (ruleDetails[k].custrecord_bb1_sca_rule_wearer && ruleDetails[k].custrecord_bb1_sca_rule_wearer.value && ruleDetails[k].custrecord_bb1_sca_rule_wearer.value.length > 0) {
-                                            if (ruleDetails[k].custrecord_bb1_sca_rule_item == items[i].internalid) {
-                                                //log.debug("Mi365 Item", ruleDetails[k].custrecord_bb1_sca_rule_item + "==" + items[i].internalid);
-                                                //log.debug("Mi365 Rule", ruleDetails[k].custrecord_bb1_sca_rule_area.value + "==" + parseInt(options[j].value));
-                                                if (ruleDetails[k].custrecord_bb1_sca_rule_area && ruleDetails[k].custrecord_bb1_sca_rule_area.value == parseInt(options[j].value)) {
-                                                    //log.debug("Mi365 Item", "AREA RULE! " + JSON.stringify(ruleDetails[k]));
-                                                    submitField("customrecord_bb1_sca_rule", ruleDetails[k].internalid, "custrecord_bb1_sca_rule_purchased", ruleDetails[k].custrecord_bb1_sca_rule_purchased + items[i].quantity * items[i].amount, false);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                                //update wearer budgets and rules
-                            } else if (options[j].id == "CUSTCOL_BB1_SCA_WEARER") {
-                                wearer = wearerDetails[parseInt(options[j].value)];
-                                //log.debug("Mi365 Wearer", options[j].value+"- items " + JSON.stringify(items[i])+" ..... "+JSON.stringify(wearer));
-                                if (wearer&&scriptContext.type == scriptContext.UserEventType.CREATE) {
-                                    submitField("customrecord_bb1_sca_wearer", options[j].value, "custrecord_bb1_sca_wearer_currentspend", wearer.custrecord_bb1_sca_wearer_currentspend + (items[i].quantity * items[i].amount), false);
+            if (items) {
+                var options, area, wearer;
+                for (var i = 0; i < items.length; i++) {
+                    options = items[i].options;
+                    area = null;
+                    wearer = null;
+                    //items[i].oldquantityfulfilled=0;
+                    for (var j = 0; j < options.length; j++) {
+                        //update area budgets and rules
 
-                                    //log.debug("Mi365 Wearer", "wearer " + (wearer.custrecord_bb1_sca_wearer_currentspend + (items[i].quantity*items[i].amount)));
-                                    for (var k = 0; k < ruleDetails.length; k++) {
+                        if (options[j].id == "CUSTCOL_BB1_SCA_AREA") {
+
+                            area = areaDetails[parseInt(options[j].value)];
+                            //log.debug("Mi365 Area", options[j].value+"- items " + JSON.stringify(items[i])+" ..... "+JSON.stringify(area));
+                            if (area && scriptContext.type == scriptContext.UserEventType.CREATE) {
+                                submitField("customrecord_bb1_sca_area", options[j].value, "custrecord_bb1_sca_area_currentspend", area.custrecord_bb1_sca_area_currentspend + (items[i].quantity * items[i].amount), false);
+
+                                //log.debug("Mi365 Area", "area " + (area.custrecord_bb1_sca_area_currentspend + (items[i].quantity*items[i].amount)));
+                                for (var k = 0; k < ruleDetails.length; k++) {
+                                    if (ruleDetails[k].custrecord_bb1_sca_rule_wearer && ruleDetails[k].custrecord_bb1_sca_rule_wearer.value && ruleDetails[k].custrecord_bb1_sca_rule_wearer.value.length > 0) {
                                         if (ruleDetails[k].custrecord_bb1_sca_rule_item == items[i].internalid) {
                                             //log.debug("Mi365 Item", ruleDetails[k].custrecord_bb1_sca_rule_item + "==" + items[i].internalid);
-                                            //log.debug("Mi365 Rule", ruleDetails[k].custrecord_bb1_sca_rule_wearer.value + "==" + parseInt(options[j].value));
-                                            if (ruleDetails[k].custrecord_bb1_sca_rule_wearer && ruleDetails[k].custrecord_bb1_sca_rule_wearer.value == parseInt(options[j].value)) {
-                                                //log.debug("Mi365 Item", "WEARER RULE! " + JSON.stringify(ruleDetails[k]));
+                                            //log.debug("Mi365 Rule", ruleDetails[k].custrecord_bb1_sca_rule_area.value + "==" + parseInt(options[j].value));
+                                            if (ruleDetails[k].custrecord_bb1_sca_rule_area && ruleDetails[k].custrecord_bb1_sca_rule_area.value == parseInt(options[j].value)) {
+                                                //log.debug("Mi365 Item", "AREA RULE! " + JSON.stringify(ruleDetails[k]));
                                                 submitField("customrecord_bb1_sca_rule", ruleDetails[k].internalid, "custrecord_bb1_sca_rule_purchased", ruleDetails[k].custrecord_bb1_sca_rule_purchased + items[i].quantity * items[i].amount, false);
                                             }
                                         }
                                     }
                                 }
                             }
-                        }
+                            //update wearer budgets and rules
+                        } else if (options[j].id == "CUSTCOL_BB1_SCA_WEARER") {
 
-                        //Update stock on fulfill
-                        if (items[i].quantityfulfilled > items[i].oldquantityfulfilled) {
+                            wearer = wearerDetails[parseInt(options[j].value)];
+                            //log.debug("Mi365 Wearer", options[j].value+"- items " + JSON.stringify(items[i])+" ..... "+JSON.stringify(wearer));
+                            if (wearer && scriptContext.type == scriptContext.UserEventType.CREATE) {
+                                submitField("customrecord_bb1_sca_wearer", options[j].value, "custrecord_bb1_sca_wearer_currentspend", wearer.custrecord_bb1_sca_wearer_currentspend + (items[i].quantity * items[i].amount), false);
 
-                            var difference = items[i].quantityfulfilled - items[i].oldquantityfulfilled;
-
-                            //Move some stock!
-                            if (wearer) {
-                                //check if stock exists.
-                                var customrecord_bb1_sca_companystockSearchObj = search.create({
-                                    type: "customrecord_bb1_sca_companystock",
-                                    filters: [
-                                        ["custrecord_bb1_sca_companystock_item", "anyof", items[i].internalid],
-                                        "AND",
-                                        ["custrecord_bb1_sca_companystock_wearer", "anyof", wearer.internalid],
-                                        "AND",
-                                        ["custrecord_bb1_sca_companystock_location", "anyof", "2"]
-                                    ],
-                                    columns: [
-                                        search.createColumn({
-                                            name: "custrecord_bb1_sca_companystock_quantity"
-                                        })
-                                    ]
-                                });
-                                var found = false;
-                                customrecord_bb1_sca_companystockSearchObj.run().each(function (result) {
-                                    found = true;
-
-                                    submitField("customrecord_bb1_sca_companystock", result.id, "custrecord_bb1_sca_companystock_quantity", parseInt(result.getValue("custrecord_bb1_sca_companystock_quantity")) + difference, false);
-                                    return false;
-                                });
-                                if (!found) {
-                                    var stockRecord = record.create({
-                                        type: "customrecord_bb1_sca_companystock",
-                                        isDynamic: true
-                                    });
-                                    stockRecord.setValue({
-                                        fieldId: 'custrecord_bb1_sca_companystock_item',
-                                        value: items[i].internalid,
-                                        ignoreFieldChange: true
-                                    });
-                                    stockRecord.setValue({
-                                        fieldId: 'custrecord_bb1_sca_companystock_wearer',
-                                        value: wearer.internalid,
-                                        ignoreFieldChange: true
-                                    });
-                                    stockRecord.setValue({
-                                        fieldId: 'custrecord_bb1_sca_companystock_location',
-                                        value: 2,
-                                        ignoreFieldChange: true
-                                    });
-                                    stockRecord.setValue({
-                                        fieldId: 'custrecord_bb1_sca_companystock_quantity',
-                                        value: difference,
-                                        ignoreFieldChange: true
-                                    });
-                                    stockRecord.save();
+                                //log.debug("Mi365 Wearer", "wearer " + (wearer.custrecord_bb1_sca_wearer_currentspend + (items[i].quantity*items[i].amount)));
+                                for (var k = 0; k < ruleDetails.length; k++) {
+                                    if (ruleDetails[k].custrecord_bb1_sca_rule_item == items[i].internalid) {
+                                        //log.debug("Mi365 Item", ruleDetails[k].custrecord_bb1_sca_rule_item + "==" + items[i].internalid);
+                                        //log.debug("Mi365 Rule", ruleDetails[k].custrecord_bb1_sca_rule_wearer.value + "==" + parseInt(options[j].value));
+                                        if (ruleDetails[k].custrecord_bb1_sca_rule_wearer && ruleDetails[k].custrecord_bb1_sca_rule_wearer.value == parseInt(options[j].value)) {
+                                            //log.debug("Mi365 Item", "WEARER RULE! " + JSON.stringify(ruleDetails[k]));
+                                            submitField("customrecord_bb1_sca_rule", ruleDetails[k].internalid, "custrecord_bb1_sca_rule_purchased", ruleDetails[k].custrecord_bb1_sca_rule_purchased + items[i].quantity * items[i].amount, false);
+                                        }
+                                    }
                                 }
-
-                            } else if (area) {
-                                //check if stock exists.
-                                var customrecord_bb1_sca_companystockSearchObj = search.create({
-                                    type: "customrecord_bb1_sca_companystock",
-                                    filters: [
-                                        ["custrecord_bb1_sca_companystock_item", "anyof", items[i].internalid],
-                                        "AND",
-                                        ["custrecord_bb1_sca_companystock_area", "anyof", area.internalid],
-                                        "AND",
-                                        ["custrecord_bb1_sca_companystock_location", "anyof", "1"]
-                                    ],
-                                    columns: [
-                                        search.createColumn({
-                                            name: "custrecord_bb1_sca_companystock_quantity"
-                                        })
-                                    ]
-                                });
-                                var found = false;
-                                customrecord_bb1_sca_companystockSearchObj.run().each(function (result) {
-                                    found = true;
-                                    submitField("customrecord_bb1_sca_companystock", result.id, "custrecord_bb1_sca_companystock_quantity", parseInt(result.getValue("custrecord_bb1_sca_companystock_quantity")) + difference, false);
-                                    return false;
-                                });
-
-                                if (found) {
-                                    var stockRecord = record.create({
-                                        type: "customrecord_bb1_sca_companystock",
-                                        isDynamic: true
-                                    });
-                                    stockRecord.setValue({
-                                        fieldId: 'custrecord_bb1_sca_companystock_item',
-                                        value: items[i].internalid,
-                                        ignoreFieldChange: true
-                                    });
-                                    stockRecord.setValue({
-                                        fieldId: 'custrecord_bb1_sca_companystock_area',
-                                        value: area.internalid,
-                                        ignoreFieldChange: true
-                                    });
-                                    stockRecord.setValue({
-                                        fieldId: 'custrecord_bb1_sca_companystock_location',
-                                        value: 1,
-                                        ignoreFieldChange: true
-                                    });
-                                    stockRecord.setValue({
-                                        fieldId: 'custrecord_bb1_sca_companystock_quantity',
-                                        value: difference,
-                                        ignoreFieldChange: true
-                                    });
-                                    stockRecord.save();
-                                }
-
                             }
                         }
                     }
+                    log.debug("updateMi365", items[i].quantityfulfilled + " " + items[i].oldquantityfulfilled + " " + JSON.stringify(wearer) + " " + JSON.stringify(area));
+                    //Update stock on fulfill
+                    //items[i].oldquantityfulfilled=0;
+                    if (items[i].quantityfulfilled > items[i].oldquantityfulfilled) {
 
+                        var difference = items[i].quantityfulfilled - items[i].oldquantityfulfilled;
+
+                        //Move some stock!
+                        if (wearer) {
+                            //check if stock exists.
+                            var customrecord_bb1_sca_companystockSearchObj = search.create({
+                                type: "customrecord_bb1_sca_companystock",
+                                filters: [
+                                    ["custrecord_bb1_sca_companystock_item", "anyof", items[i].internalid],
+                                    "AND",
+                                    ["custrecord_bb1_sca_companystock_wearer", "anyof", wearer.internalid],
+                                    "AND",
+                                    ["custrecord_bb1_sca_companystock_location", "anyof", "2"]
+                                ],
+                                columns: [
+                                    search.createColumn({
+                                        name: "custrecord_bb1_sca_companystock_quantity"
+                                    })
+                                ]
+                            });
+                            var found = false;
+                            customrecord_bb1_sca_companystockSearchObj.run().each(function (result) {
+                                found = true;
+
+                                submitField("customrecord_bb1_sca_companystock", result.id, "custrecord_bb1_sca_companystock_quantity", parseInt(result.getValue("custrecord_bb1_sca_companystock_quantity")) + difference, false);
+                                return false;
+                            });
+                            if (!found) {
+                                var stockRecord = record.create({
+                                    type: "customrecord_bb1_sca_companystock",
+                                    isDynamic: true
+                                });
+                                stockRecord.setValue({
+                                    fieldId: 'custrecord_bb1_sca_companystock_item',
+                                    value: items[i].internalid,
+                                    ignoreFieldChange: true
+                                });
+                                stockRecord.setValue({
+                                    fieldId: 'custrecord_bb1_sca_companystock_wearer',
+                                    value: wearer.internalid,
+                                    ignoreFieldChange: true
+                                });
+                                stockRecord.setValue({
+                                    fieldId: 'custrecord_bb1_sca_companystock_location',
+                                    value: 2,
+                                    ignoreFieldChange: true
+                                });
+                                stockRecord.setValue({
+                                    fieldId: 'custrecord_bb1_sca_companystock_quantity',
+                                    value: difference,
+                                    ignoreFieldChange: true
+                                });
+                                stockRecord.save();
+                            }
+
+                        } else if (area) {
+                            //check if stock exists.
+                            var customrecord_bb1_sca_companystockSearchObj = search.create({
+                                type: "customrecord_bb1_sca_companystock",
+                                filters: [
+                                    ["custrecord_bb1_sca_companystock_item", "anyof", items[i].internalid],
+                                    "AND",
+                                    ["custrecord_bb1_sca_companystock_area", "anyof", area.internalid],
+                                    "AND",
+                                    ["custrecord_bb1_sca_companystock_location", "anyof", "1"]
+                                ],
+                                columns: [
+                                    search.createColumn({
+                                        name: "custrecord_bb1_sca_companystock_quantity"
+                                    })
+                                ]
+                            });
+                            var found = false;
+                            customrecord_bb1_sca_companystockSearchObj.run().each(function (result) {
+                                found = true;
+                                submitField("customrecord_bb1_sca_companystock", result.id, "custrecord_bb1_sca_companystock_quantity", parseInt(result.getValue("custrecord_bb1_sca_companystock_quantity")) + difference, false);
+                                return false;
+                            });
+
+                            if (!found) {
+                                var stockRecord = record.create({
+                                    type: "customrecord_bb1_sca_companystock",
+                                    isDynamic: true
+                                });
+                                stockRecord.setValue({
+                                    fieldId: 'custrecord_bb1_sca_companystock_item',
+                                    value: items[i].internalid,
+                                    ignoreFieldChange: true
+                                });
+                                stockRecord.setValue({
+                                    fieldId: 'custrecord_bb1_sca_companystock_area',
+                                    value: area.internalid,
+                                    ignoreFieldChange: true
+                                });
+                                stockRecord.setValue({
+                                    fieldId: 'custrecord_bb1_sca_companystock_location',
+                                    value: 1,
+                                    ignoreFieldChange: true
+                                });
+                                stockRecord.setValue({
+                                    fieldId: 'custrecord_bb1_sca_companystock_quantity',
+                                    value: difference,
+                                    ignoreFieldChange: true
+                                });
+                                stockRecord.save();
+                            }
+
+                        }
+                    }
                 }
+
+            }
 
         }
 
@@ -945,6 +1068,13 @@ var from=8661;//sales
         }
 
         function getBuyer(contact) {
+            if (contact) {
+                try {
+                    contact = parseInt(contact);
+                } catch (err) {
+                    contact = 0;
+                }
+            }
             if (!(contact > 0)) {
                 return;
             }
@@ -952,11 +1082,14 @@ var from=8661;//sales
             var buyer = search.lookupFields({
                 type: search.Type.CONTACT,
                 id: contact,
-                columns: ['custentity_bb1_sca_usebudget', 'custentity_bb1_sca_budget', 'custentity_bb1_sca_duration', 'custentity_bb1_sca_currentspend', 'custentity_bb1_sca_startdate']
+                columns: ['custentity_bb1_sca_buyer', 'custentity_bb1_sca_usebudget', 'custentity_bb1_sca_budget', 'custentity_bb1_sca_duration', 'custentity_bb1_sca_currentspend', 'custentity_bb1_sca_startdate', 'custentity_bb1_sca_requiresapproval', 'custentity_bb1_sca_overridecustomeritems', 'company']
             });
             if (buyer) {
                 //log.debug("Buyer Search res", JSON.stringify(buyer));
                 //Update Buyer dates.
+                if (buyer.custentity_bb1_sca_requiresapproval && buyer.custentity_bb1_sca_requiresapproval.length > 0) {
+                    buyer.custentity_bb1_sca_requiresapproval = buyer.custentity_bb1_sca_requiresapproval[0];
+                }
                 buyer.custentity_bb1_sca_duration = buyer.custentity_bb1_sca_duration[0].value;
                 var custentity_bb1_sca_startdate = buyer.custentity_bb1_sca_startdate;
                 buyer.custentity_bb1_sca_budget = parseFloat(buyer.custentity_bb1_sca_budget) || 0;
@@ -978,7 +1111,10 @@ var from=8661;//sales
                     submitField("contact", contact, "custentity_bb1_sca_startdate", buyer.custentity_bb1_sca_startdate, false);
                     submitField("contact", contact, "custentity_bb1_sca_currentspend", buyer.custentity_bb1_sca_currentspend, false);
                 }
+            } else {
+                log.debug("Get Buyer " + runtime.executionContext, "Unable to get buyer " + contact + ".");
             }
+            log.debug("Buyer", JSON.stringify(buyer));
             return buyer;
         }
 
@@ -1084,7 +1220,7 @@ var from=8661;//sales
                 sublistId: 'item'
             });
             var items = [],
-                item, type;
+                item, type, lookup;
             for (var i = 0; i < numLines; i++) {
 
 
@@ -1157,31 +1293,32 @@ var from=8661;//sales
                     }
                 }
 
+                type = currentRecord.getSublistValue({
+                    sublistId: 'item',
+                    fieldId: 'itemtype',
+                    line: i
+                });
+                if (type == "InvtPart") {
+                    type = record.Type.INVENTORY_ITEM;
+                } else {
+                    type = record.Type.ASSEMBLY_ITEM;
+                }
+                lookup = search.lookupFields({
+                    type: type,
+                    id: item.internalid,
+                    columns: ['parent', 'custitem_bb1_sca_standarditem', 'custitem_bb1_sca_customers', 'custitem_bb1_sca_buyers']
+                });
                 if (item.matrixtype == "CHILD") {
-                    type = currentRecord.getSublistValue({
-                        sublistId: 'item',
-                        fieldId: 'itemtype',
-                        line: i
-                    });
-                    if (type == "InvtPart") {
-                        type = record.Type.INVENTORY_ITEM;
-                    } else {
-                        type = record.Type.ASSEMBLY_ITEM;
-                    }
 
-
-                    item.parent = search.lookupFields({
-                        type: type,
-                        id: item.internalid,
-                        columns: ['parent']
-                    });
+                    item.parent = lookup.parent;
                     if (item.parent && item.parent.parent && item.parent.parent.length > 0) {
                         item.parent = item.parent.parent[0].value;
                     }
                 }
 
-
-
+                item.custitem_bb1_sca_standarditem = lookup.custitem_bb1_sca_standarditem;
+                item.custitem_bb1_sca_customers = lookup.custitem_bb1_sca_customers;
+                item.custitem_bb1_sca_buyers = lookup.custitem_bb1_sca_buyers;
 
                 items.push(item);
 
@@ -1202,6 +1339,7 @@ var from=8661;//sales
         /* BB1 G Truslove Oct 2017 - reusable functions */
 
         function emailAlert(from, to, title, subject, message, params, reply, attachments) { //BB1 G truslove - email an internal alert
+            log.debug("Email alert", "to " + to);
             var body = "";
             var companyinformation = config.load({
                 type: config.Type.COMPANY_INFORMATION
@@ -1216,8 +1354,8 @@ var from=8661;//sales
 
                 body = "<html><body>";
                 body += "<div style=\"margin:0 15px\" >";
-                body += "<img src=\"http://safeaid.bb1.website/s/extensions/SuiteCommerce/SafeAid_Base_Theme/19.1.0/img/Logo.png\" alt=\"Safeaid\" />";
-                
+                body += "<img src=\"https://www.safeaidsupplies.com/s/extensions/SuiteCommerce/SafeAid_Base_Theme/19.1.0/img/Logo.png\" alt=\"Safeaid\" />";
+
 
                 if (subject) {
                     body += "<h3 style=\"color:#333;\">" + subject + "</h3>";

@@ -97,7 +97,8 @@ define(
 				}, {
 					id: "custentity_bb1_sca_requiresapproval",
 					label: "Requires Approval",
-					type: "choice"
+					type: "choice",
+					mandatory: true
 				}, {
 					id: "custentity_bb1_sca_allowviewbalance",
 					label: "Allow View Balance",
@@ -255,6 +256,9 @@ define(
 								}, {
 									value: "2",
 									text: "For Warnings"
+								},{
+									value: "4",
+									text: "For Warnings & Standard Items"
 								}, {
 									value: "3",
 									text: "Always"

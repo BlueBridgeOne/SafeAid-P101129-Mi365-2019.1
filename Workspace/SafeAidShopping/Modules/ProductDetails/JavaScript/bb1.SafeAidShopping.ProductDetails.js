@@ -67,6 +67,8 @@ define(
       getStockInfo: _.wrap(ItemModel.prototype.getStockInfo, function (getStockInfo, options) {
         var res = getStockInfo.apply(this, _.rest(arguments));
         //res.allowView = this.overview.get("custentity_bb1_sca_allowviewbalance") == "T";
+        // console.log(this);
+        // console.log(res);
         if (this.get("itemtype") == "Assembly") {
           res.stockMessageClass = "stock-message-assembly";
         } else {
@@ -230,8 +232,24 @@ define(
     //show in stock messages
     ItemKeyMapping.getKeyMapping = _.wrap(ItemKeyMapping.getKeyMapping, function (getKeyMapping) {
       var res = getKeyMapping.apply(this, _.rest(arguments));
-      res._showInStockMessage = function () {
-        return true;
+
+      res._showOutOfStockMessage= function (item) {
+        var itemType = item && item.get("itemtype");
+        if (itemType == "Assembly") {
+          return false;
+        } else {
+          return !item.get("isinstock");
+        }
+      };
+
+      res._showInStockMessage = function (item) {
+        console.log(item);
+        var itemType = item && item.get("itemtype");
+        if (itemType == "Assembly") {
+          return true;
+        } else {
+          return item.get("isinstock");
+        }
       };
 
       res._inStockMessage = function (item) {
