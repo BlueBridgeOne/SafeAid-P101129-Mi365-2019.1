@@ -1,9 +1,9 @@
 define(
     'bb1.SafeAidShopping.Cart', [
-        'bb1.Cart.AddToCart.Button.View', 'ProductDetails.Base.View', 'Handlebars', 'Cart.Detailed.View', 'Backbone', 'bb1.Cart.List.View', 'Cart.Summary.View', 'Tools', 'Header.MiniCart.View', 'Header.View', 'Facets.FacetedNavigationItem.View','Item.Model'
+        'bb1.Cart.AddToCart.Button.View', 'ProductDetails.Base.View', 'Handlebars', 'Cart.Detailed.View', 'Backbone', 'bb1.Cart.List.View', 'Cart.Summary.View', 'Tools', 'Header.MiniCart.View', 'Header.View', 'Facets.FacetedNavigationItem.View', 'Item.Model'
     ],
     function (
-        AddToCartButtonView, ProductDetailsBase, Handlebars, CartDetailedView, Backbone, bb1CartListView, CartSummaryView, Tools, HeaderMiniCart, Header, FacetsFacetedNavigationItemView,ItemModel
+        AddToCartButtonView, ProductDetailsBase, Handlebars, CartDetailedView, Backbone, bb1CartListView, CartSummaryView, Tools, HeaderMiniCart, Header, FacetsFacetedNavigationItemView, ItemModel
     ) {
         'use strict';
 
@@ -14,7 +14,25 @@ define(
         return {
 
             mountToApp: function mountToApp(container) {
-                
+
+                function parseJSONValue(value) { //convert number or {internalid:1,label:"A"} into number.
+                    if (value.internalid) {
+                        value = value.internalid;
+                    }
+                    var res;
+                    try {
+                        if (value) {
+                            var parts = value.split("|");
+                            res = {
+                                internalid: parseInt(parts[0]),
+                                label: parts[1]
+                            };
+                        }
+                    } catch (err) {}
+
+                    return res;
+                }
+
                 //console.log("Mount SafeAid Shopping Extension");
 
                 //Various ways to link into existing views and templates...
@@ -38,10 +56,10 @@ define(
                             //console.log(options.models);
                             cartOptionId = options.models[j].get("cartOptionId");
                             //console.log(cartOptionId);
-                            if (cartOptionId == "custcol_bb1_sca_area") {
-                                area = options.models[j].get("value")
-                            } else if (cartOptionId == "custcol_bb1_sca_wearer") {
-                                wearer = options.models[j].get("value")
+                            if (cartOptionId == "custcol_bb1_sca_area2") {
+                                area = parseJSONValue(options.models[j].get("value"))
+                            } else if (cartOptionId == "custcol_bb1_sca_wearer2") {
+                                wearer = parseJSONValue(options.models[j].get("value"))
                             }
                         }
                         lines[i].area = area; //Shortcut values for sorting.
@@ -85,21 +103,19 @@ define(
 
                 //fix item model:
 
-                ItemModel.prototype.parse= function parse (response)
-                {
+                ItemModel.prototype.parse = function parse(response) {
                     //SC.Tools.fixResponse(response);
                     // if we are performing a direct API call the item is response.items[0]
                     // but if you are using the Item.Collection to fetch this guys
                     // The item is the response
                     var single_item = response.items && response.items[0];
-    
-                    if (single_item)
-                    {
+
+                    if (single_item) {
                         single_item.facets = response.facets;
                     }
                     return single_item ? this.sanitize(single_item) : this.sanitize(response);
                 }
-                    
+
                 //Same again, approval for mini cart.
                 if (!HeaderMiniCart.prototype.events) {
                     HeaderMiniCart.prototype.events = {};
@@ -107,30 +123,32 @@ define(
                 HeaderMiniCart.prototype.events['click [data-action="approve"]'] = 'approveCheckout'
                 HeaderMiniCart.prototype.approveCheckout = function (e) {
 
-                    if($(".shopping-layout-header").css("margin-bottom")=="20px"){
-                    Tools.approveCart(this.options.application || latestApplication);
+                    if ($(".shopping-layout-header").css("margin-bottom") == "20px") {
+                        Tools.approveCart(this.options.application || latestApplication);
                     }
                 }
                 HeaderMiniCart.prototype.events['click [data-action="approve-dropdown"]'] = 'approveDropdownCheckout'
                 HeaderMiniCart.prototype.approveDropdownCheckout = function (e) {
 
-                    
+                    var display=jQuery(".header-mini-cart").css("display");
+                    if(display=="block"){
+                        jQuery(".header-mini-cart").hide();
+                    }else{
                     Tools.approveCart(this.options.application || latestApplication);
-                    
+                    }
                 }
 
-//fix the slider decimal places:
+                //fix the slider decimal places:
 
-FacetsFacetedNavigationItemView.prototype.updateRangeValues= function (e, slider)
-{
-    var parser = this.options.translator.getFacetConfig(this.facetId).parser
-    ,	start = _.isFunction(parser) ? parser(parseFloat(slider.values.low).toFixed(2), true) : slider.values.low
-    ,	end = _.isFunction(parser) ? parser(parseFloat(slider.values.high).toFixed(2), false) : slider.values.high;
+                FacetsFacetedNavigationItemView.prototype.updateRangeValues = function (e, slider) {
+                    var parser = this.options.translator.getFacetConfig(this.facetId).parser,
+                        start = _.isFunction(parser) ? parser(parseFloat(slider.values.low).toFixed(2), true) : slider.values.low,
+                        end = _.isFunction(parser) ? parser(parseFloat(slider.values.high).toFixed(2), false) : slider.values.high;
 
-    this.$el
-        .find('span[data-range-indicator="start"]').html(start).end()
-        .find('span[data-range-indicator="end"]').html(end);
-}
+                    this.$el
+                        .find('span[data-range-indicator="start"]').html(start).end()
+                        .find('span[data-range-indicator="end"]').html(end);
+                }
 
 
                 //override the add to cart button.

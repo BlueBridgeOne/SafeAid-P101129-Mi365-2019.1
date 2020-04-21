@@ -177,7 +177,7 @@ define(
 
         'Catalogue.Items': function () {
 
-          
+
 
           var view = new BackboneCollectionView({
             childView: MyCatalogueItemCellView,
@@ -222,14 +222,16 @@ define(
 
         this.showAreasWearersSelectModal().then(function (selectedArea, selectedWearer) {
           var lines = [];
-
+          
           _.each(multiBuyMatrixOptions, function (multiBuyMatrixOption) {
             var lineModel = LiveOrderLineModel.createFromProduct(multiBuyMatrixOption.product);
+            
+            
             var lineModelOptions = _.extend({}, multiBuyMatrixOption.selectedOptions, {
-              custcol_bb1_sca_area: selectedArea && selectedArea.value || '',
-              custcol_bb1_sca_wearer: selectedWearer && selectedWearer.value || ''
+              custcol_bb1_sca_area2: self.stringifyJSONValue(selectedArea),
+              custcol_bb1_sca_wearer2: self.stringifyJSONValue(selectedWearer)
             });
-
+           
             lineModel.set('quantity', multiBuyMatrixOption.quantity, {
               silent: true
             });
@@ -270,15 +272,23 @@ define(
 
         return false;
       },
+      stringifyJSONValue: function (value) { //convert to area wearer json string
+        if (value) {
+          return parseInt(value.value)+"|"+value.text;
+        }
+        return "";
+      },
 
       showAreasWearersSelectModal: function () {
         var promise = jQuery.Deferred();
 
         var profile = ProfileModel.getInstance()
-        var level=profile.get("level");
-        if(level=="silver"){
-        setTimeout(function(){ promise.resolve(); }, 100);
-        return promise;
+        var level = profile.get("level");
+        if (level == "silver") {
+          setTimeout(function () {
+            promise.resolve();
+          }, 100);
+          return promise;
         }
 
         var model = new CartAddToCartAreaWearerModel();
@@ -362,7 +372,7 @@ define(
       //@method getContext: function()
       getContext: function () {
         //@class bb1.SafeAidShopping.MyCatalogue.List.View.Context
-        
+
         return {
           //@propery {Boolean} isLoading
           isLoading: this.isLoading,

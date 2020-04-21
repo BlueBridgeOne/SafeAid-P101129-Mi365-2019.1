@@ -50,10 +50,10 @@ define(
 						if (items[i].options) {
 							options = items[i].options;
 							for (var j = 0; j < options.length; j++) {
-								if (options[j].id == "CUSTCOL_BB1_SCA_AREA") {
+								if (options[j].id == "CUSTCOL_BB1_SCA_AREA"||options[j].id == "CUSTCOL_BB1_SCA_AREA2") {
 									found = false;
 									for (var k = 0; k < allowAreas.length; k++) {
-										if (options[j].value == allowAreas[k]) {
+										if (this.parseJSONValue(options[j].value) == allowAreas[k]) {
 											found = true;
 											break;
 										}
@@ -158,6 +158,17 @@ define(
 			delete: function () {
 				// not implemented
 			}
+			,parseJSONValue:function(value) { //convert number or {internalid:1,label:"A"} into number.
+            var res = 0;
+            try {
+                if(value){
+                res = parseInt(value.split("|")[0]);
+                }
+            } catch (err) {
+                res = parseInt(value) || res;
+            }
+            return res;
+        }
 		});
 	}
 );

@@ -76,6 +76,8 @@ define(
         }
         return res;
       })
+     
+
     });
 
 
@@ -119,6 +121,24 @@ define(
 
       return false;
 
+    }
+    ProductDetailsBaseView.prototype.updateURL= function updateURL () //stop the unneeded redirects!
+    {
+      var url=this.model.generateURL();
+      
+      var cust=url.indexOf("&custcol");
+      if(cust>-1){
+        url=url.substring(0,cust);
+      }
+      cust=url.indexOf("&color");
+      if(cust>-1){
+        url=url.substring(0,cust);
+      }
+      cust=url.indexOf("?quantity");
+      if(cust>-1){
+        url=url.substring(0,cust);
+      }
+      Backbone.history.navigate(url, {replace: true});
     }
     _.extend(ProductDetailsFullView.prototype, {
 
@@ -234,6 +254,7 @@ define(
       var res = getKeyMapping.apply(this, _.rest(arguments));
 
       res._showOutOfStockMessage= function (item) {
+        
         var itemType = item && item.get("itemtype");
         if (itemType == "Assembly") {
           return false;
@@ -258,7 +279,6 @@ define(
           return _('In Stock').translate();
         }
       }
-
       return res;
     });
 

@@ -29,124 +29,129 @@ define(['N/ui/serverWidget', 'N/runtime', 'N/record', 'N/search'],
 
             var request = context.request;
             var item = request.parameters.item;
-try{
-
-            
-
-
-            if (item) {
-
-                var masterItem = record.load({
-                    type: record.Type.OTHER_CHARGE_ITEM,
-                    id: item,
-                    isDynamic: true
-                });
-                var masterItemItemId = masterItem.getValue({
-                    fieldId: 'itemid'
-                });
-
-                var newItemItemId = masterItemItemId;
-                if (newItemItemId && newItemItemId.length > 2 && newItemItemId.substring(newItemItemId.length - 2) == ".M") {
-                    newItemItemId = newItemItemId.substring(0, newItemItemId.length - 2) + ".P";
-                } else {
-                    newItemItemId = newItemItemId + ".P";
-                }
-
-                var form = serverWidget.createForm({
-                    title: 'Build Item ' + newItemItemId
-                });
-
-
-                var itemfield = form.addField({
-                    id: 'custpage_item',
-                    type: serverWidget.FieldType.TEXT,
-                    label: 'Master Item'
-                });
-                itemfield.defaultValue = item;
-                itemfield.updateDisplayType({
-                    displayType: serverWidget.FieldDisplayType.INLINE
-                });
+            try {
 
 
 
-                var itemNamefield = form.addField({
-                    id: 'custpage_itemid',
-                    type: serverWidget.FieldType.TEXT,
-                    label: 'Master Item Name/Number'
-                });
-                itemNamefield.defaultValue = masterItemItemId;
-                itemNamefield.updateDisplayType({
-                    displayType: serverWidget.FieldDisplayType.INLINE
-                });
 
+                if (item) {
 
-                var newItemNamefield = form.addField({
-                    id: 'custpage_newitemid',
-                    type: serverWidget.FieldType.TEXT,
-                    label: 'New Item Name/Number'
-                });
-                newItemNamefield.defaultValue = newItemItemId;
-                newItemNamefield.updateDisplayType({
-                    displayType: serverWidget.FieldDisplayType.INLINE
-                });
-
-                var custitem_bb1_sca_baseitem = masterItem.getValue({
-                    fieldId: 'custitem_bb1_sca_baseitem'
-                });
-
-                if (custitem_bb1_sca_baseitem) {
-                    var baseItem = record.load({
-                        type: record.Type.INVENTORY_ITEM,
-                        id: custitem_bb1_sca_baseitem,
+                    var masterItem = record.load({
+                        type: record.Type.OTHER_CHARGE_ITEM,
+                        id: item,
                         isDynamic: true
                     });
-                    var baseItemItemId = baseItem.getValue({
+                    var masterItemItemId = masterItem.getValue({
                         fieldId: 'itemid'
                     });
 
-                    var newBaseItemNamefield = form.addField({
-                        id: 'custpage_baseitemid',
-                        type: serverWidget.FieldType.TEXT,
-                        label: 'Base Item Name/Number'
+                    var newItemItemId = masterItemItemId;
+                    if (newItemItemId && newItemItemId.length > 2 && newItemItemId.substring(newItemItemId.length - 2) == ".M") {
+                        newItemItemId = newItemItemId.substring(0, newItemItemId.length - 2) + ".P";
+                    } else {
+                        newItemItemId = newItemItemId + ".P";
+                    }
+
+                    var form = serverWidget.createForm({
+                        title: 'Build Item ' + newItemItemId
                     });
-                    newBaseItemNamefield.defaultValue = baseItemItemId;
-                    newBaseItemNamefield.updateDisplayType({
+
+
+                    var itemfield = form.addField({
+                        id: 'custpage_item',
+                        type: serverWidget.FieldType.TEXT,
+                        label: 'Master Item'
+                    });
+                    itemfield.defaultValue = item;
+                    itemfield.updateDisplayType({
                         displayType: serverWidget.FieldDisplayType.INLINE
                     });
 
 
-                    var newItemId = createItem(form, newItemItemId, masterItem, baseItem);
+
+                    var itemNamefield = form.addField({
+                        id: 'custpage_itemid',
+                        type: serverWidget.FieldType.TEXT,
+                        label: 'Master Item Name/Number'
+                    });
+                    itemNamefield.defaultValue = masterItemItemId;
+                    itemNamefield.updateDisplayType({
+                        displayType: serverWidget.FieldDisplayType.INLINE
+                    });
+
+
+                    var newItemNamefield = form.addField({
+                        id: 'custpage_newitemid',
+                        type: serverWidget.FieldType.TEXT,
+                        label: 'New Item Name/Number'
+                    });
+                    newItemNamefield.defaultValue = newItemItemId;
+                    newItemNamefield.updateDisplayType({
+                        displayType: serverWidget.FieldDisplayType.INLINE
+                    });
+
+                    var custitem_bb1_sca_baseitem = masterItem.getValue({
+                        fieldId: 'custitem_bb1_sca_baseitem'
+                    });
+
+                    if (custitem_bb1_sca_baseitem) {
+                        var baseItem = record.load({
+                            type: record.Type.INVENTORY_ITEM,
+                            id: custitem_bb1_sca_baseitem,
+                            isDynamic: true
+                        });
+                        var baseItemItemId = baseItem.getValue({
+                            fieldId: 'itemid'
+                        });
+
+
+                        var newBaseItemNamefield = form.addField({
+                            id: 'custpage_baseitemid',
+                            type: serverWidget.FieldType.TEXT,
+                            label: 'Base Item Name/Number'
+                        });
+                        newBaseItemNamefield.defaultValue = baseItemItemId;
+                        newBaseItemNamefield.updateDisplayType({
+                            displayType: serverWidget.FieldDisplayType.INLINE
+                        });
+
+
+                        var newItemId = createItem(form, newItemItemId, masterItem, baseItem);
 
 
 
+                    }
+                    context.response.writePage(form);
+                } else {
+                    //item not found
+                    throw (new Error("A master item must be specified."));
                 }
-                context.response.writePage(form);
-            } else {
-                //item not found
-                throw(new Error("A master item must be specified."));
-            }
 
-        }catch(err){
-            var errform = serverWidget.createForm({
-                title: 'Build Item Failed : '+(item||"")
-            });
-            var statusfield = errform.addField({
-                id: 'custpage_status',
-                type: serverWidget.FieldType.INLINEHTML,
-                label: 'Status'
-            });
-            // statusfield.updateDisplayType({
-            //     displayType: serverWidget.FieldDisplayType.INLINE
-            // });
-            if(err.message){
-                statusfield.defaultValue="<h3>"+err.message+"</h3><p>"+(err.stack||"")+"</p>";
-            }else{
-            statusfield.defaultValue=err.toString();
-            }
+            } catch (err) {
+                var errform = serverWidget.createForm({
+                    title: 'Build Item Failed : ' + (item || "")
+                });
+                var statusfield = errform.addField({
+                    id: 'custpage_status',
+                    type: serverWidget.FieldType.INLINEHTML,
+                    label: 'Status'
+                });
+                // statusfield.updateDisplayType({
+                //     displayType: serverWidget.FieldDisplayType.INLINE
+                // });
+                if (err.message) {
+                    if (err.message == "Script Execution Usage Limit Exceeded") {
+                        statusfield.defaultValue = "<h3>" + err.message + "</h3><p>This item took too long to build. Run build again to finish the remaining child items.</p>";
+                    } else {
+                        statusfield.defaultValue = "<h3>" + err.message + "</h3><p>" + (err.stack || "") + "</p>";
+                    }
+                } else {
+                    statusfield.defaultValue = err.toString();
+                }
 
-            //if(err.stack)
-            context.response.writePage(errform);
-        }
+                //if(err.stack)
+                context.response.writePage(errform);
+            }
 
 
         }
@@ -164,24 +169,26 @@ try{
             });
             //remove unneeded colours.
             log.debug("Restrict colours", "custitem_bb1_sca_basecolours " + JSON.stringify(custitem_bb1_sca_basecolours));
-            var foundColour=false;
+            var foundColour = false;
             for (var i = baseChildren.length - 1; i >= 0; i--) {
-                foundColour=false;
+                foundColour = false;
                 for (var j = 0; j < custitem_bb1_sca_basecolours.length; j++) {
                     if (custitem_bb1_sca_basecolours[j] == baseChildren[i].getValue("custitem_bb1_matrix_colour")) {
                         //log.debug("compare colour", custitem_bb1_sca_basecolours[j] + " = " + baseChildren[i].getValue("custitem_bb1_matrix_colour"));
-                        
-                        foundColour=true;
+
+                        foundColour = true;
                         break;
                     }
                 }
-                if(!foundColour){
-                    baseChildren.splice(i,1);
+                if (!foundColour) {
+                    baseChildren.splice(i, 1);
                 }
             }
             log.debug("Restricted baseChildren", "baseChildren " + baseChildren.length);
-           
 
+            var baseItemMatrixType = baseItem.getValue({
+                fieldId: 'matrixtype'
+            });
 
             //base colours
             var baseItemColours = baseItem.getValue({
@@ -194,18 +201,35 @@ try{
             }
 
             for (var i = newColours.length - 1; i >= 0; i--) {
-                foundColour=false;
+                foundColour = false;
                 for (var j = 0; j < custitem_bb1_sca_basecolours.length; j++) {
                     if (custitem_bb1_sca_basecolours[j] == newColours[i]) {
-                        foundColour=true;
+                        foundColour = true;
                         break;
                     }
                 }
-                if(!foundColour){
-                    newColours.splice(i,1);
+                if (!foundColour) {
+                    newColours.splice(i, 1);
                 }
             }
-            log.debug("Restricted colours", "from " + baseItemColours.length+" to "+newColours.length);
+            log.debug("Restricted colours", "from " + baseItemColours.length + " to " + newColours.length);
+
+            //base options
+            var baseItemSizes = baseItem.getValue({
+                fieldId: 'custitem_bb1_matrix_size'
+            });
+            var baseItemGloves = baseItem.getValue({
+                fieldId: 'custitem_bb1_matrix_gloves'
+            });
+            var baseItemFootwear = baseItem.getValue({
+                fieldId: 'custitem_bb1_matrix_footwear'
+            });
+            var baseItemLadieswear = baseItem.getValue({
+                fieldId: 'custitem_bb1_matrix_ladieswear'
+            });
+            var baseItemLength = baseItem.getValue({
+                fieldId: 'custitem_bb1_matrix_length'
+            });
 
             var parentId;
 
@@ -227,24 +251,24 @@ try{
                     id: existimgItemId,
                     isDynamic: true
                 });
-                
+                //log.debug("CREATE", "baseChildren.length " + baseChildren.length + " baseItemMatrixType " + baseItemMatrixType + ".");
                 if (baseChildren.length > 0 && baseItemMatrixType == "PARENT") {
-                    log.debug("baseChildren.length", baseChildren.length);
+                    //log.debug("baseChildren.length", baseChildren.length);
                     instruction = setComponents(newItem, masterItem, baseChildren[0]);
                     newItem.setValue({
                         fieldId: 'custitem_bb1_sca_instructions',
                         value: instructions,
                         ignoreFieldChange: true
                     });
-                }else if(baseItemMatrixType != "PARENT"){
+                } else if (baseItemMatrixType != "PARENT") {
                     instruction = setComponents(newItem, masterItem, baseItem);
                     newItem.setValue({
                         fieldId: 'custitem_bb1_sca_instructions',
                         value: instructions,
                         ignoreFieldChange: true
                     });
-                }else{
-                    throw(new Error("Please select at least one valid colour before building this item."));
+                } else {
+                    throw (new Error("Please select at least one valid colour before building this item."));
                 }
                 newItem.setValue({
                     fieldId: 'custitem_bb1_matrix_colour',
@@ -252,32 +276,58 @@ try{
                     ignoreFieldChange: true
                 });
                 newItem.setValue({
+                    fieldId: 'custitem_bb1_matrix_size',
+                    value: baseItemSizes,
+                    ignoreFieldChange: true
+                });
+                newItem.setValue({
+                    fieldId: 'custitem_bb1_matrix_gloves',
+                    value: baseItemGloves,
+                    ignoreFieldChange: true
+                });
+                newItem.setValue({
+                    fieldId: 'custitem_bb1_matrix_footwear',
+                    value: baseItemFootwear,
+                    ignoreFieldChange: true
+                });
+                newItem.setValue({
+                    fieldId: 'custitem_bb1_matrix_ladieswear',
+                    value: baseItemLadieswear,
+                    ignoreFieldChange: true
+                });
+                newItem.setValue({
+                    fieldId: 'custitem_bb1_matrix_length',
+                    value: baseItemLength,
+                    ignoreFieldChange: true
+                });
+
+                newItem.setValue({
                     fieldId: 'custitem_bb1_sca_lastbuild',
                     value: new Date(),
                     ignoreFieldChange: true
                 });
 
 
-                 //Set a few basic values from the master.
-                 var value, copyValues = ["upccode", "department", "class", "salesdescription", "incomeaccount", "salestaxcode", "isonline","custitem_bb1_sca_customers","subsidiary"];
-                 for (var i = 0; i < copyValues.length; i++) {
-                     value = masterItem.getValue({
-                         fieldId: copyValues[i]
-                     });
-                     newItem.setValue({
-                         fieldId: copyValues[i],
-                         value: value,
-                         ignoreFieldChange: true
-                     });
-                 }
-                 newItem.save({
+                //Set a few basic values from the master.
+                var value, copyValues = ["upccode", "department", "class", "salesdescription", "incomeaccount", "salestaxcode", "isonline", "custitem_bb1_sca_customers", "subsidiary"];
+                for (var i = 0; i < copyValues.length; i++) {
+                    value = masterItem.getValue({
+                        fieldId: copyValues[i]
+                    });
+                    newItem.setValue({
+                        fieldId: copyValues[i],
+                        value: value,
+                        ignoreFieldChange: true
+                    });
+                }
+                newItem.save({
                     enableSourcing: true,
                     ignoreMandatoryFields: true
                 });
                 parentId = existimgItemId;
             } else {
                 statusfield.defaultValue = "New Item Created";
-                log.debug("CREATE", "Create new item " + newItemItemId + ".");
+                log.debug("CREATE", "Create new child " + newItemItemId + ".");
                 newItem = record.create({
                     type: record.Type.ASSEMBLY_ITEM,
                     isDynamic: true
@@ -288,7 +338,7 @@ try{
                     ignoreFieldChange: true
                 });
                 //Set a few basic values from the master.
-                var value, copyValues = ["upccode", "department", "class", "salesdescription", "incomeaccount", "salestaxcode", "isonline","custitem_bb1_sca_customers","subsidiary"];
+                var value, copyValues = ["upccode", "department", "class", "salesdescription", "incomeaccount", "salestaxcode", "isonline", "custitem_bb1_sca_customers", "subsidiary","displayname"];
                 for (var i = 0; i < copyValues.length; i++) {
                     value = masterItem.getValue({
                         fieldId: copyValues[i]
@@ -305,9 +355,7 @@ try{
                 var baseItemTemplate = baseItem.getValue({
                     fieldId: 'matrixitemnametemplate'
                 });
-                var baseItemMatrixType = baseItem.getValue({
-                    fieldId: 'matrixtype'
-                });
+
                 var baseItemOptions = baseItem.getValue({
                     fieldId: 'itemoptions'
                 });
@@ -358,7 +406,7 @@ try{
 
 
                 //log.debug("item", "values set!");
-                
+
                 if (baseChildren.length > 0 && baseItemMatrixType == "PARENT") {
                     log.debug("baseChildren.length", baseChildren.length);
                     instructions = setComponents(newItem, masterItem, baseChildren[0]);
@@ -367,15 +415,15 @@ try{
                         value: instructions,
                         ignoreFieldChange: true
                     });
-                }else if(baseItemMatrixType != "PARENT"){
+                } else if (baseItemMatrixType != "PARENT") {
                     instruction = setComponents(newItem, masterItem, baseItem);
                     newItem.setValue({
                         fieldId: 'custitem_bb1_sca_instructions',
                         value: instructions,
                         ignoreFieldChange: true
                     });
-                }else{
-                    throw(new Error("Please select at least one valid colour before building this item."));
+                } else {
+                    throw (new Error("Please select at least one valid colour before building this item."));
                 }
                 log.debug("save item", "save");
                 parentId = newItem.save({
@@ -476,28 +524,25 @@ try{
             var newChildren = getItemChildren(parentId, record.Type.ASSEMBLY_ITEM); //Get all the existing children, a diff will be attempted.
             log.debug("Existing children", "found " + newChildren.length);
             var hChildren = {},
-                childid, colon; //Children hash table
+                childid; //Children hash table
             for (var i = 0; i < newChildren.length; i++) {
                 childid = newChildren[i].getValue("itemid");
-                colon = childid.lastIndexOf(":");
-                if (colon > -1) {
-                    childid = childid.substring(colon + 2);
-                }
+                childid = getOptionId(childid);
                 hChildren[childid] = newChildren[i];
             }
             //log.debug("Existing Children", JSON.stringify(hChildren));
             //log.debug("baseChildren","length "+baseChildren.length);
             var childItemId, newChild, dot, newChildId, row = {},
-                instructions = "",count=0;
+                instructions = "",
+                count = 0,
+                optionId;
             for (var i = 0; i < baseChildren.length; i++) {
 
                 childItemId = baseChildren[i].getValue("itemid");
+                optionId = getOptionId(childItemId)
+                newChildId = newItemItemId + optionId; //The child id will be this.
 
-                dot = childItemId.indexOf(".");
-                childItemId = childItemId.substring(dot); //Find extra stuff on child name.
-                newChildId = newItemItemId + childItemId; //The child id will be this.
-
-                log.debug("Create Child", "child " + newChildId);
+                //log.debug("Create Child", "child " + newChildId);
 
                 sublist.setSublistValue({
                     id: 'custpage_children_itemid',
@@ -517,19 +562,41 @@ try{
                 });
 
 
-                if (hChildren[newChildId]) { //child already exists
+                if (hChildren[optionId]) { //child already exists
+                    log.debug("Create Child", "child exists " + optionId);
                     sublist.setSublistValue({
                         id: 'custpage_children_status',
                         line: count,
-                        value: "Existing Child " + hChildren[newChildId].id + " Rebuilt"
+                        value: "Existing Child " + hChildren[optionId].id
                     });
-                    newChild = record.load({
-                        type: record.Type.ASSEMBLY_ITEM,
-                        id: hChildren[newChildId].id,
-                        isDynamic: true
+                    baseChildColours = baseChildren[i].getValue({
+                        name: 'custitem_bb1_matrix_colour'
                     });
-                } else {
+                    sublist.setSublistValue({
+                        id: 'custpage_children_colour',
+                        line: count,
+                        value: baseChildren[i].getText({
+                            name: 'custitem_bb1_matrix_colour'
+                        })
+                    });
 
+                    // newChild = record.load({
+                    //     type: record.Type.ASSEMBLY_ITEM,
+                    //     id: hChildren[optionId].id,
+                    //     isDynamic: true
+                    // });
+
+                    instructions = hChildren[optionId].getValue("custitem_bb1_sca_instructions");
+                    
+                    sublist.setSublistValue({
+                        id: 'custpage_children_accessories',
+                        line: count,
+                        value: instructions || "None"
+                    });
+
+                    
+                } else {
+                    log.debug("Create Child", "child is new " + optionId);
                     sublist.setSublistValue({
                         id: 'custpage_children_status',
                         line: count,
@@ -550,76 +617,104 @@ try{
                         value: parentId,
                         ignoreFieldChange: true
                     });
+
+                    newChild.setValue({
+                        fieldId: 'isinactive',
+                        value: false,
+                        ignoreFieldChange: true
+                    });
+
+                    newChild.setValue({
+                        fieldId: 'cogsaccount',
+                        value: baseItemCogs || 116,
+                        ignoreFieldChange: true
+                    });
+                    newChild.setValue({
+                        fieldId: 'assetaccount',
+                        value: baseItemAssets || 115,
+                        ignoreFieldChange: true
+                    });
+                    newChild.setValue({
+                        fieldId: 'matrixtype',
+                        value: "CHILD",
+                        ignoreFieldChange: true
+                    });
+
+                    newChild.setValue({
+                        fieldId: 'matrixitemnametemplate',
+                        value: baseItemTemplate,
+                        ignoreFieldChange: true
+                    });
+                    newChild.setValue({
+                        fieldId: 'itemoptions',
+                        value: baseItemOptions,
+                        ignoreFieldChange: true
+                    });
+                    log.debug("baseItemOptions", JSON.stringify(baseItemOptions));
+                    baseChildColours = baseChildren[i].getValue({
+                        name: 'custitem_bb1_matrix_colour'
+                    });
+                    sublist.setSublistValue({
+                        id: 'custpage_children_colour',
+                        line: count,
+                        value: baseChildren[i].getText({
+                            name: 'custitem_bb1_matrix_colour'
+                        })
+                    });
+
+                    newChild.setValue({
+                        fieldId: 'matrixoptioncustitem_bb1_matrix_colour',
+                        value: parseInt(baseChildColours),
+                        ignoreFieldChange: true
+                    });
+
+
+                    newChild.setValue({
+                        fieldId: 'matrixoptioncustitem_bb1_matrix_size',
+                        value: baseChildren[i].getValue("custitem_bb1_matrix_size"),
+                        ignoreFieldChange: true
+                    });
+                    newChild.setValue({
+                        fieldId: 'matrixoptioncustitem_bb1_matrix_gloves',
+                        value: baseChildren[i].getValue("custitem_bb1_matrix_gloves"),
+                        ignoreFieldChange: true
+                    });
+                    newChild.setValue({
+                        fieldId: 'matrixoptioncustitem_bb1_matrix_footwear',
+                        value: baseChildren[i].getValue("custitem_bb1_matrix_footwear"),
+                        ignoreFieldChange: true
+                    });
+                    newChild.setValue({
+                        fieldId: 'matrixoptioncustitem_bb1_matrix_ladieswear',
+                        value: baseChildren[i].getValue("custitem_bb1_matrix_ladieswear"),
+                        ignoreFieldChange: true
+                    });
+                    newChild.setValue({
+                        fieldId: 'matrixoptioncustitem_bb1_matrix_length',
+                        value: baseChildren[i].getValue("custitem_bb1_matrix_length"),
+                        ignoreFieldChange: true
+                    });
+                    instructions = setComponents(newChild, masterItem, baseChildren[i]);
+                    newChild.setValue({
+                        fieldId: 'custitem_bb1_sca_instructions',
+                        value: instructions,
+                        ignoreFieldChange: true
+                    });
+                    sublist.setSublistValue({
+                        id: 'custpage_children_accessories',
+                        line: count,
+                        value: instructions || "None"
+                    });
+
+                    //log.debug("save child", "child " + i);
+                    newChild.save({
+                        enableSourcing: true,
+                        ignoreMandatoryFields: true
+                    });
                 }
 
-                newChild.setValue({
-                    fieldId: 'isinactive',
-                    value: false,
-                    ignoreFieldChange: true
-                });
 
-                newChild.setValue({
-                    fieldId: 'cogsaccount',
-                    value: baseItemCogs || 116,
-                    ignoreFieldChange: true
-                });
-                newChild.setValue({
-                    fieldId: 'assetaccount',
-                    value: baseItemAssets || 115,
-                    ignoreFieldChange: true
-                });
-                newChild.setValue({
-                    fieldId: 'matrixtype',
-                    value: "CHILD",
-                    ignoreFieldChange: true
-                });
-                newChild.setValue({
-                    fieldId: 'matrixitemnametemplate',
-                    value: baseItemTemplate,
-                    ignoreFieldChange: true
-                });
-                newChild.setValue({
-                    fieldId: 'itemoptions',
-                    value: baseItemOptions,
-                    ignoreFieldChange: true
-                });
-
-                baseChildColours = baseChildren[i].getValue({
-                    name: 'custitem_bb1_matrix_colour'
-                });
-                sublist.setSublistValue({
-                    id: 'custpage_children_colour',
-                    line: count,
-                    value: baseChildren[i].getText({
-                        name: 'custitem_bb1_matrix_colour'
-                    })
-                });
-
-                newChild.setValue({
-                    fieldId: 'matrixoptioncustitem_bb1_matrix_colour',
-                    value: parseInt(baseChildColours),
-                    ignoreFieldChange: true
-                });
-
-                instructions = setComponents(newChild, masterItem, baseChildren[i]);
-                newChild.setValue({
-                    fieldId: 'custitem_bb1_sca_instructions',
-                    value: instructions,
-                    ignoreFieldChange: true
-                });
-                sublist.setSublistValue({
-                    id: 'custpage_children_accessories',
-                    line: count,
-                    value: instructions||"None"
-                });
-                //log.debug("save child", "child " + i);
-                newChild.save({
-                    enableSourcing: true,
-                    ignoreMandatoryFields: true
-                });
-
-
-                hChildren[newChildId] = null; //Diff, see what's left at the end and inactivate those.
+                hChildren[optionId] = null; //Diff, see what's left at the end and inactivate those.
                 count++;
             }
             //
@@ -664,7 +759,7 @@ try{
                     });
                     count++;
                 }
-                
+
             }
 
             return newItem;
@@ -673,7 +768,7 @@ try{
 
         function setComponents(newItem, masterItem, baseChild) { //sets the components on an item or child.
 
-            var found=false;
+            var found = false;
             var instructions = "";
             //first wipe whatever is in the list. Easier than a diff.
             var numLines = newItem.getLineCount({
@@ -686,29 +781,29 @@ try{
                     ignoreRecalc: true
                 });
             }
-            if(baseChild){
-            //Add the up to date components.
-            newItem.selectNewLine({
-                sublistId: 'member'
-            });
+            if (baseChild) {
+                //Add the up to date components.
+                newItem.selectNewLine({
+                    sublistId: 'member'
+                });
 
-            newItem.setCurrentSublistValue({
-                sublistId: 'member',
-                fieldId: 'item',
-                value: baseChild.id,
-                ignoreFieldChange: true
-            });
-            newItem.setCurrentSublistValue({
-                sublistId: 'member',
-                fieldId: 'quantity',
-                value: 1,
-                ignoreFieldChange: true
-            });
-            newItem.commitLine({
-                sublistId: 'member'
-            });
-            found=true;
-        }
+                newItem.setCurrentSublistValue({
+                    sublistId: 'member',
+                    fieldId: 'item',
+                    value: baseChild.id,
+                    ignoreFieldChange: true
+                });
+                newItem.setCurrentSublistValue({
+                    sublistId: 'member',
+                    fieldId: 'quantity',
+                    value: 1,
+                    ignoreFieldChange: true
+                });
+                newItem.commitLine({
+                    sublistId: 'member'
+                });
+                found = true;
+            }
 
             //Add master item accessories
             if (!customrecord_bb1_sca_acc_accessorySearchObj) {
@@ -753,12 +848,12 @@ try{
                 newItem.commitLine({
                     sublistId: 'member'
                 });
-                found=true;
+                found = true;
                 return true;
             });
 
-            if(!found){
-                throw(new Error("Unable to create an assembly item without any components."));
+            if (!found) {
+                throw (new Error("Unable to create an assembly item without any components."));
             }
 
             return instructions;
@@ -794,7 +889,25 @@ try{
                         name: "custitem_bb1_matrix_colour"
                     }),
                     search.createColumn({
+                        name: "custitem_bb1_matrix_size"
+                    }),
+                    search.createColumn({
+                        name: "custitem_bb1_matrix_gloves"
+                    }),
+                    search.createColumn({
+                        name: "custitem_bb1_matrix_footwear"
+                    }),
+                    search.createColumn({
+                        name: "custitem_bb1_matrix_ladieswear"
+                    }),
+                    search.createColumn({
+                        name: "custitem_bb1_matrix_length"
+                    }),
+                    search.createColumn({
                         name: "isinactive"
+                    }),
+                    search.createColumn({
+                        name: "custitem_bb1_sca_instructions"
                     })
                 ]
             });
@@ -827,6 +940,20 @@ try{
                 return false;
             });
             return res;
+        }
+
+        function getOptionId(childItemId) {
+
+            var colon = childItemId.lastIndexOf(" : ");
+            var subChildItemId = childItemId.substring(colon + 3);
+            colon = childItemId.indexOf(" : ");
+            var parentItemId = childItemId.substring(0, colon);
+
+            while (subChildItemId.substring(0, parentItemId.length) != parentItemId) {
+                parentItemId = parentItemId.substring(0, parentItemId.length - 1);
+            }
+            //log.debug("getOptionId",childItemId+"="+subChildItemId.substring(parentItemId.length));
+            return subChildItemId.substring(parentItemId.length); //The child id will be this.
         }
 
 

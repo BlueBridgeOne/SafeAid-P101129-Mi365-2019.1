@@ -111,6 +111,7 @@ define(
         _.each(this.model.get('options').where({
           isMatrixDimension: true
         }), function (matrixOption) {
+          
           var matrixChildOptionCartId = matrixOption.get('cartOptionId');
           var matrixChildOptionItemId = matrixOption.get('itemOptionId');
           var matrixChildOptionItemLabel = matrixChild.get(matrixChildOptionItemId);
@@ -165,18 +166,19 @@ define(
           $alertPlaceholder.show().html(message);
           return false;
         }
-
+        
         this.showAreasWearersSelectModal().then(function (selectedArea, selectedWearer) {
           var lines = [];
-
+          
           _.each(multiBuyMatrixOptions, function (multiBuyMatrixOption) {
-
+            
             var product = multiBuyMatrixOption.product.clone();
+            
             var lineModelOptions = _.extend({}, multiBuyMatrixOption.selectedOptions, {
-              custcol_bb1_sca_area: selectedArea && selectedArea.value || '',
-              custcol_bb1_sca_wearer: selectedWearer && selectedWearer.value || ''
+              custcol_bb1_sca_area2: self.stringifyJSONValue(selectedArea),
+              custcol_bb1_sca_wearer2: self.stringifyJSONValue(selectedWearer)
             });
-
+          
             product.set('quantity', multiBuyMatrixOption.quantity, {
               silent: true
             });
@@ -185,6 +187,7 @@ define(
               self.setOption(product, selectedOptionId, selectedOptionValue);
             });
             var lineModel = LiveOrderLineModel.createFromProduct(product);
+            //console.log(lineModel);
             //console.log(lineModel);
             lines.push(lineModel);
           });
@@ -218,7 +221,12 @@ define(
 
         return false;
       },
-
+      stringifyJSONValue: function (value) { //convert to area wearer json string
+        if (value) {
+          return parseInt(value.value)+"|"+value.text;
+        }
+        return "";
+      },
       showAreasWearersSelectModal: function () {
         var promise = jQuery.Deferred();
 
@@ -264,7 +272,7 @@ define(
           selected_value = selected_option && _.findWhere(selected_option.get('values'), {
             internalid: value
           });
-
+          
         if (selected_option) {
           if (selected_value) {
             selected_option.set('value', {
@@ -284,7 +292,7 @@ define(
             }, {
               silent: true
             });
-
+          
             lineModel.set(option_cart_id, value, {
               silent: true
             });

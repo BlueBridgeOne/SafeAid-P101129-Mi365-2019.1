@@ -220,6 +220,24 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                     fieldId: 'custcol_bb1_sca_area',
                     line: i
                 });
+
+                var custcol_bb1_sca_wearer2 = currentRecord.getSublistValue({
+                    sublistId: 'item',
+                    fieldId: 'custcol_bb1_sca_wearer2',
+                    line: i
+                });
+                var custcol_bb1_sca_area2 = currentRecord.getSublistValue({
+                    sublistId: 'item',
+                    fieldId: 'custcol_bb1_sca_area2',
+                    line: i
+                });
+                if (custcol_bb1_sca_wearer2) {
+                    custcol_bb1_sca_wearer = parseJSONValue(custcol_bb1_sca_wearer2);
+                }
+                if (custcol_bb1_sca_area2) {
+                        custcol_bb1_sca_area = parseJSONValue(custcol_bb1_sca_area2);
+                }
+
                 var custcol_bb1_transline_area = currentRecord.getSublistValue({
                     sublistId: 'item',
                     fieldId: 'custcol_bb1_transline_area',
@@ -308,20 +326,23 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
             var areas = [],
                 wearers = [],
                 hareas = {},
-                hwearers = {}; //record a list of distict areas and wearers.
+                hwearers = {},value; //record a list of distict areas and wearers.
             for (var i = 0; i < items.length; i++) {
                 if (items[i].options) {
                     options = items[i].options;
+                    
                     for (var j = 0; j < options.length; j++) {
-                        if (options[j].id == "CUSTCOL_BB1_SCA_AREA") {
-                            if (!hareas[options[j].value]) {
-                                hareas[options[j].value] = true;
-                                areas.push(options[j].value);
+                        if (options[j].id == "CUSTCOL_BB1_SCA_AREA"||options[j].id == "CUSTCOL_BB1_SCA_AREA2") {
+                            value=parseJSONValue(options[j].value);
+                            if (!hareas[value]) {
+                                hareas[value] = true;
+                                areas.push(value);
                             }
-                        } else if (options[j].id == "CUSTCOL_BB1_SCA_WEARER") {
-                            if (!hwearers[options[j].value]) {
-                                hwearers[options[j].value] = true;
-                                wearers.push(options[j].value);
+                        } else if (options[j].id == "CUSTCOL_BB1_SCA_WEARER"||options[j].id == "CUSTCOL_BB1_SCA_WEARER2") {
+                            value=parseJSONValue(options[j].value);
+                            if (!hwearers[value]) {
+                                hwearers[value] = true;
+                                wearers.push(value);
                             }
                         }
                     }
@@ -353,7 +374,7 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
         function afterSubmit(scriptContext) {
 
             if (scriptContext.type == scriptContext.UserEventType.DELETE) return;
-            log.debug("afterSubmit " + runtime.executionContext, scriptContext.newRecord.id);
+            log.debug("afterSubmit " + runtime.executionContext, scriptContext.newRecord.id+" remaining="+runtime.getCurrentScript().getRemainingUsage());
             try {
 
                 //Approval Rules
@@ -370,13 +391,13 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                 var warnings = [],
                     hwarnings = {};
                 var items = getItems(currentRecord, scriptContext.oldRecord || currentRecord);
-
+                //log.debug("items",JSON.stringify(items)+" remaining="+runtime.getCurrentScript().getRemainingUsage());
                 var options, wearerChecks = [],
                     areaChecks = []; //Get a list of the checks that are needed.
                 var areas = [],
                     wearers = [],
                     hareas = {},
-                    hwearers = {}; //record a list of distict areas and wearers.
+                    hwearers = {},value; //record a list of distict areas and wearers.
                 for (var i = 0; i < items.length; i++) {
 
 
@@ -384,7 +405,9 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                     if (items[i].options) {
                         options = items[i].options;
                         for (var j = 0; j < options.length; j++) {
-                            if (options[j].id == "CUSTCOL_BB1_SCA_AREA") {
+                            
+                            if (options[j].id == "CUSTCOL_BB1_SCA_AREA"||options[j].id == "CUSTCOL_BB1_SCA_AREA2") {
+                                value=parseJSONValue(options[j].value);
                                 areaChecks.push({
                                     item: {
                                         value: items[i].internalid,
@@ -394,14 +417,15 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                                     amount: items[i].amount,
                                     amount_formatted: items[i].amount_formatted,
                                     area: {
-                                        value: options[j].value
+                                        value: value
                                     }
                                 });
-                                if (!hareas[options[j].value]) {
-                                    hareas[options[j].value] = true;
-                                    areas.push(options[j].value);
+                                if (!hareas[value]) {
+                                    hareas[value] = true;
+                                    areas.push(value);
                                 }
-                            } else if (options[j].id == "CUSTCOL_BB1_SCA_WEARER") {
+                            } else if (options[j].id == "CUSTCOL_BB1_SCA_WEARER"||options[j].id == "CUSTCOL_BB1_SCA_WEARER2") {
+                                value=parseJSONValue(options[j].value);
                                 //throw(new Error(JSON.stringify(wearerDetails)+" "+JSON.stringify(options[j])));
                                 wearerChecks.push({
                                     item: {
@@ -412,12 +436,12 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                                     amount: items[i].amount,
                                     amount_formatted: items[i].amount_formatted,
                                     wearer: {
-                                        value: options[j].value
+                                        value: value
                                     }
                                 });
-                                if (!hwearers[options[j].value]) {
-                                    hwearers[options[j].value] = true;
-                                    wearers.push(options[j].value);
+                                if (!hwearers[value]) {
+                                    hwearers[value] = true;
+                                    wearers.push(value);
                                 }
                             }
                         }
@@ -455,7 +479,9 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                 var areaDetails = getAreas(areas);
                 var wearerDetails = getWearers(wearers);
                 var ruleDetails = getRules(areas);
-                //log.debug("ruleDetails",JSON.stringify(ruleDetails));
+                //log.debug("ruleDetails",JSON.stringify(ruleDetails)+" remaining="+runtime.getCurrentScript().getRemainingUsage());
+                //log.debug("wearerDetails",JSON.stringify(wearerDetails)+" remaining="+runtime.getCurrentScript().getRemainingUsage());
+                //log.debug("areaDetails",JSON.stringify(areaDetails)+" remaining="+runtime.getCurrentScript().getRemainingUsage());
                 for (var i = 0; i < areaChecks.length; i++) {
                     check = areaChecks[i];
                     area = areaDetails[check.area.value];
@@ -495,11 +521,13 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                     item = items[i];
                     area = null;
                     wearer = null;
-                    //log.debug("item",JSON.stringify(buyer.custentity_bb1_sca_requiresapproval)+" "+isTrue(item.custitem_bb1_sca_standarditem));
+                    //log.debug("item",JSON.stringify(item)+" remaining="+runtime.getCurrentScript().getRemainingUsage());
+                   
                     if (requiresapproval == "4") {
                         if (isTrue(item.custitem_bb1_sca_standarditem)) {
                             //Check not in library
-                            var myLibrary, entity = contact,inLibrary=false;
+                            var myLibrary, entity = contact,
+                                inLibrary = false;
                             if (isTrue(buyer.custentity_bb1_sca_overridecustomeritems)) {
                                 myLibrary = item.custitem_bb1_sca_buyers;
                             } else {
@@ -509,17 +537,17 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                             // log.debug("Check standard item","checking..... "+JSON.stringify(entity));
                             // log.debug("My library",JSON.stringify(myLibrary));
                             if (myLibrary) {
-                                for (var i = 0; i < myLibrary.length; i++) {
-                                    if (myLibrary[i].value == entity.toString()) {
+                                for (var j = 0; j < myLibrary.length; j++) {
+                                    if (myLibrary[j].value == entity.toString()) {
                                         //Item exists in my library, no warning needed
                                         //log.debug("My library", JSON.stringify(myLibrary[i].value) + " " + JSON.stringify(entity));
-                                        inLibrary=true;
+                                        inLibrary = true;
                                     }
 
                                 }
                             }
 
-                            if (!inLibrary&&checkDuplicateWarning(hwarnings, "WARNING_STANDARD_ITEM," + item.intenalid)) {
+                            if (!inLibrary && checkDuplicateWarning(hwarnings, "WARNING_STANDARD_ITEM," + item.intenalid)) {
                                 warnings.push({
                                     message: "WARNING_STANDARD_ITEM",
                                     values: {
@@ -536,11 +564,11 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
 
                     if (item.options) {
                         for (var k = 0; k < item.options.length; k++) {
-                            if (item.options[k].id == "CUSTCOL_BB1_SCA_AREA") {
-                                area = item.options[k].value;
+                            if (item.options[k].id == "CUSTCOL_BB1_SCA_AREA"||item.options[k].id == "CUSTCOL_BB1_SCA_AREA2") {
+                                area = parseJSONValue(item.options[k].value);
                             }
-                            if (item.options[k].id == "CUSTCOL_BB1_SCA_WEARER") {
-                                wearer = item.options[k].value;
+                            if (item.options[k].id == "CUSTCOL_BB1_SCA_WEARER"||item.options[k].id == "CUSTCOL_BB1_SCA_WEARER2") {
+                                wearer = parseJSONValue(item.options[k].value);
                             }
                         }
                     }
@@ -611,9 +639,9 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                 //throw (new Error(JSON.stringify(result, null, 4)));
                 submitField(currentRecord.type, currentRecord.id, "custbody_bb1_sca_approvaldata", JSON.stringify(result), false);
 
-                
 
-                if ((warnings.length > 0&&requiresapproval != "1") || requiresapproval == "3") {
+
+                if ((warnings.length > 0 && requiresapproval != "1") || requiresapproval == "3") {
 
 
                     //set warnings flag!
@@ -641,6 +669,18 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                 submitField(currentRecord.type, currentRecord.id, "custbody_bb1_sca_approvaldata", JSON.stringify(result), false);
             }
 
+        }
+
+        function parseJSONValue(value) { //convert number or {internalid:1,label:"A"} into number.
+            var res = 0;
+            try {
+                if(value){
+                res = parseInt(value.split("|")[0]);
+                }
+            } catch (err) {
+                res = parseInt(value) || res;
+            }
+            return res;
         }
         //send alerts to applicable buyers that this order needs to be approved.
         function sendAlerts(scriptContext, areas, transactiontype, transactionid) {
@@ -729,7 +769,7 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
             }
 
             if (items) {
-                var options, area, wearer;
+                var options, area, wearer,value;
                 for (var i = 0; i < items.length; i++) {
                     options = items[i].options;
                     area = null;
@@ -738,12 +778,12 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                     for (var j = 0; j < options.length; j++) {
                         //update area budgets and rules
 
-                        if (options[j].id == "CUSTCOL_BB1_SCA_AREA") {
-
-                            area = areaDetails[parseInt(options[j].value)];
+                        if (options[j].id == "CUSTCOL_BB1_SCA_AREA"||options[j].id == "CUSTCOL_BB1_SCA_AREA2") {
+value=parseJSONValue(options[j].value);
+                            area = areaDetails[value];
                             //log.debug("Mi365 Area", options[j].value+"- items " + JSON.stringify(items[i])+" ..... "+JSON.stringify(area));
                             if (area && scriptContext.type == scriptContext.UserEventType.CREATE) {
-                                submitField("customrecord_bb1_sca_area", options[j].value, "custrecord_bb1_sca_area_currentspend", area.custrecord_bb1_sca_area_currentspend + (items[i].quantity * items[i].amount), false);
+                                submitField("customrecord_bb1_sca_area", value, "custrecord_bb1_sca_area_currentspend", area.custrecord_bb1_sca_area_currentspend + (items[i].quantity * items[i].amount), false);
 
                                 //log.debug("Mi365 Area", "area " + (area.custrecord_bb1_sca_area_currentspend + (items[i].quantity*items[i].amount)));
                                 for (var k = 0; k < ruleDetails.length; k++) {
@@ -760,12 +800,12 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                                 }
                             }
                             //update wearer budgets and rules
-                        } else if (options[j].id == "CUSTCOL_BB1_SCA_WEARER") {
-
-                            wearer = wearerDetails[parseInt(options[j].value)];
+                        } else if (options[j].id == "CUSTCOL_BB1_SCA_WEARER"||options[j].id == "CUSTCOL_BB1_SCA_WEARER2") {
+                            value=parseJSONValue(options[j].value);
+                            wearer = wearerDetails[value];
                             //log.debug("Mi365 Wearer", options[j].value+"- items " + JSON.stringify(items[i])+" ..... "+JSON.stringify(wearer));
                             if (wearer && scriptContext.type == scriptContext.UserEventType.CREATE) {
-                                submitField("customrecord_bb1_sca_wearer", options[j].value, "custrecord_bb1_sca_wearer_currentspend", wearer.custrecord_bb1_sca_wearer_currentspend + (items[i].quantity * items[i].amount), false);
+                                submitField("customrecord_bb1_sca_wearer", value, "custrecord_bb1_sca_wearer_currentspend", wearer.custrecord_bb1_sca_wearer_currentspend + (items[i].quantity * items[i].amount), false);
 
                                 //log.debug("Mi365 Wearer", "wearer " + (wearer.custrecord_bb1_sca_wearer_currentspend + (items[i].quantity*items[i].amount)));
                                 for (var k = 0; k < ruleDetails.length; k++) {
@@ -781,10 +821,12 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                             }
                         }
                     }
-                    log.debug("updateMi365", items[i].quantityfulfilled + " " + items[i].oldquantityfulfilled + " " + JSON.stringify(wearer) + " " + JSON.stringify(area));
+                    
                     //Update stock on fulfill
                     //items[i].oldquantityfulfilled=0;
                     if (items[i].quantityfulfilled > items[i].oldquantityfulfilled) {
+
+                        log.debug("updateMi365", items[i].quantityfulfilled + " " + items[i].oldquantityfulfilled + " " + JSON.stringify(wearer) + " " + JSON.stringify(area));
 
                         var difference = items[i].quantityfulfilled - items[i].oldquantityfulfilled;
 

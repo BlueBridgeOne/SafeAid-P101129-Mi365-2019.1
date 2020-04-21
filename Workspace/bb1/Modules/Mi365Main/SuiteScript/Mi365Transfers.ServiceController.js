@@ -137,8 +137,8 @@ define(
 						filter.unshift("AND");
 						filter.unshift(["internalid", "is", id]);
 					}
-					nlapiLogExecution("debug", "find", JSON.stringify(find));
-					nlapiLogExecution("debug", "filter", JSON.stringify(filter));
+					//nlapiLogExecution("debug", "find", JSON.stringify(find));
+					//nlapiLogExecution("debug", "filter", JSON.stringify(filter));
 					var contactSearch = nlapiSearchRecord(this.recordtype, null,
 						filter,
 						find

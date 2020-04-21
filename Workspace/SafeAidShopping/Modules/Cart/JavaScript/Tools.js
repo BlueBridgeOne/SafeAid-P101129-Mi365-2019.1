@@ -81,39 +81,6 @@ define('Tools',
       };
       view.showInModal();
   }
-
-  // function fixResponse(response){ //adds fake area and wearer options so it doesn't have to download loads of option data.
-  //   if(response&&response.items){
-  //     var itemoptions_detail;
-  //     for(var i=0;i<response.items.length;i++){
-        
-  //      itemoptions_detail=response.items[i].itemoptions_detail;
-  //      if(itemoptions_detail&&itemoptions_detail.fields){
-         
-  //        for(var j=itemoptions_detail.fields.length-1;j>=0;j--){
-  //          if(itemoptions_detail.fields[j].internalid=="custcol_bb1_sca_area"||itemoptions_detail.fields[j].internalid=="custcol_bb1_sca_wearer"){
-  //           itemoptions_detail.fields[j];
-  //            itemoptions_detail.fields.splice(j,1);
-  //          }
-  //        }
-  //        itemoptions_detail.fields.push({
-  //          internalid:"custcol_bb1_sca_area",
-  //          values:[{label:""}],
-  //          label:"Area",
-  //          type:"select",
-  //        });
-  //        itemoptions_detail.fields.push({
-  //          internalid:"custcol_bb1_sca_wearer",
-  //          values:[{label:""}],
-  //          label:"Wearer",
-  //          type:"select",
-  //        });
-         
-  //      }
-  //     }
-  //   }
-  // }
-
   
   // Make Tools module available globally
   var Tools = SC.Tools = {

@@ -212,6 +212,11 @@ define(
 						name: _('Reports').translate(),
 						url: 'Mi365/reports',
 						index: 6
+					}, {
+						id: 'download',
+						name: _('Download My Catalogue').translate(),
+						url: 'Mi365/mycatalogue/download',
+						index: 7
 					}]
 				};
 			}

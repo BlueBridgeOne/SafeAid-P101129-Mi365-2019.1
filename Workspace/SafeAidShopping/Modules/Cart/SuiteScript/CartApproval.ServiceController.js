@@ -28,12 +28,13 @@ define(
     var areas = [],
      wearers = [],
      hareas = {},
-     hwearers = {}; //record a list of distict areas and wearers.
+     hwearers = {},value; //record a list of distict areas and wearers.
     for (var i = 0; i < items.length; i++) {
      if (items[i].options) {
       options = items[i].options;
       for (var j = 0; j < options.length; j++) {
-       if (options[j].id == "CUSTCOL_BB1_SCA_AREA") {
+       if (options[j].id == "CUSTCOL_BB1_SCA_AREA"||options[j].id == "CUSTCOL_BB1_SCA_AREA2") {
+         value=this.parseJSONValue(options[j].value);
         areaChecks.push({
          item: {
           value: items[i].internalid,
@@ -43,15 +44,16 @@ define(
          amount: items[i].amount,
          amount_formatted: items[i].amount_formatted,
          area: {
-          value: options[j].value,
+          value: value,
           text: options[j].displayvalue
          }
         });
-        if (!hareas[options[j].value]) {
-         hareas[options[j].value] = true;
-         areas.push(options[j].value);
+        if (!hareas[value]) {
+         hareas[value] = true;
+         areas.push(value);
         }
-       } else if (options[j].id == "CUSTCOL_BB1_SCA_WEARER") {
+       } else if (options[j].id == "CUSTCOL_BB1_SCA_WEARER"||options[j].id == "CUSTCOL_BB1_SCA_WEARER2") {
+        value=this.parseJSONValue(options[j].value);
         wearerChecks.push({
          item: {
           value: items[i].internalid,
@@ -61,13 +63,13 @@ define(
          amount: items[i].amount,
          amount_formatted: items[i].amount_formatted,
          wearer: {
-          value: options[j].value,
+          value: value,
           text: options[j].displayvalue
          }
         });
-        if (!hwearers[options[j].value]) {
-         hwearers[options[j].value] = true;
-         wearers.push(options[j].value);
+        if (!hwearers[value]) {
+         hwearers[value] = true;
+         wearers.push(value);
         }
        }
       }
@@ -149,11 +151,11 @@ define(
      wearer = null;
      if (item.options) {
       for (var k = 0; k < item.options.length; k++) {
-       if (item.options[k].id == "CUSTCOL_BB1_SCA_AREA") {
-        area = item.options[k].value;
+       if (item.options[k].id == "CUSTCOL_BB1_SCA_AREA"||item.options[k].id == "CUSTCOL_BB1_SCA_AREA2") {
+        area = this.parseJSONValue(item.options[k].value);
        }
-       if (item.options[k].id == "CUSTCOL_BB1_SCA_WEARER") {
-        wearer = item.options[k].value;
+       if (item.options[k].id == "CUSTCOL_BB1_SCA_WEARER"||item.options[k].id == "CUSTCOL_BB1_SCA_WEARER2") {
+        wearer = this.parseJSONValue(item.options[k].value);
        }
       }
      }
@@ -227,6 +229,17 @@ define(
 
     return result;
    }
+   ,parseJSONValue:function(value) { //convert number or {internalid:1,label:"A"} into number.
+   var res = 0;
+            try {
+                if(value){
+                res = parseInt(value.split("|")[0]);
+                }
+            } catch (err) {
+                res = parseInt(value) || res;
+            }
+            return res;
+}
    ,isTrue:function(value){
     return value =="T"||value===true;
    }

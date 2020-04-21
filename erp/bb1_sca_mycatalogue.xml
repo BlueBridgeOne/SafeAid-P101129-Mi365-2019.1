@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd">
+<pdf>
+	<head>
+	<#if .locale == "ru_RU">
+    <link name="verdana" type="font" subtype="opentype" src="${nsfont.verdana}" src-bold="${nsfont.verdana_bold}" bytes="2" />
+</#if>
+		<macrolist>
+			<macro id="nlheader">
+            <table class="header" style="width: 100%; font-size: 10pt;"><tr>
+	<td colspan="5">
+    <#if settings.logoUrl?length != 0>
+    <img src="${settings.logoUrl}" style="float: left; margin: 7px; width: 75%; height: 75%" /> 
+    </#if> </td>
+    <td colspan="8">
+    <#if settings.logo_url?length != 0>
+                        <img src="${settings.logo_url}" style="float: left; margin: 7px; width: 75%; height: 75%" />
+                    </#if></td>
+    <td colspan="5"><span class="nameandaddress" style="font-size: 8pt;">${settings.address}</span></td>
+	<td colspan="5" align="right"><span class="title" style="font-size: 24pt;"> Catalogue</span><br />${settings.date}</td>
+	</tr>
+	
+	</table>
+        </macro>
+        <macro id="nlfooter">
+            <table class="footer"><tr>
+	<td align="left"><pagenumber/> of <totalpages/></td>
+    <td align="right">www.SafeaidSupplies.com</td>
+	</tr></table>
+        </macro>
+		</macrolist>
+		    <style type="text/css">table {
+        <#if .locale == "zh_CN">
+            font-family: stsong, sans-serif;
+        <#elseif .locale == "zh_TW">
+            font-family: msung, sans-serif;
+        <#elseif .locale == "ja_JP">
+            font-family: heiseimin, sans-serif;
+        <#elseif .locale == "ko_KR">
+            font-family: hygothic, sans-serif;
+        <#elseif .locale == "ru_RU">
+            font-family: verdana;
+        <#else>
+            font-family: sans-serif;
+        </#if>
+            font-size: 9pt;
+            table-layout: fixed;
+        }
+        th {
+            font-weight: bold;
+            font-size: 8pt;
+            vertical-align: middle;
+            padding: 5px 6px 3px;
+            background-color: #e3e3e3;
+            color: #333333;
+        }
+        td {
+            padding: 4px 6px;
+        }
+        b {
+            font-weight: bold;
+            color: #333333;
+        }
+        table.header td {
+            padding: 0;
+            font-size: 10pt;
+        }
+        table.footer td {
+            padding: 0;
+            font-size: 8pt;
+        }
+        table.itemtable th {
+            padding-bottom: 10px;
+            padding-top: 10px;
+        }
+        table.body td {
+            padding-top: 2px;
+        }
+        td.addressheader {
+            font-size: 8pt;
+            font-weight: bold;
+            padding-top: 6px;
+            padding-bottom: 2px;
+        }
+        td.address {
+            padding-top: 0;
+        }
+        span.title {
+            font-size: 28pt;
+        }
+        span.number {
+            font-size: 16pt;
+        }
+        span.itemname {
+            font-weight: bold;
+            line-height: 150%;
+        }
+        div.returnform {
+            width: 100%;
+            /* To ensure minimal height of return form */
+            height: 200pt;
+            page-break-inside: avoid;
+            page-break-after: avoid;
+        }
+        hr {
+            border-top: 1px dashed #d3d3d3;
+            width: 100%;
+            color: #ffffff;
+            background-color: #ffffff;
+            height: 1px;
+        }
+        span.optionname{color:#AAAAAA;}
+</style>
+	</head>
+	<body header="nlheader" header-height="10%" footer="nlfooter" footer-height="20pt" padding="0.5in 0.5in 0.5in 0.5in" size="Letter">
+
+    <#if record.items?has_content>
+
+<table class="itemtable" style="width: 100%; margin-top: 10px;">
+<thead>
+	<tr>
+	<th colspan="12">Name</th>
+	
+	<th align="right" colspan="5">Options</th>
+	<th align="right" colspan="3">Online Price</th>
+	</tr>
+</thead>
+<#assign lastName="">
+<#list record.items as item>
+<#if lastName!=item.name>
+    <tr><td colspan="20"><br /><span class="itemname" style="color:${settings.colour};">${item.name}</span></td></tr>
+    </#if>
+	<tr><td colspan="8">
+
+    ${item.itemid}</td>
+	<td align="right" colspan="9" style="text-align:right;">
+    <#if item.hasColour=="true"><span class="optionname">Colour:</span> <b>${item.custitem_bb1_matrix_colour}</b>&nbsp;&nbsp;</#if>
+    <#if item.hasSize=="true"><span class="optionname">Size:</span> <b>${item.custitem_bb1_matrix_size}</b>&nbsp;&nbsp;</#if>
+    <#if item.hasFootwear=="true"><span class="optionname">Footwear:</span> <b>${item.custitem_bb1_matrix_footwear}</b>&nbsp;&nbsp;</#if>
+    <#if item.hasLength=="true"><span class="optionname">Length:</span> <b>${item.custitem_bb1_matrix_length}</b>&nbsp;&nbsp;</#if>
+    <#if item.hasShoewidths=="true"><span class="optionname">Shoe Width:</span> <b>${item.custitem_bb1_matrix_shoewidths}</b>&nbsp;&nbsp;</#if>
+    <#if item.hasLadieswear=="true"><span class="optionname">Ladieswear:</span> <b>${item.custitem_bb1_matrix_ladieswear}</b>&nbsp;&nbsp;</#if>
+    <#if item.hasGloves=="true"><span class="optionname">Gloves:</span> <b>${item.custitem_bb1_matrix_gloves}</b>&nbsp;&nbsp;</#if>
+    </td>
+	<td align="right" colspan="3">
+    ${item.price}</td>
+	</tr>
+    <#assign lastName=item.name>
+	</#list></table>
+</#if>
+
+	</body>
+</pdf>

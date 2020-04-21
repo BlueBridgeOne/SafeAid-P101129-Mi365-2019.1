@@ -159,35 +159,29 @@ success();
        var cartOptionId;
        for (var i = 0; i < options.models.length; i++) {
         cartOptionId = options.models[i].get("cartOptionId");
-        if (cartOptionId == "custcol_bb1_sca_area") {
+        if (cartOptionId == "custcol_bb1_sca_area2") {
          if (area) {
-          options.models[i].set("value", {
-           internalid: area.value,
-           label: area.text
-          });
+          options.models[i].set("value", self.stringifyJSONValue(area));
          } else {
           options.models[i].set("value", null);
          }
-        }else if (cartOptionId == "custcol_bb1_sca_wearer") {
+        }else if (cartOptionId == "custcol_bb1_sca_wearer2") {
          if (wearer) {
-          options.models[i].set("value", {
-           internalid: wearer.value,
-           label: wearer.text
-          });
+          options.models[i].set("value", self.stringifyJSONValue(wearer));
          } else {
           options.models[i].set("value", null);
          }
         }
        }
        if (area) {
-        self.model.set("custcol_bb1_sca_area", area.value);
+        self.model.set("custcol_bb1_sca_area2", area.value);
        } else {
-        self.model.set("custcol_bb1_sca_area", null);
+        self.model.set("custcol_bb1_sca_area2", null);
        }
        if (wearer) {
-        self.model.set("custcol_bb1_sca_wearer", wearer.value);
+        self.model.set("custcol_bb1_sca_wearer2", wearer.value);
        } else {
-        self.model.set("custcol_bb1_sca_wearer", null);
+        self.model.set("custcol_bb1_sca_wearer2", null);
        }
       
 
@@ -230,6 +224,12 @@ success();
       console.log(err);
      }
      return false;
+    },
+    stringifyJSONValue: function (value) { //convert to area wearer json string
+      if (value) {
+        return parseInt(value.value)+"|"+value.text;
+      }
+      return "";
     }
 
     //@method getContext

@@ -104,6 +104,7 @@ define('SafeAid.bb1.Mi365Router', [
         },
         routes: {
             'Mi365': 'Dashboard',
+            'Mi365/mycatalogue/download': 'Download',
             'Mi365/buyers': 'Buyers',
             'Mi365/areas': 'Areas',
             'Mi365/reports': 'Reports',
@@ -148,6 +149,16 @@ define('SafeAid.bb1.Mi365Router', [
                 application: this.application
             });
             view.showContent();
+        },
+        Download: function () {
+            var profile = ProfileModel.getInstance();
+           
+
+            Object.assign(document.createElement('a'), {
+                target: '_blank',
+                href:"https://5474721.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=408&deploy=1&compid=5474721&h=4c901c88f00f0b3eec99&contact="+profile.get("contactId")
+              }).click();
+
         },
         ConfirmTransfer: function (id) {
             var model = new Mi365TransfersModel();
