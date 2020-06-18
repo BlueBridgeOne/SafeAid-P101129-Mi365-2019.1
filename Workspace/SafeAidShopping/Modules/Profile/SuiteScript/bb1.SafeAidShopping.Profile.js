@@ -37,36 +37,36 @@ define(
       }
     }
 
-    function fixedEncodeURIComponent(str){
-      return encodeURIComponent(str).replace(/[!'()*]/g, function(c){
+    function fixedEncodeURIComponent(str) {
+      return encodeURIComponent(str).replace(/[!'()*]/g, function (c) {
         return '%' + c.charCodeAt(0).toString(16);
       });
     }
-  
-      function getFacetValueUrl(facetId, facetValueLabel) {
-  
-        try {
-          var body = "",
+
+    function getFacetValueUrl(facetId, facetValueLabel) {
+
+      try {
+        var body = "",
           char, charCode;
-      if(facetValueLabel){
-          
-              for (var i = 0; i < facetValueLabel.length; i++) {
-                  char = facetValueLabel.charAt(i);
-                  charCode = facetValueLabel.charCodeAt(i);
-                  if (char == " ") {
-                      body += "-";
-                  } else if (char == "&") {
-                      body += "-AND-";
-                  } else if (char == "/") {
-                      body += "-SLASH-";
-                  } else if (char == "-") {
-                      body += "~";
-                  } else {
-                      body += fixedEncodeURIComponent(char);
-                  }
+        if (facetValueLabel) {
+
+          for (var i = 0; i < facetValueLabel.length; i++) {
+            char = facetValueLabel.charAt(i);
+            charCode = facetValueLabel.charCodeAt(i);
+            if (char == " ") {
+              body += "-";
+            } else if (char == "&") {
+              body += "-AND-";
+            } else if (char == "/") {
+              body += "-SLASH-";
+            } else if (char == "-") {
+              body += "~";
+            } else {
+              body += fixedEncodeURIComponent(char);
+            }
           }
         }
-          return body;
+        return body;
 
       } catch (error) {
         console.log('Error occurred getting Customer/Buyer facet values', error && error.getCode ? error.getCode() + ': ' + error.getDetails() : error);
@@ -80,27 +80,33 @@ define(
 
       var customer = context.getUser();
       //var custentity_bb1_sca_showstandarditems = true;
-      
-      var lookupFields={}
+
+      var lookupFields = {
+        custentity_bb1_sca_showstandarditems: true,
+        custentity_bb1_sca_membership: 1,
+        custentity_bb1_sca_websitecolour: "#F18830",
+        shippingitem:0
+      };
       try {
-        lookupFields = nlapiLookupField('customer', customer, ['custentity_bb1_sca_showstandarditems','custentity_bb1_sca_membership','custentity_bb1_sca_websitecolour','custentity_bb1_sca_websitelogo']);
+        lookupFields = nlapiLookupField('customer', customer, ['custentity_bb1_sca_showstandarditems', 'custentity_bb1_sca_membership', 'custentity_bb1_sca_websitecolour', 'custentity_bb1_sca_websitelogo','shippingitem']);
       } catch (err) {
         //nlapiLogExecution("Unable to get contact fields.",customer+" "+err);
       }
 
       //nlapiLogExecution("DEBUG","custentity_bb1_sca_showstandarditems",JSON.stringify(custentity_bb1_sca_showstandarditems));
-      var customerShowStandardItems = (lookupFields&&lookupFields.custentity_bb1_sca_showstandarditems)||false;
-      var custentity_bb1_sca_membership=(lookupFields&&lookupFields.custentity_bb1_sca_membership)||1;
-      var custentity_bb1_sca_websitecolour=(lookupFields&&lookupFields.custentity_bb1_sca_websitecolour)||"#F18830";
-      var custentity_bb1_sca_websitelogo=lookupFields&&lookupFields.custentity_bb1_sca_websitelogo;
+      var customerShowStandardItems = (lookupFields && lookupFields.custentity_bb1_sca_showstandarditems);
+      var custentity_bb1_sca_websitelogo = lookupFields && lookupFields.custentity_bb1_sca_websitelogo;
+      var custentity_bb1_sca_membership = (lookupFields && lookupFields.custentity_bb1_sca_membership);
+      var custentity_bb1_sca_websitecolour = (lookupFields && lookupFields.custentity_bb1_sca_websitecolour);
+      var shippingitem = (lookupFields && lookupFields.shippingitem);
+      var custentity_bb1_sca_websitelogo = lookupFields && lookupFields.custentity_bb1_sca_websitelogo;
       var custentity_bb1_sca_websitelogo_url;
-if(custentity_bb1_sca_websitelogo){
-      var logo=nlapiLoadFile(custentity_bb1_sca_websitelogo);
-      if(logo){
-        custentity_bb1_sca_websitelogo_url=logo.getURL();
+      if (custentity_bb1_sca_websitelogo) {
+        var logo = nlapiLoadFile(custentity_bb1_sca_websitelogo);
+        if (logo) {
+          custentity_bb1_sca_websitelogo_url = logo.getURL();
+        }
       }
-
-}
 
       var customerName = profile.companyname;
       var customerFacetValueUrl = getFacetValueUrl('custitem_bb1_sca_customers', customerName);
@@ -115,19 +121,19 @@ if(custentity_bb1_sca_websitelogo){
           var contactFields = nlapiLookupField('contact', contactId, ['custentity_bb1_sca_buyer', 'custentity_bb1_sca_overridecustomeritems', 'custentity_bb1_sca_showstandarditems', 'entityid']);
           var contactName = customerName + ' : ' + contactFields.entityid;
           var contactFacetValueUrl = getFacetValueUrl('custitem_bb1_sca_buyers', contactName);
-          
+
           var membership_level = "bronze";
-				switch (custentity_bb1_sca_membership.toString()) {
-					case "2":
-						membership_level = "silver";
-						break;
-					case "3":
-						membership_level = "gold";
-						break;
-					case "4":
-						membership_level = "platinum";
-						break;
-				}
+          switch (custentity_bb1_sca_membership.toString()) {
+            case "2":
+              membership_level = "silver";
+              break;
+            case "3":
+              membership_level = "gold";
+              break;
+            case "4":
+              membership_level = "platinum";
+              break;
+          }
 
           _.extend(profile, {
             contactId: contactId,
@@ -136,17 +142,18 @@ if(custentity_bb1_sca_websitelogo){
             contactIsBuyer: contactFields.custentity_bb1_sca_buyer == 'T',
             contactOverrideCustomerItems: contactFields.custentity_bb1_sca_overridecustomeritems == 'T',
             contactShowStandardItems: contactFields.custentity_bb1_sca_showstandarditems == 'T',
-            level:membership_level,
-            custentity_bb1_sca_membership:custentity_bb1_sca_membership,
-            custentity_bb1_sca_websitecolour:custentity_bb1_sca_websitecolour,
-            custentity_bb1_sca_websitelogo:custentity_bb1_sca_websitelogo,
-            custentity_bb1_sca_websitelogo_url:custentity_bb1_sca_websitelogo_url
+            level: membership_level,
+            custentity_bb1_sca_membership: custentity_bb1_sca_membership,
+            custentity_bb1_sca_websitecolour: custentity_bb1_sca_websitecolour,
+            custentity_bb1_sca_websitelogo: custentity_bb1_sca_websitelogo,
+            custentity_bb1_sca_websitelogo_url: custentity_bb1_sca_websitelogo_url,
+            shippingitem:shippingitem
           });
         } catch (err) {
           //unable to lookup contact record.
           _.extend(profile, {
-            level:"bronze",
-            custentity_bb1_sca_membership:1
+            level: "bronze",
+            custentity_bb1_sca_membership: 1
           });
         }
       }

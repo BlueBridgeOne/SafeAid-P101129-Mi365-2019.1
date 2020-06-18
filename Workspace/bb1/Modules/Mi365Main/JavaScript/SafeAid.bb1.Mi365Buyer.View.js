@@ -275,7 +275,6 @@ define('SafeAid.bb1.Mi365Buyer.View', [
 				allowEdit = false; // You can't edit yourself.
 			}
 
-
 			return {
 				icon:"buyer",
 				title: "Buyer",

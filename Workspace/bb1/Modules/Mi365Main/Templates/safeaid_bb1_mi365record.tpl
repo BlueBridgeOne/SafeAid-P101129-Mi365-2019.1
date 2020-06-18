@@ -101,7 +101,15 @@
           <select {{#unless ../editable}}readonly{{/unless}} class="mi365-information-input-large" id="{{id}}"
             name="{{id}}">
             {{#each value.choice}}
-            <option value={{value}} {{#ifEquals value ../value.value}}selected{{/ifEquals}}>{{text}}</option>
+            {{#ifEquals value ../value.value}}
+            <option value={{value}} selected="selected">{{text}}</option>
+            {{/ifEquals}}
+            {{/each}}
+            {{#each value.choice}}
+            {{#ifEquals value ../value.value}}
+            {{else}}
+            <option value={{value}}>{{text}}</option>
+            {{/ifEquals}}
             {{/each}}
           </select>
           {{else}}

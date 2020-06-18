@@ -2,10 +2,11 @@
     "name": "SafeAidGlobal",
     "fantasyName": "SafeAid Global",
     "vendor": "bb1",
+    "version": "1.0.0",
     "type": "extension",
     "target": "SCA,SCS",
-    "version": "1.0.0",
     "description": "The global features for safeaid.",
+    "skins": [],
     "assets": {
         "img": {
             "files": [
@@ -27,6 +28,16 @@
     "configuration": {
         "files": [
             "Modules/Footer/Configuration/Footer.json"
+        ]
+    },
+    "sass": {
+        "entry_points": {
+            "shopping": "Modules/Header/Sass/_safeaidglobal.scss",
+            "myaccount": "Modules/Header/Sass/_safeaidglobal.scss",
+            "checkout": "Modules/Header/Sass/_safeaidglobal.scss"
+        },
+        "files": [
+            "Modules/Header/Sass/_safeaidglobal.scss"
         ]
     },
     "templates": {
@@ -53,16 +64,6 @@
                 ]
             }
         }
-    },
-    "sass": {
-        "entry_points": {
-            "shopping": "Modules/Header/Sass/_safeaidglobal.scss",
-            "myaccount": "Modules/Header/Sass/_safeaidglobal.scss",
-            "checkout": "Modules/Header/Sass/_safeaidglobal.scss"
-        },
-        "files": [
-            "Modules/Header/Sass/_safeaidglobal.scss"
-        ]
     },
     "javascript": {
         "entry_points": {
@@ -112,5 +113,6 @@
             "Modules/Header/SuiteScript/Mi365Overview.ServiceController.js",
             "Modules/Header/SuiteScript/SafeAid.bb1.Mi365Overview.js"
         ]
-    }
+    },
+    "local_folder": "Workspace/SafeAidGlobal"
 }

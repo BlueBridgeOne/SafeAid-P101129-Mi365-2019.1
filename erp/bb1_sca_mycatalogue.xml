@@ -134,13 +134,13 @@
 
     ${item.itemid}</td>
 	<td align="right" colspan="9" style="text-align:right;">
-    <#if item.hasColour=="true"><span class="optionname">Colour:</span> <b>${item.custitem_bb1_matrix_colour}</b>&nbsp;&nbsp;</#if>
-    <#if item.hasSize=="true"><span class="optionname">Size:</span> <b>${item.custitem_bb1_matrix_size}</b>&nbsp;&nbsp;</#if>
-    <#if item.hasFootwear=="true"><span class="optionname">Footwear:</span> <b>${item.custitem_bb1_matrix_footwear}</b>&nbsp;&nbsp;</#if>
-    <#if item.hasLength=="true"><span class="optionname">Length:</span> <b>${item.custitem_bb1_matrix_length}</b>&nbsp;&nbsp;</#if>
-    <#if item.hasShoewidths=="true"><span class="optionname">Shoe Width:</span> <b>${item.custitem_bb1_matrix_shoewidths}</b>&nbsp;&nbsp;</#if>
-    <#if item.hasLadieswear=="true"><span class="optionname">Ladieswear:</span> <b>${item.custitem_bb1_matrix_ladieswear}</b>&nbsp;&nbsp;</#if>
-    <#if item.hasGloves=="true"><span class="optionname">Gloves:</span> <b>${item.custitem_bb1_matrix_gloves}</b>&nbsp;&nbsp;</#if>
+    <#if item.hasColour=="true"><span class="optionname">Colour:</span> <b>${item.custitem_bb1_matrix_colour}</b>  </#if>
+    <#if item.hasSize=="true"><span class="optionname">Size:</span> <b>${item.custitem_bb1_matrix_size}</b>  </#if>
+    <#if item.hasFootwear=="true"><span class="optionname">Footwear:</span> <b>${item.custitem_bb1_matrix_footwear}</b>  </#if>
+    <#if item.hasLength=="true"><span class="optionname">Length:</span> <b>${item.custitem_bb1_matrix_length}</b>  </#if>
+    <#if item.hasShoewidths=="true"><span class="optionname">Shoe Width:</span> <b>${item.custitem_bb1_matrix_shoewidths}</b>  </#if>
+    <#if item.hasLadieswear=="true"><span class="optionname">Ladieswear:</span> <b>${item.custitem_bb1_matrix_ladieswear}</b>  </#if>
+    <#if item.hasGloves=="true"><span class="optionname">Gloves:</span> <b>${item.custitem_bb1_matrix_gloves}</b>  </#if>
     </td>
 	<td align="right" colspan="3">
     ${item.price}</td>

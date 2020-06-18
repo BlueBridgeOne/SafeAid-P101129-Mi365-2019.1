@@ -89,7 +89,9 @@ define(
                 }
                 CartSummaryView.prototype.events['click [data-action="approve"]'] = 'approveCheckout'
                 CartSummaryView.prototype.approveCheckout = function (e) {
+
                     Tools.approveCart(this.options.application);
+
                 }
                 //Another hack to get the current application
 
@@ -122,20 +124,21 @@ define(
                 }
                 HeaderMiniCart.prototype.events['click [data-action="approve"]'] = 'approveCheckout'
                 HeaderMiniCart.prototype.approveCheckout = function (e) {
-
-                    if ($(".shopping-layout-header").css("margin-bottom") == "20px") {
-                        Tools.approveCart(this.options.application || latestApplication);
+                    var display = jQuery(".header-mini-cart").css("display");
+                    if (display == "block") {
+                        jQuery(".header-mini-cart").hide();
+                    } else {
+                        if ($(".shopping-layout-header").css("margin-bottom") == "20px") {
+                            Tools.approveCart(this.options.application || latestApplication);
+                        }
                     }
                 }
                 HeaderMiniCart.prototype.events['click [data-action="approve-dropdown"]'] = 'approveDropdownCheckout'
                 HeaderMiniCart.prototype.approveDropdownCheckout = function (e) {
 
-                    var display=jQuery(".header-mini-cart").css("display");
-                    if(display=="block"){
-                        jQuery(".header-mini-cart").hide();
-                    }else{
+
                     Tools.approveCart(this.options.application || latestApplication);
-                    }
+
                 }
 
                 //fix the slider decimal places:

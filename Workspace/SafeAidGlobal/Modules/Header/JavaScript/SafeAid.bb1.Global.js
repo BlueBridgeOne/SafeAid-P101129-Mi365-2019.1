@@ -68,6 +68,34 @@ define(
 
 				if (SC.ENVIRONMENT.SCTouchpoint == "checkout") {
 
+					var OrderWizardModuleShipmethod=require('OrderWizard.Module.Shipmethod');
+//waived shipping methods unless allowed for that company
+
+_.extend(OrderWizardModuleShipmethod.prototype, {
+
+	getContext: _.wrap(OrderWizardModuleShipmethod.prototype.getContext, function (getContext, options) {
+		var res = getContext.apply(this, _.rest(arguments));
+		var shippingitem=this.profileModel.get('shippingitem'),hasActive=false;
+		for(var i=0;i<res.shippingMethods.length;i++){
+			res.shippingMethods[i].name=res.shippingMethods[i].name.split("*").join("");
+			if(res.shippingMethods[i].internalid!=shippingitem&&res.shippingMethods[i].name.indexOf("*")>-1){
+				res.shippingMethods.splice(i,1);
+			}else if(res.shippingMethods[i].isActive){
+				hasActive=true;
+			}
+		}
+		if(!hasActive){ //set special, if any as default.
+			for(var i=0;i<res.shippingMethods.length;i++){
+				if(res.shippingMethods[i].internalid==shippingitem){
+					res.shippingMethods[i].isActive=true;
+				}
+			}
+		}
+		//console.log(res);
+		return res;
+	})
+});
+
 					//filter the payment methods
 					var OrderWizardModulePaymentMethodSelector = require('OrderWizard.Module.PaymentMethod.Selector');
 

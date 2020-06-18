@@ -333,8 +333,11 @@ define(
 				for (var j = 0; j < this.fields.length; j++) {
 					if (this.data[this.fields[j].id] && !this.fields[j].listonly) {
 						if (this.fields[j].type == "multichoice") {
-							nlapiLogExecution("debug", "multichoice", JSON.stringify(this.data[this.fields[j].id].split(',')));
+							//nlapiLogExecution("debug", "multichoice", JSON.stringify(this.data[this.fields[j].id].split(',')));
 							rec.setFieldValue(this.fields[j].id, this.data[this.fields[j].id].split(','));
+						}else if (this.fields[j].type == "choice") {
+							//nlapiLogExecution("debug", "choice", JSON.stringify(this.data[this.fields[j].id].value));
+							rec.setFieldValue(this.fields[j].id, (this.data[this.fields[j].id]&&this.data[this.fields[j].id].value)||this.data[this.fields[j].id]);
 						} else {
 							rec.setFieldValue(this.fields[j].id, this.data[this.fields[j].id]);
 						}

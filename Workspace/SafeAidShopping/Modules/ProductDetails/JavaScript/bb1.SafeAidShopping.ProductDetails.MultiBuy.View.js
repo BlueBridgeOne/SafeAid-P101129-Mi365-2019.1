@@ -412,12 +412,14 @@ define(
                     var matrixChilds = model.getSelectedMatrixChilds(childOptions);
                     var matrixChild = matrixChilds.length ? matrixChilds[0] : null;
 
+if(matrixChild){
                     multiBuyOption.sizeOptions.push({
                       sizeId: sizeOption.internalid,
                       sizeLabel: sizeOption.label,
                       itemId: matrixChild && matrixChild.get('internalid') || '',
                       available: matrixChild && matrixChild.getStockInfo().stock || 0
                     });
+                  }
                   }
                 }
               });

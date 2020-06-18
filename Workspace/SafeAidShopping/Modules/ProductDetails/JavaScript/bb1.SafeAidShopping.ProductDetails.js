@@ -168,8 +168,13 @@ define(
           contactIsBuyer = profile.get('contactIsBuyer'),
           item = this.model.get('item'),
           isStandardItem = item.get('custitem_bb1_sca_standarditem') == 'true' || item.get('custitem_bb1_sca_standarditem') == true;
+// console.log("contactIsBuyer",contactIsBuyer);
 
-        if (contactIsBuyer) {
+var is_logged_in = profile.get('isLoggedIn') === 'T' && parseInt(profile.get('internalid')) > 0;
+ //console.log("profile",profile);
+        //if (contactIsBuyer) {
+
+        if(is_logged_in){
 
           var customerShowStandardItems = profile.get('customerShowStandardItems'),
             contactOverrideCustomerItems = profile.get('contactOverrideCustomerItems'),
@@ -181,7 +186,7 @@ define(
           var contactFacetUrlValue = profile.get('contactName');
           var itemFacetUrlValue = (item.get('custitem_bb1_sca_buyers') || '').split(',');
 
-          if (customerFacetUrlValue) {
+          if (customerFacetUrlValue&&contactIsBuyer) {
             for (var i = 0; i < itemFacetUrlValue.length; i++) {
               if (itemFacetUrlValue[i].trim() == contactFacetUrlValue.trim()) {
                 hasBuyer = true;
@@ -203,7 +208,7 @@ define(
             }
           }
 
-          if ((contactOverrideCustomerItems && hasBuyer) || (!contactOverrideCustomerItems && hasCustomer)) {
+          if (((contactOverrideCustomerItems && hasBuyer) || (!contactOverrideCustomerItems && hasCustomer))) {
             //always show for designated items.
           } else if (isStandardItem && contactOverrideCustomerItems && contactShowStandardItems) {
             //show standard items for contact
@@ -212,13 +217,17 @@ define(
           } else {
             return this.application.getLayout().notFound();
           }
-
-
-        } else {
-          if (!isStandardItem) {
+        }else{
+                   if (!isStandardItem) {
             return this.application.getLayout().notFound();
-          }
+          } 
         }
+
+        // } else {
+        //   if (!isStandardItem) {
+        //     return this.application.getLayout().notFound();
+        //   }
+        // }
 
         var results = originalShowContent.apply(this, _.rest(arguments));
 

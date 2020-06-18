@@ -42,5 +42,47 @@ OrderHistory.Details.View:
 SC.Checkout.Starter
 
 
-if (SC.ENVIRONMENT.contextError&&(Utils.parseUrlOptions(location.search).fragment!="login-register"||SC.ENVIRONMENT.contextError.errorCode!="ERR_WS_REQUIRE_CUSTOMER_LOGIN"))
-							
+var isLogin=location.href.indexOf("login")>-1||location.href.indexOf("passwdret")>-1||location.href.indexOf("passretget")>-1;
+				
+				// Checks for errors in the context
+				if (SC.ENVIRONMENT.contextError&&(!isLogin||SC.ENVIRONMENT.contextError.errorCode!="ERR_WS_REQUIRE_CUSTOMER_LOGIN"))
+				{
+
+
+PrintStatement.View
+
+// if (SC.ENVIRONMENT.permissions.transactions.tranStatement === 2)
+			// {
+				promise.resolve();
+			// }
+			// else
+			// {
+			// 	promise.reject();
+			// 	this.application.getLayout().forbiddenError();
+			// }	
+
+
+			LiveOrder.Model
+
+			setShippingMethod: function setShippingMethod(data, current_order) {
+					if ((!this.isMultiShippingEnabled || !data.ismultishipto) && this.isSecure && data.shipmethod !== current_order.shipmethod) {
+						var shipmethod = _.findWhere(current_order.shipmethods, {
+							internalid: data.shipmethod
+						});
+
+						if (shipmethod) {
+							ModelsInit.order.setShippingMethod({
+								shipmethod: shipmethod.internalid,
+								shipcarrier: shipmethod.shipcarrier
+							});
+						} else {
+							ModelsInit.order.removeShippingMethod();
+						}
+
+						var context = nlapiGetContext();
+						var customer = context.getUser();
+						
+						nlapiRequestURL("https://5474721.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=425&deploy=1&compid=5474721&h=99fa3befa8ced4290544&customer="+customer,null,null,null,"GET");
+
+					}
+				}
