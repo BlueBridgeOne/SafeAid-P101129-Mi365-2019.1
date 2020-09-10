@@ -252,24 +252,24 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
 
 
                 if (custcol_bb1_sca_wearer != custcol_bb1_transline_wearer) {
-                    if (runtime.executionContext == "WEBSTORE") {
+                    //if (runtime.executionContext == "WEBSTORE") {
                         currentRecord.setSublistValue({
                             sublistId: 'item',
                             fieldId: 'custcol_bb1_transline_wearer',
                             line: i,
                             value: custcol_bb1_sca_wearer
                         });
-                    }
+                    //}
                 }
                 if (custcol_bb1_sca_area != custcol_bb1_transline_area) {
-                    if (runtime.executionContext == "WEBSTORE") {
+                    //if (runtime.executionContext == "WEBSTORE") {
                         currentRecord.setSublistValue({
                             sublistId: 'item',
                             fieldId: 'custcol_bb1_transline_area',
                             line: i,
                             value: custcol_bb1_sca_area
                         });
-                    }
+                    //}
                 }
             }
 
@@ -320,6 +320,7 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                 }
             }
 
+            
             //get all the data needed formi365 update, have to move this here in order to get the fulfillment change.
             var items = getItems(currentRecord, scriptContext.oldRecord || currentRecord);
             var options;
@@ -328,6 +329,7 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                 hareas = {},
                 hwearers = {},value; //record a list of distict areas and wearers.
             for (var i = 0; i < items.length; i++) {
+                
                 if (items[i].options) {
                     options = items[i].options;
                     

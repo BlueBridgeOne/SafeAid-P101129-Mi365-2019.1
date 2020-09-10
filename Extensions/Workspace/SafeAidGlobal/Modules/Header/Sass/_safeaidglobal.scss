@@ -1,0 +1,127 @@
+.header-menu-alert-icon {
+	@extend .fa;
+	@extend %fa-bell;
+	font-size: $sc-font-size-l;
+	line-height: $sc-target-size;
+	min-width: $sc-target-size*.8;
+	color: $sc-color-secondary;
+}
+.header-alert{
+    color: $sc-color-theme!important;
+    i{
+        color: $sc-color-theme!important;
+    }
+}
+.header-alert-enabled{
+    color: $sc-color-secondary!important;
+    i{
+        color: $sc-color-secondary!important;
+    }
+}
+
+
+footer {
+    background: #323232;
+    border-top: 41px solid #4c4846;
+   }
+   
+   .footer-content{
+    @extend .container;
+    padding: 32px 15px;
+   }
+   
+   .footer-content-nav {
+    @extend .row;
+   }
+   
+   .footer-content-nav-list {
+    @extend .col-sm-3;
+    @extend .col-xs-6;
+    margin: 0;
+    padding-bottom: 40px;
+    list-style: none;
+    text-align: center;
+   
+    @media (min-width: $screen-md-min) {
+     padding-bottom: 0;
+     text-align: left;
+    }
+   }
+   
+   .footer-content-nav-list > li {
+    display: block;
+    margin: 0;
+    padding: 2px 0;
+    font-weight: 300;
+    color: #fff;
+    
+    a {
+     margin: 0;
+     text-transform: capitalize;
+     color: $white;
+     font-size: $sc-font-size-xs;
+     
+     &:hover {
+      color: $safeaid-orange;
+      transition: all 0.3s ease;
+     }
+    }
+    
+    &.footer-content-nav-list-heading {
+        @extend h4;
+        font-family:NimbusSanCon-Bla;
+     margin-bottom: $sc-margin-lv2;
+     color: $white;
+     border-bottom: 3px #4c4846 solid;
+     padding-bottom: $sc-padding-lv2;
+     text-transform: uppercase;
+    }
+   }
+   
+   .footer-content-bottom {
+    @extend .row;
+    margin-top: 18px;
+    
+    p {
+     margin: 0 0 6px 0;
+     padding: 0;
+     color: $white;
+     font-size: $sc-font-size-xs;
+    }
+   }
+   
+   .footer-content-bottom-left {
+    @extend .col-sm-4;
+    @extend .col-xs-12;
+   }
+   
+   .footer-content-bottom-right {
+    @extend .col-sm-8;
+    @extend .col-xs-12;
+    
+    @media (min-width: $screen-md-min) {
+     text-align: right;
+    }
+   }
+   
+   .footer-content-risqs-logo {
+    width: 101px;
+    height: 52.1378px;
+    margin-left: 10px;
+   }
+
+   .stock-message-assembly {
+    color: $sc-color-warning;
+    background-color: $sc-color-warning-background;
+    border: 1px solid $sc-color-warning-border;
+  
+    .product-line-stock-icon-in {
+      background-color: $sc-color-warning;
+    }
+  
+    i {
+      @extend %fa-wrench;
+    }
+  }
+  
+  .OrderWizard\.Module\.PaymentMethod\.PurchaseNumber div.global-views-message-error{display:none!important;}

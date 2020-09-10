@@ -46,8 +46,8 @@ define(['N/ui/serverWidget', 'N/runtime', 'N/record', 'N/search'],
                     });
 
                     var newItemItemId = masterItemItemId;
-                    if (newItemItemId && newItemItemId.length > 2 && newItemItemId.substring(newItemItemId.length - 2) == ".M") {
-                        newItemItemId = newItemItemId.substring(0, newItemItemId.length - 2) + ".P";
+                    if (newItemItemId && newItemItemId.length > 2 && newItemItemId.substring(newItemItemId.length - 2).toLowerCase() == ".m") {
+                        newItemItemId = newItemItemId.substring(0, newItemItemId.length - 2); // + ".P"
                     } else {
                         newItemItemId = newItemItemId + ".P";
                     }
@@ -157,6 +157,9 @@ define(['N/ui/serverWidget', 'N/runtime', 'N/record', 'N/search'],
         }
 
         function createItem(form, newItemItemId, masterItem, baseItem) {
+
+            var value, copyValues = ["upccode", "department", "class", "salesdescription", "incomeaccount", "salestaxcode", "isonline", "custitem_bb1_sca_customers", "subsidiary", "location", "displayname", "costestimate", "pricesincludetax", "cseg_bb1_brand"];
+
 
             //Create new item.
             var newItem, instructions = "";
@@ -309,17 +312,22 @@ define(['N/ui/serverWidget', 'N/runtime', 'N/record', 'N/search'],
 
 
                 //Set a few basic values from the master.
-                var value, copyValues = ["upccode", "department", "class", "salesdescription", "incomeaccount", "salestaxcode", "isonline", "custitem_bb1_sca_customers", "subsidiary"];
+
                 for (var i = 0; i < copyValues.length; i++) {
                     value = masterItem.getValue({
                         fieldId: copyValues[i]
                     });
-                    newItem.setValue({
-                        fieldId: copyValues[i],
-                        value: value,
-                        ignoreFieldChange: true
-                    });
+                    try {
+                        newItem.setValue({
+                            fieldId: copyValues[i],
+                            value: value,
+                            ignoreFieldChange: true
+                        });
+                    } catch (err) {
+
+                    }
                 }
+                copyPrices(newItem, masterItem);
                 newItem.save({
                     enableSourcing: true,
                     ignoreMandatoryFields: true
@@ -338,16 +346,25 @@ define(['N/ui/serverWidget', 'N/runtime', 'N/record', 'N/search'],
                     ignoreFieldChange: true
                 });
                 //Set a few basic values from the master.
-                var value, copyValues = ["upccode", "department", "class", "salesdescription", "incomeaccount", "salestaxcode", "isonline", "custitem_bb1_sca_customers", "subsidiary","displayname"];
+
                 for (var i = 0; i < copyValues.length; i++) {
-                    value = masterItem.getValue({
-                        fieldId: copyValues[i]
-                    });
-                    newItem.setValue({
-                        fieldId: copyValues[i],
-                        value: value,
-                        ignoreFieldChange: true
-                    });
+                    try {
+                        value = masterItem.getValue({
+                            fieldId: copyValues[i]
+                        });
+                    } catch (err) {
+                        throw (new Error(err + " a " + copyValues[i] + " " + value));
+                    }
+                    try {
+
+                        newItem.setValue({
+                            fieldId: copyValues[i],
+                            value: value,
+                            ignoreFieldChange: true
+                        });
+                    } catch (err) {
+
+                    }
                 }
 
                 //copy some values from the base
@@ -425,6 +442,7 @@ define(['N/ui/serverWidget', 'N/runtime', 'N/record', 'N/search'],
                 } else {
                     throw (new Error("Please select at least one valid colour before building this item."));
                 }
+                copyPrices(newItem, masterItem);
                 log.debug("save item", "save");
                 parentId = newItem.save({
                     enableSourcing: true,
@@ -587,14 +605,14 @@ define(['N/ui/serverWidget', 'N/runtime', 'N/record', 'N/search'],
                     // });
 
                     instructions = hChildren[optionId].getValue("custitem_bb1_sca_instructions");
-                    
+
                     sublist.setSublistValue({
                         id: 'custpage_children_accessories',
                         line: count,
                         value: instructions || "None"
                     });
 
-                    
+
                 } else {
                     log.debug("Create Child", "child is new " + optionId);
                     sublist.setSublistValue({
@@ -764,6 +782,112 @@ define(['N/ui/serverWidget', 'N/runtime', 'N/record', 'N/search'],
 
             return newItem;
         }
+
+        function addString(A, B) { //SS2 bug. For reasons beyond me, adding two strings together fails to create a workable string.
+            return [A.toString(), B.toString()].join("");
+        }
+
+        function copyPrices(newItem, masterItem) {
+
+
+            var sitecurrency = getCurrencies();
+            var currency, priceName, priceCount, headerCount, level;
+            for (var k = 0; k < sitecurrency.length; k++) {
+
+                currency = sitecurrency[k];
+
+                priceName = addString("price", currency.internalid);
+                //priceName="price1";
+
+                try {
+                    priceCount = masterItem.getLineCount({
+                        sublistId: priceName
+                    });
+
+                    headerCount = masterItem.getValue({
+                        fieldId: addString(priceName, "headercount")
+                    });
+                    log.debug("priceName", priceName + " " + headerCount + " " + headerCount);
+                    for (var i = 0; i < priceCount; i++) {
+
+                        level = masterItem.getSublistValue({
+                            sublistId: priceName,
+                            fieldId: 'pricelevel',
+                            line: i
+                        }).toString();
+                        //log.debug("level", level);
+                        for (j = 0; j < headerCount; j++) {
+
+                            if (i == 0) {
+                                var matrixValue = masterItem.getMatrixHeaderValue({
+                                    sublistId: priceName,
+                                    fieldId: 'price',
+                                    column: j
+                                });
+
+                                newItem.setMatrixHeaderValue({
+                                    sublistId: priceName,
+                                    fieldId: 'price',
+                                    column: j,
+                                    valie: matrixValue
+                                });
+
+                            }
+                            
+                            var matrixPrice = masterItem.getMatrixSublistValue({
+                                sublistId: priceName,
+                                fieldId: 'price',
+                                column: j,
+                                line: i
+                            });
+                            if (matrixPrice > 0) {
+                                log.debug("j", i + "," + j + " - " + matrixPrice + " - " + matrixValue);
+                                newItem.setMatrixSublistValue({
+                                    sublistId: priceName,
+                                    fieldId: 'price',
+                                    column: j,
+                                    line: i,
+                                    value: matrixPrice
+                                });
+
+
+                            }
+                            
+                        }
+
+                    }
+                } catch (err) {
+                    log.debug("copy prices failed", err);
+                }
+            }
+
+        }
+
+        function getCurrencies() { //Get a list of system currencies. All currencies are added to the item, just in case.
+            var list = [];
+            var filters = [];
+            var cols = [];
+            filters.push(['isinactive', 'is', 'F']);
+            cols.push(search.createColumn({
+                name: 'name'
+            }));
+
+            var searchResults = search.create({
+                type: search.Type.CURRENCY,
+                columns: cols,
+                filters: filters
+            });
+            searchResults.run().each(function (result) {
+                list.push({
+                    internalid: parseInt(result.id),
+                    name: result.getValue("name")
+                });
+
+                return true; //Loop when true
+            });
+            return list;
+        }
+
         var customrecord_bb1_sca_acc_accessorySearchObj;
 
         function setComponents(newItem, masterItem, baseChild) { //sets the components on an item or child.
