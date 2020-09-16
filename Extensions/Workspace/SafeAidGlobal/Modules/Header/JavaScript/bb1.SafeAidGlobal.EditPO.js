@@ -89,7 +89,12 @@ var Mi365OrderModel=require('SafeAid.bb1.Mi365Order.Model');
                             }),
                             getContext: _.wrap(OrderHistoryDetailsView.prototype.getContext, function (getContext, options) {
                                 var res = getContext.apply(this, _.rest(arguments));
+                                
+                                var status=this.model.get("status").internalid;
+                                
+                                if(status!="fullyBilled"&&status!="closed"&&status!="cancelled"){
                                 res.allowEditPO = this.overview.get("custentity_bb1_sca_allowapproveorders") == "T";
+                                }
                                 return res;
                             })
                         });

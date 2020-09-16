@@ -90,11 +90,21 @@ define(
 	  
 			res._inStockMessage = function (item) {
 			  if (item && item.get("itemtype") == "Assembly") {
-				return _('Logoed to Order – Usual lead times apply').translate();
+				  if(item.get("quantityavailable")>0){
+					return _('Delivered Next Working Day').translate();
+				  }else{
+				return _('Manufactured to order').translate();
+				  }
 			  } else {
-				return _('In Stock').translate();
+				return _('Delivered Next Working Day').translate();
 			  }
 			}
+			res._outOfStockMessage = function (item) {
+				
+				  return _('Delivery Within 7-10 Working Days').translate();
+
+			  };
+
 			return res;
 		  });
 		

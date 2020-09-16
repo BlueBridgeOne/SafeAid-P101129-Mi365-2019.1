@@ -41,7 +41,8 @@
 	margin-right:$sc-margin-lv1;
 
 	i {
-		@extend .icon-message-atention;
+		color:inherit;
+		@extend .icon-info;
 	}
 }
 .product-line-stock-icon-description {

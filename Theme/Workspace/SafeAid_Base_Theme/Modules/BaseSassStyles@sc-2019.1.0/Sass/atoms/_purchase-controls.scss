@@ -839,14 +839,14 @@ $sc-picker-border: $sc-color-theme-100;
 }
 
 .stock-info-out {
-	@extend .message-error;
+	@extend .message-warning;
 }
 
 .stock-info-out-icon {
-	@extend .icon-container-error;
+	@extend .icon-container-warning;
 
 	i {
-		@extend .icon-error;
+		@extend .icon-warning;
 	}
 }
 
