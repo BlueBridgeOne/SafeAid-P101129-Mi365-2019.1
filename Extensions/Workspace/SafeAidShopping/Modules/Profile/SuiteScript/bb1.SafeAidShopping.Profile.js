@@ -88,7 +88,7 @@ define(
         shippingitem:0
       };
       try {
-        lookupFields = nlapiLookupField('customer', customer, ['custentity_bb1_sca_showstandarditems', 'custentity_bb1_sca_membership', 'custentity_bb1_sca_websitecolour', 'custentity_bb1_sca_websitelogo','shippingitem']);
+        lookupFields = nlapiLookupField('customer', customer, ['custentity_bb1_sca_showstandarditems', 'custentity_bb1_sca_membership', 'custentity_bb1_sca_websitecolour', 'custentity_bb1_sca_websitelogo','shippingitem','entityid']);
       } catch (err) {
         //nlapiLogExecution("Unable to get contact fields.",customer+" "+err);
       }
@@ -100,6 +100,7 @@ define(
       var custentity_bb1_sca_websitecolour = (lookupFields && lookupFields.custentity_bb1_sca_websitecolour);
       var shippingitem = (lookupFields && lookupFields.shippingitem);
       var custentity_bb1_sca_websitelogo = lookupFields && lookupFields.custentity_bb1_sca_websitelogo;
+      
       var custentity_bb1_sca_websitelogo_url;
       if (custentity_bb1_sca_websitelogo) {
         var logo = nlapiLoadFile(custentity_bb1_sca_websitelogo);
@@ -109,7 +110,8 @@ define(
       }
 
       var customerName = profile.companyname;
-      var customerFacetValueUrl = getFacetValueUrl('custitem_bb1_sca_customers', customerName);
+      var entityid = (lookupFields && lookupFields.entityid)||profile.companyname;
+      var customerFacetValueUrl = getFacetValueUrl('custitem_bb1_sca_customers', entityid);
 
       _.extend(profile, {
         customerShowStandardItems: customerShowStandardItems == 'T',

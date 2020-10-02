@@ -81,7 +81,8 @@
                     "Modules/Header/JavaScript/bb1.SafeAidGlobal.Menu.js",
                     "Modules/Footer/JavaScript/bb1.SafeAidShopping.Footer.js",
                     "Modules/Header/JavaScript/SafeAid.bb1.HeaderLogo.View.js",
-                    "Modules/Header/JavaScript/bb1.SafeAidGlobal.EditPO.js"
+                    "Modules/Header/JavaScript/bb1.SafeAidGlobal.EditPO.js",
+                    "Modules/Header/JavaScript/Tools.js"
                 ]
             },
             "checkout": {
@@ -93,7 +94,8 @@
                     "Modules/Header/JavaScript/bb1.SafeAidGlobal.Menu.js",
                     "Modules/Footer/JavaScript/bb1.SafeAidShopping.Footer.js",
                     "Modules/Header/JavaScript/SafeAid.bb1.HeaderLogo.View.js",
-                    "Modules/Header/JavaScript/bb1.SafeAidGlobal.EditPO.js"
+                    "Modules/Header/JavaScript/bb1.SafeAidGlobal.EditPO.js",
+                    "Modules/Header/JavaScript/Tools.js"
                 ]
             },
             "myaccount": {
@@ -105,7 +107,8 @@
                     "Modules/Header/JavaScript/bb1.SafeAidGlobal.Menu.js",
                     "Modules/Footer/JavaScript/bb1.SafeAidShopping.Footer.js",
                     "Modules/Header/JavaScript/SafeAid.bb1.HeaderLogo.View.js",
-                    "Modules/Header/JavaScript/bb1.SafeAidGlobal.EditPO.js"
+                    "Modules/Header/JavaScript/bb1.SafeAidGlobal.EditPO.js",
+                    "Modules/Header/JavaScript/Tools.js"
                 ]
             }
         }

@@ -4,10 +4,10 @@ define(
 	'SafeAid.bb1.Global', [
 		'Handlebars',
 		'Item.KeyMapping','Item.Model','SafeAid.bb1.HeaderAlerts.View', 'SafeAid.bb1.HeaderLogo.View', 'Header.View', 'bb1.SafeAidGlobal.Menu', 'bb1.SafeAidGlobal.EditPO',
-		'bb1.SafeAidShopping.Footer', 'Utils'
+		'bb1.SafeAidShopping.Footer', 'Utils','Tools'
 	],
 	function (
-		Handlebars,ItemKeyMapping, ItemModel,HeaderAlertsView, HeaderLogoView, Header, Menu,EditPO, Footer, Utils
+		Handlebars,ItemKeyMapping, ItemModel,HeaderAlertsView, HeaderLogoView, Header, Menu,EditPO, Footer, Utils,Tools
 	) {
 		'use strict';
 
@@ -100,8 +100,8 @@ define(
 			  }
 			}
 			res._outOfStockMessage = function (item) {
-				
-				  return _('Delivery Within 7-10 Working Days').translate();
+
+				  return _(item.get("outofstockmessage")||'Delivery Within 7-10 Working Days').translate();
 
 			  };
 
@@ -162,6 +162,47 @@ define(
 					
 				
 				if (SC.ENVIRONMENT.SCTouchpoint == "checkout") {
+
+					//Descriptive errors
+					var WizardStep = require("Wizard.Step");
+						if (WizardStep) {
+							WizardStep.prototype.showError = function () {
+								try {
+									if (this.error) {
+										console.log("Checkout Error:", this.error);
+										var msg = this.error.errorMessage;
+										var code = this.error.errorCode;
+										if (code == "ERR_WS_UNHANDLED_ERROR") {
+											if (msg && msg.indexOf("An error has occurred") > -1) {
+												console.log("Error Message:", msg);
+												console.log("Error Code:", code);
+											} else {
+												// var global_view_message = new GlobalViewsMessageView({
+												// 	message: this.wizard.processErrorMessage(this.error.errorMessage),
+												// 	type: 'error',
+												// 	closable: true
+												// });
+
+												// this.$('[data-type="alert-placeholder-step"]').html(global_view_message.render().$el.html());
+
+												// jQuery('body').animate({
+												// 	scrollTop: jQuery('body .global-views-message-error:first').offset().top
+												// }, 600);
+
+												if (msg.indexOf("rejected") > -1 || msg.indexOf("payment") > -1 || msg.indexOf("merchant") > -1 || msg.indexOf("processing") > -1) {
+													msg = "We were unable to process this payment.<br /><br /><ol><li>Check the payment and address details have been entered correctly.</li><li>Check the account has sufficient funds.</li><li>Try a different card.</li><li>Contact us for assistance.</li></ol>";
+												}
+												//purchase-order-number
+												Tools.showErrorInModal(container, _("Unable to Continue").translate(), msg);
+											}
+										}
+										this.error = null;
+									}
+								} catch (e) {
+									console.log(e);
+								}
+							}
+						}
 
 					//Mandatory PO number
 					var OrderWizardModulePaymentMethodPurchaseNumber = require("OrderWizard.Module.PaymentMethod.PurchaseNumber");
