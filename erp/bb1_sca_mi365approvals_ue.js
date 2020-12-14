@@ -736,7 +736,8 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
 
                     var params = [];
 
-                    var sourl = "https://checkout.eu2.netsuite.com/c.5474721/s/my_account.ssp?n=2&fragment=purchases#purchases/view/" + transactiontype + "/" + transactionid
+                    var sourl = "https://www.safeaidsupplies.com/s/my_account.ssp#purchases/view/" + transactiontype + "/" + transactionid;
+                    
                     //  url.resolveRecord({
                     //     recordType: transactiontype,
                     //     recordId: transactionid,
