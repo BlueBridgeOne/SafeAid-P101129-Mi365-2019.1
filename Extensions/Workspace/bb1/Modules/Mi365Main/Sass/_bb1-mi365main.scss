@@ -214,6 +214,10 @@ a[data-id="quotes"] {
 	@extend .fa;
 	@extend %fa-credit-card;
 }
+.mi365-buttonicon-item {
+	@extend .fa;
+	@extend %fa-external-link;
+}
 
 .mi365-buttonicon-area {
 	@extend .fa;
@@ -316,4 +320,10 @@ a[data-id="quotes"] {
 .header-mini-cart-buttons-left{
 	width:100%;
 	padding-right:0px;
+}
+.muted-item{
+	font-size: 12px;
+display: inline-block;
+margin-left: 10px;
+color: #888;
 }

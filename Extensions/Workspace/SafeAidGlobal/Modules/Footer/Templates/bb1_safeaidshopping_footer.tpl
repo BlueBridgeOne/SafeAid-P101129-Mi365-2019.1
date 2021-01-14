@@ -36,14 +36,14 @@
     <img src="{{getExtensionAssetsPath 'img/safeaid-footer-bsif.png'}}" alt="" />
     <img src="{{getExtensionAssetsPath 'img/safeaid-footer-risqs.gif'}}" class="footer-content-risqs-logo" alt="" />
    </p>
-   <p>&copy; 2020 Safeaid LLP. All Rights Reserved.<br>
-   Phone: <a href="tel: 004423 9225 4442">+44 (0)23 9225 4442</a> Email: <a href="mailto:sales@safeaidsupplies.com">sales@safeaidsupplies.com</a>
+   <p>&copy; 2021 Safeaid Limited. All Rights Reserved.<br>
+   Phone: <a href="tel: 004423 9225 4442">+44 (0)23 9225 4442</a> Email: <a href="mailto:sales@safeaid.co.uk">sales@safeaid.co.uk</a>
    </p>
   </div>
   <div class="footer-content-bottom-right">
    <p>Accepted payment methods</p>
    <p><img src="{{getExtensionAssetsPath 'img/safeaid-footer-payment.png'}}" alt="" /></p>
-   <p>Safeaid LLP Signal House, 16 Arnside Road, Waterlooville, PO7 7UP, United Kingdom <br>Company Registration Number OC382751 VAT no. 161 5765 02</p>
+   <p>Safeaid Limited Signal House, 16 Arnside Road, Waterlooville, PO7 7UP, United Kingdom <br>Company Registration Number 08414761 VAT no. 226 8099 85</p>
   </div>
  </div>
  

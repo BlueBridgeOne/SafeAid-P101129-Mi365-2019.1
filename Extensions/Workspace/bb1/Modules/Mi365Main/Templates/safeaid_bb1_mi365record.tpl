@@ -70,6 +70,14 @@
         <div class="mi365-information-group-form-controls" data-validation="control">
           {{#if url}}<a href="{{url}}{{value.value}}">{{#if icon}}<i class="mi365-buttonicon-{{icon}}"></i>
             {{/if}}{{/if}}{{value.text}}{{#if url}}</a>{{/if}}
+
+            {{#if item}}{{#if value.extra}}{{#if value.extra.urlcomponent}}
+             <br />
+             {{#unless ../editable}}<label class="mi365-information-label">&nbsp;</label>{{/unless}}
+             <div class="mi365-information-group-form-controls">
+             <a href="https://www.SafeAidSupplies.com/{{value.extra.urlcomponent}}" data-navigation="ignore-click"><small><i class="mi365-buttonicon-item"></i> {{value.extra.storedisplayname}}</small></a>
+             </div>
+            {{/if}}{{/if}}{{/if}}
         </div>
       </div>
       {{/ifEquals}}

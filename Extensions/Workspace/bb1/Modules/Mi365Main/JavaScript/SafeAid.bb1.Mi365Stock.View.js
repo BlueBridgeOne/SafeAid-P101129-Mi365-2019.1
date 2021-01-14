@@ -31,7 +31,8 @@ define('SafeAid.bb1.Mi365Stock.View', [
 			label: "Item",
 			type: "record",
 			mandatory: true,
-			list: true
+			list: true,
+			item:true
 		}, {
 			id: "custrecord_bb1_sca_companystock_location",
 			label: "Location",

@@ -235,7 +235,7 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                     custcol_bb1_sca_wearer = parseJSONValue(custcol_bb1_sca_wearer2);
                 }
                 if (custcol_bb1_sca_area2) {
-                        custcol_bb1_sca_area = parseJSONValue(custcol_bb1_sca_area2);
+                    custcol_bb1_sca_area = parseJSONValue(custcol_bb1_sca_area2);
                 }
 
                 var custcol_bb1_transline_area = currentRecord.getSublistValue({
@@ -253,22 +253,22 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
 
                 if (custcol_bb1_sca_wearer != custcol_bb1_transline_wearer) {
                     //if (runtime.executionContext == "WEBSTORE") {
-                        currentRecord.setSublistValue({
-                            sublistId: 'item',
-                            fieldId: 'custcol_bb1_transline_wearer',
-                            line: i,
-                            value: custcol_bb1_sca_wearer
-                        });
+                    currentRecord.setSublistValue({
+                        sublistId: 'item',
+                        fieldId: 'custcol_bb1_transline_wearer',
+                        line: i,
+                        value: custcol_bb1_sca_wearer
+                    });
                     //}
                 }
                 if (custcol_bb1_sca_area != custcol_bb1_transline_area) {
                     //if (runtime.executionContext == "WEBSTORE") {
-                        currentRecord.setSublistValue({
-                            sublistId: 'item',
-                            fieldId: 'custcol_bb1_transline_area',
-                            line: i,
-                            value: custcol_bb1_sca_area
-                        });
+                    currentRecord.setSublistValue({
+                        sublistId: 'item',
+                        fieldId: 'custcol_bb1_transline_area',
+                        line: i,
+                        value: custcol_bb1_sca_area
+                    });
                     //}
                 }
             }
@@ -282,7 +282,7 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                 });
             }
 
-            log.debug("contact " + runtime.executionContext, JSON.stringify(contact));
+            //log.debug("contact " + runtime.executionContext, JSON.stringify(contact));
 
             var buyer = getBuyer(contact);
 
@@ -320,28 +320,29 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                 }
             }
 
-            
+
             //get all the data needed formi365 update, have to move this here in order to get the fulfillment change.
             var items = getItems(currentRecord, scriptContext.oldRecord || currentRecord);
             var options;
             var areas = [],
                 wearers = [],
                 hareas = {},
-                hwearers = {},value; //record a list of distict areas and wearers.
+                hwearers = {},
+                value; //record a list of distict areas and wearers.
             for (var i = 0; i < items.length; i++) {
-                
+
                 if (items[i].options) {
                     options = items[i].options;
-                    
+
                     for (var j = 0; j < options.length; j++) {
-                        if (options[j].id == "CUSTCOL_BB1_SCA_AREA"||options[j].id == "CUSTCOL_BB1_SCA_AREA2") {
-                            value=parseJSONValue(options[j].value);
+                        if (options[j].id == "CUSTCOL_BB1_SCA_AREA" || options[j].id == "CUSTCOL_BB1_SCA_AREA2") {
+                            value = parseJSONValue(options[j].value);
                             if (!hareas[value]) {
                                 hareas[value] = true;
                                 areas.push(value);
                             }
-                        } else if (options[j].id == "CUSTCOL_BB1_SCA_WEARER"||options[j].id == "CUSTCOL_BB1_SCA_WEARER2") {
-                            value=parseJSONValue(options[j].value);
+                        } else if (options[j].id == "CUSTCOL_BB1_SCA_WEARER" || options[j].id == "CUSTCOL_BB1_SCA_WEARER2") {
+                            value = parseJSONValue(options[j].value);
                             if (!hwearers[value]) {
                                 hwearers[value] = true;
                                 wearers.push(value);
@@ -376,7 +377,7 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
         function afterSubmit(scriptContext) {
 
             if (scriptContext.type == scriptContext.UserEventType.DELETE) return;
-            log.debug("afterSubmit " + runtime.executionContext, scriptContext.newRecord.id+" remaining="+runtime.getCurrentScript().getRemainingUsage());
+            //log.debug("afterSubmit " + runtime.executionContext, scriptContext.newRecord.id+" remaining="+runtime.getCurrentScript().getRemainingUsage());
             try {
 
                 //Approval Rules
@@ -384,7 +385,7 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                 var contact = currentRecord.getValue({
                     fieldId: 'custbody_bb1_buyer'
                 });
-                log.debug("contact " + runtime.executionContext, JSON.stringify(contact));
+                //log.debug("contact " + runtime.executionContext, JSON.stringify(contact));
 
                 //Do all these calculations after submit, becuase they take a while.
 
@@ -399,7 +400,8 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                 var areas = [],
                     wearers = [],
                     hareas = {},
-                    hwearers = {},value; //record a list of distict areas and wearers.
+                    hwearers = {},
+                    value; //record a list of distict areas and wearers.
                 for (var i = 0; i < items.length; i++) {
 
 
@@ -407,9 +409,9 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                     if (items[i].options) {
                         options = items[i].options;
                         for (var j = 0; j < options.length; j++) {
-                            
-                            if (options[j].id == "CUSTCOL_BB1_SCA_AREA"||options[j].id == "CUSTCOL_BB1_SCA_AREA2") {
-                                value=parseJSONValue(options[j].value);
+
+                            if (options[j].id == "CUSTCOL_BB1_SCA_AREA" || options[j].id == "CUSTCOL_BB1_SCA_AREA2") {
+                                value = parseJSONValue(options[j].value);
                                 areaChecks.push({
                                     item: {
                                         value: items[i].internalid,
@@ -426,8 +428,8 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                                     hareas[value] = true;
                                     areas.push(value);
                                 }
-                            } else if (options[j].id == "CUSTCOL_BB1_SCA_WEARER"||options[j].id == "CUSTCOL_BB1_SCA_WEARER2") {
-                                value=parseJSONValue(options[j].value);
+                            } else if (options[j].id == "CUSTCOL_BB1_SCA_WEARER" || options[j].id == "CUSTCOL_BB1_SCA_WEARER2") {
+                                value = parseJSONValue(options[j].value);
                                 //throw(new Error(JSON.stringify(wearerDetails)+" "+JSON.stringify(options[j])));
                                 wearerChecks.push({
                                     item: {
@@ -524,7 +526,7 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                     area = null;
                     wearer = null;
                     //log.debug("item",JSON.stringify(item)+" remaining="+runtime.getCurrentScript().getRemainingUsage());
-                   
+
                     if (requiresapproval == "4") {
                         if (isTrue(item.custitem_bb1_sca_standarditem)) {
                             //Check not in library
@@ -566,10 +568,10 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
 
                     if (item.options) {
                         for (var k = 0; k < item.options.length; k++) {
-                            if (item.options[k].id == "CUSTCOL_BB1_SCA_AREA"||item.options[k].id == "CUSTCOL_BB1_SCA_AREA2") {
+                            if (item.options[k].id == "CUSTCOL_BB1_SCA_AREA" || item.options[k].id == "CUSTCOL_BB1_SCA_AREA2") {
                                 area = parseJSONValue(item.options[k].value);
                             }
-                            if (item.options[k].id == "CUSTCOL_BB1_SCA_WEARER"||item.options[k].id == "CUSTCOL_BB1_SCA_WEARER2") {
+                            if (item.options[k].id == "CUSTCOL_BB1_SCA_WEARER" || item.options[k].id == "CUSTCOL_BB1_SCA_WEARER2") {
                                 wearer = parseJSONValue(item.options[k].value);
                             }
                         }
@@ -635,9 +637,9 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                 //     areaChecks:areaChecks,
                 //     wearerChecks:wearerChecks,
                 //     areaDetails:areaDetails
-
-                log.debug("Warnings! " + runtime.executionContext, JSON.stringify(warnings));
-
+                if (warnings.length > 0) {
+                    log.debug("Warnings! " + runtime.executionContext, JSON.stringify(warnings));
+                }
                 //throw (new Error(JSON.stringify(result, null, 4)));
                 submitField(currentRecord.type, currentRecord.id, "custbody_bb1_sca_approvaldata", JSON.stringify(result), false);
 
@@ -676,8 +678,8 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
         function parseJSONValue(value) { //convert number or {internalid:1,label:"A"} into number.
             var res = 0;
             try {
-                if(value){
-                res = parseInt(value.split("|")[0]);
+                if (value) {
+                    res = parseInt(value.split("|")[0]);
                 }
             } catch (err) {
                 res = parseInt(value) || res;
@@ -737,7 +739,7 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                     var params = [];
 
                     var sourl = "https://www.safeaidsupplies.com/s/my_account.ssp#purchases/view/" + transactiontype + "/" + transactionid;
-                    
+
                     //  url.resolveRecord({
                     //     recordType: transactiontype,
                     //     recordId: transactionid,
@@ -766,13 +768,42 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
             //buyer=buyer
             //log.debug("Add to Mi365", "summary.total " + summary.total);
             //log.debug("Add to Mi365", "buyer " + JSON.stringify(buyer));
-            //log.debug("Add to Mi365", "items " + JSON.stringify(items));
+            //log.debug("Add to Mi365", "check");
+            
+            var currentRecord = scriptContext.newRecord;
+            
+            var custbody_bb1_mi365_updated = currentRecord.getValue({
+                fieldId: 'custbody_bb1_mi365_updated'
+            });
+            if(isTrue(custbody_bb1_mi365_updated)){
+                return;
+            }
+            var custbody_bb1_sca_approvalstatus = currentRecord.getValue({
+                fieldId: 'custbody_bb1_sca_approvalstatus'
+            });
+            var custbody_bb1_creditheldorder = currentRecord.getValue({
+                fieldId: 'custbody_bb1_creditheldorder'
+            });
+            var custbody_bb1_onholdsalesorders = currentRecord.getValue({
+                fieldId: 'custbody_bb1_onholdsalesorders'
+            });
+
+            
+            
+            if (isTrue(custbody_bb1_creditheldorder)||isTrue(custbody_bb1_onholdsalesorders)||(custbody_bb1_sca_approvalstatus == "2")) {
+                return;
+            }
+            log.debug("Approved", "Updated Mi365");
+            currentRecord.setValue({
+                fieldId: 'custbody_bb1_mi365_updated',
+                value: true,
+                ignoreFieldChange: true
+            });
             if (contact > 0 && scriptContext.type == scriptContext.UserEventType.CREATE) {
                 submitField("contact", contact, "custentity_bb1_sca_currentspend", buyer.custentity_bb1_sca_currentspend + summary.total, false);
             }
-
             if (items) {
-                var options, area, wearer,value;
+                var options, area, wearer, value;
                 for (var i = 0; i < items.length; i++) {
                     options = items[i].options;
                     area = null;
@@ -781,11 +812,11 @@ define(['N/record', 'N/search', 'N/runtime', 'N/ui/serverWidget', 'N/format', 'N
                     for (var j = 0; j < options.length; j++) {
                         //update area budgets and rules
 
-                        if (options[j].id == "CUSTCOL_BB1_SCA_AREA"||options[j].id == "CUSTCOL_BB1_SCA_AREA2") {
-value=parseJSONValue(options[j].value);
+                        if (options[j].id == "CUSTCOL_BB1_SCA_AREA" || options[j].id == "CUSTCOL_BB1_SCA_AREA2") {
+                            value = parseJSONValue(options[j].value);
                             area = areaDetails[value];
                             //log.debug("Mi365 Area", options[j].value+"- items " + JSON.stringify(items[i])+" ..... "+JSON.stringify(area));
-                            if (area && scriptContext.type == scriptContext.UserEventType.CREATE) {
+                            if (area) {
                                 submitField("customrecord_bb1_sca_area", value, "custrecord_bb1_sca_area_currentspend", area.custrecord_bb1_sca_area_currentspend + (items[i].quantity * items[i].amount), false);
 
                                 //log.debug("Mi365 Area", "area " + (area.custrecord_bb1_sca_area_currentspend + (items[i].quantity*items[i].amount)));
@@ -803,11 +834,11 @@ value=parseJSONValue(options[j].value);
                                 }
                             }
                             //update wearer budgets and rules
-                        } else if (options[j].id == "CUSTCOL_BB1_SCA_WEARER"||options[j].id == "CUSTCOL_BB1_SCA_WEARER2") {
-                            value=parseJSONValue(options[j].value);
+                        } else if (options[j].id == "CUSTCOL_BB1_SCA_WEARER" || options[j].id == "CUSTCOL_BB1_SCA_WEARER2") {
+                            value = parseJSONValue(options[j].value);
                             wearer = wearerDetails[value];
                             //log.debug("Mi365 Wearer", options[j].value+"- items " + JSON.stringify(items[i])+" ..... "+JSON.stringify(wearer));
-                            if (wearer && scriptContext.type == scriptContext.UserEventType.CREATE) {
+                            if (wearer) {
                                 submitField("customrecord_bb1_sca_wearer", value, "custrecord_bb1_sca_wearer_currentspend", wearer.custrecord_bb1_sca_wearer_currentspend + (items[i].quantity * items[i].amount), false);
 
                                 //log.debug("Mi365 Wearer", "wearer " + (wearer.custrecord_bb1_sca_wearer_currentspend + (items[i].quantity*items[i].amount)));
@@ -824,14 +855,15 @@ value=parseJSONValue(options[j].value);
                             }
                         }
                     }
-                    
-                    //Update stock on fulfill
-                    //items[i].oldquantityfulfilled=0;
-                    if (items[i].quantityfulfilled > items[i].oldquantityfulfilled) {
+                    if (wearer || area) {
+                        //Update stock on fulfill
+                        //items[i].oldquantityfulfilled=0;
+                        //log.debug("updateMi365 ?", scriptContext.newRecord.id+" "+scriptContext.type+" "+items[i].quantityfulfilled + ">" + items[i].oldquantityfulfilled + " " + JSON.stringify(wearer) + " " + JSON.stringify(area));
+                        //if (items[i].quantityfulfilled > items[i].oldquantityfulfilled) {
 
-                        log.debug("updateMi365", items[i].quantityfulfilled + " " + items[i].oldquantityfulfilled + " " + JSON.stringify(wearer) + " " + JSON.stringify(area));
+                        //log.debug("Fulfill!!!", items[i].quantity + " " + JSON.stringify(wearer) + " " + JSON.stringify(area));
 
-                        var difference = items[i].quantityfulfilled - items[i].oldquantityfulfilled;
+                        var difference = items[i].quantity;
 
                         //Move some stock!
                         if (wearer) {
@@ -939,6 +971,7 @@ value=parseJSONValue(options[j].value);
                             }
 
                         }
+                        //}
                     }
                 }
 
@@ -1159,7 +1192,7 @@ value=parseJSONValue(options[j].value);
             } else {
                 log.debug("Get Buyer " + runtime.executionContext, "Unable to get buyer " + contact + ".");
             }
-            log.debug("Buyer", JSON.stringify(buyer));
+            //log.debug("Buyer", JSON.stringify(buyer));
             return buyer;
         }
 
@@ -1296,15 +1329,19 @@ value=parseJSONValue(options[j].value);
                     fieldId: 'quantityfulfilled',
                     line: i
                 });
-                item.oldquantityfulfilled = item.quantityfulfilled;
-                try {
-                    //get old quantity fulfilled for comparison
-                    item.oldquantityfulfilled = oldRecord.getSublistValue({
-                        sublistId: 'item',
-                        fieldId: 'quantityfulfilled',
-                        line: i
-                    });
-                } catch (err) {}
+                // item.oldquantityfulfilled = item.quantityfulfilled;
+                // try {
+                //     //get old quantity fulfilled for comparison
+                //     if(oldRecord){
+                //     item.oldquantityfulfilled = oldRecord.getSublistValue({
+                //         sublistId: 'item',
+                //         fieldId: 'quantityfulfilled',
+                //         line: i
+                //     });
+                // }
+                // } catch (err) {
+                //     log.error("Get oldquantityfulfilled", err);
+                // }
 
                 item.amount = currentRecord.getSublistValue({
                     sublistId: 'item',

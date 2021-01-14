@@ -3,43 +3,9 @@ define('Tools',
     'Backbone',
     'underscore',
     'Utils',
-    'bb1.Cart.Approval.View',
-    'SafeAid.bb1.CartApproval.Model',
     'ErrorManagement.InternalError.View'
   ],
-  function (Backbone, _, Utils, CartApprovalView, CartApprovalModel,InternalError) {
-
-    var approveCart = function (application) {
-
-      var model = new CartApprovalModel();
-      var view = new CartApprovalView({
-        model: model,
-        application: application
-      });
-      var self=this;
-
-      model.fetch({
-        data: {
-          t: new Date().getTime()
-        },
-        success: function () {
-          var warnings=model.get("warnings");
-          if(warnings.length>0){
-          view.showInModal();
-          }else{
-            document.location=SC.SESSION.touchpoints.checkout;
-          }
-      },
-        error: function (mod,res) {
-          
-          showConfirmInModal(application, _('Checkout').translate(), _(res&&res.responseJSON&&res.responseJSON.errorMessage).translate(),function(){
-            document.location=SC.SESSION.touchpoints.login+"&origin=home";
-          });
-      }
-      });
-
-    }
-    
+  function (Backbone, _, Utils, InternalError) {
 
     function showErrorInModal(application, title, message) {
 
@@ -121,8 +87,7 @@ function showInputInModal(application, title, message,value,success) {
       showErrorInModal: showErrorInModal,
       showSuccessInModal: showSuccessInModal,
       showConfirmInModal:showConfirmInModal,
-      showInputInModal:showInputInModal,
-      approveCart: approveCart
+      showInputInModal:showInputInModal
     }
     return Tools;
   }

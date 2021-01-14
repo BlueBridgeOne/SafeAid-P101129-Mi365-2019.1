@@ -16,7 +16,8 @@ define(
 				label: "Item",
 				type: "record",
 				mandatory: true,
-				list: true
+				list: true,
+				item:true
 			}, {
 				id: "custrecord_bb1_sca_companystock_location",
 				label: "Location",
@@ -59,7 +60,7 @@ define(
 			get: function get() {
 					nlapiLogExecution("debug", "SafeAid.bb1.Mi365Stocks.ServiceController.get " + request);
 					var shoppingSession = nlapiGetWebContainer().getShoppingSession();
-					
+
 					var context = nlapiGetContext();
 					var contact = context.getContact();
 					if (!(contact > 0)) {
@@ -75,11 +76,11 @@ define(
 					var includeWearers = "T" == request.getParameter("includeWearers");
 
 					var custentity_bb1_sca_allowviewareas = nlapiLookupField('contact', contact, 'custentity_bb1_sca_allowviewareas');
-				if(custentity_bb1_sca_allowviewareas==null){
-					custentity_bb1_sca_allowviewareas="0";
-				}
-				var allowAreas = custentity_bb1_sca_allowviewareas.split(",")||[];	
-				allowAreas.push("@NONE@");
+					if (custentity_bb1_sca_allowviewareas == null) {
+						custentity_bb1_sca_allowviewareas = "0";
+					}
+					var allowAreas = custentity_bb1_sca_allowviewareas.split(",") || [];
+					allowAreas.push("@NONE@");
 					//nlapiLogExecution("debug", "field values",JSON.stringify(customer.getFieldValues()));
 					//nlapiLogExecution("debug", "field values",JSON.stringify(customer.getCustomFields()));
 
@@ -107,14 +108,22 @@ define(
 
 						filter.unshift("AND");
 						filter.unshift(["custrecord_bb1_sca_companystock_area", "anyof", area]);
-					}else{
+					} else {
 						filter.push("AND");
-						filter.push([["custrecord_bb1_sca_companystock_location","is",2],"OR",["custrecord_bb1_sca_companystock_area", "anyof", allowAreas]]);
+						filter.push([
+							["custrecord_bb1_sca_companystock_location", "is", 2], "OR", ["custrecord_bb1_sca_companystock_area", "anyof", allowAreas]
+						]);
 					}
 					var find = [];
 					for (var j = 0; j < this.fields.length; j++) {
 						if (this.fields[j].list || this.fields[j].listonly || id) {
 							find.push(new nlobjSearchColumn(this.fields[j].id));
+							if(this.fields[j].item&&id){ //lookup item details
+								find.push(new nlobjSearchColumn("parent",this.fields[j].id));
+								
+							}else if(this.fields[j].item){
+								find.push(new nlobjSearchColumn("displayname",this.fields[j].id));
+							}
 						}
 					}
 
@@ -143,6 +152,16 @@ define(
 											value: result.getValue(this.fields[j].id),
 											text: result.getText(this.fields[j].id)
 										};
+										if(this.fields[j].item&&id){ //lookup item details
+											parent=result.getValue("parent",this.fields[j].id)||result.getValue(this.fields[j].id);
+											data[this.fields[j].id].parent=parent;
+											
+											if(parent){
+												data[this.fields[j].id].extra=nlapiLookupField('item', parent, ['storedisplayname','urlcomponent']);
+											}
+										}else if(this.fields[j].item){
+											data[this.fields[j].id].displayname=result.getValue("displayname",this.fields[j].id);
+										}
 									} else {
 										data[this.fields[j].id] = result.getValue(this.fields[j].id);
 									}
@@ -204,7 +223,7 @@ define(
 				,
 			post: function post() {
 				var shoppingSession = nlapiGetWebContainer().getShoppingSession();
-				
+
 				var context = nlapiGetContext();
 				var contact = context.getContact();
 				if (!(contact > 0)) {
@@ -233,11 +252,11 @@ define(
 
 					var customrecord_bb1_sca_companystockSearch = nlapiSearchRecord("customrecord_bb1_sca_companystock", null,
 						[
-							["custrecord_bb1_sca_companystock_item", "anyof", this.data.custrecord_bb1_sca_companystock_item.value], 
-							"AND", 
-							["custrecord_bb1_sca_companystock_wearer","anyof",this.data.custrecord_bb1_sca_companystock_wearer], 
-							"AND", 
-							["custrecord_bb1_sca_companystock_location","anyof","2"]
+							["custrecord_bb1_sca_companystock_item", "anyof", this.data.custrecord_bb1_sca_companystock_item.value],
+							"AND",
+							["custrecord_bb1_sca_companystock_wearer", "anyof", this.data.custrecord_bb1_sca_companystock_wearer],
+							"AND",
+							["custrecord_bb1_sca_companystock_location", "anyof", "2"]
 						],
 						[
 
@@ -248,28 +267,28 @@ define(
 
 
 					var foundStock;
-					if(customrecord_bb1_sca_companystockSearch){
-					for(var j=0;j<customrecord_bb1_sca_companystockSearch.length;j++){
-						//found exististing stock so update that quantity
-						result=customrecord_bb1_sca_companystockSearch[j];
-						foundStock = result.getId();
-						//nlapiLogExecution("debug", "transfer", "foundstock "+foundStock);
-						var rec = nlapiLoadRecord(this.recordtype, foundStock);
-						rec.setFieldValue("custrecord_bb1_sca_companystock_quantity", parseInt(result.getValue("custrecord_bb1_sca_companystock_quantity")) + parseInt(this.data.custrecord_bb1_sca_companystock_quantity));
-						nlapiSubmitRecord(rec, true, true);
-						break;
-					};
-				}
+					if (customrecord_bb1_sca_companystockSearch) {
+						for (var j = 0; j < customrecord_bb1_sca_companystockSearch.length; j++) {
+							//found exististing stock so update that quantity
+							result = customrecord_bb1_sca_companystockSearch[j];
+							foundStock = result.getId();
+							//nlapiLogExecution("debug", "transfer", "foundstock "+foundStock);
+							var rec = nlapiLoadRecord(this.recordtype, foundStock);
+							rec.setFieldValue("custrecord_bb1_sca_companystock_quantity", parseInt(result.getValue("custrecord_bb1_sca_companystock_quantity")) + parseInt(this.data.custrecord_bb1_sca_companystock_quantity));
+							nlapiSubmitRecord(rec, true, true);
+							break;
+						};
+					}
 
 					if (!foundStock) {
 						//create new stock for this wearer
-						
+
 						var rec = nlapiCreateRecord(this.recordtype);
 						rec.setFieldValue("custrecord_bb1_sca_companystock_item", this.data.custrecord_bb1_sca_companystock_item.value);
 						rec.setFieldValue("custrecord_bb1_sca_companystock_location", 2);
 						rec.setFieldValue("custrecord_bb1_sca_companystock_wearer", this.data.custrecord_bb1_sca_companystock_wearer);
 						rec.setFieldValue("custrecord_bb1_sca_companystock_quantity", this.data.custrecord_bb1_sca_companystock_quantity);
-						var newStock=nlapiSubmitRecord(rec, true, true);
+						var newStock = nlapiSubmitRecord(rec, true, true);
 						//nlapiLogExecution("debug", "transfer", "create stock "+newStock);
 					}
 
@@ -306,8 +325,8 @@ define(
 						if (value && !this.fields[j].listonly) {
 							try {
 								if (this.fields[j].type == "checkbox") {
-									rec.setFieldValue(this.fields[j].id, value?value:false);
-								} else if (value&&value.value) {
+									rec.setFieldValue(this.fields[j].id, value ? value : false);
+								} else if (value && value.value) {
 									rec.setFieldValue(this.fields[j].id, value.value);
 								} else {
 									rec.setFieldValue(this.fields[j].id, value);

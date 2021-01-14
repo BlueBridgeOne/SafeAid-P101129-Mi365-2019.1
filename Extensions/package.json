@@ -39,7 +39,6 @@
         "map-stream": "0.0.7",
         "mime": "2.4.0",
         "nconf": "0.10.0",
-        "node-sass": "4.13.1",
         "ns-uploader": "file:./ns_npm_repository/ns-uploader",
         "opn": "5.4.0",
         "plugin-error": "1.0.1",

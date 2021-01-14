@@ -29,7 +29,7 @@
         <td class="recordviews-selectable-td-title"> <a class="recordviews-selectable-anchor" data-action="go-to-record"
             href="Mi365/stock/{{id}}"> Edit </a> </td>
         <td class="recordviews-selectable-td"> <span class="recordviews-selectable-label">Item:</span> <span
-            class="recordviews-selectable-value">{{custrecord_bb1_sca_companystock_item.text}}</span> </td>
+            class="recordviews-selectable-value">{{custrecord_bb1_sca_companystock_item.text}}</span> <small class="muted-item">{{custrecord_bb1_sca_companystock_item.displayname}}</small></td>
             <td class="recordviews-selectable-td"> <span class="recordviews-selectable-label">Location:</span> <span
             class="recordviews-selectable-value">{{custrecord_bb1_sca_companystock_location.text}}: </span> 
             <span>{{#ifEquals custrecord_bb1_sca_companystock_location.text 'Area'}}<a href="#Mi365/area/{{custrecord_bb1_sca_companystock_area.value}}"><i class="mi365-buttonicon-area"></i> {{custrecord_bb1_sca_companystock_area.text}}</a>{{else}}<a href="#Mi365/wearer/{{custrecord_bb1_sca_companystock_wearer.value}}"><i class="mi365-buttonicon-wearer"></i> {{custrecord_bb1_sca_companystock_wearer.text}}</a>{{/ifEquals}}</span></td>

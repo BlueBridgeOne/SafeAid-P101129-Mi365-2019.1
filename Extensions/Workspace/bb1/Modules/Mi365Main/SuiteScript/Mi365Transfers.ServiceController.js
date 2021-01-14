@@ -16,13 +16,15 @@ define(
 				label: "Date",
 				type: "text",
 				mandatory: true,
-				list: true
+				list: true,
+				sort: true
 			}, {
 				id: "custrecord_bb1_sca_costocktrans_item",
 				label: "Item",
 				type: "record",
 				mandatory: true,
-				list: true
+				list: true,
+				item: true
 			}, {
 				id: "custrecord_bb1_sca_costocktrans_area",
 				label: "From Area",
@@ -30,7 +32,7 @@ define(
 				mandatory: true,
 				list: true,
 				url: "Mi365/area/",
-				icon:"area"
+				icon: "area"
 			}, {
 				id: "custrecord_bb1_sca_costocktrans_wearer",
 				label: "To Wearer",
@@ -38,7 +40,7 @@ define(
 				mandatory: true,
 				list: true,
 				url: "Mi365/wearer/",
-				icon:"wearer"
+				icon: "wearer"
 			}, {
 				id: "custrecord_bb1_sca_costocktrans_quantity",
 				label: "Quantity",
@@ -74,7 +76,7 @@ define(
 			get: function get() {
 					nlapiLogExecution("debug", "SafeAid.bb1.Mi365Transfers.ServiceController.get " + request);
 					var shoppingSession = nlapiGetWebContainer().getShoppingSession();
-					
+
 					var context = nlapiGetContext();
 					var contact = context.getContact();
 					if (!(contact > 0)) {
@@ -90,11 +92,11 @@ define(
 
 
 					var custentity_bb1_sca_allowviewareas = nlapiLookupField('contact', contact, 'custentity_bb1_sca_allowviewareas');
-				if(custentity_bb1_sca_allowviewareas==null){
-					custentity_bb1_sca_allowviewareas="0";
-				}
-				var allowAreas = custentity_bb1_sca_allowviewareas.split(",")||[];	
-				allowAreas.push("@NONE@");
+					if (custentity_bb1_sca_allowviewareas == null) {
+						custentity_bb1_sca_allowviewareas = "0";
+					}
+					var allowAreas = custentity_bb1_sca_allowviewareas.split(",") || [];
+					allowAreas.push("@NONE@");
 					//nlapiLogExecution("debug", "field values",JSON.stringify(customer.getFieldValues()));
 					//nlapiLogExecution("debug", "field values",JSON.stringify(customer.getCustomFields()));
 
@@ -122,14 +124,23 @@ define(
 
 						filter.unshift("AND");
 						filter.unshift(["custrecord_bb1_sca_costocktrans_area", "anyof", area]);
-					}else{
+					} else {
 						filter.unshift("AND");
 						filter.unshift(["custrecord_bb1_sca_costocktrans_area", "anyof", allowAreas]);
 					}
 					var find = [];
 					for (var j = 0; j < this.fields.length; j++) {
 						if (this.fields[j].list || this.fields[j].listonly || id) {
-							find.push(new nlobjSearchColumn(this.fields[j].id));
+							if (this.fields[j].sort) {
+								var col = new nlobjSearchColumn(this.fields[j].id);
+								col.setSort(false);
+								find.push(col);
+							} else {
+								find.push(new nlobjSearchColumn(this.fields[j].id));
+							}
+							if (this.fields[j].item && id) { //lookup item details
+								find.push(new nlobjSearchColumn("parent", this.fields[j].id));
+							}
 						}
 					}
 
@@ -160,6 +171,13 @@ define(
 											value: result.getValue(this.fields[j].id),
 											text: result.getText(this.fields[j].id)
 										};
+										if (this.fields[j].item && id) { //lookup item details
+											parent = result.getValue("parent", this.fields[j].id) || result.getValue(this.fields[j].id);
+											data[this.fields[j].id].parent = parent;
+											if (parent) {
+												data[this.fields[j].id].extra = nlapiLookupField('item', parent, ['storedisplayname', 'urlcomponent']);
+											}
+										}
 									} else {
 										data[this.fields[j].id] = result.getValue(this.fields[j].id);
 									}
@@ -184,7 +202,7 @@ define(
 				,
 			post: function post() {
 				var shoppingSession = nlapiGetWebContainer().getShoppingSession();
-				
+
 				var context = nlapiGetContext();
 				var contact = context.getContact();
 				if (!(contact > 0)) {
@@ -200,12 +218,12 @@ define(
 
 				var rec = nlapiLoadRecord(this.recordtype, this.data.id);
 
-				
+
 				//Update fields
 				for (var j = 0; j < this.fields.length; j++) {
 					if (this.data[this.fields[j].id] && !this.fields[j].listonly) {
 						if (this.fields[j].type == "record") {
-							rec.setFieldValue(this.fields[j].id, this.data[this.fields[j].id].value||this.data[this.fields[j].id]);
+							rec.setFieldValue(this.fields[j].id, this.data[this.fields[j].id].value || this.data[this.fields[j].id]);
 						} else {
 							rec.setFieldValue(this.fields[j].id, this.data[this.fields[j].id]);
 						}

@@ -198,7 +198,7 @@ success();
         var line = LiveOrderLineModel.createFromProduct(self.model);
         // console.log("add new line!");
 
-        // console.log(line);
+        //  console.log(line);
 
         cart_promise = self.cart.addLine(line);
         CartConfirmationHelpers.showCartConfirmation(cart_promise, line, self.options.application);
@@ -227,9 +227,9 @@ success();
     },
     stringifyJSONValue: function (value) { //convert to area wearer json string
       if (value) {
-        return parseInt(value.value)+"|"+value.text;
+        return {internalid:parseInt(value.value)+"|"+value.text,label:parseInt(value.value)+"|"+value.text};
       }
-      return "";
+      return;
     }
 
     //@method getContext

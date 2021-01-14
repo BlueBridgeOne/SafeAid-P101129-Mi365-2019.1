@@ -1,0 +1,91 @@
+.main, .layout-container {
+	min-height: 100%;
+	height: auto;
+	width: 100%;
+}
+
+body{
+	background-color:$safeaid-lightgrey;
+}
+
+%sc-layout {
+	min-height: 100%;
+}
+
+
+
+.layout-overlay{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+}
+
+.cms-content ul, .cms-content ol {
+	margin-left: $sc-margin-lv4;
+}
+
+.cms-content ul li {
+	list-style: circle;
+}
+
+.cms-content ol li {
+	list-style: decimal;
+}
+
+.header-mini-cart{
+	a{min-width:0!important;}
+}
+.cart-promocode-form-summary-button-apply-promocode{
+	min-width:0!important;
+}
+.cms-padding{
+	margin-left:-$sc-margin-lv3;
+	margin-right:-$sc-margin-lv3;
+	padding: 0 30px 0 30px;
+
+	@media (min-width: $screen-md-min) {
+		padding: 0 60px 0 60px;
+	}
+
+	@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max){
+		padding: 0 50px 0 50px;
+	}
+}
+.cms-content-CMS_TEXT,.cms-content-CMS_HTML,.cms-content-cct_sc_contactusform{
+@extend .cms-padding;
+
+margin-bottom:30px;
+
+	@media (min-width: $screen-md-min) {
+		margin-bottom:60px;
+	}
+
+	@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max){
+		margin-bottom:50px;
+	}
+
+}
+.cms-content{
+	h1,h2{color:$safeaid-orange;
+	margin-top:.8rem;
+	margin-bottom:.4rem;}
+
+	h3,h4,h5,h5,h6{
+		margin-top:.4rem;
+		margin-bottom:.4rem;
+	}
+}
+.contact-us-form-subject{
+	display:none;
+}
+
+.cms-content p{
+margin-bottom:1rem;
+}
+.cms-content th{
+	@extend h2;
+	font-size: $font-size-large!important;
+	}
